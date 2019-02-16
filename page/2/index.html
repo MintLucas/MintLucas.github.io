@@ -54,7 +54,7 @@
 
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID.png?v=5.1.4">
 
 
 
@@ -745,6 +745,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-正则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Litchip">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Litchip">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/11/note-正则/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul>
+<li>是一个计算机科学的概念</li>
+<li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li>
+<li>常常用来检索，替换某些模式的文本</li>
+</ul>
+<h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul>
+<li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li>
+<li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li>
+<li>\d: 任意一个数字</li>
+<li>\D:除了数字都可以</li>
+<li>\s:表示空格，tab键</li>
+<li>\S:除了空白符号</li>
+<li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li>
+<li>\W: 除了</li>
+<li><em>： 表示前面内容重复零次或者多次， \w</em></li>
+<li>+: 表示前面内容至少出现一次</li>
+<li>？： 前面才出现的内容零次或者一次</li>
+<li>{m,n}:允许前面内容出现最少m次，最多n次</li>
+<li>^:匹配字符串的开始</li>
+<li>$:匹配字符串的结尾</li>
+<li>\b:匹配单词的边界</li>
+<li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p>
+<pre><code>验证一个数字： ^\d$
+必须有一个数字，最少一位：^\d+$
+只能出现数字，且位数为5-10位： ^\d{5,10}$
+注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$
+只能输入英文字符和数字： ^[A-Za-z0-9]$
+验证qq号码： [0-9]{5,12}
+</code></pre></li>
+<li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p>
+</li>
+<li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li>
+<li>|: 左右任意一个</li>
+<li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li>
+<li>(?P=name): 引用分组， </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-xpath/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -860,161 +1015,6 @@ School//Age:选取School后代中所有Age节点
 <pre><code>//Student[@score] | //Teacher: 选取带有属性score的Student节点和Teahcer节点
 </code></pre></li>
 <li>其余不常见XPath运算符号包括+, - , *, div, &gt;, &lt;       </li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-正则/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Litchip">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Litchip">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/11/note-正则/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
-                2018-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul>
-<li>是一个计算机科学的概念</li>
-<li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li>
-<li>常常用来检索，替换某些模式的文本</li>
-</ul>
-<h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul>
-<li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li>
-<li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li>
-<li>\d: 任意一个数字</li>
-<li>\D:除了数字都可以</li>
-<li>\s:表示空格，tab键</li>
-<li>\S:除了空白符号</li>
-<li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li>
-<li>\W: 除了</li>
-<li><em>： 表示前面内容重复零次或者多次， \w</em></li>
-<li>+: 表示前面内容至少出现一次</li>
-<li>？： 前面才出现的内容零次或者一次</li>
-<li>{m,n}:允许前面内容出现最少m次，最多n次</li>
-<li>^:匹配字符串的开始</li>
-<li>$:匹配字符串的结尾</li>
-<li>\b:匹配单词的边界</li>
-<li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p>
-<pre><code>验证一个数字： ^\d$
-必须有一个数字，最少一位：^\d+$
-只能出现数字，且位数为5-10位： ^\d{5,10}$
-注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$
-只能输入英文字符和数字： ^[A-Za-z0-9]$
-验证qq号码： [0-9]{5,12}
-</code></pre></li>
-<li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p>
-</li>
-<li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li>
-<li>|: 左右任意一个</li>
-<li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li>
-<li>(?P=name): 引用分组， </li>
 </ul>
 
           
