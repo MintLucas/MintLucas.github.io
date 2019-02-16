@@ -62,30 +62,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/LY-01/"/>
-    <id>http://yoursite.com/2018/06/11/LY-01/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><ul><li>管理软硬件资源，给运行软件提供一个统一调用平台</li><li>操作系统分类<ul><li>windows</li><li>Unix<ul><li>Minix，Linus-Linux</li><li>MacOS</li></ul></li></ul></li><li>如果内存大于等于8G，尝试使用虚拟机</li><li>否则，windows</li><li>如果是苹果系统，那就苹果系统</li><li><p>虚拟机</p><ul><li>虚拟的机器，是软件模拟出来的软件环境，是一个完全独立的系统</li><li>我们的虚拟机是xubuntu16.04 LTS</li><li>使用步骤：<ul><li>下载打包好的虚拟环境，解压</li><li>解压后会得到一个vdi格式的大大大文件，13个多G</li><li>下载virtualbox，不是vmware，官网地址：<a href="http://www.virtualbox.org" target="_blank" rel="noopener">www.virtualbox.org</a><ul><li>下载跟你目前操作系统想对应的软件</li><li>安装完毕</li><li>载入虚拟操作系统，即已经下载后的集成环境</li><li>容易出现问题：<ul><li>没有64位系统以供选择：打开bios虚拟化</li><li>打开后一直黑屏没反应：集成系统是64位，你建立的32位系统</li></ul></li></ul></li></ul></li></ul></li><li><p>自行安装</p><ul><li>安装套件anaconda+pycharm</li><li>安装anaconda</li><li>pycharm</li></ul></li></ul><h1 id="GIT-起源"><a href="#GIT-起源" class="headerlink" title="GIT - 起源"></a>GIT - 起源</h1><ul><li>个人文件的版本控制</li><li>多方协作</li><li>linus搞定的git</li><li>2008宁github上线</li><li>关于版本控制的产品：<ul><li>集中式：cvs，svn</li><li>分布式：github开源，bitbuckets私人 </li><li>分享精神： blog+github</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;管理软硬件资源，给运行软件提供一个统一调用平台&lt;/li&gt;
-&lt;li&gt;操作系统分类&lt;ul&gt;
-&lt;li&gt;windows&lt;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%202/"/>
     <id>http://yoursite.com/2018/06/11/note 2/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -99,55 +75,6 @@
       
         &lt;h1 id=&quot;LOG&quot;&gt;&lt;a href=&quot;#LOG&quot; class=&quot;headerlink&quot; title=&quot;LOG&quot;&gt;&lt;/a&gt;LOG&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/yyds/p/6901864.html&quot; target
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%205/"/>
-    <id>http://yoursite.com/2018/06/11/note 5/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul><li>xubuntu 16.04</li><li>anaconda</li><li>pycharm</li><li>python3.6</li><li><a href="https://www.cnblogs.com/jokerbj/p/7460260.html" target="_blank" rel="noopener">https://www.cnblogs.com/jokerbj/p/7460260.html</a></li><li><a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/python/UnderstandingGIL.pdf</a></li></ul><h1 id="多线程-vs-多进程"><a href="#多线程-vs-多进程" class="headerlink" title="多线程 vs 多进程"></a>多线程 vs 多进程</h1><ul><li>程序：一堆代码以文本形式存入一个文档</li><li>进程： 程序运行的一个状态<ul><li>包含地址空间，内存，数据栈等</li><li>每个进程由自己完全独立的运行环境，多进程共享数据是一个问题</li></ul></li><li>线程<ul><li>一个进程的独立运行片段，一个进程可以由多个线程</li><li>轻量化的进程</li><li>一个进程的多个现成间共享数据和上下文运行环境</li><li>共享互斥问题</li></ul></li><li><p>全局解释器锁（GIL）</p><ul><li>Python代码的执行是由python虚拟机进行控制</li><li>在主循环中稚嫩更有一个控制线程在执行</li></ul></li><li><p>Python包</p><ul><li>thread：有问题，不好用，python3改成了_thread</li><li>threading: 通行的包</li><li>案例01: 顺序执行，耗时比较长</li><li>案例02： 改用多线程，缩短总时间，使用_thread</li><li>案例03： 多线程，传参数</li></ul></li><li><p>threading的使用</p><ul><li>直接利用threading.Thread生成Thread实例<ol><li>t = threading.Thread(target=xxx, args=(xxx,))</li><li>t.start():启动多线程</li><li>t.join(): 等待多线程执行完成</li><li>案例04</li><li>案例05: 加入join后比较跟案例04的结果的异同</li></ol><ul><li>守护线程-daemon<ul><li>如果在程序中将子线程设置成守护现成，则子线程会在主线程结束的时候自动退出</li><li>一般认为，守护线程不中要或者不允许离开主线程独立运行</li><li>守护线程案例能否有效果跟环境相关</li><li>案例06非守护线程</li><li>案例07守护线程            </li></ul></li><li>线程常用属性<ul><li>threading.currentThread：返回当前线程变量</li><li>threading.enumerate:返回一个包含正在运行的线程的list，正在运行的线程指的是线程启动后，结束前的状态</li><li>threading.activeCount: 返回正在运行的线程数量，效果跟 len(threading.enumerate)相同</li><li>thr.setName: 给线程设置名字</li><li>thr.getName: 得到线程的名字</li></ul></li></ul></li><li>直接继承自threading.Thread<ul><li>直接继承Thread</li><li>重写run函数</li><li>类实例可以直接运行</li><li>案例09</li><li>案例10， 工业风案例</li></ul></li></ul></li><li><p>共享变量</p><ul><li>共享变量： 当多个现成同时访问一个变量的时候，会产生共享变量的问题</li><li>案例11</li><li>解决变量：锁，信号灯，</li><li>锁（Lock）：<ul><li>是一个标志，表示一个线程在占用一些资源</li><li>使用方法<ul><li>上锁</li><li>使用共享资源，放心的用</li><li>取消锁，释放锁</li></ul></li><li>案例12</li><li>锁谁： 哪个资源需要多个线程共享，锁哪个</li><li>理解锁：锁其实不是锁住谁，而是一个令牌</li></ul></li><li>线程安全问题：<ul><li>如果一个资源/变量，他对于多线程来讲，不用加锁也不会引起任何问题，则称为线程安全</li><li>线程不安全变量类型： list, set, dict</li><li>线程安全变量类型： queue</li></ul></li><li>生产者消费者问题<ul><li>一个模型，可以用来搭建消息队列， </li><li>queue是一个用来存放变量的数据结构，特点是先进先出，内部元素排队，可以理解成一个特殊的list</li></ul></li><li>死锁问题, 案例14</li><li>锁的等待时间问题， v15</li><li>semphore<ul><li>允许一个资源最多由几个多线程同时使用</li><li>v16</li></ul></li><li><p>threading.Timer</p><ul><li>案例 17</li><li>Timer是利用多线程，在指定时间后启动一个功能</li></ul></li><li><p>可重入锁</p><ul><li>一个锁，可以被一个线程多次申请</li><li>主要解决递归调用的时候，需要申请锁的情况</li><li>案例18</li></ul></li></ul></li></ul><h1 id="线程替代方案"><a href="#线程替代方案" class="headerlink" title="线程替代方案"></a>线程替代方案</h1><ul><li>subprocess<ul><li>完全跳过线程，使用进程</li><li>是派生进程的主要替代方案</li><li>python2.4后引入</li></ul></li><li><p>multiprocessiong</p><ul><li>使用threadiing借口派生，使用子进程</li><li>允许为多核或者多cpu派生进程，接口跟threading非常相似</li><li>python2.6</li></ul></li><li><p>concurrent.futures</p><ul><li>新的异步执行模块</li><li>任务级别的操作</li><li>python3.2后引入<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1></li></ul></li><li>进程间通讯(InterprocessCommunication, IPC )</li><li>进程之间无任何共享状态</li><li><p>进程的创建</p><ul><li>直接生成Process实例对象， 案例19</li><li>派生子类， 案例20</li></ul></li><li><p>在os中查看pid，ppid以及他们的关系              </p><ul><li>案例21</li></ul></li><li>生产者消费者模型<ul><li>JoinableQueue</li><li>案例22</li><li>队列中哨兵的使用, 案例23 </li><li>哨兵的改进， 案例24</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;xubuntu 16.04&lt;/li&gt;
-&lt;li&gt;anaconda&lt;/li&gt;
-&lt;li&gt;pycharm&lt;/li&gt;
-&lt;li&gt;python
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%203/"/>
-    <id>http://yoursite.com/2018/06/11/note 3/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul><li></li></ul><h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul><li>主要作为技术验证</li><li>画出一个舞台，包括背景，包括一个小飞机</li></ul><h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul><li>小蜜蜂会动，从上往下慢慢的飞</li><li>能控制小蜜蜂左右移动</li><li>入场算法<ul><li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li><li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li></ul></li><li><p>移动速度问题</p><ul><li>包含x，y两个值</li><li>对于绝大多数物体，则只考虑y值</li><li>但是，蜜蜂和英雄是特例</li><li>蜜蜂是从上向下移动的同时具有横向运动</li><li>英雄的移动由上下左右键盘控制</li><li>速度应该是一个tuple=(x,y)</li></ul></li><li><p>方向问题</p><ul><li>具体移动方向由x，y控制</li><li>值只能是-1， 0， 1三个就好</li><li>应该是一个tuple</li><li>例如（-1， 0)表示水平向左移动</li><li>（0,1）表明向下垂直运动</li></ul></li></ul><h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul><li>重构代码，使用oop方法<ul><li>世界的构成<ul><li>小飞机</li><li>大飞机</li><li>小蜜蜂</li><li>子弹</li><li>英雄机</li><li>天空</li></ul></li><li>配置文件<ul><li>可以通过一次性配置来让程序正确运行</li><li>降低了代码软件工程方面的成本</li><li>python的配置文件包： configparser<ul><li>以前就叫ConfigParser </li><li>配置文件一般以cfg或者ini结尾</li><li>语法：<ul><li>中括号： 表示的是section</li><li>每个section下是键值对</li><li>键值对用等号或者冒号链接</li></ul></li><li>get(section_nmame, key_name),返回相应的值</li><li>getint(section_nmame, key_name),返回相应的整数值</li></ul></li></ul></li></ul></li></ul><ul><li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li><li>程序可以正常产生飞行物，包括英雄，子弹，云层</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;飞机大战&quot;&gt;&lt;a href=&quot;#飞机大战&quot; class=&quot;headerlink&quot; title=&quot;飞机大战&quot;&gt;&lt;/a&gt;飞机大战&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
       
     
     </summary>
@@ -181,20 +108,22 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%207/"/>
-    <id>http://yoursite.com/2018/06/11/note 7/</id>
+    <link href="http://yoursite.com/2018/06/11/note%205/"/>
+    <id>http://yoursite.com/2018/06/11/note 5/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>资料<ul><li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li><li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li><li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li><li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li></ul></li></ul><h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul><li>直接作用于for循环的叫可迭代对象,Iterable</li><li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li></ul><ul><li><p>可以用isinstance判断</p><pre><code>from collections import Iterablel = [1,2,3,4]isinstance(l, Iterable)</code></pre></li></ul><pre><code>from collections import Iteratorisinstance((x for x in range(10)), Iterator)</code></pre><ul><li><p>iterable和Iterator的关系,可以通过iter函数运算</p><pre><code>isinstance(iter(&apos;abc&apos;), Iterator)</code></pre></li></ul><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul><li>一边循环一边计算的机制,generator</li><li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li><li><p>生成器创建:</p><ul><li><p>直接使用</p><pre><code>L = [x * x for x in range(10)]g = (x * x for x in range(10))</code></pre></li><li>函数中包含yield,则叫generator</li><li>next调用,遇到yield返回</li></ul></li></ul><pre><code>def odd():   print(&apos;step 1&apos;)   yield 1   print(&apos;step 2&apos;)   yield(3)   print(&apos;step 3&apos;)   yield(5)def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       print(b)       a, b = b, a + b       n = n + 1   return &apos;done&apos;def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       yield b       a, b = b, a + b       n = n + 1   return &apos;done&apos;</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul><li><p>历史</p><ul><li>3.4引入协程概念，用yield实现</li><li>3.5 引入协程语法</li><li>实现包asyncio,tornado, gevent</li></ul></li><li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p></li><li>使用:   <ul><li>yield关键字</li><li>send关键字</li></ul></li><li><p>案例v1</p></li><li><p>协程的四个状态</p><ul><li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li><li>GEN_CREATED：等待开始执行</li><li>GEN_RUNNING：解释器正在执行</li><li>GEN_SUSPENED：在yield表达式处暂停</li><li>GEN_CLOSED：执行结束</li><li>next预激（prime)</li><li>完整执行过程v2</li></ul></li><li><p>协程终止</p><ul><li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li><li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li></ul></li><li><p>异常</p><ul><li>客户段代码可以在生成器对象上调用两个方法</li><li><p>generator.throw(Exctpiton):</p><pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。</code></pre></li><li><p>generator.close()</p><pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。</code></pre></li><li>v03               </li></ul></li><li>yield from<ul><li>为了得到返回值，协程必须正常终止；</li><li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li><li>yield from 从内部捕获StopIteration异常</li><li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li><li>v04</li><li>v05</li><li>委派生成器<ul><li>包含 yield from 表达式的生成器函数</li><li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li><li>子生成器再把产出的值发给调用方。</li><li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li><li>v06</li></ul></li></ul></li></ul><h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul><li>python3.4开始引入的标准库,内置了对移步io的支持</li><li>asyncio本身是一个消息循环,</li><li>步骤<ul><li>创建消息循环</li><li>把协程导入</li><li>关闭<ul><li>案例08</li><li>案例09-两个tasks</li><li>案例v10-得到多个网站</li></ul></li></ul></li></ul><h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul><li>为了更好的表示异步io</li><li>python3.5 开始引入</li><li>让coroutine代码更简洁</li><li>使用上,可以简单进行替换<ul><li>可以把 @asyncio.coroutine 替换成async</li><li>yield from 替换成await</li></ul></li><li>案例v11, 把案例09直接替换</li></ul><h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul><li>介绍<ul><li>asyncio实现单线程并发IO,在客户端用处不大</li><li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li><li>asyncio实现了TCP,UIDP,SSL等协议</li><li>aiohttp是给予asyncio实现的HTTP框架</li><li>pip install aiohttp</li><li>案例07</li></ul></li></ul><h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul><li>python3新增的库</li><li>类似其他语言的线程池的概念</li><li>此模块利用multiprocessiong实现真正的平行计算</li><li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li><li>concurrent.futures.Executor <ul><li>ThreadPoolExecutor</li><li>ProcessPoolExecutor</li></ul></li><li><p>submit(fn, args, kwargs)</p><ul><li>fn:异步执行的函数</li><li><p>args,kwargs:参数</p><pre><code> # 官方死锁案例import timedef wait_on_b():    time.sleep(5)    print(b.result())  #b不会完成，他一直在等待a的return结果    return 5def wait_on_a():    time.sleep(5)    print(a.result())  #同理a也不会完成，他也是在等待b的结果    return 6</code></pre></li></ul></li></ul><pre><code>        executor = ThreadPoolExecutor(max_workers=2)        a = executor.submit(wait_on_b)        b = executor.submit(wait_on_a)- 案例v14</code></pre><ul><li><p>map(fn, *iterables, timeout=None)</p><ul><li>跟map函数类似</li><li>函数需要异步执行</li><li>timeout: 超时时间</li><li>案例 v12</li><li>案例v15</li><li><p>起执行结果是list,数据需要从list中取出来</p><pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:    print(list(executor.map(sleeper, x)))</code></pre></li></ul></li><li><p>submit和map根据需要选一个即可</p></li><li><p>案例v13</p></li><li><p>Future</p><ul><li>未来需要完成的任务</li><li>future 实例由Excutor.submit创建</li><li>案例v17</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul><li>xubuntu 16.04</li><li>anaconda</li><li>pycharm</li><li>python3.6</li><li><a href="https://www.cnblogs.com/jokerbj/p/7460260.html" target="_blank" rel="noopener">https://www.cnblogs.com/jokerbj/p/7460260.html</a></li><li><a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/python/UnderstandingGIL.pdf</a></li></ul><h1 id="多线程-vs-多进程"><a href="#多线程-vs-多进程" class="headerlink" title="多线程 vs 多进程"></a>多线程 vs 多进程</h1><ul><li>程序：一堆代码以文本形式存入一个文档</li><li>进程： 程序运行的一个状态<ul><li>包含地址空间，内存，数据栈等</li><li>每个进程由自己完全独立的运行环境，多进程共享数据是一个问题</li></ul></li><li>线程<ul><li>一个进程的独立运行片段，一个进程可以由多个线程</li><li>轻量化的进程</li><li>一个进程的多个现成间共享数据和上下文运行环境</li><li>共享互斥问题</li></ul></li><li><p>全局解释器锁（GIL）</p><ul><li>Python代码的执行是由python虚拟机进行控制</li><li>在主循环中稚嫩更有一个控制线程在执行</li></ul></li><li><p>Python包</p><ul><li>thread：有问题，不好用，python3改成了_thread</li><li>threading: 通行的包</li><li>案例01: 顺序执行，耗时比较长</li><li>案例02： 改用多线程，缩短总时间，使用_thread</li><li>案例03： 多线程，传参数</li></ul></li><li><p>threading的使用</p><ul><li>直接利用threading.Thread生成Thread实例<ol><li>t = threading.Thread(target=xxx, args=(xxx,))</li><li>t.start():启动多线程</li><li>t.join(): 等待多线程执行完成</li><li>案例04</li><li>案例05: 加入join后比较跟案例04的结果的异同</li></ol><ul><li>守护线程-daemon<ul><li>如果在程序中将子线程设置成守护现成，则子线程会在主线程结束的时候自动退出</li><li>一般认为，守护线程不中要或者不允许离开主线程独立运行</li><li>守护线程案例能否有效果跟环境相关</li><li>案例06非守护线程</li><li>案例07守护线程            </li></ul></li><li>线程常用属性<ul><li>threading.currentThread：返回当前线程变量</li><li>threading.enumerate:返回一个包含正在运行的线程的list，正在运行的线程指的是线程启动后，结束前的状态</li><li>threading.activeCount: 返回正在运行的线程数量，效果跟 len(threading.enumerate)相同</li><li>thr.setName: 给线程设置名字</li><li>thr.getName: 得到线程的名字</li></ul></li></ul></li><li>直接继承自threading.Thread<ul><li>直接继承Thread</li><li>重写run函数</li><li>类实例可以直接运行</li><li>案例09</li><li>案例10， 工业风案例</li></ul></li></ul></li><li><p>共享变量</p><ul><li>共享变量： 当多个现成同时访问一个变量的时候，会产生共享变量的问题</li><li>案例11</li><li>解决变量：锁，信号灯，</li><li>锁（Lock）：<ul><li>是一个标志，表示一个线程在占用一些资源</li><li>使用方法<ul><li>上锁</li><li>使用共享资源，放心的用</li><li>取消锁，释放锁</li></ul></li><li>案例12</li><li>锁谁： 哪个资源需要多个线程共享，锁哪个</li><li>理解锁：锁其实不是锁住谁，而是一个令牌</li></ul></li><li>线程安全问题：<ul><li>如果一个资源/变量，他对于多线程来讲，不用加锁也不会引起任何问题，则称为线程安全</li><li>线程不安全变量类型： list, set, dict</li><li>线程安全变量类型： queue</li></ul></li><li>生产者消费者问题<ul><li>一个模型，可以用来搭建消息队列， </li><li>queue是一个用来存放变量的数据结构，特点是先进先出，内部元素排队，可以理解成一个特殊的list</li></ul></li><li>死锁问题, 案例14</li><li>锁的等待时间问题， v15</li><li>semphore<ul><li>允许一个资源最多由几个多线程同时使用</li><li>v16</li></ul></li><li><p>threading.Timer</p><ul><li>案例 17</li><li>Timer是利用多线程，在指定时间后启动一个功能</li></ul></li><li><p>可重入锁</p><ul><li>一个锁，可以被一个线程多次申请</li><li>主要解决递归调用的时候，需要申请锁的情况</li><li>案例18</li></ul></li></ul></li></ul><h1 id="线程替代方案"><a href="#线程替代方案" class="headerlink" title="线程替代方案"></a>线程替代方案</h1><ul><li>subprocess<ul><li>完全跳过线程，使用进程</li><li>是派生进程的主要替代方案</li><li>python2.4后引入</li></ul></li><li><p>multiprocessiong</p><ul><li>使用threadiing借口派生，使用子进程</li><li>允许为多核或者多cpu派生进程，接口跟threading非常相似</li><li>python2.6</li></ul></li><li><p>concurrent.futures</p><ul><li>新的异步执行模块</li><li>任务级别的操作</li><li>python3.2后引入<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1></li></ul></li><li>进程间通讯(InterprocessCommunication, IPC )</li><li>进程之间无任何共享状态</li><li><p>进程的创建</p><ul><li>直接生成Process实例对象， 案例19</li><li>派生子类， 案例20</li></ul></li><li><p>在os中查看pid，ppid以及他们的关系              </p><ul><li>案例21</li></ul></li><li>生产者消费者模型<ul><li>JoinableQueue</li><li>案例22</li><li>队列中哨兵的使用, 案例23 </li><li>哨兵的改进， 案例24</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;资料&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/andybegin/arti
+        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;xubuntu 16.04&lt;/li&gt;
+&lt;li&gt;anaconda&lt;/li&gt;
+&lt;li&gt;pycharm&lt;/li&gt;
+&lt;li&gt;python
       
     
     </summary>
@@ -230,6 +159,29 @@
   
   <entry>
     <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%207/"/>
+    <id>http://yoursite.com/2018/06/11/note 7/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>资料<ul><li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li><li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li><li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li><li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li></ul></li></ul><h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul><li>直接作用于for循环的叫可迭代对象,Iterable</li><li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li></ul><ul><li><p>可以用isinstance判断</p><pre><code>from collections import Iterablel = [1,2,3,4]isinstance(l, Iterable)</code></pre></li></ul><pre><code>from collections import Iteratorisinstance((x for x in range(10)), Iterator)</code></pre><ul><li><p>iterable和Iterator的关系,可以通过iter函数运算</p><pre><code>isinstance(iter(&apos;abc&apos;), Iterator)</code></pre></li></ul><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul><li>一边循环一边计算的机制,generator</li><li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li><li><p>生成器创建:</p><ul><li><p>直接使用</p><pre><code>L = [x * x for x in range(10)]g = (x * x for x in range(10))</code></pre></li><li>函数中包含yield,则叫generator</li><li>next调用,遇到yield返回</li></ul></li></ul><pre><code>def odd():   print(&apos;step 1&apos;)   yield 1   print(&apos;step 2&apos;)   yield(3)   print(&apos;step 3&apos;)   yield(5)def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       print(b)       a, b = b, a + b       n = n + 1   return &apos;done&apos;def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       yield b       a, b = b, a + b       n = n + 1   return &apos;done&apos;</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul><li><p>历史</p><ul><li>3.4引入协程概念，用yield实现</li><li>3.5 引入协程语法</li><li>实现包asyncio,tornado, gevent</li></ul></li><li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p></li><li>使用:   <ul><li>yield关键字</li><li>send关键字</li></ul></li><li><p>案例v1</p></li><li><p>协程的四个状态</p><ul><li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li><li>GEN_CREATED：等待开始执行</li><li>GEN_RUNNING：解释器正在执行</li><li>GEN_SUSPENED：在yield表达式处暂停</li><li>GEN_CLOSED：执行结束</li><li>next预激（prime)</li><li>完整执行过程v2</li></ul></li><li><p>协程终止</p><ul><li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li><li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li></ul></li><li><p>异常</p><ul><li>客户段代码可以在生成器对象上调用两个方法</li><li><p>generator.throw(Exctpiton):</p><pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。</code></pre></li><li><p>generator.close()</p><pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。</code></pre></li><li>v03               </li></ul></li><li>yield from<ul><li>为了得到返回值，协程必须正常终止；</li><li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li><li>yield from 从内部捕获StopIteration异常</li><li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li><li>v04</li><li>v05</li><li>委派生成器<ul><li>包含 yield from 表达式的生成器函数</li><li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li><li>子生成器再把产出的值发给调用方。</li><li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li><li>v06</li></ul></li></ul></li></ul><h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul><li>python3.4开始引入的标准库,内置了对移步io的支持</li><li>asyncio本身是一个消息循环,</li><li>步骤<ul><li>创建消息循环</li><li>把协程导入</li><li>关闭<ul><li>案例08</li><li>案例09-两个tasks</li><li>案例v10-得到多个网站</li></ul></li></ul></li></ul><h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul><li>为了更好的表示异步io</li><li>python3.5 开始引入</li><li>让coroutine代码更简洁</li><li>使用上,可以简单进行替换<ul><li>可以把 @asyncio.coroutine 替换成async</li><li>yield from 替换成await</li></ul></li><li>案例v11, 把案例09直接替换</li></ul><h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul><li>介绍<ul><li>asyncio实现单线程并发IO,在客户端用处不大</li><li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li><li>asyncio实现了TCP,UIDP,SSL等协议</li><li>aiohttp是给予asyncio实现的HTTP框架</li><li>pip install aiohttp</li><li>案例07</li></ul></li></ul><h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul><li>python3新增的库</li><li>类似其他语言的线程池的概念</li><li>此模块利用multiprocessiong实现真正的平行计算</li><li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li><li>concurrent.futures.Executor <ul><li>ThreadPoolExecutor</li><li>ProcessPoolExecutor</li></ul></li><li><p>submit(fn, args, kwargs)</p><ul><li>fn:异步执行的函数</li><li><p>args,kwargs:参数</p><pre><code> # 官方死锁案例import timedef wait_on_b():    time.sleep(5)    print(b.result())  #b不会完成，他一直在等待a的return结果    return 5def wait_on_a():    time.sleep(5)    print(a.result())  #同理a也不会完成，他也是在等待b的结果    return 6</code></pre></li></ul></li></ul><pre><code>        executor = ThreadPoolExecutor(max_workers=2)        a = executor.submit(wait_on_b)        b = executor.submit(wait_on_a)- 案例v14</code></pre><ul><li><p>map(fn, *iterables, timeout=None)</p><ul><li>跟map函数类似</li><li>函数需要异步执行</li><li>timeout: 超时时间</li><li>案例 v12</li><li>案例v15</li><li><p>起执行结果是list,数据需要从list中取出来</p><pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:    print(list(executor.map(sleeper, x)))</code></pre></li></ul></li><li><p>submit和map根据需要选一个即可</p></li><li><p>案例v13</p></li><li><p>Future</p><ul><li>未来需要完成的任务</li><li>future 实例由Excutor.submit创建</li><li>案例v17</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;资料&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/andybegin/arti
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%209/"/>
     <id>http://yoursite.com/2018/06/11/note 9/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -245,6 +197,30 @@
 &lt;li&gt;调试流程：单元测试-&amp;gt;集成测试-&amp;gt;交测试部&lt;/li&gt;
 &lt;li&gt;分类：&lt;ul&gt;
 &lt;li&gt;静态调试：看&lt;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/LY-01/"/>
+    <id>http://yoursite.com/2018/06/11/LY-01/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><ul><li>管理软硬件资源，给运行软件提供一个统一调用平台</li><li>操作系统分类<ul><li>windows</li><li>Unix<ul><li>Minix，Linus-Linux</li><li>MacOS</li></ul></li></ul></li><li>如果内存大于等于8G，尝试使用虚拟机</li><li>否则，windows</li><li>如果是苹果系统，那就苹果系统</li><li><p>虚拟机</p><ul><li>虚拟的机器，是软件模拟出来的软件环境，是一个完全独立的系统</li><li>我们的虚拟机是xubuntu16.04 LTS</li><li>使用步骤：<ul><li>下载打包好的虚拟环境，解压</li><li>解压后会得到一个vdi格式的大大大文件，13个多G</li><li>下载virtualbox，不是vmware，官网地址：<a href="http://www.virtualbox.org" target="_blank" rel="noopener">www.virtualbox.org</a><ul><li>下载跟你目前操作系统想对应的软件</li><li>安装完毕</li><li>载入虚拟操作系统，即已经下载后的集成环境</li><li>容易出现问题：<ul><li>没有64位系统以供选择：打开bios虚拟化</li><li>打开后一直黑屏没反应：集成系统是64位，你建立的32位系统</li></ul></li></ul></li></ul></li></ul></li><li><p>自行安装</p><ul><li>安装套件anaconda+pycharm</li><li>安装anaconda</li><li>pycharm</li></ul></li></ul><h1 id="GIT-起源"><a href="#GIT-起源" class="headerlink" title="GIT - 起源"></a>GIT - 起源</h1><ul><li>个人文件的版本控制</li><li>多方协作</li><li>linus搞定的git</li><li>2008宁github上线</li><li>关于版本控制的产品：<ul><li>集中式：cvs，svn</li><li>分布式：github开源，bitbuckets私人 </li><li>分享精神： blog+github</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;管理软硬件资源，给运行软件提供一个统一调用平台&lt;/li&gt;
+&lt;li&gt;操作系统分类&lt;ul&gt;
+&lt;li&gt;windows&lt;
       
     
     </summary>
@@ -324,21 +300,21 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note2/"/>
-    <id>http://yoursite.com/2018/06/11/note2/</id>
+    <link href="http://yoursite.com/2018/06/11/note%203/"/>
+    <id>http://yoursite.com/2018/06/11/note 3/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="页面解析和数据提取"><a href="#页面解析和数据提取" class="headerlink" title="页面解析和数据提取"></a>页面解析和数据提取</h1><ul><li>结构数据： 先有的结构，在谈数据<ul><li>JSON文件<ul><li>JSON Path</li><li>转换成Python类型进行操作（json类）</li></ul></li><li>XML文件<ul><li>转换成python类型（xmltodict）</li><li>XPath</li><li>CSS选择器</li><li>正则</li></ul></li></ul></li><li>非结构化数据：先有数据，再谈结构<ul><li>文本</li><li>电话号码</li><li>邮箱地址<ul><li>通常处理此类数据，使用正则表达式</li></ul></li><li>Html文件<ul><li>正则</li><li>XPath</li><li>CSS选择器</li></ul></li></ul></li></ul><h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul><li>一套规则，可以在字符串文本中进行搜查替换等</li><li>案例v23,re的基本使用流程</li><li>案例v24，match的基本使用</li><li>正则常用方法：<ul><li>match: 从开始位置开始查找，一次匹配</li><li>search：从任何位置查找，一次匹配， 案例v25</li><li>findall： 全部匹配，返回列表, 案例v26</li><li>finditer： 全部匹配，返回迭代器, 案例v26</li><li>split： 分割字符串，返回列表</li><li>sub：替换</li></ul></li><li><p>匹配中文</p><ul><li>中文unicode范围主要在[u4e00-u9fa5]</li><li>案例v27</li></ul></li><li><p>贪婪与非贪婪模式</p><ul><li>贪婪模式： 在整个表达式匹配成功的前提下，尽可能多的匹配</li><li>非贪婪模式： xxxxxxxxxxxxxxxxxxxxxx, 尽可能少的匹配</li><li>python里面数量词默认是贪婪模式</li><li>例如：<ul><li>查找文本abbbbbbccc</li><li>re是 ab*</li><li>贪婪模式： 结果是abbbbbb</li><li>非贪婪： 结果是a<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1></li></ul></li></ul></li><li>XML(EXtensibleMarkupLanguage)   </li><li><a href="http://www.w3school.com.cn/xml/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xml/index.asp</a></li><li>案例v28.xml</li><li>概念：父节点，子节点，先辈节点，兄弟节点，后代节点</li></ul><h1 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h1><ul><li>XPath(XML Path Language), 是一门在XML文档中查找信息的语言，</li><li>官方文档： <a href="http://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xpath/index.asp</a></li><li><p>XPath开发工具</p><ul><li>开元的XPath表达式工具： XMLQuire</li><li>chrome插件： Xpath Helper</li><li>Firefox插件： XPath CHecker</li></ul></li><li><p>常用路径表达式：</p><ul><li>nodename: 选取此节点的所有子节点</li><li>/: 从根节点开始选</li><li>//: 选取元素，而不考虑元素的具体为止</li><li>.:  当前节点</li><li>..:父节点</li><li>@： 选取属性</li><li>案例：<ul><li>booksotre: 选取bookstore下的所有子节点</li><li>/booksotre: 选取根元素</li><li>booksotre/book: 选取bookstore的所有为book的子元素</li><li>//book: 选取book子元素</li><li>//@lang:选取名称为lang的所有属性</li></ul></li></ul></li><li><p>谓语(Predicates)</p><ul><li>谓语用来查找某个特定的节点，被向前在方括号中</li><li>/bookstore/book[1]: 选取第一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()]: 选取最后一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()-1]: 选取倒数第二个属于bookstore下叫book的元素</li><li>/bookstore/book[position()&lt;3]: 选取属于bookstore下叫book的前两个元素</li><li>/bookstore/book[@lang]: 选取属于bookstore下叫book的,含有属性lang元素</li><li>/bookstore/book[@lang=”cn”]: 选取属于bookstore下叫book的,含有属性lang的值是cn的元素</li><li>/bookstore/book[@price &lt; 90]: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素</li><li>/bookstore/book[@price &lt; 90]/title: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素的子元素title</li></ul></li><li><p>通配符</p><ul><li><code>*</code> : 任何元素节点</li><li>@*： 匹配任何属性节点</li><li>node(): 陪陪任何类型的节点</li></ul></li><li>选取多个路径<ul><li>//book/tile  | //book/author : 选取book元素中的title和author元素</li><li>//tile | //price: 选取文档中所有的title和price元素</li></ul></li></ul><h1 id="lxml库"><a href="#lxml库" class="headerlink" title="lxml库"></a>lxml库</h1><ul><li>python的HTML/XML的解析器</li><li>官方文档：   <a href="http://lxml.de/index.html" target="_blank" rel="noopener">http://lxml.de/index.html</a></li><li>功能：<ul><li>解析HTML,案例v29.py</li><li>文件读取，案例v30.html, v31.py</li><li>etree和XPath的配合使用, 案例v32.py</li></ul></li></ul><h1 id="CSS选择器-BeautifulSoup4"><a href="#CSS选择器-BeautifulSoup4" class="headerlink" title="CSS选择器  BeautifulSoup4"></a>CSS选择器  BeautifulSoup4</h1><ul><li>现在使用BeautifulSoup4</li><li><a href="http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/" target="_blank" rel="noopener">http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/</a></li><li>几个常用提取信息工具的比较：<ul><li>正则： 很快，不好用，不许安装</li><li>beautifulsoup：慢，使用简单，安装简单</li><li>lxml： 比较快，使用简单，安装一般</li></ul></li><li>案例v33.py</li><li>四大对象<ul><li>Tag</li><li>NavigableString</li><li>BeautifulSoup</li><li>Comment</li></ul></li><li><p>Tag</p><ul><li>对应Html中的标签</li><li>可以通过soup.tag_name</li><li>tag两个重要属性<ul><li>name</li><li>attrs</li></ul></li><li>案例a34  </li></ul></li><li><p>NavigableString</p><ul><li>对应内容值</li></ul></li><li><p>BeautifulSoup</p><ul><li>表示的是一个文档的内容，大部分可以把他当做tag对象</li><li>一般我们可以用soup来表示</li></ul></li><li>Comment<ul><li>特殊类型的NavagableString对象， </li><li>对其输出，则内容不包括注释符号</li></ul></li><li>遍历文档对象<ul><li>contents: tag的子节点以列表的方式给出 </li><li>children： 子节点以迭代器形式返回 </li><li>descendants： 所子孙节点</li><li>string</li><li>案例34</li></ul></li><li><p>搜索文档对象</p><ul><li>find_all(name, attrs, recursive, text, ** kwargs)  <ul><li>name:按照那个字符串搜索，可以传入的内容为<ul><li>字符串</li><li>正则表达式</li><li>列表</li></ul></li><li>kewwortd参数，可以用来表示属性</li><li>text： 对应tag的文本值</li><li>案例34</li></ul></li></ul></li><li><p>css选择器</p><ul><li>使用soup.select, 返回一个列表</li><li>通过标签名称: soup.select(“title”)            </li><li>通过类名： soup.select(“.content”)</li><li>id查找: soup.select(“#name_id”)</li><li>组合查找: soup.select(“div #input_content”)</li><li>属性查找: soup.select(“img[class=’photo’])</li><li>获取tag内容： tag.get_text</li><li>案例35</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul><li></li></ul><h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul><li>主要作为技术验证</li><li>画出一个舞台，包括背景，包括一个小飞机</li></ul><h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul><li>小蜜蜂会动，从上往下慢慢的飞</li><li>能控制小蜜蜂左右移动</li><li>入场算法<ul><li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li><li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li></ul></li><li><p>移动速度问题</p><ul><li>包含x，y两个值</li><li>对于绝大多数物体，则只考虑y值</li><li>但是，蜜蜂和英雄是特例</li><li>蜜蜂是从上向下移动的同时具有横向运动</li><li>英雄的移动由上下左右键盘控制</li><li>速度应该是一个tuple=(x,y)</li></ul></li><li><p>方向问题</p><ul><li>具体移动方向由x，y控制</li><li>值只能是-1， 0， 1三个就好</li><li>应该是一个tuple</li><li>例如（-1， 0)表示水平向左移动</li><li>（0,1）表明向下垂直运动</li></ul></li></ul><h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul><li>重构代码，使用oop方法<ul><li>世界的构成<ul><li>小飞机</li><li>大飞机</li><li>小蜜蜂</li><li>子弹</li><li>英雄机</li><li>天空</li></ul></li><li>配置文件<ul><li>可以通过一次性配置来让程序正确运行</li><li>降低了代码软件工程方面的成本</li><li>python的配置文件包： configparser<ul><li>以前就叫ConfigParser </li><li>配置文件一般以cfg或者ini结尾</li><li>语法：<ul><li>中括号： 表示的是section</li><li>每个section下是键值对</li><li>键值对用等号或者冒号链接</li></ul></li><li>get(section_nmame, key_name),返回相应的值</li><li>getint(section_nmame, key_name),返回相应的整数值</li></ul></li></ul></li></ul></li></ul><ul><li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li><li>程序可以正常产生飞行物，包括英雄，子弹，云层</li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;页面解析和数据提取&quot;&gt;&lt;a href=&quot;#页面解析和数据提取&quot; class=&quot;headerlink&quot; title=&quot;页面解析和数据提取&quot;&gt;&lt;/a&gt;页面解析和数据提取&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;结构数据： 先有的结构，在谈数据&lt;ul&gt;
-&lt;li&gt;JSON文件&lt;ul&gt;
-
+        &lt;h1 id=&quot;飞机大战&quot;&gt;&lt;a href=&quot;#飞机大战&quot; class=&quot;headerlink&quot; title=&quot;飞机大战&quot;&gt;&lt;/a&gt;飞机大战&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
       
     
     </summary>
@@ -369,6 +345,30 @@
   
   <entry>
     <title></title>
+    <link href="http://yoursite.com/2018/06/11/note2/"/>
+    <id>http://yoursite.com/2018/06/11/note2/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="页面解析和数据提取"><a href="#页面解析和数据提取" class="headerlink" title="页面解析和数据提取"></a>页面解析和数据提取</h1><ul><li>结构数据： 先有的结构，在谈数据<ul><li>JSON文件<ul><li>JSON Path</li><li>转换成Python类型进行操作（json类）</li></ul></li><li>XML文件<ul><li>转换成python类型（xmltodict）</li><li>XPath</li><li>CSS选择器</li><li>正则</li></ul></li></ul></li><li>非结构化数据：先有数据，再谈结构<ul><li>文本</li><li>电话号码</li><li>邮箱地址<ul><li>通常处理此类数据，使用正则表达式</li></ul></li><li>Html文件<ul><li>正则</li><li>XPath</li><li>CSS选择器</li></ul></li></ul></li></ul><h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul><li>一套规则，可以在字符串文本中进行搜查替换等</li><li>案例v23,re的基本使用流程</li><li>案例v24，match的基本使用</li><li>正则常用方法：<ul><li>match: 从开始位置开始查找，一次匹配</li><li>search：从任何位置查找，一次匹配， 案例v25</li><li>findall： 全部匹配，返回列表, 案例v26</li><li>finditer： 全部匹配，返回迭代器, 案例v26</li><li>split： 分割字符串，返回列表</li><li>sub：替换</li></ul></li><li><p>匹配中文</p><ul><li>中文unicode范围主要在[u4e00-u9fa5]</li><li>案例v27</li></ul></li><li><p>贪婪与非贪婪模式</p><ul><li>贪婪模式： 在整个表达式匹配成功的前提下，尽可能多的匹配</li><li>非贪婪模式： xxxxxxxxxxxxxxxxxxxxxx, 尽可能少的匹配</li><li>python里面数量词默认是贪婪模式</li><li>例如：<ul><li>查找文本abbbbbbccc</li><li>re是 ab*</li><li>贪婪模式： 结果是abbbbbb</li><li>非贪婪： 结果是a<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1></li></ul></li></ul></li><li>XML(EXtensibleMarkupLanguage)   </li><li><a href="http://www.w3school.com.cn/xml/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xml/index.asp</a></li><li>案例v28.xml</li><li>概念：父节点，子节点，先辈节点，兄弟节点，后代节点</li></ul><h1 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h1><ul><li>XPath(XML Path Language), 是一门在XML文档中查找信息的语言，</li><li>官方文档： <a href="http://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xpath/index.asp</a></li><li><p>XPath开发工具</p><ul><li>开元的XPath表达式工具： XMLQuire</li><li>chrome插件： Xpath Helper</li><li>Firefox插件： XPath CHecker</li></ul></li><li><p>常用路径表达式：</p><ul><li>nodename: 选取此节点的所有子节点</li><li>/: 从根节点开始选</li><li>//: 选取元素，而不考虑元素的具体为止</li><li>.:  当前节点</li><li>..:父节点</li><li>@： 选取属性</li><li>案例：<ul><li>booksotre: 选取bookstore下的所有子节点</li><li>/booksotre: 选取根元素</li><li>booksotre/book: 选取bookstore的所有为book的子元素</li><li>//book: 选取book子元素</li><li>//@lang:选取名称为lang的所有属性</li></ul></li></ul></li><li><p>谓语(Predicates)</p><ul><li>谓语用来查找某个特定的节点，被向前在方括号中</li><li>/bookstore/book[1]: 选取第一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()]: 选取最后一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()-1]: 选取倒数第二个属于bookstore下叫book的元素</li><li>/bookstore/book[position()&lt;3]: 选取属于bookstore下叫book的前两个元素</li><li>/bookstore/book[@lang]: 选取属于bookstore下叫book的,含有属性lang元素</li><li>/bookstore/book[@lang=”cn”]: 选取属于bookstore下叫book的,含有属性lang的值是cn的元素</li><li>/bookstore/book[@price &lt; 90]: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素</li><li>/bookstore/book[@price &lt; 90]/title: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素的子元素title</li></ul></li><li><p>通配符</p><ul><li><code>*</code> : 任何元素节点</li><li>@*： 匹配任何属性节点</li><li>node(): 陪陪任何类型的节点</li></ul></li><li>选取多个路径<ul><li>//book/tile  | //book/author : 选取book元素中的title和author元素</li><li>//tile | //price: 选取文档中所有的title和price元素</li></ul></li></ul><h1 id="lxml库"><a href="#lxml库" class="headerlink" title="lxml库"></a>lxml库</h1><ul><li>python的HTML/XML的解析器</li><li>官方文档：   <a href="http://lxml.de/index.html" target="_blank" rel="noopener">http://lxml.de/index.html</a></li><li>功能：<ul><li>解析HTML,案例v29.py</li><li>文件读取，案例v30.html, v31.py</li><li>etree和XPath的配合使用, 案例v32.py</li></ul></li></ul><h1 id="CSS选择器-BeautifulSoup4"><a href="#CSS选择器-BeautifulSoup4" class="headerlink" title="CSS选择器  BeautifulSoup4"></a>CSS选择器  BeautifulSoup4</h1><ul><li>现在使用BeautifulSoup4</li><li><a href="http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/" target="_blank" rel="noopener">http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/</a></li><li>几个常用提取信息工具的比较：<ul><li>正则： 很快，不好用，不许安装</li><li>beautifulsoup：慢，使用简单，安装简单</li><li>lxml： 比较快，使用简单，安装一般</li></ul></li><li>案例v33.py</li><li>四大对象<ul><li>Tag</li><li>NavigableString</li><li>BeautifulSoup</li><li>Comment</li></ul></li><li><p>Tag</p><ul><li>对应Html中的标签</li><li>可以通过soup.tag_name</li><li>tag两个重要属性<ul><li>name</li><li>attrs</li></ul></li><li>案例a34  </li></ul></li><li><p>NavigableString</p><ul><li>对应内容值</li></ul></li><li><p>BeautifulSoup</p><ul><li>表示的是一个文档的内容，大部分可以把他当做tag对象</li><li>一般我们可以用soup来表示</li></ul></li><li>Comment<ul><li>特殊类型的NavagableString对象， </li><li>对其输出，则内容不包括注释符号</li></ul></li><li>遍历文档对象<ul><li>contents: tag的子节点以列表的方式给出 </li><li>children： 子节点以迭代器形式返回 </li><li>descendants： 所子孙节点</li><li>string</li><li>案例34</li></ul></li><li><p>搜索文档对象</p><ul><li>find_all(name, attrs, recursive, text, ** kwargs)  <ul><li>name:按照那个字符串搜索，可以传入的内容为<ul><li>字符串</li><li>正则表达式</li><li>列表</li></ul></li><li>kewwortd参数，可以用来表示属性</li><li>text： 对应tag的文本值</li><li>案例34</li></ul></li></ul></li><li><p>css选择器</p><ul><li>使用soup.select, 返回一个列表</li><li>通过标签名称: soup.select(“title”)            </li><li>通过类名： soup.select(“.content”)</li><li>id查找: soup.select(“#name_id”)</li><li>组合查找: soup.select(“div #input_content”)</li><li>属性查找: soup.select(“img[class=’photo’])</li><li>获取tag内容： tag.get_text</li><li>案例35</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;页面解析和数据提取&quot;&gt;&lt;a href=&quot;#页面解析和数据提取&quot; class=&quot;headerlink&quot; title=&quot;页面解析和数据提取&quot;&gt;&lt;/a&gt;页面解析和数据提取&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;结构数据： 先有的结构，在谈数据&lt;ul&gt;
+&lt;li&gt;JSON文件&lt;ul&gt;
+
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="http://yoursite.com/2018/06/11/note3/"/>
     <id>http://yoursite.com/2018/06/11/note3/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -381,28 +381,6 @@
       
       
         &lt;h1 id=&quot;动态HTML&quot;&gt;&lt;a href=&quot;#动态HTML&quot; class=&quot;headerlink&quot; title=&quot;动态HTML&quot;&gt;&lt;/a&gt;动态HTML&lt;/h1&gt;&lt;h2 id=&quot;爬虫跟反爬虫&quot;&gt;&lt;a href=&quot;#爬虫跟反爬虫&quot; class=&quot;headerlink&quot; titl
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note5/"/>
-    <id>http://yoursite.com/2018/06/11/note5/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="scrapy-shell"><a href="#scrapy-shell" class="headerlink" title="scrapy-shell"></a>scrapy-shell</h1><ul><li><a href="https://segmentfault.com/a/1190000013199636?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013199636?utm_source=tag-newest</a></li><li>shell </li><li>启动<ul><li>Linux： ctr+T,打开终端，然后输入scrapy shell “url:xxxx”</li><li>windows: scrapy shell “url:xxx”</li><li>启动后自动下载指定url的网页</li><li>下载完成后，url的内容保存在response的变量中，如果需要，我们需要调用response</li></ul></li><li>response<ul><li>爬取到的内容保存在response中给</li><li>response.body是网页的代码</li><li>resposne.headers是返回的http的头信息</li><li>response.xpath（）允许使用xpath语法选择内容</li><li>response.css()允许使用css语法选区内容</li></ul></li><li>selector<ul><li>选择器，允许用户使用选择器来选择自己想要的内容</li><li>response.selector.xpath: response.xpath是selector.xpath的快捷方式</li><li>response.selector.css: response.css是他的快捷方式</li><li>selector.extract:把节点的内容用unicode形式返回</li><li>selector.re:允许用户通过正则选区内容</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;scrapy-shell&quot;&gt;&lt;a href=&quot;#scrapy-shell&quot; class=&quot;headerlink&quot; title=&quot;scrapy-shell&quot;&gt;&lt;/a&gt;scrapy-shell&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://segment
       
     
     </summary>
@@ -438,18 +416,19 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note4/"/>
-    <id>http://yoursite.com/2018/06/11/note4/</id>
+    <link href="http://yoursite.com/2018/06/11/note5/"/>
+    <id>http://yoursite.com/2018/06/11/note5/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy"></a>scrapy</h1><h1 id="爬虫框架"><a href="#爬虫框架" class="headerlink" title="爬虫框架"></a>爬虫框架</h1><ul><li>框架</li><li>爬虫框架<ul><li>scrapy </li><li>pyspider</li><li>crawley</li></ul></li><li><p>scrapy框架介绍</p><ul><li><a href="https://doc.scrapy.org/en/latest/" target="_blank" rel="noopener">https://doc.scrapy.org/en/latest/</a></li><li><a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener">http://scrapy-chs.readthedocs.io/zh_CN/latest/index.html</a></li></ul></li><li><p>安装</p><ul><li>利用pip  </li></ul></li><li><p>scrapy概述</p><ul><li>包含各个部件<ul><li>ScrapyEngine： 神经中枢，大脑，核心、</li><li>Scheduler调度器：引擎发来的request请求，调度器需要处理，然后交换引擎</li><li>Downloader下载器：把引擎发来的requests发出请求，得到response</li><li>Spider爬虫： 负责把下载器得到的网页/结果进行分解，分解成数据+链接</li><li>ItemPipeline管道： 详细处理Item</li><li>DownloaderMiddleware下载中间件： 自定义下载的功能扩展组件</li><li>SpiderMiddleware爬虫中间件：对spider进行功能扩展</li></ul></li></ul></li><li><p>爬虫项目大概流程</p><ul><li>新建项目：scrapy startproject xxx</li><li>明确需要目标/产出:  编写item.py</li><li>制作爬虫 ： 地址 spider/xxspider.py</li><li>存储内容： pipelines.py,   </li></ul></li><li><p>ItemPipeline</p><ul><li>对应的是pipelines文件</li><li>爬虫提取出数据存入item后，item中保存的数据需要进一步处理，比如清洗，去重，存储等</li><li>process_item:<ul><li>spider提取出来的item作为参数传入，同时传入的还有spider</li><li>此方法必须实现</li><li>必须返回一个Item对象，被丢弃的item不会被之后的pipeline处理</li></ul></li><li><strong>init</strong>:构造函数<ul><li>进行一些必要的参数初始化     </li></ul></li><li>open_spider(spider):<ul><li>spider对象被开启的时候调用</li></ul></li><li>close_spider(spider):<ul><li>当spider对象被关闭的时候调用 </li></ul></li></ul></li><li>Spider<ul><li>对应的是文件夹spiders下的文件</li><li><strong>init</strong>: 初始化爬虫名称，start_urls列表</li><li>start_requests:生成Requests对象交给Scrapy下载并返回response</li><li>parse： 根据返回的response解析出相应的item，item自动进入pipeline； 如果需要，解析出url，url自动交给<br>requests模块，一直循环下去</li><li>start_request: 此方法仅能被调用一次，读取start_urls内容并启动循环过程</li><li>name:设置爬虫名称</li><li>start_urls:  设置开始第一批爬取的url</li><li>allow_domains:spider允许爬去的域名列表</li><li>start_request(self)： 只被调用一次</li><li>parse</li><li>log:日志记录</li></ul></li><li><p>中间件(DownloaderMiddlewares)</p><ul><li>中间件是处于引擎和下载器中间的一层组件</li><li>可以有很多个，被按顺序加载执行</li><li>作用是对发出的请求和返回的结果进行预处理</li><li>在middlewares文件中</li><li>需要在settings中设置以便生效</li><li>一般一个中间件完成一项功能</li><li><p>必须实现以下一个或者多个方法</p><ul><li>process_request(self, request, spider)<ul><li>在request通过的时候被调用</li><li>必须返回None或Response或Request或raise IgnoreRequest</li><li>None: scrapy将继续处理该request</li><li>Request： scrapy会停止调用process_request并冲洗调度返回的reqeust</li><li>Response： scrapy不会调用其他的process_request或者process_exception，直接讲该response作为结果返回<br>同时会调用process_response函数</li></ul></li><li>process_response(self, request, response,  spider)<ul><li>跟process_request大同小异</li><li>每次返回结果的时候会自动调用</li><li>可以有多个，按顺序调用</li></ul></li><li><p>案例代码</p><pre><code>import randomimport base64# 从settings设置文件中导入值from settings import USER_AGENTSfrom settings import PROXIES#  随机的 User-Agentclass RandomUserAgent(object):    def process_request(self, request, spider):        useragent = random.choice(USER_AGENTS)        request.headers.setdefault(&quot;User-Agent&quot;, useragent)class RandomProxy(object):    def process_request(self, request, spider):        proxy = random.choice(PROXIES)        if proxy[&apos;user_passwd&apos;] is None:            #  没有代理账户验证的代理使用方式            request.meta[&apos;proxy&apos;] = &quot;http://&quot; + proxy[&apos;ip_port&apos;]        else:            #  对账户密码进行 base64 编码转换            base64_userpasswd = base64.b64encode(proxy[&apos;user_passwd&apos;])            #  对应到代理服务器的信令格式里            request.headers[&apos;Proxy-Authorization&apos;] = &apos;Basic &apos; + base64_userpasswd            request.meta[&apos;proxy&apos;] = &quot;http://&quot; + proxy[&apos;ip_port&apos;]</code></pre></li><li>设置settings的相关代码</li></ul></li></ul></li></ul><pre><code>USER_AGENTS = [            &quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR            3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)&quot;,            &quot;Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0;            SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET            CLR 1.1.4322)&quot;,            &quot;Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR            2.0.50727; InfoPath.2; .NET CLR 3.0.04506.30)&quot;,            &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN) AppleWebKit/523.15 (KHTML, like Gecko,            Safari/419.3) Arora/0.3 (Change: 287 c9dfb30)&quot;,            &quot;Mozilla/5.0 (X11; U; Linux; en-US) AppleWebKit/527+ (KHTML, like Gecko, Safari/419.3)            Arora/0.6&quot;,            &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2pre) Gecko/20070215 K-            Ninja/2.1.1&quot;,            &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9) Gecko/20080705 Firefox/3.0            Kapiko/3.0&quot;,            &quot;Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5&quot;            ]           PROXIES = [        {&apos;ip_port&apos;: &apos;111.8.60.9:8123&apos;, &apos;user_passwd&apos;: &apos;user1:pass1&apos;},        {&apos;ip_port&apos;: &apos;101.71.27.120:80&apos;, &apos;user_passwd&apos;: &apos;user2:pass2&apos;},        {&apos;ip_port&apos;: &apos;122.96.59.104:80&apos;, &apos;user_passwd&apos;: &apos;user3:pass3&apos;},        {&apos;ip_port&apos;: &apos;122.224.249.122:8088&apos;, &apos;user_passwd&apos;: &apos;user4:pass4&apos;},        ]</code></pre><ul><li><p>去重</p><ul><li>为了放置爬虫陷入死循环，需要去重</li><li><p>即在spider中的parse函数中，返回Request的时候加上dont_filter=False参数</p><pre><code>myspeder(scrapy.Spider):    def parse(.....):        ......        yield  scrapy.Request(url=url, callback=self.parse, dont_filter=False)                </code></pre></li></ul></li><li><p>如何在scrapy使用selenium</p><ul><li>可以放入中间件中的process_request函数中</li><li>在函数中调用selenium，完成爬取后返回Response</li></ul></li></ul><pre><code>calss MyMiddleWare(object):    def process_request(.....):        driver = webdriver.Chrome()        html = driver.page_source        driver.quit()        return HtmlResponse(url=request.url, encoding=&apos;utf-8&apos;, body=html, request=request)</code></pre><ul><li><p>案例e16-qq招聘</p><ul><li>创建项目</li><li>编写item</li><li>编写spider</li><li>编写pipeline</li><li>设置pipeline</li></ul></li><li><p>案例 e14-scrapy-baidu</p><ul><li>利用最简单的爬虫</li><li>爬去百度页面</li><li>关闭配置机器人协议</li><li>scrapy startproject baidu</li><li>scrapy crawl baidu</li></ul></li><li><p>案例e15-meiju</p><ul><li>创建新项目</li><li>分析网页，定义item</li><li>编写pipeline， 确定如何处理item</li><li>编写spider， 确定如何提取item</li><li>可以通过增加一个单独命令文件的方式在pycharm中启动爬虫</li></ul></li><li><p>案例e17-校花网</p><ul><li>创建项目</li><li>编写item</li><li>spider</li><li>pipeline</li><li>设置pipeline</li><li>中间件， 会使用selenium</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="scrapy-shell"><a href="#scrapy-shell" class="headerlink" title="scrapy-shell"></a>scrapy-shell</h1><ul><li><a href="https://segmentfault.com/a/1190000013199636?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013199636?utm_source=tag-newest</a></li><li>shell </li><li>启动<ul><li>Linux： ctr+T,打开终端，然后输入scrapy shell “url:xxxx”</li><li>windows: scrapy shell “url:xxx”</li><li>启动后自动下载指定url的网页</li><li>下载完成后，url的内容保存在response的变量中，如果需要，我们需要调用response</li></ul></li><li>response<ul><li>爬取到的内容保存在response中给</li><li>response.body是网页的代码</li><li>resposne.headers是返回的http的头信息</li><li>response.xpath（）允许使用xpath语法选择内容</li><li>response.css()允许使用css语法选区内容</li></ul></li><li>selector<ul><li>选择器，允许用户使用选择器来选择自己想要的内容</li><li>response.selector.xpath: response.xpath是selector.xpath的快捷方式</li><li>response.selector.css: response.css是他的快捷方式</li><li>selector.extract:把节点的内容用unicode形式返回</li><li>selector.re:允许用户通过正则选区内容</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;scrapy&quot;&gt;&lt;a href=&quot;#scrapy&quot; class=&quot;headerlink&quot; title=&quot;scrapy&quot;&gt;&lt;/a&gt;scrapy&lt;/h1&gt;&lt;h1 id=&quot;爬虫框架&quot;&gt;&lt;a href=&quot;#爬虫框架&quot; class=&quot;headerlink&quot; title=&quot;爬
+        &lt;h1 id=&quot;scrapy-shell&quot;&gt;&lt;a href=&quot;#scrapy-shell&quot; class=&quot;headerlink&quot; title=&quot;scrapy-shell&quot;&gt;&lt;/a&gt;scrapy-shell&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://segment
       
     
     </summary>
@@ -474,6 +453,27 @@
 &lt;li&gt;参考资料&lt;ul&gt;
 &lt;li&gt;python网络数据采集， 图灵工业出版&lt;/li&gt;
 &lt;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note4/"/>
+    <id>http://yoursite.com/2018/06/11/note4/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="scrapy"><a href="#scrapy" class="headerlink" title="scrapy"></a>scrapy</h1><h1 id="爬虫框架"><a href="#爬虫框架" class="headerlink" title="爬虫框架"></a>爬虫框架</h1><ul><li>框架</li><li>爬虫框架<ul><li>scrapy </li><li>pyspider</li><li>crawley</li></ul></li><li><p>scrapy框架介绍</p><ul><li><a href="https://doc.scrapy.org/en/latest/" target="_blank" rel="noopener">https://doc.scrapy.org/en/latest/</a></li><li><a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/index.html" target="_blank" rel="noopener">http://scrapy-chs.readthedocs.io/zh_CN/latest/index.html</a></li></ul></li><li><p>安装</p><ul><li>利用pip  </li></ul></li><li><p>scrapy概述</p><ul><li>包含各个部件<ul><li>ScrapyEngine： 神经中枢，大脑，核心、</li><li>Scheduler调度器：引擎发来的request请求，调度器需要处理，然后交换引擎</li><li>Downloader下载器：把引擎发来的requests发出请求，得到response</li><li>Spider爬虫： 负责把下载器得到的网页/结果进行分解，分解成数据+链接</li><li>ItemPipeline管道： 详细处理Item</li><li>DownloaderMiddleware下载中间件： 自定义下载的功能扩展组件</li><li>SpiderMiddleware爬虫中间件：对spider进行功能扩展</li></ul></li></ul></li><li><p>爬虫项目大概流程</p><ul><li>新建项目：scrapy startproject xxx</li><li>明确需要目标/产出:  编写item.py</li><li>制作爬虫 ： 地址 spider/xxspider.py</li><li>存储内容： pipelines.py,   </li></ul></li><li><p>ItemPipeline</p><ul><li>对应的是pipelines文件</li><li>爬虫提取出数据存入item后，item中保存的数据需要进一步处理，比如清洗，去重，存储等</li><li>process_item:<ul><li>spider提取出来的item作为参数传入，同时传入的还有spider</li><li>此方法必须实现</li><li>必须返回一个Item对象，被丢弃的item不会被之后的pipeline处理</li></ul></li><li><strong>init</strong>:构造函数<ul><li>进行一些必要的参数初始化     </li></ul></li><li>open_spider(spider):<ul><li>spider对象被开启的时候调用</li></ul></li><li>close_spider(spider):<ul><li>当spider对象被关闭的时候调用 </li></ul></li></ul></li><li>Spider<ul><li>对应的是文件夹spiders下的文件</li><li><strong>init</strong>: 初始化爬虫名称，start_urls列表</li><li>start_requests:生成Requests对象交给Scrapy下载并返回response</li><li>parse： 根据返回的response解析出相应的item，item自动进入pipeline； 如果需要，解析出url，url自动交给<br>requests模块，一直循环下去</li><li>start_request: 此方法仅能被调用一次，读取start_urls内容并启动循环过程</li><li>name:设置爬虫名称</li><li>start_urls:  设置开始第一批爬取的url</li><li>allow_domains:spider允许爬去的域名列表</li><li>start_request(self)： 只被调用一次</li><li>parse</li><li>log:日志记录</li></ul></li><li><p>中间件(DownloaderMiddlewares)</p><ul><li>中间件是处于引擎和下载器中间的一层组件</li><li>可以有很多个，被按顺序加载执行</li><li>作用是对发出的请求和返回的结果进行预处理</li><li>在middlewares文件中</li><li>需要在settings中设置以便生效</li><li>一般一个中间件完成一项功能</li><li><p>必须实现以下一个或者多个方法</p><ul><li>process_request(self, request, spider)<ul><li>在request通过的时候被调用</li><li>必须返回None或Response或Request或raise IgnoreRequest</li><li>None: scrapy将继续处理该request</li><li>Request： scrapy会停止调用process_request并冲洗调度返回的reqeust</li><li>Response： scrapy不会调用其他的process_request或者process_exception，直接讲该response作为结果返回<br>同时会调用process_response函数</li></ul></li><li>process_response(self, request, response,  spider)<ul><li>跟process_request大同小异</li><li>每次返回结果的时候会自动调用</li><li>可以有多个，按顺序调用</li></ul></li><li><p>案例代码</p><pre><code>import randomimport base64# 从settings设置文件中导入值from settings import USER_AGENTSfrom settings import PROXIES#  随机的 User-Agentclass RandomUserAgent(object):    def process_request(self, request, spider):        useragent = random.choice(USER_AGENTS)        request.headers.setdefault(&quot;User-Agent&quot;, useragent)class RandomProxy(object):    def process_request(self, request, spider):        proxy = random.choice(PROXIES)        if proxy[&apos;user_passwd&apos;] is None:            #  没有代理账户验证的代理使用方式            request.meta[&apos;proxy&apos;] = &quot;http://&quot; + proxy[&apos;ip_port&apos;]        else:            #  对账户密码进行 base64 编码转换            base64_userpasswd = base64.b64encode(proxy[&apos;user_passwd&apos;])            #  对应到代理服务器的信令格式里            request.headers[&apos;Proxy-Authorization&apos;] = &apos;Basic &apos; + base64_userpasswd            request.meta[&apos;proxy&apos;] = &quot;http://&quot; + proxy[&apos;ip_port&apos;]</code></pre></li><li>设置settings的相关代码</li></ul></li></ul></li></ul><pre><code>USER_AGENTS = [            &quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR            3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)&quot;,            &quot;Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0;            SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET            CLR 1.1.4322)&quot;,            &quot;Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR            2.0.50727; InfoPath.2; .NET CLR 3.0.04506.30)&quot;,            &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN) AppleWebKit/523.15 (KHTML, like Gecko,            Safari/419.3) Arora/0.3 (Change: 287 c9dfb30)&quot;,            &quot;Mozilla/5.0 (X11; U; Linux; en-US) AppleWebKit/527+ (KHTML, like Gecko, Safari/419.3)            Arora/0.6&quot;,            &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2pre) Gecko/20070215 K-            Ninja/2.1.1&quot;,            &quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9) Gecko/20080705 Firefox/3.0            Kapiko/3.0&quot;,            &quot;Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5&quot;            ]           PROXIES = [        {&apos;ip_port&apos;: &apos;111.8.60.9:8123&apos;, &apos;user_passwd&apos;: &apos;user1:pass1&apos;},        {&apos;ip_port&apos;: &apos;101.71.27.120:80&apos;, &apos;user_passwd&apos;: &apos;user2:pass2&apos;},        {&apos;ip_port&apos;: &apos;122.96.59.104:80&apos;, &apos;user_passwd&apos;: &apos;user3:pass3&apos;},        {&apos;ip_port&apos;: &apos;122.224.249.122:8088&apos;, &apos;user_passwd&apos;: &apos;user4:pass4&apos;},        ]</code></pre><ul><li><p>去重</p><ul><li>为了放置爬虫陷入死循环，需要去重</li><li><p>即在spider中的parse函数中，返回Request的时候加上dont_filter=False参数</p><pre><code>myspeder(scrapy.Spider):    def parse(.....):        ......        yield  scrapy.Request(url=url, callback=self.parse, dont_filter=False)                </code></pre></li></ul></li><li><p>如何在scrapy使用selenium</p><ul><li>可以放入中间件中的process_request函数中</li><li>在函数中调用selenium，完成爬取后返回Response</li></ul></li></ul><pre><code>calss MyMiddleWare(object):    def process_request(.....):        driver = webdriver.Chrome()        html = driver.page_source        driver.quit()        return HtmlResponse(url=request.url, encoding=&apos;utf-8&apos;, body=html, request=request)</code></pre><ul><li><p>案例e16-qq招聘</p><ul><li>创建项目</li><li>编写item</li><li>编写spider</li><li>编写pipeline</li><li>设置pipeline</li></ul></li><li><p>案例 e14-scrapy-baidu</p><ul><li>利用最简单的爬虫</li><li>爬去百度页面</li><li>关闭配置机器人协议</li><li>scrapy startproject baidu</li><li>scrapy crawl baidu</li></ul></li><li><p>案例e15-meiju</p><ul><li>创建新项目</li><li>分析网页，定义item</li><li>编写pipeline， 确定如何处理item</li><li>编写spider， 确定如何提取item</li><li>可以通过增加一个单独命令文件的方式在pycharm中启动爬虫</li></ul></li><li><p>案例e17-校花网</p><ul><li>创建项目</li><li>编写item</li><li>spider</li><li>pipeline</li><li>设置pipeline</li><li>中间件， 会使用selenium</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;scrapy&quot;&gt;&lt;a href=&quot;#scrapy&quot; class=&quot;headerlink&quot; title=&quot;scrapy&quot;&gt;&lt;/a&gt;scrapy&lt;/h1&gt;&lt;h1 id=&quot;爬虫框架&quot;&gt;&lt;a href=&quot;#爬虫框架&quot; class=&quot;headerlink&quot; title=&quot;爬
       
     
     </summary>
