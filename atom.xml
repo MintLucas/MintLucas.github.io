@@ -108,6 +108,30 @@
   
   <entry>
     <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%204/"/>
+    <id>http://yoursite.com/2018/06/11/note 4/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Django系统"><a href="#Django系统" class="headerlink" title="Django系统"></a>Django系统</h1><ul><li>环境<ul><li>python3.6</li><li>django1.18</li></ul></li><li>参考资料<ul><li><a href="http://python.usyiyi.cn/" target="_blank" rel="noopener">django中文教程</a></li><li>django架站的16堂课<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1></li></ul></li><li>anaconda+pycharm</li><li>anaconda使用<ul><li>conda list: 显示当前环境安装的包</li><li>conda env list:显示安装的虚拟环境列表</li><li>conda create -n env_name python=3.6</li><li>激活conda的虚拟环境<ul><li>(Linux)source activate env_name</li><li>(win) activate env_name</li></ul></li><li>pip install django=1.8</li></ul></li></ul><h1 id="后台需要的流程"><a href="#后台需要的流程" class="headerlink" title="后台需要的流程"></a>后台需要的流程</h1><h1 id="创建第一个django程序"><a href="#创建第一个django程序" class="headerlink" title="创建第一个django程序"></a>创建第一个django程序</h1><ul><li><p>命令行启动</p><pre><code>django-admin startproject tulingxueyuancd tulingxueyuanpython manage.py runserver</code></pre></li><li><p>pycharm 启动</p><ul><li>需要配置</li></ul></li></ul><h1 id="路由系统-urls"><a href="#路由系统-urls" class="headerlink" title="路由系统-urls"></a>路由系统-urls</h1><ul><li><p>创建app</p><ul><li>app：负责一个具体业务或者一类具体业务的模块</li><li>python manage.py tartapp teacher</li></ul></li><li><p>路由</p><ul><li>按照具体的请求url，导入到相应的业务处理模块的一个功能模块</li><li>django的信息控制中枢</li><li>本质上是接受的URL和相应的处理模块的一个映射</li><li>在接受URL请求的匹配上使用了RE</li><li>URL的具体格式入urls.py中所示</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Django系统&quot;&gt;&lt;a href=&quot;#Django系统&quot; class=&quot;headerlink&quot; title=&quot;Django系统&quot;&gt;&lt;/a&gt;Django系统&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;环境&lt;ul&gt;
+&lt;li&gt;python3.6&lt;/li&gt;
+&lt;li&gt;django1.18
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%203/"/>
     <id>http://yoursite.com/2018/06/11/note 3/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -123,6 +147,78 @@
 &lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%205/"/>
+    <id>http://yoursite.com/2018/06/11/note 5/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul><li>xubuntu 16.04</li><li>anaconda</li><li>pycharm</li><li>python3.6</li><li><a href="https://www.cnblogs.com/jokerbj/p/7460260.html" target="_blank" rel="noopener">https://www.cnblogs.com/jokerbj/p/7460260.html</a></li><li><a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/python/UnderstandingGIL.pdf</a></li></ul><h1 id="多线程-vs-多进程"><a href="#多线程-vs-多进程" class="headerlink" title="多线程 vs 多进程"></a>多线程 vs 多进程</h1><ul><li>程序：一堆代码以文本形式存入一个文档</li><li>进程： 程序运行的一个状态<ul><li>包含地址空间，内存，数据栈等</li><li>每个进程由自己完全独立的运行环境，多进程共享数据是一个问题</li></ul></li><li>线程<ul><li>一个进程的独立运行片段，一个进程可以由多个线程</li><li>轻量化的进程</li><li>一个进程的多个现成间共享数据和上下文运行环境</li><li>共享互斥问题</li></ul></li><li><p>全局解释器锁（GIL）</p><ul><li>Python代码的执行是由python虚拟机进行控制</li><li>在主循环中稚嫩更有一个控制线程在执行</li></ul></li><li><p>Python包</p><ul><li>thread：有问题，不好用，python3改成了_thread</li><li>threading: 通行的包</li><li>案例01: 顺序执行，耗时比较长</li><li>案例02： 改用多线程，缩短总时间，使用_thread</li><li>案例03： 多线程，传参数</li></ul></li><li><p>threading的使用</p><ul><li>直接利用threading.Thread生成Thread实例<ol><li>t = threading.Thread(target=xxx, args=(xxx,))</li><li>t.start():启动多线程</li><li>t.join(): 等待多线程执行完成</li><li>案例04</li><li>案例05: 加入join后比较跟案例04的结果的异同</li></ol><ul><li>守护线程-daemon<ul><li>如果在程序中将子线程设置成守护现成，则子线程会在主线程结束的时候自动退出</li><li>一般认为，守护线程不中要或者不允许离开主线程独立运行</li><li>守护线程案例能否有效果跟环境相关</li><li>案例06非守护线程</li><li>案例07守护线程            </li></ul></li><li>线程常用属性<ul><li>threading.currentThread：返回当前线程变量</li><li>threading.enumerate:返回一个包含正在运行的线程的list，正在运行的线程指的是线程启动后，结束前的状态</li><li>threading.activeCount: 返回正在运行的线程数量，效果跟 len(threading.enumerate)相同</li><li>thr.setName: 给线程设置名字</li><li>thr.getName: 得到线程的名字</li></ul></li></ul></li><li>直接继承自threading.Thread<ul><li>直接继承Thread</li><li>重写run函数</li><li>类实例可以直接运行</li><li>案例09</li><li>案例10， 工业风案例</li></ul></li></ul></li><li><p>共享变量</p><ul><li>共享变量： 当多个现成同时访问一个变量的时候，会产生共享变量的问题</li><li>案例11</li><li>解决变量：锁，信号灯，</li><li>锁（Lock）：<ul><li>是一个标志，表示一个线程在占用一些资源</li><li>使用方法<ul><li>上锁</li><li>使用共享资源，放心的用</li><li>取消锁，释放锁</li></ul></li><li>案例12</li><li>锁谁： 哪个资源需要多个线程共享，锁哪个</li><li>理解锁：锁其实不是锁住谁，而是一个令牌</li></ul></li><li>线程安全问题：<ul><li>如果一个资源/变量，他对于多线程来讲，不用加锁也不会引起任何问题，则称为线程安全</li><li>线程不安全变量类型： list, set, dict</li><li>线程安全变量类型： queue</li></ul></li><li>生产者消费者问题<ul><li>一个模型，可以用来搭建消息队列， </li><li>queue是一个用来存放变量的数据结构，特点是先进先出，内部元素排队，可以理解成一个特殊的list</li></ul></li><li>死锁问题, 案例14</li><li>锁的等待时间问题， v15</li><li>semphore<ul><li>允许一个资源最多由几个多线程同时使用</li><li>v16</li></ul></li><li><p>threading.Timer</p><ul><li>案例 17</li><li>Timer是利用多线程，在指定时间后启动一个功能</li></ul></li><li><p>可重入锁</p><ul><li>一个锁，可以被一个线程多次申请</li><li>主要解决递归调用的时候，需要申请锁的情况</li><li>案例18</li></ul></li></ul></li></ul><h1 id="线程替代方案"><a href="#线程替代方案" class="headerlink" title="线程替代方案"></a>线程替代方案</h1><ul><li>subprocess<ul><li>完全跳过线程，使用进程</li><li>是派生进程的主要替代方案</li><li>python2.4后引入</li></ul></li><li><p>multiprocessiong</p><ul><li>使用threadiing借口派生，使用子进程</li><li>允许为多核或者多cpu派生进程，接口跟threading非常相似</li><li>python2.6</li></ul></li><li><p>concurrent.futures</p><ul><li>新的异步执行模块</li><li>任务级别的操作</li><li>python3.2后引入<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1></li></ul></li><li>进程间通讯(InterprocessCommunication, IPC )</li><li>进程之间无任何共享状态</li><li><p>进程的创建</p><ul><li>直接生成Process实例对象， 案例19</li><li>派生子类， 案例20</li></ul></li><li><p>在os中查看pid，ppid以及他们的关系              </p><ul><li>案例21</li></ul></li><li>生产者消费者模型<ul><li>JoinableQueue</li><li>案例22</li><li>队列中哨兵的使用, 案例23 </li><li>哨兵的改进， 案例24</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;xubuntu 16.04&lt;/li&gt;
+&lt;li&gt;anaconda&lt;/li&gt;
+&lt;li&gt;pycharm&lt;/li&gt;
+&lt;li&gt;python
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%207/"/>
+    <id>http://yoursite.com/2018/06/11/note 7/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>资料<ul><li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li><li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li><li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li><li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li></ul></li></ul><h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul><li>直接作用于for循环的叫可迭代对象,Iterable</li><li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li></ul><ul><li><p>可以用isinstance判断</p><pre><code>from collections import Iterablel = [1,2,3,4]isinstance(l, Iterable)</code></pre></li></ul><pre><code>from collections import Iteratorisinstance((x for x in range(10)), Iterator)</code></pre><ul><li><p>iterable和Iterator的关系,可以通过iter函数运算</p><pre><code>isinstance(iter(&apos;abc&apos;), Iterator)</code></pre></li></ul><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul><li>一边循环一边计算的机制,generator</li><li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li><li><p>生成器创建:</p><ul><li><p>直接使用</p><pre><code>L = [x * x for x in range(10)]g = (x * x for x in range(10))</code></pre></li><li>函数中包含yield,则叫generator</li><li>next调用,遇到yield返回</li></ul></li></ul><pre><code>def odd():   print(&apos;step 1&apos;)   yield 1   print(&apos;step 2&apos;)   yield(3)   print(&apos;step 3&apos;)   yield(5)def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       print(b)       a, b = b, a + b       n = n + 1   return &apos;done&apos;def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       yield b       a, b = b, a + b       n = n + 1   return &apos;done&apos;</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul><li><p>历史</p><ul><li>3.4引入协程概念，用yield实现</li><li>3.5 引入协程语法</li><li>实现包asyncio,tornado, gevent</li></ul></li><li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p></li><li>使用:   <ul><li>yield关键字</li><li>send关键字</li></ul></li><li><p>案例v1</p></li><li><p>协程的四个状态</p><ul><li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li><li>GEN_CREATED：等待开始执行</li><li>GEN_RUNNING：解释器正在执行</li><li>GEN_SUSPENED：在yield表达式处暂停</li><li>GEN_CLOSED：执行结束</li><li>next预激（prime)</li><li>完整执行过程v2</li></ul></li><li><p>协程终止</p><ul><li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li><li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li></ul></li><li><p>异常</p><ul><li>客户段代码可以在生成器对象上调用两个方法</li><li><p>generator.throw(Exctpiton):</p><pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。</code></pre></li><li><p>generator.close()</p><pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。</code></pre></li><li>v03               </li></ul></li><li>yield from<ul><li>为了得到返回值，协程必须正常终止；</li><li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li><li>yield from 从内部捕获StopIteration异常</li><li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li><li>v04</li><li>v05</li><li>委派生成器<ul><li>包含 yield from 表达式的生成器函数</li><li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li><li>子生成器再把产出的值发给调用方。</li><li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li><li>v06</li></ul></li></ul></li></ul><h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul><li>python3.4开始引入的标准库,内置了对移步io的支持</li><li>asyncio本身是一个消息循环,</li><li>步骤<ul><li>创建消息循环</li><li>把协程导入</li><li>关闭<ul><li>案例08</li><li>案例09-两个tasks</li><li>案例v10-得到多个网站</li></ul></li></ul></li></ul><h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul><li>为了更好的表示异步io</li><li>python3.5 开始引入</li><li>让coroutine代码更简洁</li><li>使用上,可以简单进行替换<ul><li>可以把 @asyncio.coroutine 替换成async</li><li>yield from 替换成await</li></ul></li><li>案例v11, 把案例09直接替换</li></ul><h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul><li>介绍<ul><li>asyncio实现单线程并发IO,在客户端用处不大</li><li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li><li>asyncio实现了TCP,UIDP,SSL等协议</li><li>aiohttp是给予asyncio实现的HTTP框架</li><li>pip install aiohttp</li><li>案例07</li></ul></li></ul><h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul><li>python3新增的库</li><li>类似其他语言的线程池的概念</li><li>此模块利用multiprocessiong实现真正的平行计算</li><li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li><li>concurrent.futures.Executor <ul><li>ThreadPoolExecutor</li><li>ProcessPoolExecutor</li></ul></li><li><p>submit(fn, args, kwargs)</p><ul><li>fn:异步执行的函数</li><li><p>args,kwargs:参数</p><pre><code> # 官方死锁案例import timedef wait_on_b():    time.sleep(5)    print(b.result())  #b不会完成，他一直在等待a的return结果    return 5def wait_on_a():    time.sleep(5)    print(a.result())  #同理a也不会完成，他也是在等待b的结果    return 6</code></pre></li></ul></li></ul><pre><code>        executor = ThreadPoolExecutor(max_workers=2)        a = executor.submit(wait_on_b)        b = executor.submit(wait_on_a)- 案例v14</code></pre><ul><li><p>map(fn, *iterables, timeout=None)</p><ul><li>跟map函数类似</li><li>函数需要异步执行</li><li>timeout: 超时时间</li><li>案例 v12</li><li>案例v15</li><li><p>起执行结果是list,数据需要从list中取出来</p><pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:    print(list(executor.map(sleeper, x)))</code></pre></li></ul></li><li><p>submit和map根据需要选一个即可</p></li><li><p>案例v13</p></li><li><p>Future</p><ul><li>未来需要完成的任务</li><li>future 实例由Excutor.submit创建</li><li>案例v17</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;资料&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/andybegin/arti
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%209/"/>
+    <id>http://yoursite.com/2018/06/11/note 9/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2019-02-13T05:54:38.096Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h1><ul><li>调试流程：单元测试-&gt;集成测试-&gt;交测试部</li><li>分类：<ul><li>静态调试：看</li><li>动态调试：需要外部输入<h1 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h1></li></ul></li><li>推荐文章<ul><li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="noopener">官方网页（英文)</a></li><li><a href="http://blog.csdn.net/carolzhang8406/article/details/6923997" target="_blank" rel="noopener">pdb模块介绍</a></li><li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/" target="_blank" rel="noopener">pdb调试技巧</a><ul><li>简单使用的介绍，推荐优先阅读</li></ul></li><li><a href="http://blog.csdn.net/wyb_009/article/details/8896744" target="_blank" rel="noopener">pdb详细中文介绍</a><ul><li>主要是帮助文件的中文翻译</li></ul></li><li><a href="https://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html" target="_blank" rel="noopener">调试案例01</a></li><li><a href="http://python.jobbole.com/81184/" target="_blank" rel="noopener">调试案例02</a></li></ul></li><li>pdb: python 调试库    </li></ul><h1 id="pycharm调试"><a href="#pycharm调试" class="headerlink" title="pycharm调试"></a>pycharm调试</h1><ul><li>run/debug模式 </li><li><p>案例01.py   </p></li><li><p>断点：程序的某一行，程序在debug模式下，遇到断点就会暂停</p></li></ul><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul><li>推荐文档<ul><li><a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" target="_blank" rel="noopener">官方测试文档集合</a></li><li><a href="http://blog.csdn.net/a542551042/article/details/46696635" target="_blank" rel="noopener">测试案例01</a></li><li><a href="https://wiki.python.org/moin/PyUnit" target="_blank" rel="noopener">PyUnit</a></li><li><a href="http://www.jb51.net/article/64119.htm" target="_blank" rel="noopener">PyUnit详细讲解案例02</a></li><li><a href="https://www.cnblogs.com/iamjqy/p/7155315.html" target="_blank" rel="noopener">测试案例03</a> </li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;调试技术&quot;&gt;&lt;a href=&quot;#调试技术&quot; class=&quot;headerlink&quot; title=&quot;调试技术&quot;&gt;&lt;/a&gt;调试技术&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;调试流程：单元测试-&amp;gt;集成测试-&amp;gt;交测试部&lt;/li&gt;
+&lt;li&gt;分类：&lt;ul&gt;
+&lt;li&gt;静态调试：看&lt;
       
     
     </summary>
@@ -158,78 +254,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%205/"/>
-    <id>http://yoursite.com/2018/06/11/note 5/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul><li>xubuntu 16.04</li><li>anaconda</li><li>pycharm</li><li>python3.6</li><li><a href="https://www.cnblogs.com/jokerbj/p/7460260.html" target="_blank" rel="noopener">https://www.cnblogs.com/jokerbj/p/7460260.html</a></li><li><a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/python/UnderstandingGIL.pdf</a></li></ul><h1 id="多线程-vs-多进程"><a href="#多线程-vs-多进程" class="headerlink" title="多线程 vs 多进程"></a>多线程 vs 多进程</h1><ul><li>程序：一堆代码以文本形式存入一个文档</li><li>进程： 程序运行的一个状态<ul><li>包含地址空间，内存，数据栈等</li><li>每个进程由自己完全独立的运行环境，多进程共享数据是一个问题</li></ul></li><li>线程<ul><li>一个进程的独立运行片段，一个进程可以由多个线程</li><li>轻量化的进程</li><li>一个进程的多个现成间共享数据和上下文运行环境</li><li>共享互斥问题</li></ul></li><li><p>全局解释器锁（GIL）</p><ul><li>Python代码的执行是由python虚拟机进行控制</li><li>在主循环中稚嫩更有一个控制线程在执行</li></ul></li><li><p>Python包</p><ul><li>thread：有问题，不好用，python3改成了_thread</li><li>threading: 通行的包</li><li>案例01: 顺序执行，耗时比较长</li><li>案例02： 改用多线程，缩短总时间，使用_thread</li><li>案例03： 多线程，传参数</li></ul></li><li><p>threading的使用</p><ul><li>直接利用threading.Thread生成Thread实例<ol><li>t = threading.Thread(target=xxx, args=(xxx,))</li><li>t.start():启动多线程</li><li>t.join(): 等待多线程执行完成</li><li>案例04</li><li>案例05: 加入join后比较跟案例04的结果的异同</li></ol><ul><li>守护线程-daemon<ul><li>如果在程序中将子线程设置成守护现成，则子线程会在主线程结束的时候自动退出</li><li>一般认为，守护线程不中要或者不允许离开主线程独立运行</li><li>守护线程案例能否有效果跟环境相关</li><li>案例06非守护线程</li><li>案例07守护线程            </li></ul></li><li>线程常用属性<ul><li>threading.currentThread：返回当前线程变量</li><li>threading.enumerate:返回一个包含正在运行的线程的list，正在运行的线程指的是线程启动后，结束前的状态</li><li>threading.activeCount: 返回正在运行的线程数量，效果跟 len(threading.enumerate)相同</li><li>thr.setName: 给线程设置名字</li><li>thr.getName: 得到线程的名字</li></ul></li></ul></li><li>直接继承自threading.Thread<ul><li>直接继承Thread</li><li>重写run函数</li><li>类实例可以直接运行</li><li>案例09</li><li>案例10， 工业风案例</li></ul></li></ul></li><li><p>共享变量</p><ul><li>共享变量： 当多个现成同时访问一个变量的时候，会产生共享变量的问题</li><li>案例11</li><li>解决变量：锁，信号灯，</li><li>锁（Lock）：<ul><li>是一个标志，表示一个线程在占用一些资源</li><li>使用方法<ul><li>上锁</li><li>使用共享资源，放心的用</li><li>取消锁，释放锁</li></ul></li><li>案例12</li><li>锁谁： 哪个资源需要多个线程共享，锁哪个</li><li>理解锁：锁其实不是锁住谁，而是一个令牌</li></ul></li><li>线程安全问题：<ul><li>如果一个资源/变量，他对于多线程来讲，不用加锁也不会引起任何问题，则称为线程安全</li><li>线程不安全变量类型： list, set, dict</li><li>线程安全变量类型： queue</li></ul></li><li>生产者消费者问题<ul><li>一个模型，可以用来搭建消息队列， </li><li>queue是一个用来存放变量的数据结构，特点是先进先出，内部元素排队，可以理解成一个特殊的list</li></ul></li><li>死锁问题, 案例14</li><li>锁的等待时间问题， v15</li><li>semphore<ul><li>允许一个资源最多由几个多线程同时使用</li><li>v16</li></ul></li><li><p>threading.Timer</p><ul><li>案例 17</li><li>Timer是利用多线程，在指定时间后启动一个功能</li></ul></li><li><p>可重入锁</p><ul><li>一个锁，可以被一个线程多次申请</li><li>主要解决递归调用的时候，需要申请锁的情况</li><li>案例18</li></ul></li></ul></li></ul><h1 id="线程替代方案"><a href="#线程替代方案" class="headerlink" title="线程替代方案"></a>线程替代方案</h1><ul><li>subprocess<ul><li>完全跳过线程，使用进程</li><li>是派生进程的主要替代方案</li><li>python2.4后引入</li></ul></li><li><p>multiprocessiong</p><ul><li>使用threadiing借口派生，使用子进程</li><li>允许为多核或者多cpu派生进程，接口跟threading非常相似</li><li>python2.6</li></ul></li><li><p>concurrent.futures</p><ul><li>新的异步执行模块</li><li>任务级别的操作</li><li>python3.2后引入<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1></li></ul></li><li>进程间通讯(InterprocessCommunication, IPC )</li><li>进程之间无任何共享状态</li><li><p>进程的创建</p><ul><li>直接生成Process实例对象， 案例19</li><li>派生子类， 案例20</li></ul></li><li><p>在os中查看pid，ppid以及他们的关系              </p><ul><li>案例21</li></ul></li><li>生产者消费者模型<ul><li>JoinableQueue</li><li>案例22</li><li>队列中哨兵的使用, 案例23 </li><li>哨兵的改进， 案例24</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;xubuntu 16.04&lt;/li&gt;
-&lt;li&gt;anaconda&lt;/li&gt;
-&lt;li&gt;pycharm&lt;/li&gt;
-&lt;li&gt;python
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%204/"/>
-    <id>http://yoursite.com/2018/06/11/note 4/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Django系统"><a href="#Django系统" class="headerlink" title="Django系统"></a>Django系统</h1><ul><li>环境<ul><li>python3.6</li><li>django1.18</li></ul></li><li>参考资料<ul><li><a href="http://python.usyiyi.cn/" target="_blank" rel="noopener">django中文教程</a></li><li>django架站的16堂课<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1></li></ul></li><li>anaconda+pycharm</li><li>anaconda使用<ul><li>conda list: 显示当前环境安装的包</li><li>conda env list:显示安装的虚拟环境列表</li><li>conda create -n env_name python=3.6</li><li>激活conda的虚拟环境<ul><li>(Linux)source activate env_name</li><li>(win) activate env_name</li></ul></li><li>pip install django=1.8</li></ul></li></ul><h1 id="后台需要的流程"><a href="#后台需要的流程" class="headerlink" title="后台需要的流程"></a>后台需要的流程</h1><h1 id="创建第一个django程序"><a href="#创建第一个django程序" class="headerlink" title="创建第一个django程序"></a>创建第一个django程序</h1><ul><li><p>命令行启动</p><pre><code>django-admin startproject tulingxueyuancd tulingxueyuanpython manage.py runserver</code></pre></li><li><p>pycharm 启动</p><ul><li>需要配置</li></ul></li></ul><h1 id="路由系统-urls"><a href="#路由系统-urls" class="headerlink" title="路由系统-urls"></a>路由系统-urls</h1><ul><li><p>创建app</p><ul><li>app：负责一个具体业务或者一类具体业务的模块</li><li>python manage.py tartapp teacher</li></ul></li><li><p>路由</p><ul><li>按照具体的请求url，导入到相应的业务处理模块的一个功能模块</li><li>django的信息控制中枢</li><li>本质上是接受的URL和相应的处理模块的一个映射</li><li>在接受URL请求的匹配上使用了RE</li><li>URL的具体格式入urls.py中所示</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Django系统&quot;&gt;&lt;a href=&quot;#Django系统&quot; class=&quot;headerlink&quot; title=&quot;Django系统&quot;&gt;&lt;/a&gt;Django系统&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;环境&lt;ul&gt;
-&lt;li&gt;python3.6&lt;/li&gt;
-&lt;li&gt;django1.18
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%207/"/>
-    <id>http://yoursite.com/2018/06/11/note 7/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>资料<ul><li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li><li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li><li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li><li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li></ul></li></ul><h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul><li>直接作用于for循环的叫可迭代对象,Iterable</li><li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li></ul><ul><li><p>可以用isinstance判断</p><pre><code>from collections import Iterablel = [1,2,3,4]isinstance(l, Iterable)</code></pre></li></ul><pre><code>from collections import Iteratorisinstance((x for x in range(10)), Iterator)</code></pre><ul><li><p>iterable和Iterator的关系,可以通过iter函数运算</p><pre><code>isinstance(iter(&apos;abc&apos;), Iterator)</code></pre></li></ul><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul><li>一边循环一边计算的机制,generator</li><li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li><li><p>生成器创建:</p><ul><li><p>直接使用</p><pre><code>L = [x * x for x in range(10)]g = (x * x for x in range(10))</code></pre></li><li>函数中包含yield,则叫generator</li><li>next调用,遇到yield返回</li></ul></li></ul><pre><code>def odd():   print(&apos;step 1&apos;)   yield 1   print(&apos;step 2&apos;)   yield(3)   print(&apos;step 3&apos;)   yield(5)def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       print(b)       a, b = b, a + b       n = n + 1   return &apos;done&apos;def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       yield b       a, b = b, a + b       n = n + 1   return &apos;done&apos;</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul><li><p>历史</p><ul><li>3.4引入协程概念，用yield实现</li><li>3.5 引入协程语法</li><li>实现包asyncio,tornado, gevent</li></ul></li><li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p></li><li>使用:   <ul><li>yield关键字</li><li>send关键字</li></ul></li><li><p>案例v1</p></li><li><p>协程的四个状态</p><ul><li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li><li>GEN_CREATED：等待开始执行</li><li>GEN_RUNNING：解释器正在执行</li><li>GEN_SUSPENED：在yield表达式处暂停</li><li>GEN_CLOSED：执行结束</li><li>next预激（prime)</li><li>完整执行过程v2</li></ul></li><li><p>协程终止</p><ul><li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li><li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li></ul></li><li><p>异常</p><ul><li>客户段代码可以在生成器对象上调用两个方法</li><li><p>generator.throw(Exctpiton):</p><pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。</code></pre></li><li><p>generator.close()</p><pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。</code></pre></li><li>v03               </li></ul></li><li>yield from<ul><li>为了得到返回值，协程必须正常终止；</li><li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li><li>yield from 从内部捕获StopIteration异常</li><li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li><li>v04</li><li>v05</li><li>委派生成器<ul><li>包含 yield from 表达式的生成器函数</li><li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li><li>子生成器再把产出的值发给调用方。</li><li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li><li>v06</li></ul></li></ul></li></ul><h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul><li>python3.4开始引入的标准库,内置了对移步io的支持</li><li>asyncio本身是一个消息循环,</li><li>步骤<ul><li>创建消息循环</li><li>把协程导入</li><li>关闭<ul><li>案例08</li><li>案例09-两个tasks</li><li>案例v10-得到多个网站</li></ul></li></ul></li></ul><h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul><li>为了更好的表示异步io</li><li>python3.5 开始引入</li><li>让coroutine代码更简洁</li><li>使用上,可以简单进行替换<ul><li>可以把 @asyncio.coroutine 替换成async</li><li>yield from 替换成await</li></ul></li><li>案例v11, 把案例09直接替换</li></ul><h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul><li>介绍<ul><li>asyncio实现单线程并发IO,在客户端用处不大</li><li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li><li>asyncio实现了TCP,UIDP,SSL等协议</li><li>aiohttp是给予asyncio实现的HTTP框架</li><li>pip install aiohttp</li><li>案例07</li></ul></li></ul><h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul><li>python3新增的库</li><li>类似其他语言的线程池的概念</li><li>此模块利用multiprocessiong实现真正的平行计算</li><li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li><li>concurrent.futures.Executor <ul><li>ThreadPoolExecutor</li><li>ProcessPoolExecutor</li></ul></li><li><p>submit(fn, args, kwargs)</p><ul><li>fn:异步执行的函数</li><li><p>args,kwargs:参数</p><pre><code> # 官方死锁案例import timedef wait_on_b():    time.sleep(5)    print(b.result())  #b不会完成，他一直在等待a的return结果    return 5def wait_on_a():    time.sleep(5)    print(a.result())  #同理a也不会完成，他也是在等待b的结果    return 6</code></pre></li></ul></li></ul><pre><code>        executor = ThreadPoolExecutor(max_workers=2)        a = executor.submit(wait_on_b)        b = executor.submit(wait_on_a)- 案例v14</code></pre><ul><li><p>map(fn, *iterables, timeout=None)</p><ul><li>跟map函数类似</li><li>函数需要异步执行</li><li>timeout: 超时时间</li><li>案例 v12</li><li>案例v15</li><li><p>起执行结果是list,数据需要从list中取出来</p><pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:    print(list(executor.map(sleeper, x)))</code></pre></li></ul></li><li><p>submit和map根据需要选一个即可</p></li><li><p>案例v13</p></li><li><p>Future</p><ul><li>未来需要完成的任务</li><li>future 实例由Excutor.submit创建</li><li>案例v17</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;资料&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/andybegin/arti
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note-json/"/>
     <id>http://yoursite.com/2018/06/11/note-json/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -244,30 +268,6 @@
         &lt;h1 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;在线工具&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.sojson.com/&quot; target=&quot;_
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%209/"/>
-    <id>http://yoursite.com/2018/06/11/note 9/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2019-02-13T05:54:38.096Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h1><ul><li>调试流程：单元测试-&gt;集成测试-&gt;交测试部</li><li>分类：<ul><li>静态调试：看</li><li>动态调试：需要外部输入<h1 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h1></li></ul></li><li>推荐文章<ul><li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="noopener">官方网页（英文)</a></li><li><a href="http://blog.csdn.net/carolzhang8406/article/details/6923997" target="_blank" rel="noopener">pdb模块介绍</a></li><li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/" target="_blank" rel="noopener">pdb调试技巧</a><ul><li>简单使用的介绍，推荐优先阅读</li></ul></li><li><a href="http://blog.csdn.net/wyb_009/article/details/8896744" target="_blank" rel="noopener">pdb详细中文介绍</a><ul><li>主要是帮助文件的中文翻译</li></ul></li><li><a href="https://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html" target="_blank" rel="noopener">调试案例01</a></li><li><a href="http://python.jobbole.com/81184/" target="_blank" rel="noopener">调试案例02</a></li></ul></li><li>pdb: python 调试库    </li></ul><h1 id="pycharm调试"><a href="#pycharm调试" class="headerlink" title="pycharm调试"></a>pycharm调试</h1><ul><li>run/debug模式 </li><li><p>案例01.py   </p></li><li><p>断点：程序的某一行，程序在debug模式下，遇到断点就会暂停</p></li></ul><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul><li>推荐文档<ul><li><a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" target="_blank" rel="noopener">官方测试文档集合</a></li><li><a href="http://blog.csdn.net/a542551042/article/details/46696635" target="_blank" rel="noopener">测试案例01</a></li><li><a href="https://wiki.python.org/moin/PyUnit" target="_blank" rel="noopener">PyUnit</a></li><li><a href="http://www.jb51.net/article/64119.htm" target="_blank" rel="noopener">PyUnit详细讲解案例02</a></li><li><a href="https://www.cnblogs.com/iamjqy/p/7155315.html" target="_blank" rel="noopener">测试案例03</a> </li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;调试技术&quot;&gt;&lt;a href=&quot;#调试技术&quot; class=&quot;headerlink&quot; title=&quot;调试技术&quot;&gt;&lt;/a&gt;调试技术&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;调试流程：单元测试-&amp;gt;集成测试-&amp;gt;交测试部&lt;/li&gt;
-&lt;li&gt;分类：&lt;ul&gt;
-&lt;li&gt;静态调试：看&lt;
       
     
     </summary>
@@ -301,27 +301,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note-%E6%AD%A3%E5%88%99/"/>
-    <id>http://yoursite.com/2018/06/11/note-正则/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul><li>是一个计算机科学的概念</li><li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li><li>常常用来检索，替换某些模式的文本</li></ul><h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul><li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li><li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li><li>\d: 任意一个数字</li><li>\D:除了数字都可以</li><li>\s:表示空格，tab键</li><li>\S:除了空白符号</li><li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li><li>\W: 除了</li><li><em>： 表示前面内容重复零次或者多次， \w</em></li><li>+: 表示前面内容至少出现一次</li><li>？： 前面才出现的内容零次或者一次</li><li>{m,n}:允许前面内容出现最少m次，最多n次</li><li>^:匹配字符串的开始</li><li>$:匹配字符串的结尾</li><li>\b:匹配单词的边界</li><li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p><pre><code>验证一个数字： ^\d$必须有一个数字，最少一位：^\d+$只能出现数字，且位数为5-10位： ^\d{5,10}$注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$只能输入英文字符和数字： ^[A-Za-z0-9]$验证qq号码： [0-9]{5,12}</code></pre></li><li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p></li><li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li><li>|: 左右任意一个</li><li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li><li>(?P=name): 引用分组， </li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;正则表达式-RegularExpression-re&quot;&gt;&lt;a href=&quot;#正则表达式-RegularExpression-re&quot; class=&quot;headerlink&quot; title=&quot;正则表达式(RegularExpression, re)&quot;&gt;&lt;/a&gt;正则表达式(
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note-xpath/"/>
     <id>http://yoursite.com/2018/06/11/note-xpath/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -336,6 +315,27 @@
         &lt;h1 id=&quot;XPath&quot;&gt;&lt;a href=&quot;#XPath&quot; class=&quot;headerlink&quot; title=&quot;XPath&quot;&gt;&lt;/a&gt;XPath&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;在XML文件中查找信息的一套规则/语言，根据XML的元素或者属性进行遍历&lt;/li&gt;
 &lt;li&gt;&lt;a hre
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note-%E6%AD%A3%E5%88%99/"/>
+    <id>http://yoursite.com/2018/06/11/note-正则/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul><li>是一个计算机科学的概念</li><li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li><li>常常用来检索，替换某些模式的文本</li></ul><h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul><li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li><li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li><li>\d: 任意一个数字</li><li>\D:除了数字都可以</li><li>\s:表示空格，tab键</li><li>\S:除了空白符号</li><li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li><li>\W: 除了</li><li><em>： 表示前面内容重复零次或者多次， \w</em></li><li>+: 表示前面内容至少出现一次</li><li>？： 前面才出现的内容零次或者一次</li><li>{m,n}:允许前面内容出现最少m次，最多n次</li><li>^:匹配字符串的开始</li><li>$:匹配字符串的结尾</li><li>\b:匹配单词的边界</li><li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p><pre><code>验证一个数字： ^\d$必须有一个数字，最少一位：^\d+$只能出现数字，且位数为5-10位： ^\d{5,10}$注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$只能输入英文字符和数字： ^[A-Za-z0-9]$验证qq号码： [0-9]{5,12}</code></pre></li><li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p></li><li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li><li>|: 左右任意一个</li><li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li><li>(?P=name): 引用分组， </li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;正则表达式-RegularExpression-re&quot;&gt;&lt;a href=&quot;#正则表达式-RegularExpression-re&quot; class=&quot;headerlink&quot; title=&quot;正则表达式(RegularExpression, re)&quot;&gt;&lt;/a&gt;正则表达式(
       
     
     </summary>

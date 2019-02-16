@@ -66,8 +66,6 @@
   <link rel="manifest" href="/images/manifest.json">
 
 
-  <meta name="msapplication-config" content="/images/browserconfig.xml">
-
 
 
   <meta name="keywords" content="Hexo, NexT">
@@ -263,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 9/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-json/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Litchip">
@@ -282,7 +280,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/11/note 9/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2018/06/11/note-json/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -334,44 +332,54 @@
       
         
           
-            <h1 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h1><ul>
-<li>调试流程：单元测试-&gt;集成测试-&gt;交测试部</li>
-<li>分类：<ul>
-<li>静态调试：看</li>
-<li>动态调试：需要外部输入<h1 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h1></li>
+            <h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><ul>
+<li>在线工具<ul>
+<li><a href="https://www.sojson.com/" target="_blank" rel="noopener">https://www.sojson.com/</a></li>
+<li><a href="http://www.w3school.com.cn/json/" target="_blank" rel="noopener">http://www.w3school.com.cn/json/</a></li>
+<li><a href="http://www.runoob.com/json/json-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/json/json-tutorial.html</a></li>
 </ul>
 </li>
-<li>推荐文章<ul>
-<li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="noopener">官方网页（英文)</a></li>
-<li><a href="http://blog.csdn.net/carolzhang8406/article/details/6923997" target="_blank" rel="noopener">pdb模块介绍</a></li>
-<li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/" target="_blank" rel="noopener">pdb调试技巧</a><ul>
-<li>简单使用的介绍，推荐优先阅读</li>
+<li>JSON(JavaScriptObjectNotation) </li>
+<li>轻量级的数据交换格式，基于ECMAScript</li>
+<li>json格式是一个键值对形式的数据集    <ul>
+<li>key: 字符串</li>
+<li>value:字符串，数字，列表，json</li>
+<li>json使用大括号包裹</li>
+<li>键值对直接用都好隔开</li>
 </ul>
 </li>
-<li><a href="http://blog.csdn.net/wyb_009/article/details/8896744" target="_blank" rel="noopener">pdb详细中文介绍</a><ul>
-<li>主要是帮助文件的中文翻译</li>
+</ul>
+<pre><code>student={
+    &quot;name&quot;: &quot;wangdapeng&quot;,
+    &quot;age&quot;: 18,
+    &quot;mobile&quot;:&quot;13260446055&quot;
+    }
+</code></pre><ul>
+<li>json和python格式的对应<ul>
+<li>字符串：字符串</li>
+<li>数字：数字</li>
+<li>队列：list</li>
+<li>对象：dict</li>
+<li>布尔值：布尔值</li>
 </ul>
 </li>
-<li><a href="https://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html" target="_blank" rel="noopener">调试案例01</a></li>
-<li><a href="http://python.jobbole.com/81184/" target="_blank" rel="noopener">调试案例02</a></li>
+<li><p>python for json</p>
+<ul>
+<li>json包</li>
+<li>json和python对象的转换<ul>
+<li>json.dumps():对数据编码，把python格式表示成json格式</li>
+<li>json.loads(): 对数据解码，把json格式转换成python格式</li>
 </ul>
 </li>
-<li>pdb: python 调试库    </li>
+<li><p>python读取json文件</p>
+<ul>
+<li>json.dump(): 把内容写入文件</li>
+<li>json.load(): 把json文件内容读入python</li>
 </ul>
-<h1 id="pycharm调试"><a href="#pycharm调试" class="headerlink" title="pycharm调试"></a>pycharm调试</h1><ul>
-<li>run/debug模式 </li>
-<li><p>案例01.py   </p>
 </li>
-<li><p>断点：程序的某一行，程序在debug模式下，遇到断点就会暂停</p>
+<li><p>案例v07</p>
 </li>
-</ul>
-<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul>
-<li>推荐文档<ul>
-<li><a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" target="_blank" rel="noopener">官方测试文档集合</a></li>
-<li><a href="http://blog.csdn.net/a542551042/article/details/46696635" target="_blank" rel="noopener">测试案例01</a></li>
-<li><a href="https://wiki.python.org/moin/PyUnit" target="_blank" rel="noopener">PyUnit</a></li>
-<li><a href="http://www.jb51.net/article/64119.htm" target="_blank" rel="noopener">PyUnit详细讲解案例02</a></li>
-<li><a href="https://www.cnblogs.com/iamjqy/p/7155315.html" target="_blank" rel="noopener">测试案例03</a> </li>
+<li>案例v08读取文件 </li>
 </ul>
 </li>
 </ul>
@@ -743,161 +751,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-正则/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Litchip">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Litchip">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/11/note-正则/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
-                2018-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul>
-<li>是一个计算机科学的概念</li>
-<li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li>
-<li>常常用来检索，替换某些模式的文本</li>
-</ul>
-<h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul>
-<li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li>
-<li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li>
-<li>\d: 任意一个数字</li>
-<li>\D:除了数字都可以</li>
-<li>\s:表示空格，tab键</li>
-<li>\S:除了空白符号</li>
-<li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li>
-<li>\W: 除了</li>
-<li><em>： 表示前面内容重复零次或者多次， \w</em></li>
-<li>+: 表示前面内容至少出现一次</li>
-<li>？： 前面才出现的内容零次或者一次</li>
-<li>{m,n}:允许前面内容出现最少m次，最多n次</li>
-<li>^:匹配字符串的开始</li>
-<li>$:匹配字符串的结尾</li>
-<li>\b:匹配单词的边界</li>
-<li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p>
-<pre><code>验证一个数字： ^\d$
-必须有一个数字，最少一位：^\d+$
-只能出现数字，且位数为5-10位： ^\d{5,10}$
-注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$
-只能输入英文字符和数字： ^[A-Za-z0-9]$
-验证qq号码： [0-9]{5,12}
-</code></pre></li>
-<li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p>
-</li>
-<li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li>
-<li>|: 左右任意一个</li>
-<li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li>
-<li>(?P=name): 引用分组， </li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-xpath/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1013,6 +866,161 @@ School//Age:选取School后代中所有Age节点
 <pre><code>//Student[@score] | //Teacher: 选取带有属性score的Student节点和Teahcer节点
 </code></pre></li>
 <li>其余不常见XPath运算符号包括+, - , *, div, &gt;, &lt;       </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note-正则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Litchip">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Litchip">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/11/note-正则/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul>
+<li>是一个计算机科学的概念</li>
+<li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li>
+<li>常常用来检索，替换某些模式的文本</li>
+</ul>
+<h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul>
+<li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li>
+<li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li>
+<li>\d: 任意一个数字</li>
+<li>\D:除了数字都可以</li>
+<li>\s:表示空格，tab键</li>
+<li>\S:除了空白符号</li>
+<li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li>
+<li>\W: 除了</li>
+<li><em>： 表示前面内容重复零次或者多次， \w</em></li>
+<li>+: 表示前面内容至少出现一次</li>
+<li>？： 前面才出现的内容零次或者一次</li>
+<li>{m,n}:允许前面内容出现最少m次，最多n次</li>
+<li>^:匹配字符串的开始</li>
+<li>$:匹配字符串的结尾</li>
+<li>\b:匹配单词的边界</li>
+<li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p>
+<pre><code>验证一个数字： ^\d$
+必须有一个数字，最少一位：^\d+$
+只能出现数字，且位数为5-10位： ^\d{5,10}$
+注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$
+只能输入英文字符和数字： ^[A-Za-z0-9]$
+验证qq号码： [0-9]{5,12}
+</code></pre></li>
+<li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p>
+</li>
+<li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li>
+<li>|: 左右任意一个</li>
+<li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li>
+<li>(?P=name): 引用分组， </li>
 </ul>
 
           
