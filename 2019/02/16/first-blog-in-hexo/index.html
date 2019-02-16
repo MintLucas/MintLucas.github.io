@@ -1,186 +1,789 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+
+
 
   
-  <title>first blog in hexo | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+
+
+<html class="theme-next pisces use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 模块 一个模块就是一个包含pytho代码的文件， 后缀名成是.py就可以，模块就是个python文件 为什么我们用模块 程序太大，编写维护非常不方便，需要拆分 模块可以增加代码重复利用的方式 当做命名空间使用，避免命名冲突 如何定义模块 模块就是一个普通文件，所以任何代码可以直接书写， 不过根据模块的规范，最好在木块中编写以下内容 函数（单一功能） 类（相似功能的组合，或者类似业务模块）">
+<meta property="og:type" content="article">
 <meta property="og:title" content="first blog in hexo">
 <meta property="og:url" content="http://yoursite.com/2019/02/16/first-blog-in-hexo/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 模块 一个模块就是一个包含pytho代码的文件， 后缀名成是.py就可以，模块就是个python文件 为什么我们用模块 程序太大，编写维护非常不方便，需要拆分 模块可以增加代码重复利用的方式 当做命名空间使用，避免命名冲突 如何定义模块 模块就是一个普通文件，所以任何代码可以直接书写， 不过根据模块的规范，最好在木块中编写以下内容 函数（单一功能） 类（相似功能的组合，或者类似业务模块）">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-16T07:07:41.796Z">
+<meta property="og:updated_time" content="2019-02-16T07:11:19.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="first blog in hexo">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-first-blog-in-hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/16/first-blog-in-hexo/" class="article-date">
-  <time datetime="2019-02-16T07:07:41.000Z" itemprop="datePublished">2019-02-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      first blog in hexo
-    </h1>
+<meta name="twitter:description" content="1. 模块 一个模块就是一个包含pytho代码的文件， 后缀名成是.py就可以，模块就是个python文件 为什么我们用模块 程序太大，编写维护非常不方便，需要拆分 模块可以增加代码重复利用的方式 当做命名空间使用，避免命名冲突 如何定义模块 模块就是一个普通文件，所以任何代码可以直接书写， 不过根据模块的规范，最好在木块中编写以下内容 函数（单一功能） 类（相似功能的组合，或者类似业务模块）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/16/first-blog-in-hexo/">
+
+
+
+
+
+  <title>first blog in hexo | Hexo</title>
   
 
-      </header>
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
     
-    <div class="article-entry" itemprop="articleBody">
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
       
         
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/first-blog-in-hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">first blog in hexo</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-16T15:07:41+08:00">
+                2019-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-模块"><a href="#1-模块" class="headerlink" title="1. 模块"></a>1. 模块</h1><ul>
+<li>一个模块就是一个包含pytho代码的文件， 后缀名成是.py就可以，模块就是个python文件</li>
+<li>为什么我们用模块</li>
+<li>程序太大，编写维护非常不方便，需要拆分</li>
+<li>模块可以增加代码重复利用的方式</li>
+<li>当做命名空间使用，避免命名冲突</li>
+<li>如何定义模块</li>
+<li>模块就是一个普通文件，所以任何代码可以直接书写，</li>
+<li>不过根据模块的规范，最好在木块中编写以下内容</li>
+<li>函数（单一功能）</li>
+<li>类（相似功能的组合，或者类似业务模块） </li>
+<li><p>测试代码</p>
+</li>
+<li><p>如何使用模块</p>
+</li>
+<li>模块直接导入</li>
+<li>假如模块名称直接以数字开头，需要借助importlib帮助</li>
+<li>语法</li>
+</ul>
+<p>import module_name<br>module_name.function_name<br>module_name.class_name</p>
+<ul>
+<li>案例 01, 02,p01,p02</li>
+<li>import 模块 as 别名</li>
+<li>导入的同时给模块起一个别名</li>
+<li>其余用法跟第一种相同    </li>
+<li><p>案例 p03</p>
+</li>
+<li><p>from module_name import func_name, class_name</p>
+</li>
+<li>按上述方法有选择性的导入</li>
+<li>使用的时候可以直接使用导入的内容，不需要前缀</li>
+<li><p>案例 p04</p>
+</li>
+<li><p>from module_name import *</p>
+</li>
+<li>这样不用写前缀相当于直接copy引入的模块  </li>
+<li>前缀防止命名污染</li>
+<li>案例 p05</li>
+<li><code>if __name__ == &quot;__main__</code> 的使用</li>
+<li>可以有效避免模块代码被导入的时候被动执行的问题</li>
+<li>建议所欲程序的入口都以此代码为入口</li>
+</ul>
+<h1 id="2-模块的搜索路径和存储"><a href="#2-模块的搜索路径和存储" class="headerlink" title="2. 模块的搜索路径和存储"></a>2. 模块的搜索路径和存储</h1><ul>
+<li>什么是模块的搜索路径：</li>
+<li>加载模块的时候，系统会在那些地方寻找此模块</li>
+<li>系统默认的模块搜索路径</li>
+</ul>
+<p>import sys<br>sys.path 属性可以获取路径列表</p>
+<h1 id="案例-p06-py"><a href="#案例-p06-py" class="headerlink" title="案例 p06.py"></a>案例 p06.py</h1><ul>
+<li>添加搜索路径</li>
+</ul>
+<p>sys.path.append(dir)</p>
+<ul>
+<li>模块的加载顺序</li>
+</ul>
+<ol>
+<li>上搜索内存中已经加载好的模块</li>
+<li>搜索python的内置模块</li>
+<li>搜索sys.path路径 </li>
+</ol>
+<h1 id="包"><a href="#包" class="headerlink" title="包"></a>包</h1><ul>
+<li>包是一种组织管理代码的方式，包里面存放的是模块<br>-　用于将模块包含在一起的文件夹就是包</li>
+<li>自定义包的结构</li>
+</ul>
+<p>|—包<br>|—|— <strong>init</strong>.py  包的标志文件<br>|—|— 模块1<br>|—|— 模块2<br>|—|— 子包(子文件夹)<br>|—|—|— <strong>init</strong>.py  包的标志文件<br>|—|—|— 子包模块1<br>|—|—|— 子包模块2</p>
+<ul>
+<li>包的导入操作</li>
+<li>import package_name</li>
+<li>直接导入一个包，可以使用<strong>init</strong>.py中的内容</li>
+<li>使用方式是：</li>
+</ul>
+<p>package_name.func_name<br>package_name.class_name.func_name()</p>
+<ul>
+<li>此种方式的访问内容是  </li>
+<li>案例 pkg01, p07.py  </li>
+<li>import package_name as p</li>
+<li>具体用法跟作用方式，跟上述简单导入一致  </li>
+<li><p>注意的是此种方法是默认对<strong>init</strong>.py内容的导入    </p>
+</li>
+<li><p>import package.module</p>
+</li>
+<li>导入包中某一个具体的模块，</li>
+<li>使用方法</li>
+</ul>
+<p>package.module.func_name<br>package.module.class.fun()<br>package.module.class.var</p>
+<ul>
+<li><p>案例 p08.py</p>
+</li>
+<li><p>import package.module as pm </p>
+</li>
+</ul>
+<ul>
+<li>from … import 导入</li>
+<li>from package import module1, module2, module3, ….. </li>
+<li>此种导入方法不执行<code>__init__</code>的内容</li>
+</ul>
+<p>from pkg01 import p01<br>p01.sayHello()</p>
+<ul>
+<li>from package import *</li>
+<li>导入当前包 <code>__init__.py</code>文件中所有的函数和类</li>
+<li>使用方法</li>
+</ul>
+<p>func_name()<br>class_name.func_name()<br>class_name.var</p>
+<ul>
+<li><p>案例p09.py， 注意此种导入的具体内容</p>
+</li>
+<li><p>from package.module import *</p>
+</li>
+<li>导入包中指定的模块的所有内容    </li>
+<li>使用方法</li>
+</ul>
+<p>func_name()<br>class_name.func_name()  </p>
+<ul>
+<li>在开发环境中经常会所以用其他模块，可以在当前包中直接导入其他模块中的内容</li>
+<li><p>import 完整的包或者模块的路径</p>
+</li>
+<li><p><code>__all__</code> 的用法</p>
+</li>
+<li>在使用from package import <em> 的时候， </em> 可以导入的内容  </li>
+<li><code>__init__.py</code>中如果文件为空， 或者没有 <code>__all__</code>， 那么只可以把<code>__init__</code>中的内容导入</li>
+<li><code>__init__</code> 如果设置了<code>__all__</code>的值，那么则按照<code>__all__</code> 指定的子包或者模块进行加载<br>如此则不会载入<code>__init__</code>中的内容</li>
+<li><code>__all__=[&#39;module1&#39;, &#39;module2&#39;, &#39;package1&#39;.........]</code></li>
+</ul>
+<h1 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h1><ul>
+<li>用于区分不同位置不同功能但相同名称的函数或者变量的一个特定前缀</li>
+<li>作用是防止命名冲突</li>
+</ul>
+<p>setName()<br>Student.setName()<br>Dog.setName()</p>
+
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/16/first-blog-in-hexo/" data-id="cjs753vc70000dw6eu91wa057" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/16/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
       
       
     </footer>
   </div>
   
-    
-<nav id="article-nav">
   
   
-    <a href="/2019/02/16/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
+  </article>
 
-  
-</article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
 
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    <div class="post-spread">
+      
     </div>
   </div>
 
 
+          </div>
+          
+
+
+          
+
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
+
+
+
+        </div>
         
-          <li>
-            <a href="/2019/02/16/first-blog-in-hexo/">first blog in hexo</a>
-          </li>
-        
-          <li>
-            <a href="/2019/02/16/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
     </div>
   </div>
 
-  
-</aside>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-模块"><span class="nav-number">1.</span> <span class="nav-text">1. 模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-模块的搜索路径和存储"><span class="nav-number">2.</span> <span class="nav-text">2. 模块的搜索路径和存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例-p06-py"><span class="nav-number">3.</span> <span class="nav-text">案例 p06.py</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包"><span class="nav-number">4.</span> <span class="nav-text">包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命名空间"><span class="nav-number">5.</span> <span class="nav-text">命名空间</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-      <footer id="footer">
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
   
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
