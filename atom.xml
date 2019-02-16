@@ -62,19 +62,45 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%202/"/>
-    <id>http://yoursite.com/2018/06/11/note 2/</id>
+    <link href="http://yoursite.com/2018/06/11/LY-01/"/>
+    <id>http://yoursite.com/2018/06/11/LY-01/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="LOG"><a href="#LOG" class="headerlink" title="LOG"></a>LOG</h1><ul><li><a href="https://www.cnblogs.com/yyds/p/6901864.html" target="_blank" rel="noopener">https://www.cnblogs.com/yyds/p/6901864.html</a></li><li>logging</li><li>logging模块提供模块级别的函数记录日志</li><li>包括四大组件</li></ul><h2 id="1-日志相关概念"><a href="#1-日志相关概念" class="headerlink" title="1. 日志相关概念"></a>1. 日志相关概念</h2><ul><li>日志</li><li>日志的级别（level）<ul><li>不同的用户关注不同的程序信息</li><li>DEBUG</li><li>INFO</li><li>NOTICE</li><li>WARNING</li><li>ERROR</li><li>CRITICAL</li><li>ALERT</li><li>EMERGENCY</li></ul></li><li>IO操作=&gt;不要频繁操作</li><li>LOG的作用<ul><li>调试</li><li>了解软件的运行情况</li><li>分析定位问题</li></ul></li><li>日志信息<ul><li>time</li><li>地点</li><li>level</li><li>内容</li></ul></li><li>成熟的第三方日志<ul><li>log4j</li><li>log4php</li><li>logging<h1 id="2-Logging模块"><a href="#2-Logging模块" class="headerlink" title="2 Logging模块"></a>2 Logging模块</h1></li></ul></li><li>日志级别<ul><li>级别可自定义</li><li>DEBUG</li><li>INFO</li><li>WARNING</li><li>ERROR</li><li>CRITICAL</li></ul></li><li>初始化/写日志实例需要指定级别， 只有当级别等于或高于指定级别才被记录</li><li>使用方式<ul><li>直接使用logging(封装了其他组件)</li><li>loging四大组件直接定制</li></ul></li></ul><h1 id="2-1-logging模块级别的日志"><a href="#2-1-logging模块级别的日志" class="headerlink" title="2.1 logging模块级别的日志"></a>2.1 logging模块级别的日志</h1><ul><li><p>使用以下几个函数</p><ul><li>logging.debug(msg, *args, **kwargs)     创建一条严重级别为DEBUG的日志记录</li><li>logging.info(msg, *args, **kwargs)     创建一条严重级别为INFO的日志记录</li><li>logging.warning(msg, *args, **kwargs)     创建一条严重级别为WARNING的日志记录</li><li>logging.error(msg, *args, **kwargs)     创建一条严重级别为ERROR的日志记录</li><li>logging.critical(msg, *args, **kwargs)     创建一条严重级别为CRITICAL的日志记录</li><li>logging.log(level, *args, **kwargs)     创建一条严重级别为level的日志记录</li><li>logging.basicConfig(**kwargs)     对root logger进行一次性配置</li></ul></li><li><p>logging.basicConfig(**kwargs)     对root logger进行一次性配置</p><ul><li>只在第一次调用的时候起作用</li><li>不配置logger则使用默认值<ul><li>输出： sys.stderr</li><li>级别： WARNING</li><li>格式： level:log_name:content</li></ul></li></ul></li><li>案例 01      </li><li>format参数</li></ul><pre><code>asctime     %(asctime)s     日志事件发生的时间--人类可读时间，如：2003-07-08 16:49:45,896created     %(created)f     日志事件发生的时间--时间戳，就是当时调用time.time()函数返回的值relativeCreated     %(relativeCreated)d     日志事件发生的时间相对于logging模块加载时间的相对毫秒数（目前还不知道干嘛用的）msecs     %(msecs)d     日志事件发生事件的毫秒部分levelname     %(levelname)s     该日志记录的文字形式的日志级别（&apos;DEBUG&apos;, &apos;INFO&apos;, &apos;WARNING&apos;, &apos;ERROR&apos;, &apos;CRITICAL&apos;）levelno     %(levelno)s     该日志记录的数字形式的日志级别（10, 20, 30, 40, 50）name     %(name)s     所使用的日志器名称，默认是&apos;root&apos;，因为默认使用的是 rootLoggermessage     %(message)s     日志记录的文本内容，通过 msg % args计算得到的pathname     %(pathname)s     调用日志记录函数的源码文件的全路径filename     %(filename)s     pathname的文件名部分，包含文件后缀module     %(module)s     filename的名称部分，不包含后缀lineno     %(lineno)d     调用日志记录函数的源代码所在的行号funcName     %(funcName)s     调用日志记录函数的函数名process     %(process)d     进程IDprocessName     %(processName)s     进程名称，Python 3.1新增thread     %(thread)d     线程IDthreadName     %(thread)s     线程名称 </code></pre><h1 id="2-1-logging模块的处理流程"><a href="#2-1-logging模块的处理流程" class="headerlink" title="2.1 logging模块的处理流程"></a>2.1 logging模块的处理流程</h1><ul><li>四大组件<ul><li>日志器(Logger): 产生日志的一个接口   </li><li>处理器(Handler):把产生的日志发送到相应的目的地</li><li>过滤器(Filter): 更精细的控制那些日志输出</li><li>格式器(Formatter): 对输出信息进行格式化</li></ul></li><li><p>Logger</p><ul><li>产生一个日志</li><li><p>操作</p><pre><code>Logger.setLevel()     设置日志器将会处理的日志消息的最低严重级别Logger.addHandler() 和 Logger.removeHandler()     为该logger对象添加 和 移除一个handler对象Logger.addFilter() 和 Logger.removeFilter()     为该logger对象添加 和 移除一个filter对象Logger.debug: 产生一条debug级别的日志，同理，info，error，等Logger.exception(): 创建类似于Logger.error的日志消息Logger.log():获取一个明确的日志level参数类创建一个日志记录</code></pre></li><li>如何得到一个logger对象<ul><li>实例化</li><li>logging.getLogger()       </li></ul></li></ul></li><li><p>Handler</p><ul><li>把log发送到制定位置</li><li>方法<ul><li>setLevel</li><li>setFormat</li><li>addFilter, removeFilter</li></ul></li><li><p>不需要直接使用，Handler是基类</p><pre><code>logging.StreamHandler     将日志消息发送到输出到Stream，如std.out, std.err或任何file-like对象。logging.FileHandler     将日志消息发送到磁盘文件，默认情况下文件大小会无限增长logging.handlers.RotatingFileHandler     将日志消息发送到磁盘文件，并支持日志文件按大小切割logging.hanlders.TimedRotatingFileHandler     将日志消息发送到磁盘文件，并支持日志文件按时间切割logging.handlers.HTTPHandler     将日志消息以GET或POST的方式发送给一个HTTP服务器logging.handlers.SMTPHandler     将日志消息发送给一个指定的email地址logging.NullHandler     该Handler实例会忽略error messages，通常被想使用logging的library开发者使用来避免&apos;No handlers could be found for logger XXX&apos;信息的出现。</code></pre></li></ul></li><li><p>Format类</p><ul><li>直接实例化</li><li>可以继承Format添加特殊内容</li><li>三个参数<ul><li>fmt：指定消息格式化字符串，如果不指定该参数则默认使用message的原始值</li><li>datefmt：指定日期格式字符串，如果不指定该参数则默认使用”%Y-%m-%d %H:%M:%S”</li><li>style：Python 3.2新增的参数，可取值为 ‘%’, ‘{‘和 ‘$’，如果不指定该参数则默认使用’%’   </li></ul></li></ul></li><li>Filter类<ul><li>可以被Handler和Logger使用</li><li>控制传递过来的信息的具体内容</li><li>案例02</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><ul><li>管理软硬件资源，给运行软件提供一个统一调用平台</li><li>操作系统分类<ul><li>windows</li><li>Unix<ul><li>Minix，Linus-Linux</li><li>MacOS</li></ul></li></ul></li><li>如果内存大于等于8G，尝试使用虚拟机</li><li>否则，windows</li><li>如果是苹果系统，那就苹果系统</li><li><p>虚拟机</p><ul><li>虚拟的机器，是软件模拟出来的软件环境，是一个完全独立的系统</li><li>我们的虚拟机是xubuntu16.04 LTS</li><li>使用步骤：<ul><li>下载打包好的虚拟环境，解压</li><li>解压后会得到一个vdi格式的大大大文件，13个多G</li><li>下载virtualbox，不是vmware，官网地址：<a href="http://www.virtualbox.org" target="_blank" rel="noopener">www.virtualbox.org</a><ul><li>下载跟你目前操作系统想对应的软件</li><li>安装完毕</li><li>载入虚拟操作系统，即已经下载后的集成环境</li><li>容易出现问题：<ul><li>没有64位系统以供选择：打开bios虚拟化</li><li>打开后一直黑屏没反应：集成系统是64位，你建立的32位系统</li></ul></li></ul></li></ul></li></ul></li><li><p>自行安装</p><ul><li>安装套件anaconda+pycharm</li><li>安装anaconda</li><li>pycharm</li></ul></li></ul><h1 id="GIT-起源"><a href="#GIT-起源" class="headerlink" title="GIT - 起源"></a>GIT - 起源</h1><ul><li>个人文件的版本控制</li><li>多方协作</li><li>linus搞定的git</li><li>2008宁github上线</li><li>关于版本控制的产品：<ul><li>集中式：cvs，svn</li><li>分布式：github开源，bitbuckets私人 </li><li>分享精神： blog+github</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;LOG&quot;&gt;&lt;a href=&quot;#LOG&quot; class=&quot;headerlink&quot; title=&quot;LOG&quot;&gt;&lt;/a&gt;LOG&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/yyds/p/6901864.html&quot; target
+        &lt;h1 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;管理软硬件资源，给运行软件提供一个统一调用平台&lt;/li&gt;
+&lt;li&gt;操作系统分类&lt;ul&gt;
+&lt;li&gt;windows&lt;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%203/"/>
+    <id>http://yoursite.com/2018/06/11/note 3/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul><li></li></ul><h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul><li>主要作为技术验证</li><li>画出一个舞台，包括背景，包括一个小飞机</li></ul><h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul><li>小蜜蜂会动，从上往下慢慢的飞</li><li>能控制小蜜蜂左右移动</li><li>入场算法<ul><li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li><li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li></ul></li><li><p>移动速度问题</p><ul><li>包含x，y两个值</li><li>对于绝大多数物体，则只考虑y值</li><li>但是，蜜蜂和英雄是特例</li><li>蜜蜂是从上向下移动的同时具有横向运动</li><li>英雄的移动由上下左右键盘控制</li><li>速度应该是一个tuple=(x,y)</li></ul></li><li><p>方向问题</p><ul><li>具体移动方向由x，y控制</li><li>值只能是-1， 0， 1三个就好</li><li>应该是一个tuple</li><li>例如（-1， 0)表示水平向左移动</li><li>（0,1）表明向下垂直运动</li></ul></li></ul><h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul><li>重构代码，使用oop方法<ul><li>世界的构成<ul><li>小飞机</li><li>大飞机</li><li>小蜜蜂</li><li>子弹</li><li>英雄机</li><li>天空</li></ul></li><li>配置文件<ul><li>可以通过一次性配置来让程序正确运行</li><li>降低了代码软件工程方面的成本</li><li>python的配置文件包： configparser<ul><li>以前就叫ConfigParser </li><li>配置文件一般以cfg或者ini结尾</li><li>语法：<ul><li>中括号： 表示的是section</li><li>每个section下是键值对</li><li>键值对用等号或者冒号链接</li></ul></li><li>get(section_nmame, key_name),返回相应的值</li><li>getint(section_nmame, key_name),返回相应的整数值</li></ul></li></ul></li></ul></li></ul><ul><li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li><li>程序可以正常产生飞行物，包括英雄，子弹，云层</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;飞机大战&quot;&gt;&lt;a href=&quot;#飞机大战&quot; class=&quot;headerlink&quot; title=&quot;飞机大战&quot;&gt;&lt;/a&gt;飞机大战&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
       
     
     </summary>
@@ -108,22 +134,19 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%205/"/>
-    <id>http://yoursite.com/2018/06/11/note 5/</id>
+    <link href="http://yoursite.com/2018/06/11/note%202/"/>
+    <id>http://yoursite.com/2018/06/11/note 2/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul><li>xubuntu 16.04</li><li>anaconda</li><li>pycharm</li><li>python3.6</li><li><a href="https://www.cnblogs.com/jokerbj/p/7460260.html" target="_blank" rel="noopener">https://www.cnblogs.com/jokerbj/p/7460260.html</a></li><li><a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/python/UnderstandingGIL.pdf</a></li></ul><h1 id="多线程-vs-多进程"><a href="#多线程-vs-多进程" class="headerlink" title="多线程 vs 多进程"></a>多线程 vs 多进程</h1><ul><li>程序：一堆代码以文本形式存入一个文档</li><li>进程： 程序运行的一个状态<ul><li>包含地址空间，内存，数据栈等</li><li>每个进程由自己完全独立的运行环境，多进程共享数据是一个问题</li></ul></li><li>线程<ul><li>一个进程的独立运行片段，一个进程可以由多个线程</li><li>轻量化的进程</li><li>一个进程的多个现成间共享数据和上下文运行环境</li><li>共享互斥问题</li></ul></li><li><p>全局解释器锁（GIL）</p><ul><li>Python代码的执行是由python虚拟机进行控制</li><li>在主循环中稚嫩更有一个控制线程在执行</li></ul></li><li><p>Python包</p><ul><li>thread：有问题，不好用，python3改成了_thread</li><li>threading: 通行的包</li><li>案例01: 顺序执行，耗时比较长</li><li>案例02： 改用多线程，缩短总时间，使用_thread</li><li>案例03： 多线程，传参数</li></ul></li><li><p>threading的使用</p><ul><li>直接利用threading.Thread生成Thread实例<ol><li>t = threading.Thread(target=xxx, args=(xxx,))</li><li>t.start():启动多线程</li><li>t.join(): 等待多线程执行完成</li><li>案例04</li><li>案例05: 加入join后比较跟案例04的结果的异同</li></ol><ul><li>守护线程-daemon<ul><li>如果在程序中将子线程设置成守护现成，则子线程会在主线程结束的时候自动退出</li><li>一般认为，守护线程不中要或者不允许离开主线程独立运行</li><li>守护线程案例能否有效果跟环境相关</li><li>案例06非守护线程</li><li>案例07守护线程            </li></ul></li><li>线程常用属性<ul><li>threading.currentThread：返回当前线程变量</li><li>threading.enumerate:返回一个包含正在运行的线程的list，正在运行的线程指的是线程启动后，结束前的状态</li><li>threading.activeCount: 返回正在运行的线程数量，效果跟 len(threading.enumerate)相同</li><li>thr.setName: 给线程设置名字</li><li>thr.getName: 得到线程的名字</li></ul></li></ul></li><li>直接继承自threading.Thread<ul><li>直接继承Thread</li><li>重写run函数</li><li>类实例可以直接运行</li><li>案例09</li><li>案例10， 工业风案例</li></ul></li></ul></li><li><p>共享变量</p><ul><li>共享变量： 当多个现成同时访问一个变量的时候，会产生共享变量的问题</li><li>案例11</li><li>解决变量：锁，信号灯，</li><li>锁（Lock）：<ul><li>是一个标志，表示一个线程在占用一些资源</li><li>使用方法<ul><li>上锁</li><li>使用共享资源，放心的用</li><li>取消锁，释放锁</li></ul></li><li>案例12</li><li>锁谁： 哪个资源需要多个线程共享，锁哪个</li><li>理解锁：锁其实不是锁住谁，而是一个令牌</li></ul></li><li>线程安全问题：<ul><li>如果一个资源/变量，他对于多线程来讲，不用加锁也不会引起任何问题，则称为线程安全</li><li>线程不安全变量类型： list, set, dict</li><li>线程安全变量类型： queue</li></ul></li><li>生产者消费者问题<ul><li>一个模型，可以用来搭建消息队列， </li><li>queue是一个用来存放变量的数据结构，特点是先进先出，内部元素排队，可以理解成一个特殊的list</li></ul></li><li>死锁问题, 案例14</li><li>锁的等待时间问题， v15</li><li>semphore<ul><li>允许一个资源最多由几个多线程同时使用</li><li>v16</li></ul></li><li><p>threading.Timer</p><ul><li>案例 17</li><li>Timer是利用多线程，在指定时间后启动一个功能</li></ul></li><li><p>可重入锁</p><ul><li>一个锁，可以被一个线程多次申请</li><li>主要解决递归调用的时候，需要申请锁的情况</li><li>案例18</li></ul></li></ul></li></ul><h1 id="线程替代方案"><a href="#线程替代方案" class="headerlink" title="线程替代方案"></a>线程替代方案</h1><ul><li>subprocess<ul><li>完全跳过线程，使用进程</li><li>是派生进程的主要替代方案</li><li>python2.4后引入</li></ul></li><li><p>multiprocessiong</p><ul><li>使用threadiing借口派生，使用子进程</li><li>允许为多核或者多cpu派生进程，接口跟threading非常相似</li><li>python2.6</li></ul></li><li><p>concurrent.futures</p><ul><li>新的异步执行模块</li><li>任务级别的操作</li><li>python3.2后引入<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1></li></ul></li><li>进程间通讯(InterprocessCommunication, IPC )</li><li>进程之间无任何共享状态</li><li><p>进程的创建</p><ul><li>直接生成Process实例对象， 案例19</li><li>派生子类， 案例20</li></ul></li><li><p>在os中查看pid，ppid以及他们的关系              </p><ul><li>案例21</li></ul></li><li>生产者消费者模型<ul><li>JoinableQueue</li><li>案例22</li><li>队列中哨兵的使用, 案例23 </li><li>哨兵的改进， 案例24</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="LOG"><a href="#LOG" class="headerlink" title="LOG"></a>LOG</h1><ul><li><a href="https://www.cnblogs.com/yyds/p/6901864.html" target="_blank" rel="noopener">https://www.cnblogs.com/yyds/p/6901864.html</a></li><li>logging</li><li>logging模块提供模块级别的函数记录日志</li><li>包括四大组件</li></ul><h2 id="1-日志相关概念"><a href="#1-日志相关概念" class="headerlink" title="1. 日志相关概念"></a>1. 日志相关概念</h2><ul><li>日志</li><li>日志的级别（level）<ul><li>不同的用户关注不同的程序信息</li><li>DEBUG</li><li>INFO</li><li>NOTICE</li><li>WARNING</li><li>ERROR</li><li>CRITICAL</li><li>ALERT</li><li>EMERGENCY</li></ul></li><li>IO操作=&gt;不要频繁操作</li><li>LOG的作用<ul><li>调试</li><li>了解软件的运行情况</li><li>分析定位问题</li></ul></li><li>日志信息<ul><li>time</li><li>地点</li><li>level</li><li>内容</li></ul></li><li>成熟的第三方日志<ul><li>log4j</li><li>log4php</li><li>logging<h1 id="2-Logging模块"><a href="#2-Logging模块" class="headerlink" title="2 Logging模块"></a>2 Logging模块</h1></li></ul></li><li>日志级别<ul><li>级别可自定义</li><li>DEBUG</li><li>INFO</li><li>WARNING</li><li>ERROR</li><li>CRITICAL</li></ul></li><li>初始化/写日志实例需要指定级别， 只有当级别等于或高于指定级别才被记录</li><li>使用方式<ul><li>直接使用logging(封装了其他组件)</li><li>loging四大组件直接定制</li></ul></li></ul><h1 id="2-1-logging模块级别的日志"><a href="#2-1-logging模块级别的日志" class="headerlink" title="2.1 logging模块级别的日志"></a>2.1 logging模块级别的日志</h1><ul><li><p>使用以下几个函数</p><ul><li>logging.debug(msg, *args, **kwargs)     创建一条严重级别为DEBUG的日志记录</li><li>logging.info(msg, *args, **kwargs)     创建一条严重级别为INFO的日志记录</li><li>logging.warning(msg, *args, **kwargs)     创建一条严重级别为WARNING的日志记录</li><li>logging.error(msg, *args, **kwargs)     创建一条严重级别为ERROR的日志记录</li><li>logging.critical(msg, *args, **kwargs)     创建一条严重级别为CRITICAL的日志记录</li><li>logging.log(level, *args, **kwargs)     创建一条严重级别为level的日志记录</li><li>logging.basicConfig(**kwargs)     对root logger进行一次性配置</li></ul></li><li><p>logging.basicConfig(**kwargs)     对root logger进行一次性配置</p><ul><li>只在第一次调用的时候起作用</li><li>不配置logger则使用默认值<ul><li>输出： sys.stderr</li><li>级别： WARNING</li><li>格式： level:log_name:content</li></ul></li></ul></li><li>案例 01      </li><li>format参数</li></ul><pre><code>asctime     %(asctime)s     日志事件发生的时间--人类可读时间，如：2003-07-08 16:49:45,896created     %(created)f     日志事件发生的时间--时间戳，就是当时调用time.time()函数返回的值relativeCreated     %(relativeCreated)d     日志事件发生的时间相对于logging模块加载时间的相对毫秒数（目前还不知道干嘛用的）msecs     %(msecs)d     日志事件发生事件的毫秒部分levelname     %(levelname)s     该日志记录的文字形式的日志级别（&apos;DEBUG&apos;, &apos;INFO&apos;, &apos;WARNING&apos;, &apos;ERROR&apos;, &apos;CRITICAL&apos;）levelno     %(levelno)s     该日志记录的数字形式的日志级别（10, 20, 30, 40, 50）name     %(name)s     所使用的日志器名称，默认是&apos;root&apos;，因为默认使用的是 rootLoggermessage     %(message)s     日志记录的文本内容，通过 msg % args计算得到的pathname     %(pathname)s     调用日志记录函数的源码文件的全路径filename     %(filename)s     pathname的文件名部分，包含文件后缀module     %(module)s     filename的名称部分，不包含后缀lineno     %(lineno)d     调用日志记录函数的源代码所在的行号funcName     %(funcName)s     调用日志记录函数的函数名process     %(process)d     进程IDprocessName     %(processName)s     进程名称，Python 3.1新增thread     %(thread)d     线程IDthreadName     %(thread)s     线程名称 </code></pre><h1 id="2-1-logging模块的处理流程"><a href="#2-1-logging模块的处理流程" class="headerlink" title="2.1 logging模块的处理流程"></a>2.1 logging模块的处理流程</h1><ul><li>四大组件<ul><li>日志器(Logger): 产生日志的一个接口   </li><li>处理器(Handler):把产生的日志发送到相应的目的地</li><li>过滤器(Filter): 更精细的控制那些日志输出</li><li>格式器(Formatter): 对输出信息进行格式化</li></ul></li><li><p>Logger</p><ul><li>产生一个日志</li><li><p>操作</p><pre><code>Logger.setLevel()     设置日志器将会处理的日志消息的最低严重级别Logger.addHandler() 和 Logger.removeHandler()     为该logger对象添加 和 移除一个handler对象Logger.addFilter() 和 Logger.removeFilter()     为该logger对象添加 和 移除一个filter对象Logger.debug: 产生一条debug级别的日志，同理，info，error，等Logger.exception(): 创建类似于Logger.error的日志消息Logger.log():获取一个明确的日志level参数类创建一个日志记录</code></pre></li><li>如何得到一个logger对象<ul><li>实例化</li><li>logging.getLogger()       </li></ul></li></ul></li><li><p>Handler</p><ul><li>把log发送到制定位置</li><li>方法<ul><li>setLevel</li><li>setFormat</li><li>addFilter, removeFilter</li></ul></li><li><p>不需要直接使用，Handler是基类</p><pre><code>logging.StreamHandler     将日志消息发送到输出到Stream，如std.out, std.err或任何file-like对象。logging.FileHandler     将日志消息发送到磁盘文件，默认情况下文件大小会无限增长logging.handlers.RotatingFileHandler     将日志消息发送到磁盘文件，并支持日志文件按大小切割logging.hanlders.TimedRotatingFileHandler     将日志消息发送到磁盘文件，并支持日志文件按时间切割logging.handlers.HTTPHandler     将日志消息以GET或POST的方式发送给一个HTTP服务器logging.handlers.SMTPHandler     将日志消息发送给一个指定的email地址logging.NullHandler     该Handler实例会忽略error messages，通常被想使用logging的library开发者使用来避免&apos;No handlers could be found for logger XXX&apos;信息的出现。</code></pre></li></ul></li><li><p>Format类</p><ul><li>直接实例化</li><li>可以继承Format添加特殊内容</li><li>三个参数<ul><li>fmt：指定消息格式化字符串，如果不指定该参数则默认使用message的原始值</li><li>datefmt：指定日期格式字符串，如果不指定该参数则默认使用”%Y-%m-%d %H:%M:%S”</li><li>style：Python 3.2新增的参数，可取值为 ‘%’, ‘{‘和 ‘$’，如果不指定该参数则默认使用’%’   </li></ul></li></ul></li><li>Filter类<ul><li>可以被Handler和Logger使用</li><li>控制传递过来的信息的具体内容</li><li>案例02</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;xubuntu 16.04&lt;/li&gt;
-&lt;li&gt;anaconda&lt;/li&gt;
-&lt;li&gt;pycharm&lt;/li&gt;
-&lt;li&gt;python
+        &lt;h1 id=&quot;LOG&quot;&gt;&lt;a href=&quot;#LOG&quot; class=&quot;headerlink&quot; title=&quot;LOG&quot;&gt;&lt;/a&gt;LOG&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/yyds/p/6901864.html&quot; target
       
     
     </summary>
@@ -182,6 +205,54 @@
   
   <entry>
     <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%205/"/>
+    <id>http://yoursite.com/2018/06/11/note 5/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><ul><li>xubuntu 16.04</li><li>anaconda</li><li>pycharm</li><li>python3.6</li><li><a href="https://www.cnblogs.com/jokerbj/p/7460260.html" target="_blank" rel="noopener">https://www.cnblogs.com/jokerbj/p/7460260.html</a></li><li><a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank" rel="noopener">http://www.dabeaz.com/python/UnderstandingGIL.pdf</a></li></ul><h1 id="多线程-vs-多进程"><a href="#多线程-vs-多进程" class="headerlink" title="多线程 vs 多进程"></a>多线程 vs 多进程</h1><ul><li>程序：一堆代码以文本形式存入一个文档</li><li>进程： 程序运行的一个状态<ul><li>包含地址空间，内存，数据栈等</li><li>每个进程由自己完全独立的运行环境，多进程共享数据是一个问题</li></ul></li><li>线程<ul><li>一个进程的独立运行片段，一个进程可以由多个线程</li><li>轻量化的进程</li><li>一个进程的多个现成间共享数据和上下文运行环境</li><li>共享互斥问题</li></ul></li><li><p>全局解释器锁（GIL）</p><ul><li>Python代码的执行是由python虚拟机进行控制</li><li>在主循环中稚嫩更有一个控制线程在执行</li></ul></li><li><p>Python包</p><ul><li>thread：有问题，不好用，python3改成了_thread</li><li>threading: 通行的包</li><li>案例01: 顺序执行，耗时比较长</li><li>案例02： 改用多线程，缩短总时间，使用_thread</li><li>案例03： 多线程，传参数</li></ul></li><li><p>threading的使用</p><ul><li>直接利用threading.Thread生成Thread实例<ol><li>t = threading.Thread(target=xxx, args=(xxx,))</li><li>t.start():启动多线程</li><li>t.join(): 等待多线程执行完成</li><li>案例04</li><li>案例05: 加入join后比较跟案例04的结果的异同</li></ol><ul><li>守护线程-daemon<ul><li>如果在程序中将子线程设置成守护现成，则子线程会在主线程结束的时候自动退出</li><li>一般认为，守护线程不中要或者不允许离开主线程独立运行</li><li>守护线程案例能否有效果跟环境相关</li><li>案例06非守护线程</li><li>案例07守护线程            </li></ul></li><li>线程常用属性<ul><li>threading.currentThread：返回当前线程变量</li><li>threading.enumerate:返回一个包含正在运行的线程的list，正在运行的线程指的是线程启动后，结束前的状态</li><li>threading.activeCount: 返回正在运行的线程数量，效果跟 len(threading.enumerate)相同</li><li>thr.setName: 给线程设置名字</li><li>thr.getName: 得到线程的名字</li></ul></li></ul></li><li>直接继承自threading.Thread<ul><li>直接继承Thread</li><li>重写run函数</li><li>类实例可以直接运行</li><li>案例09</li><li>案例10， 工业风案例</li></ul></li></ul></li><li><p>共享变量</p><ul><li>共享变量： 当多个现成同时访问一个变量的时候，会产生共享变量的问题</li><li>案例11</li><li>解决变量：锁，信号灯，</li><li>锁（Lock）：<ul><li>是一个标志，表示一个线程在占用一些资源</li><li>使用方法<ul><li>上锁</li><li>使用共享资源，放心的用</li><li>取消锁，释放锁</li></ul></li><li>案例12</li><li>锁谁： 哪个资源需要多个线程共享，锁哪个</li><li>理解锁：锁其实不是锁住谁，而是一个令牌</li></ul></li><li>线程安全问题：<ul><li>如果一个资源/变量，他对于多线程来讲，不用加锁也不会引起任何问题，则称为线程安全</li><li>线程不安全变量类型： list, set, dict</li><li>线程安全变量类型： queue</li></ul></li><li>生产者消费者问题<ul><li>一个模型，可以用来搭建消息队列， </li><li>queue是一个用来存放变量的数据结构，特点是先进先出，内部元素排队，可以理解成一个特殊的list</li></ul></li><li>死锁问题, 案例14</li><li>锁的等待时间问题， v15</li><li>semphore<ul><li>允许一个资源最多由几个多线程同时使用</li><li>v16</li></ul></li><li><p>threading.Timer</p><ul><li>案例 17</li><li>Timer是利用多线程，在指定时间后启动一个功能</li></ul></li><li><p>可重入锁</p><ul><li>一个锁，可以被一个线程多次申请</li><li>主要解决递归调用的时候，需要申请锁的情况</li><li>案例18</li></ul></li></ul></li></ul><h1 id="线程替代方案"><a href="#线程替代方案" class="headerlink" title="线程替代方案"></a>线程替代方案</h1><ul><li>subprocess<ul><li>完全跳过线程，使用进程</li><li>是派生进程的主要替代方案</li><li>python2.4后引入</li></ul></li><li><p>multiprocessiong</p><ul><li>使用threadiing借口派生，使用子进程</li><li>允许为多核或者多cpu派生进程，接口跟threading非常相似</li><li>python2.6</li></ul></li><li><p>concurrent.futures</p><ul><li>新的异步执行模块</li><li>任务级别的操作</li><li>python3.2后引入<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1></li></ul></li><li>进程间通讯(InterprocessCommunication, IPC )</li><li>进程之间无任何共享状态</li><li><p>进程的创建</p><ul><li>直接生成Process实例对象， 案例19</li><li>派生子类， 案例20</li></ul></li><li><p>在os中查看pid，ppid以及他们的关系              </p><ul><li>案例21</li></ul></li><li>生产者消费者模型<ul><li>JoinableQueue</li><li>案例22</li><li>队列中哨兵的使用, 案例23 </li><li>哨兵的改进， 案例24</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;xubuntu 16.04&lt;/li&gt;
+&lt;li&gt;anaconda&lt;/li&gt;
+&lt;li&gt;pycharm&lt;/li&gt;
+&lt;li&gt;python
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note-json/"/>
+    <id>http://yoursite.com/2018/06/11/note-json/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><ul><li>在线工具<ul><li><a href="https://www.sojson.com/" target="_blank" rel="noopener">https://www.sojson.com/</a></li><li><a href="http://www.w3school.com.cn/json/" target="_blank" rel="noopener">http://www.w3school.com.cn/json/</a></li><li><a href="http://www.runoob.com/json/json-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/json/json-tutorial.html</a></li></ul></li><li>JSON(JavaScriptObjectNotation) </li><li>轻量级的数据交换格式，基于ECMAScript</li><li>json格式是一个键值对形式的数据集    <ul><li>key: 字符串</li><li>value:字符串，数字，列表，json</li><li>json使用大括号包裹</li><li>键值对直接用都好隔开</li></ul></li></ul><pre><code>student={    &quot;name&quot;: &quot;wangdapeng&quot;,    &quot;age&quot;: 18,    &quot;mobile&quot;:&quot;13260446055&quot;    }</code></pre><ul><li>json和python格式的对应<ul><li>字符串：字符串</li><li>数字：数字</li><li>队列：list</li><li>对象：dict</li><li>布尔值：布尔值</li></ul></li><li><p>python for json</p><ul><li>json包</li><li>json和python对象的转换<ul><li>json.dumps():对数据编码，把python格式表示成json格式</li><li>json.loads(): 对数据解码，把json格式转换成python格式</li></ul></li><li><p>python读取json文件</p><ul><li>json.dump(): 把内容写入文件</li><li>json.load(): 把json文件内容读入python</li></ul></li><li><p>案例v07</p></li><li>案例v08读取文件 </li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;在线工具&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.sojson.com/&quot; target=&quot;_
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%209/"/>
     <id>http://yoursite.com/2018/06/11/note 9/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -206,44 +277,20 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/LY-01/"/>
-    <id>http://yoursite.com/2018/06/11/LY-01/</id>
+    <link href="http://yoursite.com/2018/06/11/note-xpath/"/>
+    <id>http://yoursite.com/2018/06/11/note-xpath/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><ul><li>管理软硬件资源，给运行软件提供一个统一调用平台</li><li>操作系统分类<ul><li>windows</li><li>Unix<ul><li>Minix，Linus-Linux</li><li>MacOS</li></ul></li></ul></li><li>如果内存大于等于8G，尝试使用虚拟机</li><li>否则，windows</li><li>如果是苹果系统，那就苹果系统</li><li><p>虚拟机</p><ul><li>虚拟的机器，是软件模拟出来的软件环境，是一个完全独立的系统</li><li>我们的虚拟机是xubuntu16.04 LTS</li><li>使用步骤：<ul><li>下载打包好的虚拟环境，解压</li><li>解压后会得到一个vdi格式的大大大文件，13个多G</li><li>下载virtualbox，不是vmware，官网地址：<a href="http://www.virtualbox.org" target="_blank" rel="noopener">www.virtualbox.org</a><ul><li>下载跟你目前操作系统想对应的软件</li><li>安装完毕</li><li>载入虚拟操作系统，即已经下载后的集成环境</li><li>容易出现问题：<ul><li>没有64位系统以供选择：打开bios虚拟化</li><li>打开后一直黑屏没反应：集成系统是64位，你建立的32位系统</li></ul></li></ul></li></ul></li></ul></li><li><p>自行安装</p><ul><li>安装套件anaconda+pycharm</li><li>安装anaconda</li><li>pycharm</li></ul></li></ul><h1 id="GIT-起源"><a href="#GIT-起源" class="headerlink" title="GIT - 起源"></a>GIT - 起源</h1><ul><li>个人文件的版本控制</li><li>多方协作</li><li>linus搞定的git</li><li>2008宁github上线</li><li>关于版本控制的产品：<ul><li>集中式：cvs，svn</li><li>分布式：github开源，bitbuckets私人 </li><li>分享精神： blog+github</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h1><ul><li>在XML文件中查找信息的一套规则/语言，根据XML的元素或者属性进行遍历</li><li><a href="http://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xpath/index.asp</a></li></ul><h1 id="XPath-开发工具"><a href="#XPath-开发工具" class="headerlink" title="XPath 开发工具"></a>XPath 开发工具</h1><ul><li>开源的XPath表达式编辑工具：XMLQuire</li><li>Chrome插件：XPath Helper</li><li>Firefox插件: XPath Checker</li></ul><h1 id="选取节点"><a href="#选取节点" class="headerlink" title="选取节点"></a>选取节点</h1><ul><li>nodename: 选取此节点的所有子节点</li><li><p>/： 从根节点开始选取</p><pre><code>/Student:没有结果/School:选区School节点</code></pre></li><li><p>//:  选取节点，不考虑位置</p><pre><code>//age: 选取出三个节点，一般组成列表返回</code></pre></li><li><p>.: 选取当前接待你</p></li><li>..：选取当前节点的父亲节点</li><li>@:选取属性</li><li>xpath中查找一般按照路径方法查找,一下是路径表示方法</li></ul><pre><code>School/Teacher:返回Teacher节点School/Student: 返回两个Student节点//Student:  选取所有Studetn的节点，不考虑位置School//Age:选取School后代中所有Age节点//@Other: 选取Other属性//Age[@Detail]:  选取带有属性Detail的Age元素</code></pre><h1 id="谓语-Predicates"><a href="#谓语-Predicates" class="headerlink" title="谓语-Predicates"></a>谓语-Predicates</h1><ul><li>/School/Student[1]: 选取School下面的第一个Student节点</li><li>/School/Student[last()]: 选取School下面的最后一个Student节点</li><li>/School/Student[last()-1]: 选取School下面的倒数第二个Student节点</li><li>/School/Student[position()&lt;3]: 选取School下面的前二个Student节点</li><li>//Student[@score]: 选取带有属性score的Student节点</li><li>//Student[@score=”99”]: 选取带有属性score并且属性值是99的Student节点</li><li>//Student[@score]/Age: 选取带有属性score的Student节点的子节点Age</li></ul><h1 id="XPath的一些操作"><a href="#XPath的一些操作" class="headerlink" title="XPath的一些操作"></a>XPath的一些操作</h1><ul><li><p>|: 或者</p><pre><code>//Student[@score] | //Teacher: 选取带有属性score的Student节点和Teahcer节点</code></pre></li><li>其余不常见XPath运算符号包括+, - , *, div, &gt;, &lt;       </li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;管理软硬件资源，给运行软件提供一个统一调用平台&lt;/li&gt;
-&lt;li&gt;操作系统分类&lt;ul&gt;
-&lt;li&gt;windows&lt;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note-json/"/>
-    <id>http://yoursite.com/2018/06/11/note-json/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><ul><li>在线工具<ul><li><a href="https://www.sojson.com/" target="_blank" rel="noopener">https://www.sojson.com/</a></li><li><a href="http://www.w3school.com.cn/json/" target="_blank" rel="noopener">http://www.w3school.com.cn/json/</a></li><li><a href="http://www.runoob.com/json/json-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/json/json-tutorial.html</a></li></ul></li><li>JSON(JavaScriptObjectNotation) </li><li>轻量级的数据交换格式，基于ECMAScript</li><li>json格式是一个键值对形式的数据集    <ul><li>key: 字符串</li><li>value:字符串，数字，列表，json</li><li>json使用大括号包裹</li><li>键值对直接用都好隔开</li></ul></li></ul><pre><code>student={    &quot;name&quot;: &quot;wangdapeng&quot;,    &quot;age&quot;: 18,    &quot;mobile&quot;:&quot;13260446055&quot;    }</code></pre><ul><li>json和python格式的对应<ul><li>字符串：字符串</li><li>数字：数字</li><li>队列：list</li><li>对象：dict</li><li>布尔值：布尔值</li></ul></li><li><p>python for json</p><ul><li>json包</li><li>json和python对象的转换<ul><li>json.dumps():对数据编码，把python格式表示成json格式</li><li>json.loads(): 对数据解码，把json格式转换成python格式</li></ul></li><li><p>python读取json文件</p><ul><li>json.dump(): 把内容写入文件</li><li>json.load(): 把json文件内容读入python</li></ul></li><li><p>案例v07</p></li><li>案例v08读取文件 </li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;在线工具&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.sojson.com/&quot; target=&quot;_
+        &lt;h1 id=&quot;XPath&quot;&gt;&lt;a href=&quot;#XPath&quot; class=&quot;headerlink&quot; title=&quot;XPath&quot;&gt;&lt;/a&gt;XPath&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;在XML文件中查找信息的一套规则/语言，根据XML的元素或者属性进行遍历&lt;/li&gt;
+&lt;li&gt;&lt;a hre
       
     
     </summary>
@@ -277,53 +324,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note-xpath/"/>
-    <id>http://yoursite.com/2018/06/11/note-xpath/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h1><ul><li>在XML文件中查找信息的一套规则/语言，根据XML的元素或者属性进行遍历</li><li><a href="http://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xpath/index.asp</a></li></ul><h1 id="XPath-开发工具"><a href="#XPath-开发工具" class="headerlink" title="XPath 开发工具"></a>XPath 开发工具</h1><ul><li>开源的XPath表达式编辑工具：XMLQuire</li><li>Chrome插件：XPath Helper</li><li>Firefox插件: XPath Checker</li></ul><h1 id="选取节点"><a href="#选取节点" class="headerlink" title="选取节点"></a>选取节点</h1><ul><li>nodename: 选取此节点的所有子节点</li><li><p>/： 从根节点开始选取</p><pre><code>/Student:没有结果/School:选区School节点</code></pre></li><li><p>//:  选取节点，不考虑位置</p><pre><code>//age: 选取出三个节点，一般组成列表返回</code></pre></li><li><p>.: 选取当前接待你</p></li><li>..：选取当前节点的父亲节点</li><li>@:选取属性</li><li>xpath中查找一般按照路径方法查找,一下是路径表示方法</li></ul><pre><code>School/Teacher:返回Teacher节点School/Student: 返回两个Student节点//Student:  选取所有Studetn的节点，不考虑位置School//Age:选取School后代中所有Age节点//@Other: 选取Other属性//Age[@Detail]:  选取带有属性Detail的Age元素</code></pre><h1 id="谓语-Predicates"><a href="#谓语-Predicates" class="headerlink" title="谓语-Predicates"></a>谓语-Predicates</h1><ul><li>/School/Student[1]: 选取School下面的第一个Student节点</li><li>/School/Student[last()]: 选取School下面的最后一个Student节点</li><li>/School/Student[last()-1]: 选取School下面的倒数第二个Student节点</li><li>/School/Student[position()&lt;3]: 选取School下面的前二个Student节点</li><li>//Student[@score]: 选取带有属性score的Student节点</li><li>//Student[@score=”99”]: 选取带有属性score并且属性值是99的Student节点</li><li>//Student[@score]/Age: 选取带有属性score的Student节点的子节点Age</li></ul><h1 id="XPath的一些操作"><a href="#XPath的一些操作" class="headerlink" title="XPath的一些操作"></a>XPath的一些操作</h1><ul><li><p>|: 或者</p><pre><code>//Student[@score] | //Teacher: 选取带有属性score的Student节点和Teahcer节点</code></pre></li><li>其余不常见XPath运算符号包括+, - , *, div, &gt;, &lt;       </li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;XPath&quot;&gt;&lt;a href=&quot;#XPath&quot; class=&quot;headerlink&quot; title=&quot;XPath&quot;&gt;&lt;/a&gt;XPath&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;在XML文件中查找信息的一套规则/语言，根据XML的元素或者属性进行遍历&lt;/li&gt;
-&lt;li&gt;&lt;a hre
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%203/"/>
-    <id>http://yoursite.com/2018/06/11/note 3/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul><li></li></ul><h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul><li>主要作为技术验证</li><li>画出一个舞台，包括背景，包括一个小飞机</li></ul><h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul><li>小蜜蜂会动，从上往下慢慢的飞</li><li>能控制小蜜蜂左右移动</li><li>入场算法<ul><li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li><li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li></ul></li><li><p>移动速度问题</p><ul><li>包含x，y两个值</li><li>对于绝大多数物体，则只考虑y值</li><li>但是，蜜蜂和英雄是特例</li><li>蜜蜂是从上向下移动的同时具有横向运动</li><li>英雄的移动由上下左右键盘控制</li><li>速度应该是一个tuple=(x,y)</li></ul></li><li><p>方向问题</p><ul><li>具体移动方向由x，y控制</li><li>值只能是-1， 0， 1三个就好</li><li>应该是一个tuple</li><li>例如（-1， 0)表示水平向左移动</li><li>（0,1）表明向下垂直运动</li></ul></li></ul><h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul><li>重构代码，使用oop方法<ul><li>世界的构成<ul><li>小飞机</li><li>大飞机</li><li>小蜜蜂</li><li>子弹</li><li>英雄机</li><li>天空</li></ul></li><li>配置文件<ul><li>可以通过一次性配置来让程序正确运行</li><li>降低了代码软件工程方面的成本</li><li>python的配置文件包： configparser<ul><li>以前就叫ConfigParser </li><li>配置文件一般以cfg或者ini结尾</li><li>语法：<ul><li>中括号： 表示的是section</li><li>每个section下是键值对</li><li>键值对用等号或者冒号链接</li></ul></li><li>get(section_nmame, key_name),返回相应的值</li><li>getint(section_nmame, key_name),返回相应的整数值</li></ul></li></ul></li></ul></li></ul><ul><li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li><li>程序可以正常产生飞行物，包括英雄，子弹，云层</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;飞机大战&quot;&gt;&lt;a href=&quot;#飞机大战&quot; class=&quot;headerlink&quot; title=&quot;飞机大战&quot;&gt;&lt;/a&gt;飞机大战&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note-%E6%AD%A3%E5%88%99/"/>
     <id>http://yoursite.com/2018/06/11/note-正则/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -336,6 +336,28 @@
       
       
         &lt;h1 id=&quot;正则表达式-RegularExpression-re&quot;&gt;&lt;a href=&quot;#正则表达式-RegularExpression-re&quot; class=&quot;headerlink&quot; title=&quot;正则表达式(RegularExpression, re)&quot;&gt;&lt;/a&gt;正则表达式(
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note5/"/>
+    <id>http://yoursite.com/2018/06/11/note5/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="scrapy-shell"><a href="#scrapy-shell" class="headerlink" title="scrapy-shell"></a>scrapy-shell</h1><ul><li><a href="https://segmentfault.com/a/1190000013199636?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013199636?utm_source=tag-newest</a></li><li>shell </li><li>启动<ul><li>Linux： ctr+T,打开终端，然后输入scrapy shell “url:xxxx”</li><li>windows: scrapy shell “url:xxx”</li><li>启动后自动下载指定url的网页</li><li>下载完成后，url的内容保存在response的变量中，如果需要，我们需要调用response</li></ul></li><li>response<ul><li>爬取到的内容保存在response中给</li><li>response.body是网页的代码</li><li>resposne.headers是返回的http的头信息</li><li>response.xpath（）允许使用xpath语法选择内容</li><li>response.css()允许使用css语法选区内容</li></ul></li><li>selector<ul><li>选择器，允许用户使用选择器来选择自己想要的内容</li><li>response.selector.xpath: response.xpath是selector.xpath的快捷方式</li><li>response.selector.css: response.css是他的快捷方式</li><li>selector.extract:把节点的内容用unicode形式返回</li><li>selector.re:允许用户通过正则选区内容</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;scrapy-shell&quot;&gt;&lt;a href=&quot;#scrapy-shell&quot; class=&quot;headerlink&quot; title=&quot;scrapy-shell&quot;&gt;&lt;/a&gt;scrapy-shell&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://segment
       
     
     </summary>
@@ -407,28 +429,6 @@
 &lt;li&gt;IO吞吐量&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note5/"/>
-    <id>http://yoursite.com/2018/06/11/note5/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="scrapy-shell"><a href="#scrapy-shell" class="headerlink" title="scrapy-shell"></a>scrapy-shell</h1><ul><li><a href="https://segmentfault.com/a/1190000013199636?utm_source=tag-newest" target="_blank" rel="noopener">https://segmentfault.com/a/1190000013199636?utm_source=tag-newest</a></li><li>shell </li><li>启动<ul><li>Linux： ctr+T,打开终端，然后输入scrapy shell “url:xxxx”</li><li>windows: scrapy shell “url:xxx”</li><li>启动后自动下载指定url的网页</li><li>下载完成后，url的内容保存在response的变量中，如果需要，我们需要调用response</li></ul></li><li>response<ul><li>爬取到的内容保存在response中给</li><li>response.body是网页的代码</li><li>resposne.headers是返回的http的头信息</li><li>response.xpath（）允许使用xpath语法选择内容</li><li>response.css()允许使用css语法选区内容</li></ul></li><li>selector<ul><li>选择器，允许用户使用选择器来选择自己想要的内容</li><li>response.selector.xpath: response.xpath是selector.xpath的快捷方式</li><li>response.selector.css: response.css是他的快捷方式</li><li>selector.extract:把节点的内容用unicode形式返回</li><li>selector.re:允许用户通过正则选区内容</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;scrapy-shell&quot;&gt;&lt;a href=&quot;#scrapy-shell&quot; class=&quot;headerlink&quot; title=&quot;scrapy-shell&quot;&gt;&lt;/a&gt;scrapy-shell&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://segment
       
     
     </summary>
