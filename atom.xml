@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Litchip</title>
+  <title>Litchip&#39;s个人笔记</title>
   
   <subtitle>Wisdom and beauty form a very rare combination.</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -86,6 +86,30 @@
   
   <entry>
     <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%203/"/>
+    <id>http://yoursite.com/2018/06/11/note 3/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul><li></li></ul><h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul><li>主要作为技术验证</li><li>画出一个舞台，包括背景，包括一个小飞机</li></ul><h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul><li>小蜜蜂会动，从上往下慢慢的飞</li><li>能控制小蜜蜂左右移动</li><li>入场算法<ul><li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li><li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li></ul></li><li><p>移动速度问题</p><ul><li>包含x，y两个值</li><li>对于绝大多数物体，则只考虑y值</li><li>但是，蜜蜂和英雄是特例</li><li>蜜蜂是从上向下移动的同时具有横向运动</li><li>英雄的移动由上下左右键盘控制</li><li>速度应该是一个tuple=(x,y)</li></ul></li><li><p>方向问题</p><ul><li>具体移动方向由x，y控制</li><li>值只能是-1， 0， 1三个就好</li><li>应该是一个tuple</li><li>例如（-1， 0)表示水平向左移动</li><li>（0,1）表明向下垂直运动</li></ul></li></ul><h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul><li>重构代码，使用oop方法<ul><li>世界的构成<ul><li>小飞机</li><li>大飞机</li><li>小蜜蜂</li><li>子弹</li><li>英雄机</li><li>天空</li></ul></li><li>配置文件<ul><li>可以通过一次性配置来让程序正确运行</li><li>降低了代码软件工程方面的成本</li><li>python的配置文件包： configparser<ul><li>以前就叫ConfigParser </li><li>配置文件一般以cfg或者ini结尾</li><li>语法：<ul><li>中括号： 表示的是section</li><li>每个section下是键值对</li><li>键值对用等号或者冒号链接</li></ul></li><li>get(section_nmame, key_name),返回相应的值</li><li>getint(section_nmame, key_name),返回相应的整数值</li></ul></li></ul></li></ul></li></ul><ul><li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li><li>程序可以正常产生飞行物，包括英雄，子弹，云层</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;飞机大战&quot;&gt;&lt;a href=&quot;#飞机大战&quot; class=&quot;headerlink&quot; title=&quot;飞机大战&quot;&gt;&lt;/a&gt;飞机大战&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%202/"/>
     <id>http://yoursite.com/2018/06/11/note 2/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -132,21 +156,46 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%203/"/>
-    <id>http://yoursite.com/2018/06/11/note 3/</id>
+    <link href="http://yoursite.com/2018/06/11/note%207/"/>
+    <id>http://yoursite.com/2018/06/11/note 7/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul><li></li></ul><h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul><li>主要作为技术验证</li><li>画出一个舞台，包括背景，包括一个小飞机</li></ul><h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul><li>小蜜蜂会动，从上往下慢慢的飞</li><li>能控制小蜜蜂左右移动</li><li>入场算法<ul><li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li><li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li></ul></li><li><p>移动速度问题</p><ul><li>包含x，y两个值</li><li>对于绝大多数物体，则只考虑y值</li><li>但是，蜜蜂和英雄是特例</li><li>蜜蜂是从上向下移动的同时具有横向运动</li><li>英雄的移动由上下左右键盘控制</li><li>速度应该是一个tuple=(x,y)</li></ul></li><li><p>方向问题</p><ul><li>具体移动方向由x，y控制</li><li>值只能是-1， 0， 1三个就好</li><li>应该是一个tuple</li><li>例如（-1， 0)表示水平向左移动</li><li>（0,1）表明向下垂直运动</li></ul></li></ul><h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul><li>重构代码，使用oop方法<ul><li>世界的构成<ul><li>小飞机</li><li>大飞机</li><li>小蜜蜂</li><li>子弹</li><li>英雄机</li><li>天空</li></ul></li><li>配置文件<ul><li>可以通过一次性配置来让程序正确运行</li><li>降低了代码软件工程方面的成本</li><li>python的配置文件包： configparser<ul><li>以前就叫ConfigParser </li><li>配置文件一般以cfg或者ini结尾</li><li>语法：<ul><li>中括号： 表示的是section</li><li>每个section下是键值对</li><li>键值对用等号或者冒号链接</li></ul></li><li>get(section_nmame, key_name),返回相应的值</li><li>getint(section_nmame, key_name),返回相应的整数值</li></ul></li></ul></li></ul></li></ul><ul><li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li><li>程序可以正常产生飞行物，包括英雄，子弹，云层</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>资料<ul><li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li><li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li><li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li><li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li></ul></li></ul><h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul><li>直接作用于for循环的叫可迭代对象,Iterable</li><li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li></ul><ul><li><p>可以用isinstance判断</p><pre><code>from collections import Iterablel = [1,2,3,4]isinstance(l, Iterable)</code></pre></li></ul><pre><code>from collections import Iteratorisinstance((x for x in range(10)), Iterator)</code></pre><ul><li><p>iterable和Iterator的关系,可以通过iter函数运算</p><pre><code>isinstance(iter(&apos;abc&apos;), Iterator)</code></pre></li></ul><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul><li>一边循环一边计算的机制,generator</li><li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li><li><p>生成器创建:</p><ul><li><p>直接使用</p><pre><code>L = [x * x for x in range(10)]g = (x * x for x in range(10))</code></pre></li><li>函数中包含yield,则叫generator</li><li>next调用,遇到yield返回</li></ul></li></ul><pre><code>def odd():   print(&apos;step 1&apos;)   yield 1   print(&apos;step 2&apos;)   yield(3)   print(&apos;step 3&apos;)   yield(5)def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       print(b)       a, b = b, a + b       n = n + 1   return &apos;done&apos;def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       yield b       a, b = b, a + b       n = n + 1   return &apos;done&apos;</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul><li><p>历史</p><ul><li>3.4引入协程概念，用yield实现</li><li>3.5 引入协程语法</li><li>实现包asyncio,tornado, gevent</li></ul></li><li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p></li><li>使用:   <ul><li>yield关键字</li><li>send关键字</li></ul></li><li><p>案例v1</p></li><li><p>协程的四个状态</p><ul><li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li><li>GEN_CREATED：等待开始执行</li><li>GEN_RUNNING：解释器正在执行</li><li>GEN_SUSPENED：在yield表达式处暂停</li><li>GEN_CLOSED：执行结束</li><li>next预激（prime)</li><li>完整执行过程v2</li></ul></li><li><p>协程终止</p><ul><li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li><li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li></ul></li><li><p>异常</p><ul><li>客户段代码可以在生成器对象上调用两个方法</li><li><p>generator.throw(Exctpiton):</p><pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。</code></pre></li><li><p>generator.close()</p><pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。</code></pre></li><li>v03               </li></ul></li><li>yield from<ul><li>为了得到返回值，协程必须正常终止；</li><li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li><li>yield from 从内部捕获StopIteration异常</li><li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li><li>v04</li><li>v05</li><li>委派生成器<ul><li>包含 yield from 表达式的生成器函数</li><li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li><li>子生成器再把产出的值发给调用方。</li><li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li><li>v06</li></ul></li></ul></li></ul><h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul><li>python3.4开始引入的标准库,内置了对移步io的支持</li><li>asyncio本身是一个消息循环,</li><li>步骤<ul><li>创建消息循环</li><li>把协程导入</li><li>关闭<ul><li>案例08</li><li>案例09-两个tasks</li><li>案例v10-得到多个网站</li></ul></li></ul></li></ul><h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul><li>为了更好的表示异步io</li><li>python3.5 开始引入</li><li>让coroutine代码更简洁</li><li>使用上,可以简单进行替换<ul><li>可以把 @asyncio.coroutine 替换成async</li><li>yield from 替换成await</li></ul></li><li>案例v11, 把案例09直接替换</li></ul><h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul><li>介绍<ul><li>asyncio实现单线程并发IO,在客户端用处不大</li><li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li><li>asyncio实现了TCP,UIDP,SSL等协议</li><li>aiohttp是给予asyncio实现的HTTP框架</li><li>pip install aiohttp</li><li>案例07</li></ul></li></ul><h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul><li>python3新增的库</li><li>类似其他语言的线程池的概念</li><li>此模块利用multiprocessiong实现真正的平行计算</li><li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li><li>concurrent.futures.Executor <ul><li>ThreadPoolExecutor</li><li>ProcessPoolExecutor</li></ul></li><li><p>submit(fn, args, kwargs)</p><ul><li>fn:异步执行的函数</li><li><p>args,kwargs:参数</p><pre><code> # 官方死锁案例import timedef wait_on_b():    time.sleep(5)    print(b.result())  #b不会完成，他一直在等待a的return结果    return 5def wait_on_a():    time.sleep(5)    print(a.result())  #同理a也不会完成，他也是在等待b的结果    return 6</code></pre></li></ul></li></ul><pre><code>        executor = ThreadPoolExecutor(max_workers=2)        a = executor.submit(wait_on_b)        b = executor.submit(wait_on_a)- 案例v14</code></pre><ul><li><p>map(fn, *iterables, timeout=None)</p><ul><li>跟map函数类似</li><li>函数需要异步执行</li><li>timeout: 超时时间</li><li>案例 v12</li><li>案例v15</li><li><p>起执行结果是list,数据需要从list中取出来</p><pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:    print(list(executor.map(sleeper, x)))</code></pre></li></ul></li><li><p>submit和map根据需要选一个即可</p></li><li><p>案例v13</p></li><li><p>Future</p><ul><li>未来需要完成的任务</li><li>future 实例由Excutor.submit创建</li><li>案例v17</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;飞机大战&quot;&gt;&lt;a href=&quot;#飞机大战&quot; class=&quot;headerlink&quot; title=&quot;飞机大战&quot;&gt;&lt;/a&gt;飞机大战&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h1 id=&quot;v1&quot;&gt;&lt;a href=&quot;#v1&quot; class=&quot;headerlink&quot;
+        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;资料&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/andybegin/arti
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%206/"/>
+    <id>http://yoursite.com/2018/06/11/note 6/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h1><ul><li>网络：</li><li>网络协议： 一套规则</li><li><p>网络模型：</p><ul><li>七层模型-七层<ul><li>物理层</li><li>数据链路层</li><li>网络层</li><li>传输层</li><li>会话层</li><li>表示层</li><li>应用层</li></ul></li><li>四层模型-实际应用<ul><li>链路层</li><li>网络</li><li>传输层</li><li>应用层</li></ul></li></ul></li><li><p>每一层都有相应的协议负责交换信息或者协同工作</p></li><li>TCP/IP 协议族</li><li><p>IP地址：负责在网络上唯一定位一个机器</p><ul><li>IP地址分ABCDE类</li><li>是由四个数字段组成，每个数字段的取值是0-255</li><li>192.168.xxx.xxx:局域网ip</li><li>127.0.0.1：本机</li><li>IPv4, IPv6</li></ul></li><li><p>端口</p><ul><li>范围： 0-65535<ul><li>知名端口：0-1023</li><li>非知名端口：1024-</li></ul></li></ul></li></ul><h1 id="TCP-UDP协议"><a href="#TCP-UDP协议" class="headerlink" title="TCP/UDP协议"></a>TCP/UDP协议</h1><ul><li>UDP：非安全的不面向链接的传输<ul><li>安全性差</li><li>大小限制64kb</li><li>没有顺序</li><li>速度快</li></ul></li><li><p>TCP</p><ul><li>基于链接的通信</li></ul></li><li><p>SOCKET编程</p><ul><li>socket（套接字）: 是一个网络通信的端点， 能实现不同主机的进程通信，网络大多基于Socket通信</li><li>通过IP+端口定位对方并发送消息的通信机制</li><li>分为UDP和TCP</li><li>客户端Client： 发起访问的一方</li><li>服务器端Server：接受访问的一方</li></ul></li><li><p>UDP 编程</p><ul><li>Server端流程<pre><code>1. 建立socket，socket是负责具体通信的一个实例2. 绑定，为创建的socket指派固定的端口和ip地址3. 接受对方发送内容4. 给对方发送反馈，此步骤为非必须步骤</code></pre></li><li>Client端流程<pre><code>1. 建立通信的socket2. 发送内容到指定服务器3. 接受服务器给定的反馈内容</code></pre></li><li>服务器案例v01</li><li>客户端案例v02</li><li>服务器程序要求永久运行，一般用死循环处理</li><li>改造的服务器版本v03</li></ul></li><li><p>TCP编程</p><ul><li>面向链接的传输，即每次传输之前需要先建立一个链接<ul><li>客户端和服务器端两个程序需要编写</li><li>Server端的编写流程<ol><li>建立socket负责具体通信，这个socket其实只负责接受对方的请求，真正通信的是链接后从新建立的socket</li><li>绑定端口和地址</li><li>监听接入的访问socket</li><li>接受访问的socket，可以理解接受访问即建立了一个通讯的链接通路</li><li>接受对方的发送内容，利用接收到的socket接收内容</li><li>如果有必要，给对方发送反馈信息</li><li>关闭链接通路</li></ol></li><li>Client端流程<ol><li>建立通信socket</li><li>链接对方，请求跟对方建立通路</li><li>发送内容到对方服务器</li><li>接受对方的反馈</li><li>关闭链接通路</li></ol></li><li>案例v04， v05</li></ul></li></ul></li></ul><h1 id="FTP编程"><a href="#FTP编程" class="headerlink" title="FTP编程"></a>FTP编程</h1><ul><li>FTP(FileTransferProtocal)文件传输协议</li><li>用途： 定制一些特殊的上传下载文件的服务</li><li>用户分类： 登陆FTP服务器必须有一个账号<ul><li>Real账户: 注册账户</li><li>Guest账户： 可能临时对某一类人的行为进行授权</li><li>Anonymous账户： 匿名账户，允许任何人</li></ul></li><li><p>FTP工作流程</p><ol><li>客户端链接远程主机上的FTP服务器</li><li>客户端输入用户名和密码（或者“anonymous”和电子邮件地址）</li><li>客户端和服务器进行各种文件传输和信息查询操作</li><li>客户端从远程FTP服务器退出，结束传输   </li></ol></li><li><p>FTP文件表示</p><ul><li>分三段表示FTP服务器上的文件</li><li>HOST: 主机地址，类似于 ftp.mozilla.org, 以ftp开头</li><li>DIR：目录， 表示文件所在本地的路径，例如 pub/android/focus/1.1-RC1/ </li><li>File： 文件名称， 例如 Klar-1.1-RC1.apk</li><li>如果想完整精确表示ftp上某一个文件，需要上述三部分组合在一起</li><li>案例v06</li></ul></li></ul><h1 id="Mail编程"><a href="#Mail编程" class="headerlink" title="Mail编程"></a>Mail编程</h1><h2 id="电子邮件的历史"><a href="#电子邮件的历史" class="headerlink" title="电子邮件的历史"></a>电子邮件的历史</h2><ul><li><p>起源</p><ul><li>1969 Leonard K. 教授发给同时的 “LO”</li><li>1971 美国国防部自主的阿帕网(Arpanet)的通讯机制</li><li>通讯地址里用@， </li><li>1987年中国的第一份电子邮件<br>“Across the Great Wall we can reach every corner in the world”</li></ul></li><li><p>管理程序</p><ul><li>Euroda使邮件普及 </li><li>Netscape，outlook，forxmail后来居上</li><li>Hotmal使用浏览器发送邮件i</li></ul></li><li>参考资料<ul><li><a href="https://docs.python.org/3/library/email.mime.html" target="_blank" rel="noopener">官网</a></li></ul></li></ul><h2 id="邮件工作流程"><a href="#邮件工作流程" class="headerlink" title="邮件工作流程"></a>邮件工作流程</h2><ul><li>MUA(MailUserAgent)邮件用户代理</li><li>MTA(MailTransferAgent)邮件传输代理</li><li>MDA(MailDeliveryAgent)邮件投递代理</li><li><a href="mailto:laoshi@qq.com" target="_blank" rel="noopener">laoshi@qq.com</a>, 老师，北京海淀</li><li><a href="mailto:xuesheng@sina.com" target="_blank" rel="noopener">xuesheng@sina.com</a>, 学生，上海江岸区</li><li><p>流程</p><ol><li>MUA-&gt;MTA, 邮件已经在服务器上了</li><li>qq MTA-&gt;………-&gt;sina MTA, 邮件在新浪的服务器上</li><li>sina MTA-&gt; sina MDA, 此时邮件已经在你的邮箱里了</li><li>sina MDA -&gt; MUA(Foxmail/Outlook), 邮件下载到本地电脑</li></ol></li><li><p>编写程序</p><ul><li>发送：  MUA-&gt;MTA with SMTP:SimpleMailTransferProtocal，包含MTA-&gt;MTA</li><li>接受：  MDA-&gt;MUA with POP3 and IMAP：PostOfficeProtocal v3 and  InternetMessageAccessProtocal v4</li></ul></li><li><p>准备工作</p><ul><li>注册邮箱（以qq邮箱为例）</li><li>第三方邮箱需要特殊设置， 以qq邮箱为例<ul><li>进入设置中心</li><li>取得授权码</li></ul></li></ul></li><li><p>Python for mail</p><ul><li><p>SMTP协议负责发送邮件</p><ul><li>使用email模块构建邮件<ul><li>纯文本邮件</li><li>案例v07</li></ul></li><li>HTML格式邮件发送<ul><li>准备HTML代码作为内容</li><li>把邮件的subtpye设为html</li><li>发送</li><li>案例v08</li></ul></li><li><p>发送带附件的邮件</p><ul><li>可以把邮件看作是一个文本邮件和一个附件的合体</li><li>一封邮件如果涉及多个部分，需要使用MIMEMultipart格式构建</li><li>添加一个MIMEText正文</li><li>添加一个MIMEBase或者MEMEText作为附件</li><li>案例v09</li></ul></li><li><p>添加邮件头， 抄送等信息</p><ul><li>mail[“From”] 表示发送着信息，包括姓名和邮件</li><li>mail[“To”]  表示接收者信息，包括姓名和邮件地址</li><li>mail[“Subject”] 表示摘要或者主题信息</li><li>案例v10</li></ul></li><li><p>同时支持html和text格式</p><ul><li>构建一个MIMEMultipart格式邮件</li><li>MIMEMultipart的subtype设置成alternative格式</li><li>添加HTML和text邮件</li><li>案例v11</li></ul></li><li><p>使用smtplib模块发送邮件</p></li></ul></li><li><p>POP3协议接受邮件 </p><ul><li>本质上是MDA到MUA的一个过程</li><li>从 MDA下载下来的是一个完整的邮件结构体，需要解析才能得到每个具体可读的内容</li><li>步骤：<ol><li>用poplib下载邮件结构体原始内容<ol><li>准备相应的内容（邮件地址，密码，POP3实例）</li><li>身份认证</li><li>一般会先得到邮箱内邮件的整体列表</li><li>根据相应序号，得到某一封信的数据流</li><li>利用解析函数进行解析出相应的邮件结构体</li></ol></li><li>用email解析邮件的具体内容</li></ol></li><li>案例v12</li></ul></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;网络编程&quot;&gt;&lt;a href=&quot;#网络编程&quot; class=&quot;headerlink&quot; title=&quot;网络编程&quot;&gt;&lt;/a&gt;网络编程&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;网络：&lt;/li&gt;
+&lt;li&gt;网络协议： 一套规则&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;网络模型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;七
       
     
     </summary>
@@ -181,29 +230,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%207/"/>
-    <id>http://yoursite.com/2018/06/11/note 7/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul><li>资料<ul><li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li><li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li><li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li><li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li></ul></li></ul><h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul><li>直接作用于for循环的叫可迭代对象,Iterable</li><li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li></ul><ul><li><p>可以用isinstance判断</p><pre><code>from collections import Iterablel = [1,2,3,4]isinstance(l, Iterable)</code></pre></li></ul><pre><code>from collections import Iteratorisinstance((x for x in range(10)), Iterator)</code></pre><ul><li><p>iterable和Iterator的关系,可以通过iter函数运算</p><pre><code>isinstance(iter(&apos;abc&apos;), Iterator)</code></pre></li></ul><h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul><li>一边循环一边计算的机制,generator</li><li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li><li><p>生成器创建:</p><ul><li><p>直接使用</p><pre><code>L = [x * x for x in range(10)]g = (x * x for x in range(10))</code></pre></li><li>函数中包含yield,则叫generator</li><li>next调用,遇到yield返回</li></ul></li></ul><pre><code>def odd():   print(&apos;step 1&apos;)   yield 1   print(&apos;step 2&apos;)   yield(3)   print(&apos;step 3&apos;)   yield(5)def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       print(b)       a, b = b, a + b       n = n + 1   return &apos;done&apos;def fib(max):   n, a, b = 0, 0, 1   while n &lt; max:       yield b       a, b = b, a + b       n = n + 1   return &apos;done&apos;</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul><li><p>历史</p><ul><li>3.4引入协程概念，用yield实现</li><li>3.5 引入协程语法</li><li>实现包asyncio,tornado, gevent</li></ul></li><li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p></li><li>使用:   <ul><li>yield关键字</li><li>send关键字</li></ul></li><li><p>案例v1</p></li><li><p>协程的四个状态</p><ul><li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li><li>GEN_CREATED：等待开始执行</li><li>GEN_RUNNING：解释器正在执行</li><li>GEN_SUSPENED：在yield表达式处暂停</li><li>GEN_CLOSED：执行结束</li><li>next预激（prime)</li><li>完整执行过程v2</li></ul></li><li><p>协程终止</p><ul><li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li><li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li></ul></li><li><p>异常</p><ul><li>客户段代码可以在生成器对象上调用两个方法</li><li><p>generator.throw(Exctpiton):</p><pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。</code></pre></li><li><p>generator.close()</p><pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。</code></pre></li><li>v03               </li></ul></li><li>yield from<ul><li>为了得到返回值，协程必须正常终止；</li><li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li><li>yield from 从内部捕获StopIteration异常</li><li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li><li>v04</li><li>v05</li><li>委派生成器<ul><li>包含 yield from 表达式的生成器函数</li><li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li><li>子生成器再把产出的值发给调用方。</li><li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li><li>v06</li></ul></li></ul></li></ul><h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul><li>python3.4开始引入的标准库,内置了对移步io的支持</li><li>asyncio本身是一个消息循环,</li><li>步骤<ul><li>创建消息循环</li><li>把协程导入</li><li>关闭<ul><li>案例08</li><li>案例09-两个tasks</li><li>案例v10-得到多个网站</li></ul></li></ul></li></ul><h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul><li>为了更好的表示异步io</li><li>python3.5 开始引入</li><li>让coroutine代码更简洁</li><li>使用上,可以简单进行替换<ul><li>可以把 @asyncio.coroutine 替换成async</li><li>yield from 替换成await</li></ul></li><li>案例v11, 把案例09直接替换</li></ul><h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul><li>介绍<ul><li>asyncio实现单线程并发IO,在客户端用处不大</li><li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li><li>asyncio实现了TCP,UIDP,SSL等协议</li><li>aiohttp是给予asyncio实现的HTTP框架</li><li>pip install aiohttp</li><li>案例07</li></ul></li></ul><h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul><li>python3新增的库</li><li>类似其他语言的线程池的概念</li><li>此模块利用multiprocessiong实现真正的平行计算</li><li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li><li>concurrent.futures.Executor <ul><li>ThreadPoolExecutor</li><li>ProcessPoolExecutor</li></ul></li><li><p>submit(fn, args, kwargs)</p><ul><li>fn:异步执行的函数</li><li><p>args,kwargs:参数</p><pre><code> # 官方死锁案例import timedef wait_on_b():    time.sleep(5)    print(b.result())  #b不会完成，他一直在等待a的return结果    return 5def wait_on_a():    time.sleep(5)    print(a.result())  #同理a也不会完成，他也是在等待b的结果    return 6</code></pre></li></ul></li></ul><pre><code>        executor = ThreadPoolExecutor(max_workers=2)        a = executor.submit(wait_on_b)        b = executor.submit(wait_on_a)- 案例v14</code></pre><ul><li><p>map(fn, *iterables, timeout=None)</p><ul><li>跟map函数类似</li><li>函数需要异步执行</li><li>timeout: 超时时间</li><li>案例 v12</li><li>案例v15</li><li><p>起执行结果是list,数据需要从list中取出来</p><pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:    print(list(executor.map(sleeper, x)))</code></pre></li></ul></li><li><p>submit和map根据需要选一个即可</p></li><li><p>案例v13</p></li><li><p>Future</p><ul><li>未来需要完成的任务</li><li>future 实例由Excutor.submit创建</li><li>案例v17</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;参考资料&quot;&gt;&lt;a href=&quot;#参考资料&quot; class=&quot;headerlink&quot; title=&quot;参考资料&quot;&gt;&lt;/a&gt;参考资料&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;资料&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/andybegin/arti
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%209/"/>
     <id>http://yoursite.com/2018/06/11/note 9/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -219,32 +245,6 @@
 &lt;li&gt;调试流程：单元测试-&amp;gt;集成测试-&amp;gt;交测试部&lt;/li&gt;
 &lt;li&gt;分类：&lt;ul&gt;
 &lt;li&gt;静态调试：看&lt;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%206/"/>
-    <id>http://yoursite.com/2018/06/11/note 6/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h1><ul><li>网络：</li><li>网络协议： 一套规则</li><li><p>网络模型：</p><ul><li>七层模型-七层<ul><li>物理层</li><li>数据链路层</li><li>网络层</li><li>传输层</li><li>会话层</li><li>表示层</li><li>应用层</li></ul></li><li>四层模型-实际应用<ul><li>链路层</li><li>网络</li><li>传输层</li><li>应用层</li></ul></li></ul></li><li><p>每一层都有相应的协议负责交换信息或者协同工作</p></li><li>TCP/IP 协议族</li><li><p>IP地址：负责在网络上唯一定位一个机器</p><ul><li>IP地址分ABCDE类</li><li>是由四个数字段组成，每个数字段的取值是0-255</li><li>192.168.xxx.xxx:局域网ip</li><li>127.0.0.1：本机</li><li>IPv4, IPv6</li></ul></li><li><p>端口</p><ul><li>范围： 0-65535<ul><li>知名端口：0-1023</li><li>非知名端口：1024-</li></ul></li></ul></li></ul><h1 id="TCP-UDP协议"><a href="#TCP-UDP协议" class="headerlink" title="TCP/UDP协议"></a>TCP/UDP协议</h1><ul><li>UDP：非安全的不面向链接的传输<ul><li>安全性差</li><li>大小限制64kb</li><li>没有顺序</li><li>速度快</li></ul></li><li><p>TCP</p><ul><li>基于链接的通信</li></ul></li><li><p>SOCKET编程</p><ul><li>socket（套接字）: 是一个网络通信的端点， 能实现不同主机的进程通信，网络大多基于Socket通信</li><li>通过IP+端口定位对方并发送消息的通信机制</li><li>分为UDP和TCP</li><li>客户端Client： 发起访问的一方</li><li>服务器端Server：接受访问的一方</li></ul></li><li><p>UDP 编程</p><ul><li>Server端流程<pre><code>1. 建立socket，socket是负责具体通信的一个实例2. 绑定，为创建的socket指派固定的端口和ip地址3. 接受对方发送内容4. 给对方发送反馈，此步骤为非必须步骤</code></pre></li><li>Client端流程<pre><code>1. 建立通信的socket2. 发送内容到指定服务器3. 接受服务器给定的反馈内容</code></pre></li><li>服务器案例v01</li><li>客户端案例v02</li><li>服务器程序要求永久运行，一般用死循环处理</li><li>改造的服务器版本v03</li></ul></li><li><p>TCP编程</p><ul><li>面向链接的传输，即每次传输之前需要先建立一个链接<ul><li>客户端和服务器端两个程序需要编写</li><li>Server端的编写流程<ol><li>建立socket负责具体通信，这个socket其实只负责接受对方的请求，真正通信的是链接后从新建立的socket</li><li>绑定端口和地址</li><li>监听接入的访问socket</li><li>接受访问的socket，可以理解接受访问即建立了一个通讯的链接通路</li><li>接受对方的发送内容，利用接收到的socket接收内容</li><li>如果有必要，给对方发送反馈信息</li><li>关闭链接通路</li></ol></li><li>Client端流程<ol><li>建立通信socket</li><li>链接对方，请求跟对方建立通路</li><li>发送内容到对方服务器</li><li>接受对方的反馈</li><li>关闭链接通路</li></ol></li><li>案例v04， v05</li></ul></li></ul></li></ul><h1 id="FTP编程"><a href="#FTP编程" class="headerlink" title="FTP编程"></a>FTP编程</h1><ul><li>FTP(FileTransferProtocal)文件传输协议</li><li>用途： 定制一些特殊的上传下载文件的服务</li><li>用户分类： 登陆FTP服务器必须有一个账号<ul><li>Real账户: 注册账户</li><li>Guest账户： 可能临时对某一类人的行为进行授权</li><li>Anonymous账户： 匿名账户，允许任何人</li></ul></li><li><p>FTP工作流程</p><ol><li>客户端链接远程主机上的FTP服务器</li><li>客户端输入用户名和密码（或者“anonymous”和电子邮件地址）</li><li>客户端和服务器进行各种文件传输和信息查询操作</li><li>客户端从远程FTP服务器退出，结束传输   </li></ol></li><li><p>FTP文件表示</p><ul><li>分三段表示FTP服务器上的文件</li><li>HOST: 主机地址，类似于 ftp.mozilla.org, 以ftp开头</li><li>DIR：目录， 表示文件所在本地的路径，例如 pub/android/focus/1.1-RC1/ </li><li>File： 文件名称， 例如 Klar-1.1-RC1.apk</li><li>如果想完整精确表示ftp上某一个文件，需要上述三部分组合在一起</li><li>案例v06</li></ul></li></ul><h1 id="Mail编程"><a href="#Mail编程" class="headerlink" title="Mail编程"></a>Mail编程</h1><h2 id="电子邮件的历史"><a href="#电子邮件的历史" class="headerlink" title="电子邮件的历史"></a>电子邮件的历史</h2><ul><li><p>起源</p><ul><li>1969 Leonard K. 教授发给同时的 “LO”</li><li>1971 美国国防部自主的阿帕网(Arpanet)的通讯机制</li><li>通讯地址里用@， </li><li>1987年中国的第一份电子邮件<br>“Across the Great Wall we can reach every corner in the world”</li></ul></li><li><p>管理程序</p><ul><li>Euroda使邮件普及 </li><li>Netscape，outlook，forxmail后来居上</li><li>Hotmal使用浏览器发送邮件i</li></ul></li><li>参考资料<ul><li><a href="https://docs.python.org/3/library/email.mime.html" target="_blank" rel="noopener">官网</a></li></ul></li></ul><h2 id="邮件工作流程"><a href="#邮件工作流程" class="headerlink" title="邮件工作流程"></a>邮件工作流程</h2><ul><li>MUA(MailUserAgent)邮件用户代理</li><li>MTA(MailTransferAgent)邮件传输代理</li><li>MDA(MailDeliveryAgent)邮件投递代理</li><li><a href="mailto:laoshi@qq.com" target="_blank" rel="noopener">laoshi@qq.com</a>, 老师，北京海淀</li><li><a href="mailto:xuesheng@sina.com" target="_blank" rel="noopener">xuesheng@sina.com</a>, 学生，上海江岸区</li><li><p>流程</p><ol><li>MUA-&gt;MTA, 邮件已经在服务器上了</li><li>qq MTA-&gt;………-&gt;sina MTA, 邮件在新浪的服务器上</li><li>sina MTA-&gt; sina MDA, 此时邮件已经在你的邮箱里了</li><li>sina MDA -&gt; MUA(Foxmail/Outlook), 邮件下载到本地电脑</li></ol></li><li><p>编写程序</p><ul><li>发送：  MUA-&gt;MTA with SMTP:SimpleMailTransferProtocal，包含MTA-&gt;MTA</li><li>接受：  MDA-&gt;MUA with POP3 and IMAP：PostOfficeProtocal v3 and  InternetMessageAccessProtocal v4</li></ul></li><li><p>准备工作</p><ul><li>注册邮箱（以qq邮箱为例）</li><li>第三方邮箱需要特殊设置， 以qq邮箱为例<ul><li>进入设置中心</li><li>取得授权码</li></ul></li></ul></li><li><p>Python for mail</p><ul><li><p>SMTP协议负责发送邮件</p><ul><li>使用email模块构建邮件<ul><li>纯文本邮件</li><li>案例v07</li></ul></li><li>HTML格式邮件发送<ul><li>准备HTML代码作为内容</li><li>把邮件的subtpye设为html</li><li>发送</li><li>案例v08</li></ul></li><li><p>发送带附件的邮件</p><ul><li>可以把邮件看作是一个文本邮件和一个附件的合体</li><li>一封邮件如果涉及多个部分，需要使用MIMEMultipart格式构建</li><li>添加一个MIMEText正文</li><li>添加一个MIMEBase或者MEMEText作为附件</li><li>案例v09</li></ul></li><li><p>添加邮件头， 抄送等信息</p><ul><li>mail[“From”] 表示发送着信息，包括姓名和邮件</li><li>mail[“To”]  表示接收者信息，包括姓名和邮件地址</li><li>mail[“Subject”] 表示摘要或者主题信息</li><li>案例v10</li></ul></li><li><p>同时支持html和text格式</p><ul><li>构建一个MIMEMultipart格式邮件</li><li>MIMEMultipart的subtype设置成alternative格式</li><li>添加HTML和text邮件</li><li>案例v11</li></ul></li><li><p>使用smtplib模块发送邮件</p></li></ul></li><li><p>POP3协议接受邮件 </p><ul><li>本质上是MDA到MUA的一个过程</li><li>从 MDA下载下来的是一个完整的邮件结构体，需要解析才能得到每个具体可读的内容</li><li>步骤：<ol><li>用poplib下载邮件结构体原始内容<ol><li>准备相应的内容（邮件地址，密码，POP3实例）</li><li>身份认证</li><li>一般会先得到邮箱内邮件的整体列表</li><li>根据相应序号，得到某一封信的数据流</li><li>利用解析函数进行解析出相应的邮件结构体</li></ol></li><li>用email解析邮件的具体内容</li></ol></li><li>案例v12</li></ul></li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;网络编程&quot;&gt;&lt;a href=&quot;#网络编程&quot; class=&quot;headerlink&quot; title=&quot;网络编程&quot;&gt;&lt;/a&gt;网络编程&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;网络：&lt;/li&gt;
-&lt;li&gt;网络协议： 一套规则&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;网络模型：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;七
       
     
     </summary>
@@ -345,27 +345,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note3/"/>
-    <id>http://yoursite.com/2018/06/11/note3/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2018-06-10T22:46:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="动态HTML"><a href="#动态HTML" class="headerlink" title="动态HTML"></a>动态HTML</h1><h2 id="爬虫跟反爬虫"><a href="#爬虫跟反爬虫" class="headerlink" title="爬虫跟反爬虫"></a>爬虫跟反爬虫</h2><h2 id="动态HTML介绍"><a href="#动态HTML介绍" class="headerlink" title="动态HTML介绍"></a>动态HTML介绍</h2><ul><li>JavaScrapt</li><li>jQuery</li><li>Ajax</li><li>DHTML</li><li>Python采集动态数据<ul><li>从Javascript代码入手采集</li><li>Python第三方库运行JavaScript，直接采集你在浏览器看到的页面</li></ul></li></ul><h2 id="Selenium-PhantomJS"><a href="#Selenium-PhantomJS" class="headerlink" title="Selenium + PhantomJS"></a>Selenium + PhantomJS</h2><ul><li>Selenium: web自动化测试工具<ul><li>自动加载页面</li><li>获取数据</li><li>截屏</li><li>安装： pip install selenium==2.48.0</li><li>官网： <a href="http://selenium-python.readthedocs.io/index.html" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/index.html</a></li></ul></li><li>PhantomJS(幽灵)<ul><li>基于Webkit 的无界面的浏览器 </li><li>官网： <a href="http://phantomjs.org/download.html" target="_blank" rel="noopener">http://phantomjs.org/download.html</a></li></ul></li><li>Selenium 库有有一个WebDriver的API</li><li>WebDriver可以跟页面上的元素进行各种交互，用它可以来进行爬取</li><li>案例 v36</li><li>chrome + chromedriver<ul><li>下载安装chrome： 下载+安装</li><li>下载安装chromedriver：</li></ul></li><li>Selenium操作主要分两大类：<ul><li>得到UI元素<ul><li>find_element_by_id</li><li>find_elements_by_name</li><li>find_elements_by_xpath</li><li>find_elements_by_link_text</li><li>find_elements_by_partial_link_text</li><li>find_elements_by_tag_name</li><li>find_elements_by_class_name</li><li>find_elements_by_css_selector</li></ul></li><li>基于UI元素操作的模拟<ul><li>单击</li><li>右键</li><li>拖拽</li><li>输入</li><li>可以通过导入ActionsChains类来做到</li></ul></li><li>案例37</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;动态HTML&quot;&gt;&lt;a href=&quot;#动态HTML&quot; class=&quot;headerlink&quot; title=&quot;动态HTML&quot;&gt;&lt;/a&gt;动态HTML&lt;/h1&gt;&lt;h2 id=&quot;爬虫跟反爬虫&quot;&gt;&lt;a href=&quot;#爬虫跟反爬虫&quot; class=&quot;headerlink&quot; titl
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note2/"/>
     <id>http://yoursite.com/2018/06/11/note2/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -381,6 +360,27 @@
 &lt;li&gt;结构数据： 先有的结构，在谈数据&lt;ul&gt;
 &lt;li&gt;JSON文件&lt;ul&gt;
 
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note3/"/>
+    <id>http://yoursite.com/2018/06/11/note3/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2018-06-10T22:46:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="动态HTML"><a href="#动态HTML" class="headerlink" title="动态HTML"></a>动态HTML</h1><h2 id="爬虫跟反爬虫"><a href="#爬虫跟反爬虫" class="headerlink" title="爬虫跟反爬虫"></a>爬虫跟反爬虫</h2><h2 id="动态HTML介绍"><a href="#动态HTML介绍" class="headerlink" title="动态HTML介绍"></a>动态HTML介绍</h2><ul><li>JavaScrapt</li><li>jQuery</li><li>Ajax</li><li>DHTML</li><li>Python采集动态数据<ul><li>从Javascript代码入手采集</li><li>Python第三方库运行JavaScript，直接采集你在浏览器看到的页面</li></ul></li></ul><h2 id="Selenium-PhantomJS"><a href="#Selenium-PhantomJS" class="headerlink" title="Selenium + PhantomJS"></a>Selenium + PhantomJS</h2><ul><li>Selenium: web自动化测试工具<ul><li>自动加载页面</li><li>获取数据</li><li>截屏</li><li>安装： pip install selenium==2.48.0</li><li>官网： <a href="http://selenium-python.readthedocs.io/index.html" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/index.html</a></li></ul></li><li>PhantomJS(幽灵)<ul><li>基于Webkit 的无界面的浏览器 </li><li>官网： <a href="http://phantomjs.org/download.html" target="_blank" rel="noopener">http://phantomjs.org/download.html</a></li></ul></li><li>Selenium 库有有一个WebDriver的API</li><li>WebDriver可以跟页面上的元素进行各种交互，用它可以来进行爬取</li><li>案例 v36</li><li>chrome + chromedriver<ul><li>下载安装chrome： 下载+安装</li><li>下载安装chromedriver：</li></ul></li><li>Selenium操作主要分两大类：<ul><li>得到UI元素<ul><li>find_element_by_id</li><li>find_elements_by_name</li><li>find_elements_by_xpath</li><li>find_elements_by_link_text</li><li>find_elements_by_partial_link_text</li><li>find_elements_by_tag_name</li><li>find_elements_by_class_name</li><li>find_elements_by_css_selector</li></ul></li><li>基于UI元素操作的模拟<ul><li>单击</li><li>右键</li><li>拖拽</li><li>输入</li><li>可以通过导入ActionsChains类来做到</li></ul></li><li>案例37</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;动态HTML&quot;&gt;&lt;a href=&quot;#动态HTML&quot; class=&quot;headerlink&quot; title=&quot;动态HTML&quot;&gt;&lt;/a&gt;动态HTML&lt;/h1&gt;&lt;h2 id=&quot;爬虫跟反爬虫&quot;&gt;&lt;a href=&quot;#爬虫跟反爬虫&quot; class=&quot;headerlink&quot; titl
       
     
     </summary>
