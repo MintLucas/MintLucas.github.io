@@ -261,7 +261,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/vs code中配置" bits stdc++" ">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/vscode配置<bits:stdc++>'/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Litchip">
@@ -280,7 +280,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/23/vs code中配置" bits stdc++" " itemprop="url">vscode配置#include <bits stdc++></bits></a></h1>
+                <a class="post-title-link" href="/2019/02/23/vscode配置<bits:stdc++>'/" itemprop="url">vscode配置<bits stdc++></bits></a></h1>
         
 
         <div class="post-meta">
@@ -336,7 +336,7 @@
 <h4 id="mac上vs-code中配置："><a href="#mac上vs-code中配置：" class="headerlink" title="mac上vs code中配置："></a>mac上vs code中配置：</h4><p>思路是在include目录中添加一个自己编写的”bits/stdc++.h”。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/02/23/vs code中配置" bits stdc++" #more" rel="contents">
+            <a class="btn" href="/2019/02/23/vscode配置<bits:stdc++>'/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -988,196 +988,6 @@ Dog.setName()
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Litchip">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Litchip's个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/11/note 3/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
-                2018-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul>
-<li></li>
-</ul>
-<h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul>
-<li>主要作为技术验证</li>
-<li>画出一个舞台，包括背景，包括一个小飞机</li>
-</ul>
-<h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul>
-<li>小蜜蜂会动，从上往下慢慢的飞</li>
-<li>能控制小蜜蜂左右移动</li>
-<li>入场算法<ul>
-<li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li>
-<li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li>
-</ul>
-</li>
-<li><p>移动速度问题</p>
-<ul>
-<li>包含x，y两个值</li>
-<li>对于绝大多数物体，则只考虑y值</li>
-<li>但是，蜜蜂和英雄是特例</li>
-<li>蜜蜂是从上向下移动的同时具有横向运动</li>
-<li>英雄的移动由上下左右键盘控制</li>
-<li>速度应该是一个tuple=(x,y)</li>
-</ul>
-</li>
-<li><p>方向问题</p>
-<ul>
-<li>具体移动方向由x，y控制</li>
-<li>值只能是-1， 0， 1三个就好</li>
-<li>应该是一个tuple</li>
-<li>例如（-1， 0)表示水平向左移动</li>
-<li>（0,1）表明向下垂直运动</li>
-</ul>
-</li>
-</ul>
-<h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul>
-<li>重构代码，使用oop方法<ul>
-<li>世界的构成<ul>
-<li>小飞机</li>
-<li>大飞机</li>
-<li>小蜜蜂</li>
-<li>子弹</li>
-<li>英雄机</li>
-<li>天空</li>
-</ul>
-</li>
-<li>配置文件<ul>
-<li>可以通过一次性配置来让程序正确运行</li>
-<li>降低了代码软件工程方面的成本</li>
-<li>python的配置文件包： configparser<ul>
-<li>以前就叫ConfigParser </li>
-<li>配置文件一般以cfg或者ini结尾</li>
-<li>语法：<ul>
-<li>中括号： 表示的是section</li>
-<li>每个section下是键值对</li>
-<li>键值对用等号或者冒号链接</li>
-</ul>
-</li>
-<li>get(section_nmame, key_name),返回相应的值</li>
-<li>getint(section_nmame, key_name),返回相应的整数值</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li>
-<li>程序可以正常产生飞行物，包括英雄，子弹，云层</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1410,179 +1220,6 @@ logging.NullHandler     该Handler实例会忽略error messages，通常被想�
 <li>可以被Handler和Logger使用</li>
 <li>控制传递过来的信息的具体内容</li>
 <li>案例02</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Litchip">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Litchip's个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/11/note 4/" itemprop="url">Untitled</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
-                2018-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Django系统"><a href="#Django系统" class="headerlink" title="Django系统"></a>Django系统</h1><ul>
-<li>环境<ul>
-<li>python3.6</li>
-<li>django1.18</li>
-</ul>
-</li>
-<li>参考资料<ul>
-<li><a href="http://python.usyiyi.cn/" target="_blank" rel="noopener">django中文教程</a></li>
-<li>django架站的16堂课<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1></li>
-</ul>
-</li>
-<li>anaconda+pycharm</li>
-<li>anaconda使用<ul>
-<li>conda list: 显示当前环境安装的包</li>
-<li>conda env list:显示安装的虚拟环境列表</li>
-<li>conda create -n env_name python=3.6</li>
-<li>激活conda的虚拟环境<ul>
-<li>(Linux)source activate env_name</li>
-<li>(win) activate env_name</li>
-</ul>
-</li>
-<li>pip install django=1.8</li>
-</ul>
-</li>
-</ul>
-<h1 id="后台需要的流程"><a href="#后台需要的流程" class="headerlink" title="后台需要的流程"></a>后台需要的流程</h1><h1 id="创建第一个django程序"><a href="#创建第一个django程序" class="headerlink" title="创建第一个django程序"></a>创建第一个django程序</h1><ul>
-<li><p>命令行启动</p>
-<pre><code>django-admin startproject tulingxueyuan
-cd tulingxueyuan
-python manage.py runserver
-</code></pre></li>
-<li><p>pycharm 启动</p>
-<ul>
-<li>需要配置</li>
-</ul>
-</li>
-</ul>
-<h1 id="路由系统-urls"><a href="#路由系统-urls" class="headerlink" title="路由系统-urls"></a>路由系统-urls</h1><ul>
-<li><p>创建app</p>
-<ul>
-<li>app：负责一个具体业务或者一类具体业务的模块</li>
-<li>python manage.py tartapp teacher</li>
-</ul>
-</li>
-<li><p>路由</p>
-<ul>
-<li>按照具体的请求url，导入到相应的业务处理模块的一个功能模块</li>
-<li>django的信息控制中枢</li>
-<li>本质上是接受的URL和相应的处理模块的一个映射</li>
-<li>在接受URL请求的匹配上使用了RE</li>
-<li>URL的具体格式入urls.py中所示</li>
 </ul>
 </li>
 </ul>
@@ -1873,6 +1510,196 @@ python manage.py runserver
 <li>哨兵的改进， 案例24</li>
 </ul>
 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Litchip">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Litchip's个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/11/note 3/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="飞机大战"><a href="#飞机大战" class="headerlink" title="飞机大战"></a>飞机大战</h1><ul>
+<li></li>
+</ul>
+<h1 id="v1"><a href="#v1" class="headerlink" title="v1"></a>v1</h1><ul>
+<li>主要作为技术验证</li>
+<li>画出一个舞台，包括背景，包括一个小飞机</li>
+</ul>
+<h1 id="V2"><a href="#V2" class="headerlink" title="V2"></a>V2</h1><ul>
+<li>小蜜蜂会动，从上往下慢慢的飞</li>
+<li>能控制小蜜蜂左右移动</li>
+<li>入场算法<ul>
+<li>y轴要求是负数，这样会形成慢慢入场的效果， y = 0 - bee.height</li>
+<li>x轴要求是有一定的富余，即要求蜜蜂等移动物品不能紧紧贴着边，比如富余是50，<br>  基本上x轴的值应该是50起，最右边的计算方式应该是 world.width-bee.width-50</li>
+</ul>
+</li>
+<li><p>移动速度问题</p>
+<ul>
+<li>包含x，y两个值</li>
+<li>对于绝大多数物体，则只考虑y值</li>
+<li>但是，蜜蜂和英雄是特例</li>
+<li>蜜蜂是从上向下移动的同时具有横向运动</li>
+<li>英雄的移动由上下左右键盘控制</li>
+<li>速度应该是一个tuple=(x,y)</li>
+</ul>
+</li>
+<li><p>方向问题</p>
+<ul>
+<li>具体移动方向由x，y控制</li>
+<li>值只能是-1， 0， 1三个就好</li>
+<li>应该是一个tuple</li>
+<li>例如（-1， 0)表示水平向左移动</li>
+<li>（0,1）表明向下垂直运动</li>
+</ul>
+</li>
+</ul>
+<h1 id="v3"><a href="#v3" class="headerlink" title="v3"></a>v3</h1><ul>
+<li>重构代码，使用oop方法<ul>
+<li>世界的构成<ul>
+<li>小飞机</li>
+<li>大飞机</li>
+<li>小蜜蜂</li>
+<li>子弹</li>
+<li>英雄机</li>
+<li>天空</li>
+</ul>
+</li>
+<li>配置文件<ul>
+<li>可以通过一次性配置来让程序正确运行</li>
+<li>降低了代码软件工程方面的成本</li>
+<li>python的配置文件包： configparser<ul>
+<li>以前就叫ConfigParser </li>
+<li>配置文件一般以cfg或者ini结尾</li>
+<li>语法：<ul>
+<li>中括号： 表示的是section</li>
+<li>每个section下是键值对</li>
+<li>键值对用等号或者冒号链接</li>
+</ul>
+</li>
+<li>get(section_nmame, key_name),返回相应的值</li>
+<li>getint(section_nmame, key_name),返回相应的整数值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在oop的基础上创建小飞机，蜜蜂等，相对简单很多</li>
+<li>程序可以正常产生飞行物，包括英雄，子弹，云层</li>
 </ul>
 
           
@@ -2249,6 +2076,179 @@ python manage.py runserver
 <li>案例v12</li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Litchip">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Litchip's个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/11/note 4/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T06:46:58+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Django系统"><a href="#Django系统" class="headerlink" title="Django系统"></a>Django系统</h1><ul>
+<li>环境<ul>
+<li>python3.6</li>
+<li>django1.18</li>
+</ul>
+</li>
+<li>参考资料<ul>
+<li><a href="http://python.usyiyi.cn/" target="_blank" rel="noopener">django中文教程</a></li>
+<li>django架站的16堂课<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1></li>
+</ul>
+</li>
+<li>anaconda+pycharm</li>
+<li>anaconda使用<ul>
+<li>conda list: 显示当前环境安装的包</li>
+<li>conda env list:显示安装的虚拟环境列表</li>
+<li>conda create -n env_name python=3.6</li>
+<li>激活conda的虚拟环境<ul>
+<li>(Linux)source activate env_name</li>
+<li>(win) activate env_name</li>
+</ul>
+</li>
+<li>pip install django=1.8</li>
+</ul>
+</li>
+</ul>
+<h1 id="后台需要的流程"><a href="#后台需要的流程" class="headerlink" title="后台需要的流程"></a>后台需要的流程</h1><h1 id="创建第一个django程序"><a href="#创建第一个django程序" class="headerlink" title="创建第一个django程序"></a>创建第一个django程序</h1><ul>
+<li><p>命令行启动</p>
+<pre><code>django-admin startproject tulingxueyuan
+cd tulingxueyuan
+python manage.py runserver
+</code></pre></li>
+<li><p>pycharm 启动</p>
+<ul>
+<li>需要配置</li>
+</ul>
+</li>
+</ul>
+<h1 id="路由系统-urls"><a href="#路由系统-urls" class="headerlink" title="路由系统-urls"></a>路由系统-urls</h1><ul>
+<li><p>创建app</p>
+<ul>
+<li>app：负责一个具体业务或者一类具体业务的模块</li>
+<li>python manage.py tartapp teacher</li>
+</ul>
+</li>
+<li><p>路由</p>
+<ul>
+<li>按照具体的请求url，导入到相应的业务处理模块的一个功能模块</li>
+<li>django的信息控制中枢</li>
+<li>本质上是接受的URL和相应的处理模块的一个映射</li>
+<li>在接受URL请求的匹配上使用了RE</li>
+<li>URL的具体格式入urls.py中所示</li>
 </ul>
 </li>
 </ul>
