@@ -229,30 +229,6 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note%209/"/>
-    <id>http://yoursite.com/2018/06/11/note 9/</id>
-    <published>2018-06-10T22:46:58.000Z</published>
-    <updated>2019-02-13T05:54:38.096Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h1><ul><li>调试流程：单元测试-&gt;集成测试-&gt;交测试部</li><li>分类：<ul><li>静态调试：看</li><li>动态调试：需要外部输入<h1 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h1></li></ul></li><li>推荐文章<ul><li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="noopener">官方网页（英文)</a></li><li><a href="http://blog.csdn.net/carolzhang8406/article/details/6923997" target="_blank" rel="noopener">pdb模块介绍</a></li><li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/" target="_blank" rel="noopener">pdb调试技巧</a><ul><li>简单使用的介绍，推荐优先阅读</li></ul></li><li><a href="http://blog.csdn.net/wyb_009/article/details/8896744" target="_blank" rel="noopener">pdb详细中文介绍</a><ul><li>主要是帮助文件的中文翻译</li></ul></li><li><a href="https://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html" target="_blank" rel="noopener">调试案例01</a></li><li><a href="http://python.jobbole.com/81184/" target="_blank" rel="noopener">调试案例02</a></li></ul></li><li>pdb: python 调试库    </li></ul><h1 id="pycharm调试"><a href="#pycharm调试" class="headerlink" title="pycharm调试"></a>pycharm调试</h1><ul><li>run/debug模式 </li><li><p>案例01.py   </p></li><li><p>断点：程序的某一行，程序在debug模式下，遇到断点就会暂停</p></li></ul><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul><li>推荐文档<ul><li><a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" target="_blank" rel="noopener">官方测试文档集合</a></li><li><a href="http://blog.csdn.net/a542551042/article/details/46696635" target="_blank" rel="noopener">测试案例01</a></li><li><a href="https://wiki.python.org/moin/PyUnit" target="_blank" rel="noopener">PyUnit</a></li><li><a href="http://www.jb51.net/article/64119.htm" target="_blank" rel="noopener">PyUnit详细讲解案例02</a></li><li><a href="https://www.cnblogs.com/iamjqy/p/7155315.html" target="_blank" rel="noopener">测试案例03</a> </li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;调试技术&quot;&gt;&lt;a href=&quot;#调试技术&quot; class=&quot;headerlink&quot; title=&quot;调试技术&quot;&gt;&lt;/a&gt;调试技术&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;调试流程：单元测试-&amp;gt;集成测试-&amp;gt;交测试部&lt;/li&gt;
-&lt;li&gt;分类：&lt;ul&gt;
-&lt;li&gt;静态调试：看&lt;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
     <link href="http://yoursite.com/2018/06/11/note%207/"/>
     <id>http://yoursite.com/2018/06/11/note 7/</id>
     <published>2018-06-10T22:46:58.000Z</published>
@@ -290,6 +266,30 @@
         &lt;h1 id=&quot;JSON&quot;&gt;&lt;a href=&quot;#JSON&quot; class=&quot;headerlink&quot; title=&quot;JSON&quot;&gt;&lt;/a&gt;JSON&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;在线工具&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.sojson.com/&quot; target=&quot;_
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2018/06/11/note%209/"/>
+    <id>http://yoursite.com/2018/06/11/note 9/</id>
+    <published>2018-06-10T22:46:58.000Z</published>
+    <updated>2019-02-13T05:54:38.096Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h1><ul><li>调试流程：单元测试-&gt;集成测试-&gt;交测试部</li><li>分类：<ul><li>静态调试：看</li><li>动态调试：需要外部输入<h1 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h1></li></ul></li><li>推荐文章<ul><li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="noopener">官方网页（英文)</a></li><li><a href="http://blog.csdn.net/carolzhang8406/article/details/6923997" target="_blank" rel="noopener">pdb模块介绍</a></li><li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/" target="_blank" rel="noopener">pdb调试技巧</a><ul><li>简单使用的介绍，推荐优先阅读</li></ul></li><li><a href="http://blog.csdn.net/wyb_009/article/details/8896744" target="_blank" rel="noopener">pdb详细中文介绍</a><ul><li>主要是帮助文件的中文翻译</li></ul></li><li><a href="https://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html" target="_blank" rel="noopener">调试案例01</a></li><li><a href="http://python.jobbole.com/81184/" target="_blank" rel="noopener">调试案例02</a></li></ul></li><li>pdb: python 调试库    </li></ul><h1 id="pycharm调试"><a href="#pycharm调试" class="headerlink" title="pycharm调试"></a>pycharm调试</h1><ul><li>run/debug模式 </li><li><p>案例01.py   </p></li><li><p>断点：程序的某一行，程序在debug模式下，遇到断点就会暂停</p></li></ul><h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul><li>推荐文档<ul><li><a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" target="_blank" rel="noopener">官方测试文档集合</a></li><li><a href="http://blog.csdn.net/a542551042/article/details/46696635" target="_blank" rel="noopener">测试案例01</a></li><li><a href="https://wiki.python.org/moin/PyUnit" target="_blank" rel="noopener">PyUnit</a></li><li><a href="http://www.jb51.net/article/64119.htm" target="_blank" rel="noopener">PyUnit详细讲解案例02</a></li><li><a href="https://www.cnblogs.com/iamjqy/p/7155315.html" target="_blank" rel="noopener">测试案例03</a> </li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;调试技术&quot;&gt;&lt;a href=&quot;#调试技术&quot; class=&quot;headerlink&quot; title=&quot;调试技术&quot;&gt;&lt;/a&gt;调试技术&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;调试流程：单元测试-&amp;gt;集成测试-&amp;gt;交测试部&lt;/li&gt;
+&lt;li&gt;分类：&lt;ul&gt;
+&lt;li&gt;静态调试：看&lt;
       
     
     </summary>
@@ -346,21 +346,18 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note2/"/>
-    <id>http://yoursite.com/2018/06/11/note2/</id>
+    <link href="http://yoursite.com/2018/06/11/note-%E6%AD%A3%E5%88%99/"/>
+    <id>http://yoursite.com/2018/06/11/note-正则/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="页面解析和数据提取"><a href="#页面解析和数据提取" class="headerlink" title="页面解析和数据提取"></a>页面解析和数据提取</h1><ul><li>结构数据： 先有的结构，在谈数据<ul><li>JSON文件<ul><li>JSON Path</li><li>转换成Python类型进行操作（json类）</li></ul></li><li>XML文件<ul><li>转换成python类型（xmltodict）</li><li>XPath</li><li>CSS选择器</li><li>正则</li></ul></li></ul></li><li>非结构化数据：先有数据，再谈结构<ul><li>文本</li><li>电话号码</li><li>邮箱地址<ul><li>通常处理此类数据，使用正则表达式</li></ul></li><li>Html文件<ul><li>正则</li><li>XPath</li><li>CSS选择器</li></ul></li></ul></li></ul><h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul><li>一套规则，可以在字符串文本中进行搜查替换等</li><li>案例v23,re的基本使用流程</li><li>案例v24，match的基本使用</li><li>正则常用方法：<ul><li>match: 从开始位置开始查找，一次匹配</li><li>search：从任何位置查找，一次匹配， 案例v25</li><li>findall： 全部匹配，返回列表, 案例v26</li><li>finditer： 全部匹配，返回迭代器, 案例v26</li><li>split： 分割字符串，返回列表</li><li>sub：替换</li></ul></li><li><p>匹配中文</p><ul><li>中文unicode范围主要在[u4e00-u9fa5]</li><li>案例v27</li></ul></li><li><p>贪婪与非贪婪模式</p><ul><li>贪婪模式： 在整个表达式匹配成功的前提下，尽可能多的匹配</li><li>非贪婪模式： xxxxxxxxxxxxxxxxxxxxxx, 尽可能少的匹配</li><li>python里面数量词默认是贪婪模式</li><li>例如：<ul><li>查找文本abbbbbbccc</li><li>re是 ab*</li><li>贪婪模式： 结果是abbbbbb</li><li>非贪婪： 结果是a<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1></li></ul></li></ul></li><li>XML(EXtensibleMarkupLanguage)   </li><li><a href="http://www.w3school.com.cn/xml/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xml/index.asp</a></li><li>案例v28.xml</li><li>概念：父节点，子节点，先辈节点，兄弟节点，后代节点</li></ul><h1 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h1><ul><li>XPath(XML Path Language), 是一门在XML文档中查找信息的语言，</li><li>官方文档： <a href="http://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xpath/index.asp</a></li><li><p>XPath开发工具</p><ul><li>开元的XPath表达式工具： XMLQuire</li><li>chrome插件： Xpath Helper</li><li>Firefox插件： XPath CHecker</li></ul></li><li><p>常用路径表达式：</p><ul><li>nodename: 选取此节点的所有子节点</li><li>/: 从根节点开始选</li><li>//: 选取元素，而不考虑元素的具体为止</li><li>.:  当前节点</li><li>..:父节点</li><li>@： 选取属性</li><li>案例：<ul><li>booksotre: 选取bookstore下的所有子节点</li><li>/booksotre: 选取根元素</li><li>booksotre/book: 选取bookstore的所有为book的子元素</li><li>//book: 选取book子元素</li><li>//@lang:选取名称为lang的所有属性</li></ul></li></ul></li><li><p>谓语(Predicates)</p><ul><li>谓语用来查找某个特定的节点，被向前在方括号中</li><li>/bookstore/book[1]: 选取第一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()]: 选取最后一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()-1]: 选取倒数第二个属于bookstore下叫book的元素</li><li>/bookstore/book[position()&lt;3]: 选取属于bookstore下叫book的前两个元素</li><li>/bookstore/book[@lang]: 选取属于bookstore下叫book的,含有属性lang元素</li><li>/bookstore/book[@lang=”cn”]: 选取属于bookstore下叫book的,含有属性lang的值是cn的元素</li><li>/bookstore/book[@price &lt; 90]: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素</li><li>/bookstore/book[@price &lt; 90]/title: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素的子元素title</li></ul></li><li><p>通配符</p><ul><li><code>*</code> : 任何元素节点</li><li>@*： 匹配任何属性节点</li><li>node(): 陪陪任何类型的节点</li></ul></li><li>选取多个路径<ul><li>//book/tile  | //book/author : 选取book元素中的title和author元素</li><li>//tile | //price: 选取文档中所有的title和price元素</li></ul></li></ul><h1 id="lxml库"><a href="#lxml库" class="headerlink" title="lxml库"></a>lxml库</h1><ul><li>python的HTML/XML的解析器</li><li>官方文档：   <a href="http://lxml.de/index.html" target="_blank" rel="noopener">http://lxml.de/index.html</a></li><li>功能：<ul><li>解析HTML,案例v29.py</li><li>文件读取，案例v30.html, v31.py</li><li>etree和XPath的配合使用, 案例v32.py</li></ul></li></ul><h1 id="CSS选择器-BeautifulSoup4"><a href="#CSS选择器-BeautifulSoup4" class="headerlink" title="CSS选择器  BeautifulSoup4"></a>CSS选择器  BeautifulSoup4</h1><ul><li>现在使用BeautifulSoup4</li><li><a href="http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/" target="_blank" rel="noopener">http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/</a></li><li>几个常用提取信息工具的比较：<ul><li>正则： 很快，不好用，不许安装</li><li>beautifulsoup：慢，使用简单，安装简单</li><li>lxml： 比较快，使用简单，安装一般</li></ul></li><li>案例v33.py</li><li>四大对象<ul><li>Tag</li><li>NavigableString</li><li>BeautifulSoup</li><li>Comment</li></ul></li><li><p>Tag</p><ul><li>对应Html中的标签</li><li>可以通过soup.tag_name</li><li>tag两个重要属性<ul><li>name</li><li>attrs</li></ul></li><li>案例a34  </li></ul></li><li><p>NavigableString</p><ul><li>对应内容值</li></ul></li><li><p>BeautifulSoup</p><ul><li>表示的是一个文档的内容，大部分可以把他当做tag对象</li><li>一般我们可以用soup来表示</li></ul></li><li>Comment<ul><li>特殊类型的NavagableString对象， </li><li>对其输出，则内容不包括注释符号</li></ul></li><li>遍历文档对象<ul><li>contents: tag的子节点以列表的方式给出 </li><li>children： 子节点以迭代器形式返回 </li><li>descendants： 所子孙节点</li><li>string</li><li>案例34</li></ul></li><li><p>搜索文档对象</p><ul><li>find_all(name, attrs, recursive, text, ** kwargs)  <ul><li>name:按照那个字符串搜索，可以传入的内容为<ul><li>字符串</li><li>正则表达式</li><li>列表</li></ul></li><li>kewwortd参数，可以用来表示属性</li><li>text： 对应tag的文本值</li><li>案例34</li></ul></li></ul></li><li><p>css选择器</p><ul><li>使用soup.select, 返回一个列表</li><li>通过标签名称: soup.select(“title”)            </li><li>通过类名： soup.select(“.content”)</li><li>id查找: soup.select(“#name_id”)</li><li>组合查找: soup.select(“div #input_content”)</li><li>属性查找: soup.select(“img[class=’photo’])</li><li>获取tag内容： tag.get_text</li><li>案例35</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul><li>是一个计算机科学的概念</li><li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li><li>常常用来检索，替换某些模式的文本</li></ul><h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul><li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li><li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li><li>\d: 任意一个数字</li><li>\D:除了数字都可以</li><li>\s:表示空格，tab键</li><li>\S:除了空白符号</li><li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li><li>\W: 除了</li><li><em>： 表示前面内容重复零次或者多次， \w</em></li><li>+: 表示前面内容至少出现一次</li><li>？： 前面才出现的内容零次或者一次</li><li>{m,n}:允许前面内容出现最少m次，最多n次</li><li>^:匹配字符串的开始</li><li>$:匹配字符串的结尾</li><li>\b:匹配单词的边界</li><li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p><pre><code>验证一个数字： ^\d$必须有一个数字，最少一位：^\d+$只能出现数字，且位数为5-10位： ^\d{5,10}$注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$只能输入英文字符和数字： ^[A-Za-z0-9]$验证qq号码： [0-9]{5,12}</code></pre></li><li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p></li><li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li><li>|: 左右任意一个</li><li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li><li>(?P=name): 引用分组， </li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;页面解析和数据提取&quot;&gt;&lt;a href=&quot;#页面解析和数据提取&quot; class=&quot;headerlink&quot; title=&quot;页面解析和数据提取&quot;&gt;&lt;/a&gt;页面解析和数据提取&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;结构数据： 先有的结构，在谈数据&lt;ul&gt;
-&lt;li&gt;JSON文件&lt;ul&gt;
-
+        &lt;h1 id=&quot;正则表达式-RegularExpression-re&quot;&gt;&lt;a href=&quot;#正则表达式-RegularExpression-re&quot; class=&quot;headerlink&quot; title=&quot;正则表达式(RegularExpression, re)&quot;&gt;&lt;/a&gt;正则表达式(
       
     
     </summary>
@@ -413,18 +410,21 @@
   
   <entry>
     <title></title>
-    <link href="http://yoursite.com/2018/06/11/note-%E6%AD%A3%E5%88%99/"/>
-    <id>http://yoursite.com/2018/06/11/note-正则/</id>
+    <link href="http://yoursite.com/2018/06/11/note2/"/>
+    <id>http://yoursite.com/2018/06/11/note2/</id>
     <published>2018-06-10T22:46:58.000Z</published>
     <updated>2018-06-10T22:46:58.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="正则表达式-RegularExpression-re"><a href="#正则表达式-RegularExpression-re" class="headerlink" title="正则表达式(RegularExpression, re)"></a>正则表达式(RegularExpression, re)</h1><ul><li>是一个计算机科学的概念</li><li>用于使用单个字符串来描述，匹配符合某个规则的字符串</li><li>常常用来检索，替换某些模式的文本</li></ul><h1 id="正则的写法"><a href="#正则的写法" class="headerlink" title="正则的写法"></a>正则的写法</h1><ul><li>.(点号):表示任意一个字符，除了\n, 比如查找所有的一个字符 .</li><li>[]: 匹配中括号中列举的任意字符，比如[L,Y,0] , LLY, Y0, LIU</li><li>\d: 任意一个数字</li><li>\D:除了数字都可以</li><li>\s:表示空格，tab键</li><li>\S:除了空白符号</li><li>\w: 单词字符， 就是a-z, A-Z, 0-9, _</li><li>\W: 除了</li><li><em>： 表示前面内容重复零次或者多次， \w</em></li><li>+: 表示前面内容至少出现一次</li><li>？： 前面才出现的内容零次或者一次</li><li>{m,n}:允许前面内容出现最少m次，最多n次</li><li>^:匹配字符串的开始</li><li>$:匹配字符串的结尾</li><li>\b:匹配单词的边界</li><li><p>():对正则表达式内容进行分组， 从第一个括号开始，编号逐渐增大</p><pre><code>验证一个数字： ^\d$必须有一个数字，最少一位：^\d+$只能出现数字，且位数为5-10位： ^\d{5,10}$注册者输入年龄，要求16岁以上，99岁以下： ^[16-99]$只能输入英文字符和数字： ^[A-Za-z0-9]$验证qq号码： [0-9]{5,12}</code></pre></li><li><p>\A: 只匹配字符串开头， \Aabcd, 则abcd</p></li><li>\Z: 仅匹配字符串末尾， abcd\Z, abcd</li><li>|: 左右任意一个</li><li>(?P<name>…): 分组，除了原来的编号再制定一个别名， (?P<id>12345){2}， 1234512345</id></name></li><li>(?P=name): 引用分组， </li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="页面解析和数据提取"><a href="#页面解析和数据提取" class="headerlink" title="页面解析和数据提取"></a>页面解析和数据提取</h1><ul><li>结构数据： 先有的结构，在谈数据<ul><li>JSON文件<ul><li>JSON Path</li><li>转换成Python类型进行操作（json类）</li></ul></li><li>XML文件<ul><li>转换成python类型（xmltodict）</li><li>XPath</li><li>CSS选择器</li><li>正则</li></ul></li></ul></li><li>非结构化数据：先有数据，再谈结构<ul><li>文本</li><li>电话号码</li><li>邮箱地址<ul><li>通常处理此类数据，使用正则表达式</li></ul></li><li>Html文件<ul><li>正则</li><li>XPath</li><li>CSS选择器</li></ul></li></ul></li></ul><h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul><li>一套规则，可以在字符串文本中进行搜查替换等</li><li>案例v23,re的基本使用流程</li><li>案例v24，match的基本使用</li><li>正则常用方法：<ul><li>match: 从开始位置开始查找，一次匹配</li><li>search：从任何位置查找，一次匹配， 案例v25</li><li>findall： 全部匹配，返回列表, 案例v26</li><li>finditer： 全部匹配，返回迭代器, 案例v26</li><li>split： 分割字符串，返回列表</li><li>sub：替换</li></ul></li><li><p>匹配中文</p><ul><li>中文unicode范围主要在[u4e00-u9fa5]</li><li>案例v27</li></ul></li><li><p>贪婪与非贪婪模式</p><ul><li>贪婪模式： 在整个表达式匹配成功的前提下，尽可能多的匹配</li><li>非贪婪模式： xxxxxxxxxxxxxxxxxxxxxx, 尽可能少的匹配</li><li>python里面数量词默认是贪婪模式</li><li>例如：<ul><li>查找文本abbbbbbccc</li><li>re是 ab*</li><li>贪婪模式： 结果是abbbbbb</li><li>非贪婪： 结果是a<h1 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h1></li></ul></li></ul></li><li>XML(EXtensibleMarkupLanguage)   </li><li><a href="http://www.w3school.com.cn/xml/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xml/index.asp</a></li><li>案例v28.xml</li><li>概念：父节点，子节点，先辈节点，兄弟节点，后代节点</li></ul><h1 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h1><ul><li>XPath(XML Path Language), 是一门在XML文档中查找信息的语言，</li><li>官方文档： <a href="http://www.w3school.com.cn/xpath/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/xpath/index.asp</a></li><li><p>XPath开发工具</p><ul><li>开元的XPath表达式工具： XMLQuire</li><li>chrome插件： Xpath Helper</li><li>Firefox插件： XPath CHecker</li></ul></li><li><p>常用路径表达式：</p><ul><li>nodename: 选取此节点的所有子节点</li><li>/: 从根节点开始选</li><li>//: 选取元素，而不考虑元素的具体为止</li><li>.:  当前节点</li><li>..:父节点</li><li>@： 选取属性</li><li>案例：<ul><li>booksotre: 选取bookstore下的所有子节点</li><li>/booksotre: 选取根元素</li><li>booksotre/book: 选取bookstore的所有为book的子元素</li><li>//book: 选取book子元素</li><li>//@lang:选取名称为lang的所有属性</li></ul></li></ul></li><li><p>谓语(Predicates)</p><ul><li>谓语用来查找某个特定的节点，被向前在方括号中</li><li>/bookstore/book[1]: 选取第一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()]: 选取最后一个属于bookstore下叫book的元素</li><li>/bookstore/book[last()-1]: 选取倒数第二个属于bookstore下叫book的元素</li><li>/bookstore/book[position()&lt;3]: 选取属于bookstore下叫book的前两个元素</li><li>/bookstore/book[@lang]: 选取属于bookstore下叫book的,含有属性lang元素</li><li>/bookstore/book[@lang=”cn”]: 选取属于bookstore下叫book的,含有属性lang的值是cn的元素</li><li>/bookstore/book[@price &lt; 90]: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素</li><li>/bookstore/book[@price &lt; 90]/title: 选取属于bookstore下叫book的,含有属性price的，且值小于90的元素的子元素title</li></ul></li><li><p>通配符</p><ul><li><code>*</code> : 任何元素节点</li><li>@*： 匹配任何属性节点</li><li>node(): 陪陪任何类型的节点</li></ul></li><li>选取多个路径<ul><li>//book/tile  | //book/author : 选取book元素中的title和author元素</li><li>//tile | //price: 选取文档中所有的title和price元素</li></ul></li></ul><h1 id="lxml库"><a href="#lxml库" class="headerlink" title="lxml库"></a>lxml库</h1><ul><li>python的HTML/XML的解析器</li><li>官方文档：   <a href="http://lxml.de/index.html" target="_blank" rel="noopener">http://lxml.de/index.html</a></li><li>功能：<ul><li>解析HTML,案例v29.py</li><li>文件读取，案例v30.html, v31.py</li><li>etree和XPath的配合使用, 案例v32.py</li></ul></li></ul><h1 id="CSS选择器-BeautifulSoup4"><a href="#CSS选择器-BeautifulSoup4" class="headerlink" title="CSS选择器  BeautifulSoup4"></a>CSS选择器  BeautifulSoup4</h1><ul><li>现在使用BeautifulSoup4</li><li><a href="http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/" target="_blank" rel="noopener">http://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/</a></li><li>几个常用提取信息工具的比较：<ul><li>正则： 很快，不好用，不许安装</li><li>beautifulsoup：慢，使用简单，安装简单</li><li>lxml： 比较快，使用简单，安装一般</li></ul></li><li>案例v33.py</li><li>四大对象<ul><li>Tag</li><li>NavigableString</li><li>BeautifulSoup</li><li>Comment</li></ul></li><li><p>Tag</p><ul><li>对应Html中的标签</li><li>可以通过soup.tag_name</li><li>tag两个重要属性<ul><li>name</li><li>attrs</li></ul></li><li>案例a34  </li></ul></li><li><p>NavigableString</p><ul><li>对应内容值</li></ul></li><li><p>BeautifulSoup</p><ul><li>表示的是一个文档的内容，大部分可以把他当做tag对象</li><li>一般我们可以用soup来表示</li></ul></li><li>Comment<ul><li>特殊类型的NavagableString对象， </li><li>对其输出，则内容不包括注释符号</li></ul></li><li>遍历文档对象<ul><li>contents: tag的子节点以列表的方式给出 </li><li>children： 子节点以迭代器形式返回 </li><li>descendants： 所子孙节点</li><li>string</li><li>案例34</li></ul></li><li><p>搜索文档对象</p><ul><li>find_all(name, attrs, recursive, text, ** kwargs)  <ul><li>name:按照那个字符串搜索，可以传入的内容为<ul><li>字符串</li><li>正则表达式</li><li>列表</li></ul></li><li>kewwortd参数，可以用来表示属性</li><li>text： 对应tag的文本值</li><li>案例34</li></ul></li></ul></li><li><p>css选择器</p><ul><li>使用soup.select, 返回一个列表</li><li>通过标签名称: soup.select(“title”)            </li><li>通过类名： soup.select(“.content”)</li><li>id查找: soup.select(“#name_id”)</li><li>组合查找: soup.select(“div #input_content”)</li><li>属性查找: soup.select(“img[class=’photo’])</li><li>获取tag内容： tag.get_text</li><li>案例35</li></ul></li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;正则表达式-RegularExpression-re&quot;&gt;&lt;a href=&quot;#正则表达式-RegularExpression-re&quot; class=&quot;headerlink&quot; title=&quot;正则表达式(RegularExpression, re)&quot;&gt;&lt;/a&gt;正则表达式(
+        &lt;h1 id=&quot;页面解析和数据提取&quot;&gt;&lt;a href=&quot;#页面解析和数据提取&quot; class=&quot;headerlink&quot; title=&quot;页面解析和数据提取&quot;&gt;&lt;/a&gt;页面解析和数据提取&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;结构数据： 先有的结构，在谈数据&lt;ul&gt;
+&lt;li&gt;JSON文件&lt;ul&gt;
+
       
     
     </summary>

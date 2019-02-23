@@ -2300,7 +2300,7 @@ python manage.py runserver
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 9/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/note 7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Litchip">
@@ -2319,7 +2319,7 @@ python manage.py runserver
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/11/note 9/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2018/06/11/note 7/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -2371,44 +2371,231 @@ python manage.py runserver
       
         
           
-            <h1 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h1><ul>
-<li>调试流程：单元测试-&gt;集成测试-&gt;交测试部</li>
-<li>分类：<ul>
-<li>静态调试：看</li>
-<li>动态调试：需要外部输入<h1 id="pdb调试"><a href="#pdb调试" class="headerlink" title="pdb调试"></a>pdb调试</h1></li>
+            <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li>资料<ul>
+<li><a href="https://blog.csdn.net/andybegin/article/details/77884645" target="_blank" rel="noopener">https://blog.csdn.net/andybegin/article/details/77884645</a></li>
+<li><a href="http://python.jobbole.com/86481/" target="_blank" rel="noopener">http://python.jobbole.com/86481/</a></li>
+<li><a href="http://python.jobbole.com/87310/" target="_blank" rel="noopener">http://python.jobbole.com/87310/</a></li>
+<li><a href="https://segmentfault.com/a/1190000009781688" target="_blank" rel="noopener">https://segmentfault.com/a/1190000009781688</a></li>
 </ul>
 </li>
-<li>推荐文章<ul>
-<li><a href="https://docs.python.org/2/library/pdb.html" target="_blank" rel="noopener">官方网页（英文)</a></li>
-<li><a href="http://blog.csdn.net/carolzhang8406/article/details/6923997" target="_blank" rel="noopener">pdb模块介绍</a></li>
-<li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/" target="_blank" rel="noopener">pdb调试技巧</a><ul>
-<li>简单使用的介绍，推荐优先阅读</li>
+</ul>
+<h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><ul>
+<li>直接作用于for循环的叫可迭代对象,Iterable</li>
+<li>不但可以作用于for循环,还可以被next调用的,叫Itrator</li>
+</ul>
+<ul>
+<li><p>可以用isinstance判断</p>
+<pre><code>from collections import Iterable
+l = [1,2,3,4]
+
+isinstance(l, Iterable)
+</code></pre></li>
+</ul>
+<pre><code>from collections import Iterator
+isinstance((x for x in range(10)), Iterator)
+</code></pre><ul>
+<li><p>iterable和Iterator的关系,可以通过iter函数运算</p>
+<pre><code>isinstance(iter(&apos;abc&apos;), Iterator)
+</code></pre></li>
+</ul>
+<h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h1><ul>
+<li>一边循环一边计算的机制,generator</li>
+<li>是一个算法/函数, 每次条用next的时候计算下一个值,最后跑出StopIteration</li>
+<li><p>生成器创建:</p>
+<ul>
+<li><p>直接使用</p>
+<pre><code>L = [x * x for x in range(10)]
+g = (x * x for x in range(10))
+</code></pre></li>
+<li>函数中包含yield,则叫generator</li>
+<li>next调用,遇到yield返回</li>
 </ul>
 </li>
-<li><a href="http://blog.csdn.net/wyb_009/article/details/8896744" target="_blank" rel="noopener">pdb详细中文介绍</a><ul>
-<li>主要是帮助文件的中文翻译</li>
+</ul>
+<pre><code>def odd():
+   print(&apos;step 1&apos;)
+   yield 1
+   print(&apos;step 2&apos;)
+   yield(3)
+   print(&apos;step 3&apos;)
+   yield(5)
+
+def fib(max):
+   n, a, b = 0, 0, 1
+   while n &lt; max:
+       print(b)
+       a, b = b, a + b
+       n = n + 1
+   return &apos;done&apos;
+
+def fib(max):
+   n, a, b = 0, 0, 1
+   while n &lt; max:
+       yield b
+       a, b = b, a + b
+       n = n + 1
+   return &apos;done&apos;
+</code></pre><h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><ul>
+<li><p>历史</p>
+<ul>
+<li>3.4引入协程概念，用yield实现</li>
+<li>3.5 引入协程语法</li>
+<li>实现包asyncio,tornado, gevent</li>
 </ul>
 </li>
-<li><a href="https://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html" target="_blank" rel="noopener">调试案例01</a></li>
-<li><a href="http://python.jobbole.com/81184/" target="_blank" rel="noopener">调试案例02</a></li>
+<li><p>定义：“协程 是为非抢占式多任务产生子程序的计算机程序组件，<br>协程允许不同入口点在不同位置暂停或开始执行程序”。<br>从技术的角度来说，“协程就是你可以暂停执行的函数”。<br>如果你把它理解成“就像生成器一样”，那么你就想对了。</p>
+</li>
+<li>使用:   <ul>
+<li>yield关键字</li>
+<li>send关键字</li>
 </ul>
 </li>
-<li>pdb: python 调试库    </li>
-</ul>
-<h1 id="pycharm调试"><a href="#pycharm调试" class="headerlink" title="pycharm调试"></a>pycharm调试</h1><ul>
-<li>run/debug模式 </li>
-<li><p>案例01.py   </p>
+<li><p>案例v1</p>
 </li>
-<li><p>断点：程序的某一行，程序在debug模式下，遇到断点就会暂停</p>
+<li><p>协程的四个状态</p>
+<ul>
+<li>inspect.getgeneratorstate(…) 函数确定，该函数会返回下述字符串中的一个：</li>
+<li>GEN_CREATED：等待开始执行</li>
+<li>GEN_RUNNING：解释器正在执行</li>
+<li>GEN_SUSPENED：在yield表达式处暂停</li>
+<li>GEN_CLOSED：执行结束</li>
+<li>next预激（prime)</li>
+<li>完整执行过程v2</li>
+</ul>
+</li>
+<li><p>协程终止</p>
+<ul>
+<li>协程中未处理的异常会向上冒泡，传给 next 函数或 send 方法的调用方（即触发协程的对象）。</li>
+<li>终止协程的一种方式：发送某个哨符值，让协程退出。内置的 None 和Ellipsis 等常量经常用作哨符值==。</li>
+</ul>
+</li>
+<li><p>异常</p>
+<ul>
+<li>客户段代码可以在生成器对象上调用两个方法</li>
+<li><p>generator.throw(Exctpiton):</p>
+<pre><code>致使生成器在暂停的 yield 表达式处抛出指定的异常。如果生成器处理了抛出的异常，代码会向前执行到下一个 yield 表达式，而产出的值会成为调用 generator.throw方法得到的返回值。如果生成器没有处理抛出的异常，异常会向上冒泡，传到调用方的上下文中。
+</code></pre></li>
+<li><p>generator.close()</p>
+<pre><code>致使生成器在暂停的 yield 表达式处抛出 GeneratorExit 异常。
+如果生成器没有处理这个异常，或者抛出了 StopIteration 异常（通常是指运行到结尾），
+调用方不会报错。如果收到 GeneratorExit 异常，生成器一定不能产出值，否则解释器会抛出RuntimeError 异常。生成器抛出的其他异常会向上冒泡，传给调用方。
+</code></pre></li>
+<li>v03               </li>
+</ul>
+</li>
+<li>yield from<ul>
+<li>为了得到返回值，协程必须正常终止；</li>
+<li>然后生成器对象会抛出StopIteration 异常，异常对象的 value 属性保存着返回的值。from</li>
+<li>yield from 从内部捕获StopIteration异常</li>
+<li>并且把StopIteration异常value属性子作为yield from表达式的返回值</li>
+<li>v04</li>
+<li>v05</li>
+<li>委派生成器<ul>
+<li>包含 yield from 表达式的生成器函数</li>
+<li>委派生成器在 yield from 表达式处暂停时，调用方可以直接把数据发给子生成器。</li>
+<li>子生成器再把产出的值发给调用方。</li>
+<li>子生成器返回之后，解释器会抛出 StopIteration 异常，并把返回值附加到异常对象上，<br>此时委派生成器会恢复。</li>
+<li>v06</li>
+</ul>
 </li>
 </ul>
-<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><ul>
-<li>推荐文档<ul>
-<li><a href="https://wiki.python.org/moin/PythonTestingToolsTaxonomy" target="_blank" rel="noopener">官方测试文档集合</a></li>
-<li><a href="http://blog.csdn.net/a542551042/article/details/46696635" target="_blank" rel="noopener">测试案例01</a></li>
-<li><a href="https://wiki.python.org/moin/PyUnit" target="_blank" rel="noopener">PyUnit</a></li>
-<li><a href="http://www.jb51.net/article/64119.htm" target="_blank" rel="noopener">PyUnit详细讲解案例02</a></li>
-<li><a href="https://www.cnblogs.com/iamjqy/p/7155315.html" target="_blank" rel="noopener">测试案例03</a> </li>
+</li>
+</ul>
+<h1 id="asyncio"><a href="#asyncio" class="headerlink" title="asyncio"></a>asyncio</h1><ul>
+<li>python3.4开始引入的标准库,内置了对移步io的支持</li>
+<li>asyncio本身是一个消息循环,</li>
+<li>步骤<ul>
+<li>创建消息循环</li>
+<li>把协程导入</li>
+<li>关闭<ul>
+<li>案例08</li>
+<li>案例09-两个tasks</li>
+<li>案例v10-得到多个网站</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="async-and-await"><a href="#async-and-await" class="headerlink" title="async and await"></a>async and await</h1><ul>
+<li>为了更好的表示异步io</li>
+<li>python3.5 开始引入</li>
+<li>让coroutine代码更简洁</li>
+<li>使用上,可以简单进行替换<ul>
+<li>可以把 @asyncio.coroutine 替换成async</li>
+<li>yield from 替换成await</li>
+</ul>
+</li>
+<li>案例v11, 把案例09直接替换</li>
+</ul>
+<h1 id="aiohttp"><a href="#aiohttp" class="headerlink" title="aiohttp"></a>aiohttp</h1><ul>
+<li>介绍<ul>
+<li>asyncio实现单线程并发IO,在客户端用处不大</li>
+<li>在服务器端可以asyncio+coroutine配合,因为http是io操作</li>
+<li>asyncio实现了TCP,UIDP,SSL等协议</li>
+<li>aiohttp是给予asyncio实现的HTTP框架</li>
+<li>pip install aiohttp</li>
+<li>案例07</li>
+</ul>
+</li>
+</ul>
+<h1 id="concurrent-futures"><a href="#concurrent-futures" class="headerlink" title="concurrent.futures"></a>concurrent.futures</h1><ul>
+<li>python3新增的库</li>
+<li>类似其他语言的线程池的概念</li>
+<li>此模块利用multiprocessiong实现真正的平行计算</li>
+<li>核心原理是：concurrent.futures会以子进程的形式，平行的运行多个python解释器，从而令python程序可以利用多核CPU来提升执行速度。<br>由于子进程与主解释器相分离，所以他们的全局解释器锁也是相互独立的。每个子进程都能够完整的使用一个CPU内核。</li>
+<li>concurrent.futures.Executor <ul>
+<li>ThreadPoolExecutor</li>
+<li>ProcessPoolExecutor</li>
+</ul>
+</li>
+<li><p>submit(fn, args, kwargs)</p>
+<ul>
+<li>fn:异步执行的函数</li>
+<li><p>args,kwargs:参数</p>
+<pre><code> # 官方死锁案例
+import time
+def wait_on_b():
+    time.sleep(5)
+    print(b.result())  #b不会完成，他一直在等待a的return结果
+    return 5
+
+def wait_on_a():
+    time.sleep(5)
+    print(a.result())  #同理a也不会完成，他也是在等待b的结果
+    return 6
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<pre><code>        executor = ThreadPoolExecutor(max_workers=2)
+        a = executor.submit(wait_on_b)
+        b = executor.submit(wait_on_a)
+
+- 案例v14
+</code></pre><ul>
+<li><p>map(fn, *iterables, timeout=None)</p>
+<ul>
+<li>跟map函数类似</li>
+<li>函数需要异步执行</li>
+<li>timeout: 超时时间</li>
+<li>案例 v12</li>
+<li>案例v15</li>
+<li><p>起执行结果是list,数据需要从list中取出来</p>
+<pre><code>with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    print(list(executor.map(sleeper, x)))
+</code></pre></li>
+</ul>
+</li>
+<li><p>submit和map根据需要选一个即可</p>
+</li>
+<li><p>案例v13</p>
+</li>
+<li><p>Future</p>
+<ul>
+<li>未来需要完成的任务</li>
+<li>future 实例由Excutor.submit创建</li>
+<li>案例v17</li>
 </ul>
 </li>
 </ul>
