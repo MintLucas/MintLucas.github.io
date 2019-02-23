@@ -89,14 +89,14 @@
 <meta property="og:site_name" content="Litchip&#39;s个人笔记">
 <meta property="og:description" content="&amp;lt;bits/stdc++&amp;gt; 简介：#include &amp;lt;bits/stdc++&amp;gt; 就相當於引入了所有標準函式庫，即不用每次事先在cpp代码里输入: 12345678910111213#include &amp;lt;iostream&amp;gt;#include &amp;lt;string&amp;gt;#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#i">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/Users/zhipeng/Library/Application%20Support/typora-user-images/image-20190223150205922.png">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0gfeoq4x1j31760ek0vp.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcgy1g0gelpg2w9j310g0u07q3.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcgy1g0gelyqbofj31ar0u0k13.jpg">
-<meta property="og:updated_time" content="2019-02-23T07:51:28.688Z">
+<meta property="og:updated_time" content="2019-02-23T08:21:31.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vscode配置#include &lt;bits&#x2F;stdc++&gt;">
 <meta name="twitter:description" content="&amp;lt;bits/stdc++&amp;gt; 简介：#include &amp;lt;bits/stdc++&amp;gt; 就相當於引入了所有標準函式庫，即不用每次事先在cpp代码里输入: 12345678910111213#include &amp;lt;iostream&amp;gt;#include &amp;lt;string&amp;gt;#include &amp;lt;cstdio&amp;gt;#include &amp;lt;cstdlib&amp;gt;#i">
-<meta name="twitter:image" content="http://yoursite.com/Users/zhipeng/Library/Application%20Support/typora-user-images/image-20190223150205922.png">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tKfTcgy1g0gfeoq4x1j31760ek0vp.jpg">
 
 
 
@@ -342,9 +342,12 @@
 <h4 id="mac上vs-code中配置："><a href="#mac上vs-code中配置：" class="headerlink" title="mac上vs code中配置："></a>mac上vs code中配置：</h4><p>思路是在include目录中添加一个自己编写的”bits/stdc++.h”。</p>
 <ol>
 <li><p>终端输入<code>gcc -v -E -x c++ -</code>找到红框中的地址</p>
-<p><img src="/Users/zhipeng/Library/Application Support/typora-user-images/image-20190223150205922.png" alt="image-20190223150205922"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g0gfeoq4x1j31760ek0vp.jpg" alt="image-20190223150205922"></p>
 </li>
-<li><p>在访达中按组合键 shift+commond+G，在弹出的框中输入红框内容转到相应目录，创建一个bits文件夹 &gt;/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include</p>
+<li><p>在访达中按组合键 shift+commond+G，在弹出的框中输入红框内容转到相应目录，创建一个bits文件夹 </p>
+<blockquote>
+<p>/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include</p>
+</blockquote>
 <p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g0gelpg2w9j310g0u07q3.jpg" alt="image-20190223151311262"></p>
 </li>
 <li><p>新建<strong>stdc++.h文件</strong>复制如下代码，想添加什么常用头文件在endif前添加即可</p>
