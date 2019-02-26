@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="c++,">
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="是事实上">
+<meta name="description" content="C++创建链表和链表基本操作简单的链表实现，包括创建打印，记录下来，防止以后忘了，往往基础的东西最重要又最易被人忽视。  注意形参传递，在createList中为pHead开辟空间的时候，main中的head依旧指向NULL，所以要用引用绑定main里的head 不使用返回值传递而使用参数传递时，注意函数内指针的改变不影响函数外的指针，所以参数类型为指针的指针或指针的引用 因此要用ListNode">
+<meta name="keywords" content="c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="学习hexo">
-<meta property="og:url" content="http://yoursite.com/2019/02/24/学习hexo/index.html">
+<meta property="og:title" content="C++简洁的链表创建">
+<meta property="og:url" content="http://yoursite.com/2019/02/26/C-简洁的链表创建/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="是事实上">
+<meta property="og:description" content="C++创建链表和链表基本操作简单的链表实现，包括创建打印，记录下来，防止以后忘了，往往基础的东西最重要又最易被人忽视。  注意形参传递，在createList中为pHead开辟空间的时候，main中的head依旧指向NULL，所以要用引用绑定main里的head 不使用返回值传递而使用参数传递时，注意函数内指针的改变不影响函数外的指针，所以参数类型为指针的指针或指针的引用 因此要用ListNode">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-24T07:54:36.092Z">
+<meta property="og:updated_time" content="2019-02-26T12:37:45.448Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习hexo">
-<meta name="twitter:description" content="是事实上">
+<meta name="twitter:title" content="C++简洁的链表创建">
+<meta name="twitter:description" content="C++创建链表和链表基本操作简单的链表实现，包括创建打印，记录下来，防止以后忘了，往往基础的东西最重要又最易被人忽视。  注意形参传递，在createList中为pHead开辟空间的时候，main中的head依旧指向NULL，所以要用引用绑定main里的head 不使用返回值传递而使用参数传递时，注意函数内指针的改变不影响函数外的指针，所以参数类型为指针的指针或指针的引用 因此要用ListNode">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/24/学习hexo/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/26/C-简洁的链表创建/">
 
 
 
 
 
-  <title>学习hexo | ZHIPENG个人笔记</title>
+  <title>C++简洁的链表创建 | ZHIPENG个人笔记</title>
   
 
 
@@ -274,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/24/学习hexo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/C-简洁的链表创建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -291,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">学习hexo</h1>
+          <h1 class="post-title" itemprop="name headline">C++简洁的链表创建</h1>
         
 
         <div class="post-meta">
@@ -303,8 +304,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-24T15:24:37+08:00">
-                2019-02-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T08:58:18+08:00">
+                2019-02-26
               </time>
             
 
@@ -326,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -363,8 +364,14 @@
       
 
       
-        <p>是事实上</p>
-
+        <h3 id="C-创建链表和链表基本操作"><a href="#C-创建链表和链表基本操作" class="headerlink" title="C++创建链表和链表基本操作"></a>C++创建链表和链表基本操作</h3><p>简单的链表实现，包括创建打印，记录下来，防止以后忘了，往往基础的东西最重要又最易被人忽视。</p>
+<ul>
+<li>注意形参传递，在createList中为pHead开辟空间的时候，main中的head依旧指向NULL，所以要用引用绑定main里的head</li>
+<li>不使用返回值传递而使用参数传递时，注意函数内指针的改变不影响函数外的指针，所以参数类型为指针的指针或指针的引用</li>
+<li>因此要用ListNode*<em> pHead;p= </em>pHead;此时相当于p==head；</li>
+<li>对链表进行修改时（包括，添加，删除等操作），需要对指针进行修改，头结点要单独拿出来操作，用cur或p来遍历</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    ListNode(<span class="keyword">int</span> x) :</span><br><span class="line">        val(x), next(<span class="literal">NULL</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">createList</span><span class="params">(ListNode*&amp; pHead)</span></span>&#123;</span><br><span class="line">    ListNode* tempHead = pHead;</span><br><span class="line">    ListNode* cur = pHead;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">5</span>,value = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入链表结点个数num:"</span>;</span><br><span class="line">    <span class="comment">//cin &gt;&gt; num;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)&#123;</span><br><span class="line">        <span class="comment">//cin &gt;&gt; temp;</span></span><br><span class="line">        <span class="comment">//调用带参构造函数</span></span><br><span class="line">        ListNode* newNode = <span class="keyword">new</span> ListNode(i);</span><br><span class="line">        cur-&gt;next = newNode;</span><br><span class="line">        cur = newNode;      </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tempHead;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode* pHead)</span></span>&#123;</span><br><span class="line">    ListNode* cur = pHead;</span><br><span class="line">    <span class="keyword">while</span>((cur = cur-&gt;next) != <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cur-&gt;val &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//此处不new在后面需要new</span></span><br><span class="line">    ListNode* head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    head = createList(head);</span><br><span class="line">    printList(head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -379,6 +386,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
 
       
       
@@ -388,9 +401,9 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/vscode配置<bits:stdc++>'/" rel="next" title="vscode配置<bits/stdc++>">
-                <i class="fa fa-chevron-left"></i> vscode配置<bits stdc++>
-              </bits></a>
+              <a href="/2019/02/25/c-对象的内存分析/" rel="next" title="c++对象的内存分析">
+                <i class="fa fa-chevron-left"></i> c++对象的内存分析
+              </a>
             
           </div>
 
@@ -448,8 +461,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -464,7 +486,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -516,6 +538,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-创建链表和链表基本操作"><span class="nav-number">1.</span> <span class="nav-text">C++创建链表和链表基本操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="c++,">
 
 
 
@@ -81,13 +81,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="ZHIPENG个人笔记">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++对象的内存分析">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/c-对象的内存分析/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-26T00:55:19.412Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZHIPENG个人笔记">
+<meta name="twitter:title" content="c++对象的内存分析">
+<meta name="twitter:description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
 
 
 
@@ -117,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/25/c-对象的内存分析/">
 
 
 
 
 
-  <title>ZHIPENG个人笔记</title>
+  <title>c++对象的内存分析 | ZHIPENG个人笔记</title>
   
 
 
@@ -142,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -256,160 +260,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/C-简洁的链表创建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZHIPENG">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHIPENG个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/26/C-简洁的链表创建/" itemprop="url">C++简洁的链表创建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T08:58:18+08:00">
-                2019-02-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          C++创建链表和链表基本操作简单的链表实现，包括创建打印，记录下来，防止以后忘了，往往基础的东西最重要又最易被人忽视。
-
-注意形参传递，在createList中为pHead开辟空间的时候，main中的head依旧指向NULL，所以要用引用绑定main里的head
-不使用返回值传递而使用参数传递时，注
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/26/C-简洁的链表创建/" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -439,9 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/25/c-对象的内存分析/" itemprop="url">c++对象的内存分析</a></h1>
+          <h1 class="post-title" itemprop="name headline">c++对象的内存分析</h1>
         
 
         <div class="post-meta">
@@ -513,24 +364,44 @@
       
 
       
-        
-          
-          四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。
+        <h3 id="四种对象定义方式（in-stack、in-heap、in-global-area）"><a href="#四种对象定义方式（in-stack、in-heap、in-global-area）" class="headerlink" title="四种对象定义方式（in stack、in heap、in global area）"></a>四种对象定义方式（in stack、in heap、in global area）</h3><p>在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。</p>
+<ul>
+<li><p>静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。</p>
+</li>
+<li><p>堆：存储动态生成的变量。生存期：自己来决定。</p>
+</li>
+<li><p>栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）</p>
+</li>
+</ul>
+<ol>
+<li>第一种方法是在堆栈（stack）之中产生：<ul>
+<li>这时在栈中已经为它分配了一个空间存放所有的成员变量，调用这个对象的成员变量和成员函数时用“.”操作符。如：myclass.value,myclass.function()。</li>
+<li>对于局部对象，使用完后不需要手动释放，该类析构函数会自动执行。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="number">3</span>dPoint p = <span class="number">3</span>dPoint(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);    <span class="comment">// 显式调用，栈中分配</span></span><br><span class="line">       <span class="number">3</span><span class="function">dPoint <span class="title">p</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></span>;<span class="comment">//隐式调用</span></span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.第二种方法是在堆(heap)中产生：</p>
+<ul>
+<li>对于以new方式产生出来的局部对象，只有调用到delete时再会执行析构函数，如果程序退出而没有执行delete则会造成内存泄漏。</li>
+<li>new的好处，一处初始化，多处使用</li>
+<li>频繁调用场合并不适合new，就像new申请和释放内存一样</li>
+<li>因为是指针的操作，所以调用这个对象的成员变量和函数时要用“-&gt;”例如myclass.value ,myclss-&gt;function()</li>
+<li>指针访问前，必须指向一段有效的内存，不管是堆的还是栈的，p = &amp;a即指向了栈内存。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       CFoo* foo = <span class="keyword">new</span> CFoo;</span><br><span class="line">    <span class="comment">// 在堆(heap)中产生对象，动态需指针</span></span><br><span class="line">    <span class="comment">//不加括号调用默认构造函数(无参)或唯一的构造函数</span></span><br><span class="line">    <span class="comment">//若有中括号需要有一个正整数参数，申请到的内存指向数组，delete时需要delete []foo;</span></span><br><span class="line"></span><br><span class="line">       CTest* pTest = <span class="literal">NULL</span>;</span><br><span class="line">       <span class="comment">//类指针可以先行定义，但类指针只是个通用指针，在new之前并为该类对象分配任何内存空间</span></span><br><span class="line">       pTest = <span class="keyword">new</span> CTest();</span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.第三种方法是产生一个全局对象</p>
+<ul>
+<li>对于全局对象，加extern可在其他文件中访问，在main()之前分配内存。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CFoo foo;    <span class="comment">// 在任何函数之外作此操作</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>4.第四种方法是产生一个静态局部对象</p>
+<ul>
+<li>静态局部变量与全局变量<strong>共享全局数据区</strong>，只生效一次，可以使用它确定某函数是否被调用过，private虽然在函数调用后还存在与全局区，但仅在定义它的函数中可见，且编译时自动初始化(0orNULL),动态运行时随机值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void MyFunc()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">       static CFoo foo;    // 在函数范围之内的一个静态对象</span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般的全局对象在程序的<strong>其他文件中可以通过关键字extern来调用</strong>，而static声明的全局变量则只能在<strong>本文件中</strong>使用。</p>
 
-静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。
-
-堆：存储动态生成的变量。生存期：自己来决定。
-
-栈：存储调用函数相关的变量和地址等。
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/25/c-对象的内存分析/" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
       
     </div>
     
@@ -545,138 +416,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/vscode配置<bits:stdc++>'/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZHIPENG">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHIPENG个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/23/vscode配置<bits:stdc++>'/" itemprop="url">vscode配置<bits stdc++></bits></a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-23T14:35:51+08:00">
-                2019-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/c/" rel="tag"># c++</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p><strong>&lt;bits/stdc++&gt; </strong>简介：<code>#include &lt;bits/stdc++&gt;</code> 就相当于引入了<strong>所有标准式函数库</strong>，即不用每次事先在cpp代码里输入:</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/23/vscode配置<bits:stdc++>'/" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/23/vscode配置<bits:stdc++>'/" rel="next" title="vscode配置<bits/stdc++>">
+                <i class="fa fa-chevron-left"></i> vscode配置<bits stdc++>
+              </bits></a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/26/C-简洁的链表创建/" rel="prev" title="C++简洁的链表创建">
+                C++简洁的链表创建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -686,10 +459,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -697,6 +471,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -717,8 +495,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -785,6 +572,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#四种对象定义方式（in-stack、in-heap、in-global-area）"><span class="nav-number">1.</span> <span class="nav-text">四种对象定义方式（in stack、in heap、in global area）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -918,6 +721,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-02-24T07:54:36.092Z</updated>
+  <updated>2019-02-26T12:37:45.448Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,26 +17,52 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>学习hexo</title>
-    <link href="http://yoursite.com/2019/02/24/%E5%AD%A6%E4%B9%A0hexo/"/>
-    <id>http://yoursite.com/2019/02/24/学习hexo/</id>
-    <published>2019-02-24T07:24:37.000Z</published>
-    <updated>2019-02-24T07:54:36.092Z</updated>
+    <title>C++简洁的链表创建</title>
+    <link href="http://yoursite.com/2019/02/26/C-%E7%AE%80%E6%B4%81%E7%9A%84%E9%93%BE%E8%A1%A8%E5%88%9B%E5%BB%BA/"/>
+    <id>http://yoursite.com/2019/02/26/C-简洁的链表创建/</id>
+    <published>2019-02-26T00:58:18.000Z</published>
+    <updated>2019-02-26T12:37:45.448Z</updated>
     
-    <content type="html"><![CDATA[<p>是事实上</p>]]></content>
+    <content type="html"><![CDATA[<h3 id="C-创建链表和链表基本操作"><a href="#C-创建链表和链表基本操作" class="headerlink" title="C++创建链表和链表基本操作"></a>C++创建链表和链表基本操作</h3><p>简单的链表实现，包括创建打印，记录下来，防止以后忘了，往往基础的东西最重要又最易被人忽视。</p><ul><li>注意形参传递，在createList中为pHead开辟空间的时候，main中的head依旧指向NULL，所以要用引用绑定main里的head</li><li>不使用返回值传递而使用参数传递时，注意函数内指针的改变不影响函数外的指针，所以参数类型为指针的指针或指针的引用</li><li>因此要用ListNode*<em> pHead;p= </em>pHead;此时相当于p==head；</li><li>对链表进行修改时（包括，添加，删除等操作），需要对指针进行修改，头结点要单独拿出来操作，用cur或p来遍历</li></ul><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    ListNode(<span class="keyword">int</span> x) :</span><br><span class="line">        val(x), next(<span class="literal">NULL</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">ListNode* <span class="title">createList</span><span class="params">(ListNode*&amp; pHead)</span></span>&#123;</span><br><span class="line">    ListNode* tempHead = pHead;</span><br><span class="line">    ListNode* cur = pHead;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">5</span>,value = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入链表结点个数num:"</span>;</span><br><span class="line">    <span class="comment">//cin &gt;&gt; num;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++)&#123;</span><br><span class="line">        <span class="comment">//cin &gt;&gt; temp;</span></span><br><span class="line">        <span class="comment">//调用带参构造函数</span></span><br><span class="line">        ListNode* newNode = <span class="keyword">new</span> ListNode(i);</span><br><span class="line">        cur-&gt;next = newNode;</span><br><span class="line">        cur = newNode;      </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tempHead;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode* pHead)</span></span>&#123;</span><br><span class="line">    ListNode* cur = pHead;</span><br><span class="line">    <span class="keyword">while</span>((cur = cur-&gt;next) != <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cur-&gt;val &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//此处不new在后面需要new</span></span><br><span class="line">    ListNode* head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">    head = createList(head);</span><br><span class="line">    printList(head);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;是事实上&lt;/p&gt;
-
+        &lt;h3 id=&quot;C-创建链表和链表基本操作&quot;&gt;&lt;a href=&quot;#C-创建链表和链表基本操作&quot; class=&quot;headerlink&quot; title=&quot;C++创建链表和链表基本操作&quot;&gt;&lt;/a&gt;C++创建链表和链表基本操作&lt;/h3&gt;&lt;p&gt;简单的链表实现，包括创建打印，记录下来，防止以后
       
     
     </summary>
     
-      <category term="Android" scheme="http://yoursite.com/categories/Android/"/>
+      <category term="C++" scheme="http://yoursite.com/categories/C/"/>
     
+    
+      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++对象的内存分析</title>
+    <link href="http://yoursite.com/2019/02/25/c-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90/"/>
+    <id>http://yoursite.com/2019/02/25/c-对象的内存分析/</id>
+    <published>2019-02-25T13:00:04.000Z</published>
+    <updated>2019-02-26T00:55:19.412Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="四种对象定义方式（in-stack、in-heap、in-global-area）"><a href="#四种对象定义方式（in-stack、in-heap、in-global-area）" class="headerlink" title="四种对象定义方式（in stack、in heap、in global area）"></a>四种对象定义方式（in stack、in heap、in global area）</h3><p>在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。</p><ul><li><p>静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。</p></li><li><p>堆：存储动态生成的变量。生存期：自己来决定。</p></li><li><p>栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）</p></li></ul><ol><li>第一种方法是在堆栈（stack）之中产生：<ul><li>这时在栈中已经为它分配了一个空间存放所有的成员变量，调用这个对象的成员变量和成员函数时用“.”操作符。如：myclass.value,myclass.function()。</li><li>对于局部对象，使用完后不需要手动释放，该类析构函数会自动执行。</li></ul></li></ol><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="number">3</span>dPoint p = <span class="number">3</span>dPoint(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);    <span class="comment">// 显式调用，栈中分配</span></span><br><span class="line">       <span class="number">3</span><span class="function">dPoint <span class="title">p</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></span>;<span class="comment">//隐式调用</span></span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.第二种方法是在堆(heap)中产生：</p><ul><li>对于以new方式产生出来的局部对象，只有调用到delete时再会执行析构函数，如果程序退出而没有执行delete则会造成内存泄漏。</li><li>new的好处，一处初始化，多处使用</li><li>频繁调用场合并不适合new，就像new申请和释放内存一样</li><li>因为是指针的操作，所以调用这个对象的成员变量和函数时要用“-&gt;”例如myclass.value ,myclss-&gt;function()</li><li>指针访问前，必须指向一段有效的内存，不管是堆的还是栈的，p = &amp;a即指向了栈内存。</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       CFoo* foo = <span class="keyword">new</span> CFoo;</span><br><span class="line">    <span class="comment">// 在堆(heap)中产生对象，动态需指针</span></span><br><span class="line">    <span class="comment">//不加括号调用默认构造函数(无参)或唯一的构造函数</span></span><br><span class="line">    <span class="comment">//若有中括号需要有一个正整数参数，申请到的内存指向数组，delete时需要delete []foo;</span></span><br><span class="line"></span><br><span class="line">       CTest* pTest = <span class="literal">NULL</span>;</span><br><span class="line">       <span class="comment">//类指针可以先行定义，但类指针只是个通用指针，在new之前并为该类对象分配任何内存空间</span></span><br><span class="line">       pTest = <span class="keyword">new</span> CTest();</span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>3.第三种方法是产生一个全局对象</p><ul><li>对于全局对象，加extern可在其他文件中访问，在main()之前分配内存。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CFoo foo;    <span class="comment">// 在任何函数之外作此操作</span></span><br></pre></td></tr></table></figure></li></ul><p>4.第四种方法是产生一个静态局部对象</p><ul><li>静态局部变量与全局变量<strong>共享全局数据区</strong>，只生效一次，可以使用它确定某函数是否被调用过，private虽然在函数调用后还存在与全局区，但仅在定义它的函数中可见，且编译时自动初始化(0orNULL),动态运行时随机值。</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void MyFunc()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">       static CFoo foo;    // 在函数范围之内的一个静态对象</span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>一般的全局对象在程序的<strong>其他文件中可以通过关键字extern来调用</strong>，而static声明的全局变量则只能在<strong>本文件中</strong>使用。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;四种对象定义方式（in-stack、in-heap、in-global-area）&quot;&gt;&lt;a href=&quot;#四种对象定义方式（in-stack、in-heap、in-global-area）&quot; class=&quot;headerlink&quot; title=&quot;四种对象定义方式（i
+      
+    
+    </summary>
+    
+      <category term="C++" scheme="http://yoursite.com/categories/C/"/>
+    
+    
+      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
     
   </entry>
   
