@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
+<meta name="description" content="全排列的递归实现原问题分解：1234全排列，234全排列，34全排列，4全排列，显然是递归思想，而解决方法是交换（从第一个数字起，将它与其后面的每个数字进行交换，swap(array[idx], array[i]);）用for：1：n来控制这个分解过程。 递归程序需要至少一个变量来控制递归执行的深度，这里，用idx来表示这个变量,表示当前递归时元素的索引（index）。 至于终止条件，当然是idx">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++对象的内存分析">
-<meta property="og:url" content="http://yoursite.com/2019/02/25/c-对象的内存分析/index.html">
+<meta property="og:title" content="递归思想总结--排列组合为例">
+<meta property="og:url" content="http://yoursite.com/2019/02/27/递归思想总结-排列组合为例/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
+<meta property="og:description" content="全排列的递归实现原问题分解：1234全排列，234全排列，34全排列，4全排列，显然是递归思想，而解决方法是交换（从第一个数字起，将它与其后面的每个数字进行交换，swap(array[idx], array[i]);）用for：1：n来控制这个分解过程。 递归程序需要至少一个变量来控制递归执行的深度，这里，用idx来表示这个变量,表示当前递归时元素的索引（index）。 至于终止条件，当然是idx">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-26T00:55:19.412Z">
+<meta property="og:updated_time" content="2019-02-27T08:46:07.323Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c++对象的内存分析">
-<meta name="twitter:description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
+<meta name="twitter:title" content="递归思想总结--排列组合为例">
+<meta name="twitter:description" content="全排列的递归实现原问题分解：1234全排列，234全排列，34全排列，4全排列，显然是递归思想，而解决方法是交换（从第一个数字起，将它与其后面的每个数字进行交换，swap(array[idx], array[i]);）用for：1：n来控制这个分解过程。 递归程序需要至少一个变量来控制递归执行的深度，这里，用idx来表示这个变量,表示当前递归时元素的索引（index）。 至于终止条件，当然是idx">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/25/c-对象的内存分析/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/27/递归思想总结-排列组合为例/">
 
 
 
 
 
-  <title>c++对象的内存分析 | ZHIPENG个人笔记</title>
+  <title>递归思想总结--排列组合为例 | ZHIPENG个人笔记</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/c-对象的内存分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/递归思想总结-排列组合为例/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c++对象的内存分析</h1>
+          <h1 class="post-title" itemprop="name headline">递归思想总结--排列组合为例</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T21:00:04+08:00">
-                2019-02-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-27T16:05:14+08:00">
+                2019-02-27
               </time>
             
 
@@ -327,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/刷题and刷题/" itemprop="url" rel="index">
+                    <span itemprop="name">刷题and刷题</span>
                   </a>
                 </span>
 
@@ -364,43 +364,23 @@
       
 
       
-        <h3 id="四种对象定义方式（in-stack、in-heap、in-global-area）"><a href="#四种对象定义方式（in-stack、in-heap、in-global-area）" class="headerlink" title="四种对象定义方式（in stack、in heap、in global area）"></a>四种对象定义方式（in stack、in heap、in global area）</h3><p>在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。</p>
-<ul>
-<li><p>静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。</p>
-</li>
-<li><p>堆：存储动态生成的变量。生存期：自己来决定。</p>
-</li>
-<li><p>栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）</p>
-</li>
-</ul>
-<ol>
-<li>第一种方法是在堆栈（stack）之中产生：<ul>
-<li>这时在栈中已经为它分配了一个空间存放所有的成员变量，调用这个对象的成员变量和成员函数时用“.”操作符。如：myclass.value,myclass.function()。</li>
-<li>对于局部对象，使用完后不需要手动释放，该类析构函数会自动执行。</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="number">3</span>dPoint p = <span class="number">3</span>dPoint(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);    <span class="comment">// 显式调用，栈中分配</span></span><br><span class="line">       <span class="number">3</span><span class="function">dPoint <span class="title">p</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></span>;<span class="comment">//隐式调用</span></span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2.第二种方法是在堆(heap)中产生：</p>
-<ul>
-<li>对于以new方式产生出来的局部对象，只有调用到delete时再会执行析构函数，如果程序退出而没有执行delete则会造成内存泄漏。</li>
-<li>new的好处，一处初始化，多处使用</li>
-<li>频繁调用场合并不适合new，就像new申请和释放内存一样</li>
-<li>因为是指针的操作，所以调用这个对象的成员变量和函数时要用“-&gt;”例如myclass.value ,myclss-&gt;function()</li>
-<li>指针访问前，必须指向一段有效的内存，不管是堆的还是栈的，p = &amp;a即指向了栈内存。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       CFoo* foo = <span class="keyword">new</span> CFoo;</span><br><span class="line">    <span class="comment">// 在堆(heap)中产生对象，动态需指针</span></span><br><span class="line">    <span class="comment">//不加括号调用默认构造函数(无参)或唯一的构造函数</span></span><br><span class="line">    <span class="comment">//若有中括号需要有一个正整数参数，申请到的内存指向数组，delete时需要delete []foo;</span></span><br><span class="line"></span><br><span class="line">       CTest* pTest = <span class="literal">NULL</span>;</span><br><span class="line">       <span class="comment">//类指针可以先行定义，但类指针只是个通用指针，在new之前并为该类对象分配任何内存空间</span></span><br><span class="line">       pTest = <span class="keyword">new</span> CTest();</span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.第三种方法是产生一个全局对象</p>
-<ul>
-<li>对于全局对象，加extern可在其他文件中访问，在main()之前分配内存。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CFoo foo;    <span class="comment">// 在任何函数之外作此操作</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>4.第四种方法是产生一个静态局部对象</p>
-<ul>
-<li>静态局部变量与全局变量<strong>共享全局数据区</strong>，只生效一次，可以使用它确定某函数是否被调用过，private虽然在函数调用后还存在与全局区，但仅在定义它的函数中可见，且编译时自动初始化(0orNULL),动态运行时随机值。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void MyFunc()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">       static CFoo foo;    // 在函数范围之内的一个静态对象</span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一般的全局对象在程序的<strong>其他文件中可以通过关键字extern来调用</strong>，而static声明的全局变量则只能在<strong>本文件中</strong>使用。</p>
+        <h3 id="全排列的递归实现"><a href="#全排列的递归实现" class="headerlink" title="全排列的递归实现"></a>全排列的递归实现</h3><p>原问题分解：1234全排列，234全排列，34全排列，4全排列，显然是递归思想，而解决方法是交换（从第一个数字起，将它与其后面的每个数字进行交换，<strong>swap(array[idx], array[i]);</strong>）用for：1：n来控制这个分解过程。</p>
+<p>递归程序需要至少<strong>一个变量来控制递归执行的深度</strong>，这里，用idx来表示这个变量,表示当前递归时元素的索引（index）。</p>
+<p>至于终止条件，当然是idx指向最后一个元素时为止，假如元素有n个，那么i=n就是<br>递归的终止条件，此时就得到了一组排列，将该组排列输出即可，如1234，1243，1324，1342etc</p>
+<p>由于需要变量i来控制递归的执行，需要元素个数n来获得递归终止条件，当然需要<br>一个数组或指针来获得所有元素，所以递归程序的函数可以写为：</p>
+<p><code>get_all_permutation(Type* array, int idx, int n)</code></p>
+<p>终止条件为：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (idx==n<span class="number">-1</span>)</span><br><span class="line">  print(<span class="built_in">array</span>);</span><br></pre></td></tr></table></figure></p>
+<p>写出递归的函数头和终止条件，递归程序就可以说是完成了一半，<strong>明确用哪个变量来控制递归的过程，用哪个变量控制递归的深度和什么时候该结束递归</strong>。弄明白这些就可以写执行递归的代码了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=idx; i&lt;n; ++i) &#123;</span><br><span class="line">    <span class="comment">// 将第idx个元素依次与后面的元素进行交换</span></span><br><span class="line">    swap(<span class="built_in">array</span>[idx], <span class="built_in">array</span>[i]);</span><br><span class="line">    <span class="comment">// 递归得到idx后面的元素的全排列</span></span><br><span class="line">    get_all_permutation(<span class="built_in">array</span>, idx+<span class="number">1</span>, n);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注意：错误代码！！</span></span><br></pre></td></tr></table></figure>
+<p>此时，貌似整个代码完成了，但注意每次递归中，数组a中的元素所处位置都在变化，这样，回退<br>到上一层执行<strong>从第一个数字起，将它与其后面的每个数字进行交换</strong>这一步就得不到满足了，因此在每次循环中执行递归返回后，我们需要再次交换元素的位置，用以使数组a恢复原样。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=idx; i&lt;n; ++i) &#123;</span><br><span class="line">      <span class="comment">// 将第idx个元素依次与后面的元素进行交换</span></span><br><span class="line">      swap(<span class="built_in">array</span>[idx], <span class="built_in">array</span>[i]);</span><br><span class="line">      <span class="comment">// 递归得到idx后面的元素的全排列</span></span><br><span class="line">      get_all_permutation(<span class="built_in">array</span>, idx+<span class="number">1</span>, n);</span><br><span class="line">      <span class="comment">// 在递归结束回退时恢复数组，确保下一次循环的正确执行</span></span><br><span class="line">      swap(<span class="built_in">array</span>[idx], <span class="built_in">array</span>[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 正确代码！！</span></span><br></pre></td></tr></table></figure>
+<h3 id="递归解组合问题"><a href="#递归解组合问题" class="headerlink" title="递归解组合问题"></a>递归解组合问题</h3><p>核心操作<strong>temp.push_back(i);</strong>，用for：1：n来控制这个组合问题求解过程。</p>
+<p><strong>num来控制递归执行的深度</strong></p>
+<p><strong>终止条件</strong>，当前组合个数num==k(需要组合个数)</p>
+<p>同理，递归退出进入下一层for循环时恢复原样<strong>temp.pop_back();</strong></p>
+<p>所以递归程序的函数参数可以写为：<br><code>void combine(vector&lt;vector&lt;int&gt; &gt; &amp;res,vector&lt;int&gt; &amp;temp,int start,int num,int n ,int k)</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; combine(<span class="keyword">int</span> n, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;res;</span><br><span class="line">        <span class="keyword">if</span>(n&lt;k)<span class="keyword">return</span> res;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp(<span class="number">0</span>,k);</span><br><span class="line">        combine(res,temp,<span class="number">1</span>,<span class="number">0</span>,n,k);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">combine</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; &amp;res,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;temp,<span class="keyword">int</span> start,<span class="keyword">int</span> num,<span class="keyword">int</span> n ,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(num==k)&#123;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = start;i&lt;=n;i++)&#123;</span><br><span class="line">            temp.push_back(i);</span><br><span class="line">            combine(res,temp,i+<span class="number">1</span>,num+<span class="number">1</span>,n,k);</span><br><span class="line">            temp.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>部分用到了回溯法的思想，即我们抽取第一个字符，然后从后面n-1个字符中抽出k-1个；抽取第二个字符，再从后面的n-2个字符抽出m-1个……这样循环下去。因为这样的操作每次都是往后进行寻找的，所以不用考虑去重的问题。</p>
 
       
     </div>
@@ -431,19 +411,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/vscode配置<bits:stdc++>'/" rel="next" title="vscode配置<bits/stdc++>">
-                <i class="fa fa-chevron-left"></i> vscode配置<bits stdc++>
-              </bits></a>
+              <a href="/2019/02/26/C-简洁的链表创建/" rel="next" title="C++简洁的链表创建">
+                <i class="fa fa-chevron-left"></i> C++简洁的链表创建
+              </a>
             
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/26/C-简洁的链表创建/" rel="prev" title="C++简洁的链表创建">
-                C++简洁的链表创建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -582,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#四种对象定义方式（in-stack、in-heap、in-global-area）"><span class="nav-number">1.</span> <span class="nav-text">四种对象定义方式（in stack、in heap、in global area）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#全排列的递归实现"><span class="nav-number">1.</span> <span class="nav-text">全排列的递归实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归解组合问题"><span class="nav-number">2.</span> <span class="nav-text">递归解组合问题</span></a></li></ol></div>
             
 
           </div>
