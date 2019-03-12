@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-02T10:45:23.083Z</updated>
+  <updated>2019-03-12T13:33:11.726Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FPN（feature pyramid networks）论文笔记</title>
+    <link href="http://yoursite.com/2019/03/12/FPN%EF%BC%88feature-pyramid-networks%EF%BC%89%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2019/03/12/FPN（feature-pyramid-networks）论文笔记/</id>
+    <published>2019-03-12T13:31:55.000Z</published>
+    <updated>2019-03-12T13:33:11.726Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p><p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p><p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p><p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p><p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p><p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p><p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;论文概述：&quot;&gt;&lt;a href=&quot;#论文概述：&quot; class=&quot;headerlink&quot; title=&quot;论文概述：&quot;&gt;&lt;/a&gt;论文概述：&lt;/h2&gt;&lt;p&gt;这篇论文是CVPR2017年的文章，&lt;strong&gt;采用特征金字塔代替了传统的Scale handling 方法&lt;/
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面试问题</title>
+    <link href="http://yoursite.com/2019/03/11/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/03/11/面试问题/</id>
+    <published>2019-03-11T12:46:16.000Z</published>
+    <updated>2019-03-12T13:30:21.352Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Tencent"><a href="#Tencent" class="headerlink" title="Tencent"></a>Tencent</h4><ol><li>熟悉哪个排序算法，说一下快排<blockquote><p>忘记说分治递归思想了</p></blockquote></li><li>ssd和yolo区别，为什么检测小目标效果不好</li><li>为什么会梯度爆炸–batch_size,learing_rate,nn的bp缺点<blockquote><p>one-stage,无proposal，后几层的feature-map提取，感受野较大</p></blockquote></li><li>faster-rcnn相比fast-rcnn作出的改进<blockquote><p>只回答了rpn，其他忘记</p></blockquote></li><li>x光项目为什么不用ssd或yolo</li><li>说一下k-means算法，欧式距离和街区距离的异同</li><li></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;Tencent&quot;&gt;&lt;a href=&quot;#Tencent&quot; class=&quot;headerlink&quot; title=&quot;Tencent&quot;&gt;&lt;/a&gt;Tencent&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;熟悉哪个排序算法，说一下快排&lt;blockquote&gt;
+&lt;p&gt;忘记说分治递归思想了&lt;/p&gt;
+      
+    
+    </summary>
+    
+      <category term="面试" scheme="http://yoursite.com/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+    
+      <category term="hide" scheme="http://yoursite.com/tags/hide/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>视觉算法知识点总结/面试</title>
+    <link href="http://yoursite.com/2019/03/09/%E8%A7%86%E8%A7%89%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%A2%E8%AF%95/"/>
+    <id>http://yoursite.com/2019/03/09/视觉算法知识点总结-面试/</id>
+    <published>2019-03-09T07:00:17.000Z</published>
+    <updated>2019-03-09T07:00:44.797Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="面试" scheme="http://yoursite.com/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>快排归并面试算法模版实现</title>

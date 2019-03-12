@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="c++,">
+  <meta name="keywords" content="工程实践,">
 
 
 
@@ -81,18 +81,26 @@
 
 
 
-<meta name="description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
-<meta name="keywords" content="c++">
+<meta name="description" content="论文概述：这篇论文是CVPR2017年的文章，采用特征金字塔代替了传统的Scale handling 方法，截止目前（2018.11.26）引用量为529次。论文链接：https://arxiv.org/abs/1612.03144 深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过自顶向下(top-down)">
+<meta name="keywords" content="工程实践">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++对象的内存分析">
-<meta property="og:url" content="http://yoursite.com/2019/02/25/c-对象的内存分析/index.html">
+<meta property="og:title" content="FPN（feature pyramid networks）论文笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/FPN（feature-pyramid-networks）论文笔记/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
+<meta property="og:description" content="论文概述：这篇论文是CVPR2017年的文章，采用特征金字塔代替了传统的Scale handling 方法，截止目前（2018.11.26）引用量为529次。论文链接：https://arxiv.org/abs/1612.03144 深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过自顶向下(top-down)">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-26T00:55:19.412Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126104937424.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105447628.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105541842.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-03-12T13:33:11.726Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c++对象的内存分析">
-<meta name="twitter:description" content="四种对象定义方式（in stack、in heap、in global area）在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。  静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。  堆：存储动态生成的变量。生存期：自己来决定。  栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）    第一种方法是在堆栈（stack）之中产生： 这时在栈中已">
+<meta name="twitter:title" content="FPN（feature pyramid networks）论文笔记">
+<meta name="twitter:description" content="论文概述：这篇论文是CVPR2017年的文章，采用特征金字塔代替了传统的Scale handling 方法，截止目前（2018.11.26）引用量为529次。论文链接：https://arxiv.org/abs/1612.03144 深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过自顶向下(top-down)">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
 
 
 
@@ -122,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/25/c-对象的内存分析/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/12/FPN（feature-pyramid-networks）论文笔记/">
 
 
 
 
 
-  <title>c++对象的内存分析 | ZHIPENG个人笔记</title>
+  <title>FPN（feature pyramid networks）论文笔记 | ZHIPENG个人笔记</title>
   
 
 
@@ -275,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/c-对象的内存分析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/FPN（feature-pyramid-networks）论文笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -292,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c++对象的内存分析</h1>
+          <h1 class="post-title" itemprop="name headline">FPN（feature pyramid networks）论文笔记</h1>
         
 
         <div class="post-meta">
@@ -304,8 +312,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T21:00:04+08:00">
-                2019-02-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-12T21:31:55+08:00">
+                2019-03-12
               </time>
             
 
@@ -327,8 +335,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/论文笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">论文笔记</span>
                   </a>
                 </span>
 
@@ -364,43 +372,15 @@
       
 
       
-        <h3 id="四种对象定义方式（in-stack、in-heap、in-global-area）"><a href="#四种对象定义方式（in-stack、in-heap、in-global-area）" class="headerlink" title="四种对象定义方式（in stack、in heap、in global area）"></a>四种对象定义方式（in stack、in heap、in global area）</h3><p>在C++中，编译器把内存分为三个部分，有四种方法可以产生一个对象。</p>
-<ul>
-<li><p>静态存储区域：主要保存全局变量和静态变量。生存期：整个程序。</p>
-</li>
-<li><p>堆：存储动态生成的变量。生存期：自己来决定。</p>
-</li>
-<li><p>栈：存储调用函数相关的变量和地址等。生存期：所处的语句块（既{}的范围）</p>
-</li>
-</ul>
-<ol>
-<li>第一种方法是在堆栈（stack）之中产生：<ul>
-<li>这时在栈中已经为它分配了一个空间存放所有的成员变量，调用这个对象的成员变量和成员函数时用“.”操作符。如：myclass.value,myclass.function()。</li>
-<li>对于局部对象，使用完后不需要手动释放，该类析构函数会自动执行。</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="number">3</span>dPoint p = <span class="number">3</span>dPoint(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);    <span class="comment">// 显式调用，栈中分配</span></span><br><span class="line">       <span class="number">3</span><span class="function">dPoint <span class="title">p</span><span class="params">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span></span>;<span class="comment">//隐式调用</span></span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>2.第二种方法是在堆(heap)中产生：</p>
-<ul>
-<li>对于以new方式产生出来的局部对象，只有调用到delete时再会执行析构函数，如果程序退出而没有执行delete则会造成内存泄漏。</li>
-<li>new的好处，一处初始化，多处使用</li>
-<li>频繁调用场合并不适合new，就像new申请和释放内存一样</li>
-<li>因为是指针的操作，所以调用这个对象的成员变量和函数时要用“-&gt;”例如myclass.value ,myclss-&gt;function()</li>
-<li>指针访问前，必须指向一段有效的内存，不管是堆的还是栈的，p = &amp;a即指向了栈内存。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MyFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">       CFoo* foo = <span class="keyword">new</span> CFoo;</span><br><span class="line">    <span class="comment">// 在堆(heap)中产生对象，动态需指针</span></span><br><span class="line">    <span class="comment">//不加括号调用默认构造函数(无参)或唯一的构造函数</span></span><br><span class="line">    <span class="comment">//若有中括号需要有一个正整数参数，申请到的内存指向数组，delete时需要delete []foo;</span></span><br><span class="line"></span><br><span class="line">       CTest* pTest = <span class="literal">NULL</span>;</span><br><span class="line">       <span class="comment">//类指针可以先行定义，但类指针只是个通用指针，在new之前并为该类对象分配任何内存空间</span></span><br><span class="line">       pTest = <span class="keyword">new</span> CTest();</span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.第三种方法是产生一个全局对象</p>
-<ul>
-<li>对于全局对象，加extern可在其他文件中访问，在main()之前分配内存。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CFoo foo;    <span class="comment">// 在任何函数之外作此操作</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>4.第四种方法是产生一个静态局部对象</p>
-<ul>
-<li>静态局部变量与全局变量<strong>共享全局数据区</strong>，只生效一次，可以使用它确定某函数是否被调用过，private虽然在函数调用后还存在与全局区，但仅在定义它的函数中可见，且编译时自动初始化(0orNULL),动态运行时随机值。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void MyFunc()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">       static CFoo foo;    // 在函数范围之内的一个静态对象</span><br><span class="line"></span><br><span class="line">       ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一般的全局对象在程序的<strong>其他文件中可以通过关键字extern来调用</strong>，而static声明的全局变量则只能在<strong>本文件中</strong>使用。</p>
+        <h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p>
+<p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p>
+<p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p>
+<p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p>
+<p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p>
+<p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p>
+<p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>
 
       
     </div>
@@ -418,7 +398,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag"># c++</a>
+            <a href="/tags/工程实践/" rel="tag"># 工程实践</a>
           
         </div>
       
@@ -431,19 +411,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/vscode配置<bits:stdc++>'/" rel="next" title="vscode配置<bits/stdc++>">
-                <i class="fa fa-chevron-left"></i> vscode配置<bits stdc++>
-              </bits></a>
+              <a href="/2019/03/11/面试问题/" rel="next" title="面试问题">
+                <i class="fa fa-chevron-left"></i> 面试问题
+              </a>
             
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/26/C-简洁的链表创建/" rel="prev" title="C++简洁的链表创建">
-                C++简洁的链表创建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -582,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#四种对象定义方式（in-stack、in-heap、in-global-area）"><span class="nav-number">1.</span> <span class="nav-text">四种对象定义方式（in stack、in heap、in global area）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文概述："><span class="nav-number">1.</span> <span class="nav-text">论文概述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction："><span class="nav-number">2.</span> <span class="nav-text">Introduction：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Note："><span class="nav-number">3.</span> <span class="nav-text">Note：</span></a></li></ol></div>
             
 
           </div>
