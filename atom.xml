@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-12T13:33:11.726Z</updated>
+  <updated>2019-03-12T13:35:00.911Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,36 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>FPN（feature pyramid networks）论文笔记</title>
-    <link href="http://yoursite.com/2019/03/12/FPN%EF%BC%88feature-pyramid-networks%EF%BC%89%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2019/03/12/FPN（feature-pyramid-networks）论文笔记/</id>
-    <published>2019-03-12T13:31:55.000Z</published>
-    <updated>2019-03-12T13:33:11.726Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p><p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p><p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p><p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p><p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p><p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p><p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;论文概述：&quot;&gt;&lt;a href=&quot;#论文概述：&quot; class=&quot;headerlink&quot; title=&quot;论文概述：&quot;&gt;&lt;/a&gt;论文概述：&lt;/h2&gt;&lt;p&gt;这篇论文是CVPR2017年的文章，&lt;strong&gt;采用特征金字塔代替了传统的Scale handling 方法&lt;/
-      
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
-    
-  </entry>
-  
-  <entry>
     <title>面试问题</title>
     <link href="http://yoursite.com/2019/03/11/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2019/03/11/面试问题/</id>
     <published>2019-03-11T12:46:16.000Z</published>
-    <updated>2019-03-12T13:30:21.352Z</updated>
+    <updated>2019-03-12T13:35:00.911Z</updated>
     
     <content type="html"><![CDATA[<h4 id="Tencent"><a href="#Tencent" class="headerlink" title="Tencent"></a>Tencent</h4><ol><li>熟悉哪个排序算法，说一下快排<blockquote><p>忘记说分治递归思想了</p></blockquote></li><li>ssd和yolo区别，为什么检测小目标效果不好</li><li>为什么会梯度爆炸–batch_size,learing_rate,nn的bp缺点<blockquote><p>one-stage,无proposal，后几层的feature-map提取，感受野较大</p></blockquote></li><li>faster-rcnn相比fast-rcnn作出的改进<blockquote><p>只回答了rpn，其他忘记</p></blockquote></li><li>x光项目为什么不用ssd或yolo</li><li>说一下k-means算法，欧式距离和街区距离的异同</li><li></li></ol>]]></content>
     
@@ -73,9 +48,17 @@
     <link href="http://yoursite.com/2019/03/09/%E8%A7%86%E8%A7%89%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-%E9%9D%A2%E8%AF%95/"/>
     <id>http://yoursite.com/2019/03/09/视觉算法知识点总结-面试/</id>
     <published>2019-03-09T07:00:17.000Z</published>
-    <updated>2019-03-09T07:00:44.797Z</updated>
+    <updated>2019-03-12T13:34:50.719Z</updated>
+    
+    <content type="html"><![CDATA[<p>BN(Batch Normalization)</p><p>在网络的每一层输入的时候，又插入了一个归一化层，也就是先做一个归一化处理（归一化至：均值0、方差为1），然后再进入网络的下一层。不过归一化层可不像我们想象的那么简单，它是一个可学习、有参数（γ,β \gamma , \betaγ,β）的网络层。</p><p>CNN在图像中的广泛应用的原因</p><p>局部连接：捕获局部特征结构<br>权值共享：减小参数量<br>池化操作：增大感受野<br>多层次结构：可以提取low-level以及high-level的信息</p><p>CNN不适用的场景</p><p>数据集太小，数据样本不足时，深度学习相对其它机器学习算法，没有明显优势。</p><p>数据集没有局部相关特性，目前深度学习表现比较好的领域主要是图像／语音／自然语言处理等领域，这些领域的一个共性是局部相关性。图像中像素组成物体，语音信号中音位组合成单词，文本数据中单词组合成句子，这些特征元素的组合一旦被打乱，表示的含义同时也被改变。对于没有这样的局部相关性的数据集，不适于使用深度学习算法进行处理。举个例子：预测一个人的健康状况，相关的参数会有年龄、职业、收入、家庭状况等各种元素，将这些元素打乱，并不会影响相关的结果。</p><p>K-means的基本算法流程：</p><p>K-means与KNN的区别：</p><p>K-means是无监督学习算法，KNN是有监督学习算法<br>K-means有明显的训练过程（求聚类中心），KNN在学习阶段只是简单的把所有样本记录<br>在测试阶段，对于K-means，新的样本点的判别与聚类中心有关，即与所有训练样本有关，对于KNN，新的样本点的判别只是与最近邻的K个样本有关。</p><h3 id="在目标检测算法中，two-stage的算法比one-stage在检测小物体上更有效，此说法同意吗，为什么？"><a href="#在目标检测算法中，two-stage的算法比one-stage在检测小物体上更有效，此说法同意吗，为什么？" class="headerlink" title="在目标检测算法中，two stage的算法比one stage在检测小物体上更有效，此说法同意吗，为什么？"></a>在目标检测算法中，two stage的算法比one stage在检测小物体上更有效，此说法同意吗，为什么？</h3><p>基本上同意这个说法。</p><p>要说明这个问题主要从感受野的角度去看，one stage的方法，对于SSD，其采取多个特征图进行分类，但由于依赖网络中比较深的层（特征图），感受野很大，因而小物体检测不准确。同样，对于Yolo，由于在方法设计中就把原图分块，即设定了最后用于判断的特征图尺寸，其感受野也很大，因而对小物体判断也不准确。<br>相对于one stage方法要求同时分离前景和背景以及做出分类，two stage的方法由于proposal的存在可以先用简单的结构分出前景和背景（此时感受野小，特征图分辨率高），再通过深层网络做进一步分类和精修，提高准确率。<br>one stage的方法也有针对这个问题进行过优化，SSD增加相对不那么深的特征图层作判断，以减小感受野增加分辨率，但层数不深的特征图的判别能力有限，无法大幅增加准确率；Yolo v3增加了FPN，用多尺度特征来判断，增加了对小物体判别能力；RetinaNet也是one stage方法，用了FPN判别，此处对小物体检测更有效，另外其设计了focal loss的训练方式，此方式可认为把two stage中proposal达到的正负样本平衡以修改损失函数的方式达到类似效果，提高了训练效率和整体的准确率。</p><h3 id="梯度下降法与牛顿法的区别与优劣性"><a href="#梯度下降法与牛顿法的区别与优劣性" class="headerlink" title="梯度下降法与牛顿法的区别与优劣性"></a>梯度下降法与牛顿法的区别与优劣性</h3><p>主要的的区别：梯度下降法是一阶，牛顿法是二阶<br>牛顿法相对于梯度下降法：<br>优点：二阶比一阶收敛速度快；<br>缺点：对目标函数严格，要求目标函数二阶可微，Hessian矩阵正定；需要计算Hessian矩阵以及它的逆，计算量大。</p><h3 id="描述Canny算法的流程"><a href="#描述Canny算法的流程" class="headerlink" title="描述Canny算法的流程"></a>描述Canny算法的流程</h3><p>先用高斯滤波器进行图像模糊（一般边缘检测算法都需要先滤波降低对噪声的敏感）<br>计算图像的梯度幅值图像和角度图像（计算梯度即提取边缘，参考其它边缘检测算法；计算角度是为步骤3要用）<br>对梯度幅值图像进行非最大值抑制（目的是为了细化边缘）<br>用双阈值对边缘进行选择和连接（主体思想是把弱边缘连接到强边缘上）</p><h3 id="CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？"><a href="#CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？" class="headerlink" title="CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？"></a>CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？</h3><p>CNN是用于挖掘数据之间的空间相关性（相对于RNN用于挖掘时序相关性），所以不管是NLP，Speech还是AlphaGo，只要数据之间存在空间相关性，就可以使用CNN。而CNN最成功的应用在CV是因为在图像数据中的空间相关性最明显，像素之间存在两个维度上的空间相关性。<br>回答CNN通过什么手段抓住此共性这个问题，实质上是回答卷积和池化的特点。主要手段有局部连接(local connectivity)、权值共享(parameter sharing)和池化(pooling)（跟原文回答有点出入，觉得多层次是深度学习的特点而不是CNN的特点）。局部连接和权值共享有效地减少了网络的权值参数，抑制过拟合，同时保持了原始数据之间的空间联系。池化是下采样的一种方式，只取数值最大的特征，减少参数并且在空间上对原图物体保持平移不变性。</p><p>###为什么很多做人脸的Paper会最后加入一个Local Connected Conv？</p><p>###对所有优化问题来说, 有没有可能找到比現在已知算法更好的算法?</p><p>###Dropout怎么做，有什么用处，解释；用贝叶斯机率说明Dropout的原理</p><p>###何为共线性, 跟过拟合有啥关联?</p><p>###广义线性模型是怎被应用在深度学习中?</p><p>###什么造成梯度消失问题? 推导一下</p><p>###不同的权值初始化方式以及其造成的后果。为什么会造成这样的结果。</p><p>###为什么网络够深(Neurons 足够多)的时候，总是可以避开较差Local Optima？</p><p>###样本方差与总体方差的关系。</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;BN(Batch Normalization)&lt;/p&gt;
+&lt;p&gt;在网络的每一层输入的时候，又插入了一个归一化层，也就是先做一个归一化处理（归一化至：均值0、方差为1），然后再进入网络的下一层。不过归一化层可不像我们想象的那么简单，它是一个可学习、有参数（γ,β \gamma 
+      
     
     </summary>
     
@@ -198,6 +181,207 @@
     
     
       <category term="c++" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器人（SLAM）考试总结</title>
+    <link href="http://yoursite.com/2019/01/08/%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%88SLAM%EF%BC%89%E8%80%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2019/01/08/机器人（SLAM）考试总结/</id>
+    <published>2019-01-08T07:31:55.000Z</published>
+    <updated>2019-03-12T13:45:39.397Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="第一章："><a href="#第一章：" class="headerlink" title="第一章："></a>第一章：</h3><p>KJ机器人的基本架构（怎么实现物体抓取），软硬件架构（17年论文）</p><p>机器人三原则</p><h3 id="第二章："><a href="#第二章：" class="headerlink" title="第二章："></a>第二章：</h3><p>空间齐次坐标变换，旋转向量，欧拉角（缺点，哪个纬度消失了），四元数（原始定义，右乘共轭），会写会用会算</p><h3 id="第三章："><a href="#第三章：" class="headerlink" title="第三章："></a>第三章：</h3><p>图像处理的流程（预处理–空间预处理，白噪声，椒盐噪声各用什么样的滤波器，什么是卷积（核），</p><p>区域运算，边缘和轮廓，三个方法找边缘–灰度值一阶差分二阶差分，找到轮廓用链码表示（实际为一个向量）</p><p>特征比对），直方图反向投影,camshift算法原理</p><p>二值不掌握，期中考过的不出现，</p><h3 id="第四章："><a href="#第四章：" class="headerlink" title="第四章："></a>第四章：</h3><p>三个相机模型（针孔，双目，深度–结构光法，激光飞秒法，），</p><p>ORB，怎么实现尺度不变性和方向不变性</p><p>特征点比对</p><p>对极几何不要求</p><p><strong>前几帧光流法捕获即可（三个假设）</strong></p><p><strong>超定方程组解的形式（要背）</strong></p><p>ICP的解法，各个实验的问题</p><h3 id="第五章：SLAM"><a href="#第五章：SLAM" class="headerlink" title="第五章：SLAM"></a>第五章：SLAM</h3><p><strong>前端里程计和SLAM有什么关系</strong></p><p><strong>词袋模型TFIDF，回环检测</strong></p><p><strong>SLAM的初始化（单目、双目）经典SLAM说出5种</strong></p><p>ORB_SLAM2的程序框架，哪三个线程（tracing/local mapping/）</p><h3 id="第六章：路径规划和搜索："><a href="#第六章：路径规划和搜索：" class="headerlink" title="第六章：路径规划和搜索："></a>第六章：路径规划和搜索：</h3><p>Dijkstra算法、A*算法</p><p><strong>什么是可视图，可视图的局部避障算法，向量直方图原理流程</strong></p><h3 id="第七章：机器人的移动性设计"><a href="#第七章：机器人的移动性设计" class="headerlink" title="第七章：机器人的移动性设计"></a><strong>第七章：</strong>机器人的移动性设计</h3><p><strong>足式机器人设计考虑哪些方面，设计流程</strong></p><p><strong>作业3，机器人运动学，已知滚轮速度，如何求世界坐标系速度</strong></p><p><strong>PID都要掌握（连续+离散，位式的增量式的，如何写个PID程序）</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;第一章：&quot;&gt;&lt;a href=&quot;#第一章：&quot; class=&quot;headerlink&quot; title=&quot;第一章：&quot;&gt;&lt;/a&gt;第一章：&lt;/h3&gt;&lt;p&gt;KJ机器人的基本架构（怎么实现物体抓取），软硬件架构（17年论文）&lt;/p&gt;
+&lt;p&gt;机器人三原则&lt;/p&gt;
+&lt;h3 id=&quot;第二
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>决策树（ID3, C4.5&amp;CART) 通俗易懂介绍</title>
+    <link href="http://yoursite.com/2018/12/05/%E5%86%B3%E7%AD%96%E6%A0%91%EF%BC%88ID3,%20C4.5&amp;CART)%20%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://yoursite.com/2018/12/05/决策树（ID3, C4.5&amp;CART) 通俗易懂介绍/</id>
+    <published>2018-12-05T13:31:55.000Z</published>
+    <updated>2019-03-12T13:48:10.068Z</updated>
+    
+    <content type="html"><![CDATA[<p>决策树是一种机器学习的方法。决策树的生成算法有ID3,    C4.5和CART等。决策树是一种树形结构，其中每个内部节点表示一个属性上的判断，每个分支代表一个判断结果的输出，最后每个叶节点代表一种分类结果。决策树是一种十分常用的分类方法，需要监管学习（有教师的Supervised    Learning），监管学习就是给出一堆样本，每个样本都有一组属性和一个分类结果，也就是分类结果已知，那么通过学习这些样本得到一个决策树，这个决策树能够对新的数据给出正确的分类。这里通过一个简单的例子来说明决策树的构成思路：</p><p>给出如下的一组数据，一共有十个样本（学生数量），每个样本有分数，出勤率，回答问题次数，作业提交率四个属性，最后判断这些学生是否是好学生。最后一列给出了人工分类结果。</p><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ck5uxxkj30dm0500ur.jpg" alt="在这里插入图片描述">然后用这一组附带分类结果的样本可以训练出多种多样的决策树，这里为了简化过程，我们假设决策树为二叉树，且类似于下图：</p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10ck5ks7sj30dm0d5gow.jpg" alt="在这里插入图片描述">通过学习上表的数据，可以A，B，C，D，E的具体值，而A，B，C，D，E则称为阈值。当然也可以有和上图完全不同的树形，比如下图这种的：<br><img src="https://img-blog.csdnimg.cn/20181205152150569.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>所以决策树的生成主要分以下两步，这两步通常通过学习已经知道分类结果的样本来实现。</p><ol><li><p>节点的分裂：一般当一个节点所代表的属性无法给出判断时，则选择将这一节点分成2个子 节点（如不是二叉树的情况会分成n个子节点）</p></li><li><p>阈值的确定：选择适当的阈值使得分类错误率最小 （Training Error）。</p></li></ol><p>比较常用的决策树有ID3，C4.5和CART（Classification And Regression Tree），CART的分类效果一般优于其他决策树。下面介绍具体步骤。 ID3: 由增熵（Entrophy）原理来决定那个做父节点，那个节点需要分裂。对于一组数据，熵越大说明分类结果越好。</p><p>比如上表中的4个属性：单一地通过以下语句分类：</p><ol><li><p>分数小于70为【不是好学生】：分错1个</p></li><li><p>出勤率大于70为【好学生】：分错3个</p></li><li><p>问题回答次数大于9为【好学生】：分错2个</p></li><li><p>作业提交率大于80%为【好学生】：分错2个。</p></li></ol><p>最后发现  分数小于70为【不是好学生】这条分错最少，也就是熵最大，所以应该选择这条为父节点进行树的生成，当然分数也可以选择大于71，大于72等等，出勤率也可以选择小于60，65等等，总之会有很多类似上述1~4的条件，最后选择分类错最少即熵最大的那个条件。而当分裂父节点时道理也一样，分裂有很多选择，针对每一个选择，与分裂前的分类错误率比较，留下那个提高最大的选择，即熵增益最大的选择。</p><p>C4.5：通过对ID3的学习可以知道ID3存在一个问题，那就是越细小的分割分类错误率越小，所以ID3会越分越细，比如以第一个属性为例：设阈值小于70可将样本分为2组，但是分错了1个。如果设阈值小于70，再加上阈值等于95，那么分错率降到了0，但是这种分割显然只对训练数据有用，对于新的数据没有意义，这就是所说的过度学习（Overfitting）。分割太细了，训练数据的分类可以达到0错误率，但是因为新的数据和训练数据不同，所以面对新的数据分错率反倒上升了。决策树是通过分析训练数据，得到数据的统计信息，而不是专为训练数据量身定做。就比如给男人做衣服，叫来10个人做参考，做出一件10个人都能穿的衣服，然后叫来另外5个和前面10个人身高差不多的，这件衣服也能穿。但是当你为10个人每人做一件正好合身的衣服，那么这10件衣服除了那个量身定做的人，别人都穿不了。所以为了避免分割太细，c4.5对ID3进行了改进，C4.5中，增加的熵要除以分割太细的代价，这个比值叫做信息增益率，显然分割太细分母增加，信息增益率会降低。除此之外，其他的原理和ID3相同。</p><p>CART：分类回归树</p><p>CART是一个二叉树，也是回归树，同时也是分类树，CART的构成简单明了。</p><p>CART只能将一个父节点分为2个子节点。CART用GINI指数来决定如何分裂：</p><p>GINI指数：总体内包含的类别越杂乱，GINI指数就越大（跟熵的概念很相似）。</p><p>a. 比如出勤率大于70%这个条件将训练数据分成两组：大于70%里面有两类：【好学生】和【不是好学生】，而小于等于70%里也有两类：【好学生】和【不是好学生】。</p><p>b. 如果用分数小于70分来分：则小于70分只有【不是好学生】一类，而大于等于70分有【好学生】和【不是好学生】两类。</p><p>比较a和b，发现b的凌乱程度比a要小，即GINI指数b比a小，所以选择b的方案。以此为例，将所有条件列出来，选择GINI指数最小的方案，这个和熵的概念很类似。</p><p>CART还是一个回归树，回归解析用来决定分布是否终止。理想地说每一个叶节点里都只有一个类别时分类应该停止，但是很多数据并不容易完全划分，或者完全划分需要很多次分裂，必然造成很长的运行时间，所以CART可以对每个叶节点里的数据分析其均值方差，当方差小于一定值可以终止分裂，以换取计算成本的降低。</p><p>CART和ID3一样，存在偏向细小分割，即过度学习（过度拟合的问题），为了解决这一问题，对特别长的树进行剪枝处理，直接剪掉。</p><p>以上的决策树训练的时候，一般会采取Cross-Validation法：比如一共有10组数据：</p><p>第一次. 1到9做训练数据， 10做测试数据</p><p>第二次. 2到10做训练数据，1做测试数据</p><p>第三次. 1，3到10做训练数据，2做测试数据，以此类推</p><p>做10次，然后大平均错误率。这样称为 10 folds Cross-Validation。</p><p>比如 3 folds Cross-Validation 指的是数据分3份，2份做训练，1份做测试。</p><h2 id="决策树的用途："><a href="#决策树的用途：" class="headerlink" title="决策树的用途："></a>决策树的用途：</h2><p>决策树是一种先进生产力，能够在中等规模数据上低难度获得较好的模型。这是因为树类的几大能力：<br>1 数据不需精心归一化，这个在神经网络领域是不行的，轻则效果不好，重则分分钟梯度给你nan<br>2 离散特征连续特征无脑混搭即可使用，神经网络需要精细设计<br>3 能接受缺失数据，这一点神经网至今为止没有好的解决方案<br>4 超参意义简明易调<br>5 一定的“可解释”性，当然 树太多了也不行刷imagenet这种数据集来说，树或许不行了，但在千奇百怪的实际问题中，其地位还是无可撼动的。很可能一个新手用树模型短时间可以获得一个，比神经网络专家精心调参的模型只差一点的模型。对于追求成本和效率的工业界，这就是先进生产力。</p><p>参考知乎：<a href="https://www.zhihu.com/search?type=content&amp;q=%E5%86%B3%E7%AD%96%E6%A0%91" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=%E5%86%B3%E7%AD%96%E6%A0%91</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;决策树是一种机器学习的方法。决策树的生成算法有ID3,    C4.5和CART等。决策树是一种树形结构，其中每个内部节点表示一个属性上的判断，每个分支代表一个判断结果的输出，最后每个叶节点代表一种分类结果。决策树是一种十分常用的分类方法，需要监管学习（有教师的Superv
+      
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="ML" scheme="http://yoursite.com/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Group Normalization 论文笔记</title>
+    <link href="http://yoursite.com/2018/11/28/Group%20Normalization%20%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2018/11/28/Group Normalization 论文笔记/</id>
+    <published>2018-11-28T13:31:55.000Z</published>
+    <updated>2019-03-12T13:42:36.236Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://arxiv.org/abs/1803.08494" target="_blank" rel="noopener">https://arxiv.org/abs/1803.08494</a><br><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cedngqwj30j80793ze.jpg" alt="在这里插入图片描述"></p><h2 id="提出背景："><a href="#提出背景：" class="headerlink" title="提出背景："></a>提出背景：</h2><p>Group Normalization（GN）是<strong>针对Batch Normalization（BN）在batch size较小时错误率较高而提出的改进算法</strong>，因为BN层的计算结果依赖当前batch的数据，当batch size较小时（比如2、4这样），<strong>该batch数据的均值和方差的代表性较差</strong>，因此对最后的结果影响也较大。</p><p>如下图所示，随着batch size越来越小，BN层所计算的统计信息的可靠性越来越差，这样就容易导致最后错误率的上升；而在batch size较大时则没有明显的差别。虽然在分类算法中一般的GPU显存都能cover住较大的batch设置，但是<strong>在目标检测、分割以及视频相关的算法中，由于输入图像较大、维度多样以及算法本身原因等，batch size一般都设置比较小</strong>，所以GN对于这种类型算法的改进应该比较明显。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cedzzytj30ey0a7ac9.jpg" alt="在这里插入图片描述"></p><p>因此Group Normalization（GN）的思想并不复杂，简单讲就是要使归一化操作的计算不依赖batch size的大小，深度网络中的数据维度一般是[N, C, H, W]格式，N是batch size，H/W是feature的高/宽，C是feature的channel，压缩H/W至一个维度，<strong>自然想到能否把注意力纬度从batch这一纬转移至chanel这一纬度</strong>，Batch归一化有BD、MBGD、SGD，同样G归一化有Layer Normalization、Group Normalization、Instance Normalization，<strong>这些均按chanel大小划分，与batch纬无关</strong>。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cefqfj6j30u009bn89.jpg" alt="在这里插入图片描述"></p><p>引用论文原文中的话概括：</p><blockquote><p>GN divides the channels into groups and computes within each group the<br>mean and variance for normalization. GN’s computation is independent<br>of batch sizes, and its accuracy is stable in a wide range of batch<br>sizes.</p></blockquote><p>下面<strong>着重记录论文第三部分</strong>即理论部分，首先来看Figure2中提到的四种归一化方式的公式计算。首先常见的特征归一化算法（BN,LN,IN,GN）基本上都如公式1+公式6所示。公式1是减均值并除以标准差的操作，<strong>公式6是一个线性变换，来控制均值和方差让机器自动学习得到最佳的分布组合</strong>。 </p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cehacrmj30u009bn89.jpg" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20181125203453580.png" alt="在这里插入图片描述"></p><p>xi中i的含义如论文高亮部分，其实就是四个维度的坐标，这样xi就是feautre map中指定位置的一个点，<strong>下图中的k代表在map中索引的下标，S是满足k|条件后要计算均值的点集区域</strong>。 <img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ceehxebj30hp0fuada.jpg" alt="在这里插入图片描述"></p><p>BatchNorm：batch方向做归一化，<strong>相同通道的点才参与计算当前点的均值和标准差</strong>，假设要计算公式1的点的i.C是3（RGB=B），那么从公式3来看，只有kC=3的点才<strong>构成的集合Si才参与计算均值和方差</strong>，<strong>算N<em>H</em>W的均值</strong>（以batch方向，不同的N会相加，自然除以N算均值，下同）</p><p>LayerNorm：channel方向做归一化，<strong>LN中Si如公式4所示，换句话说就是相同feature map（N这个维度）</strong>的点才参与计算当前点的均值和标准差，<strong>算C<em>H</em>W的均值</strong>，（除以C，以channel方向，不同的C会相加，自然除以C算均值）</p><p>InstanceNorm：channel内做归一化，<strong>IN的Si如公式5所示，换句话说就是相同通道且相同feature map（N这个维度）的点才参与计算当前点的均值和标准差</strong>，<strong>算H*W的均值</strong><br><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cei83ktj30b101e0t7.jpg" alt="在这里插入图片描述"><br>GroupNorm：<strong>channel方向分group，然后每个group内做归一化，算(C//G)<em>H</em>W的均值</strong>(图1中channel=6，group=2，三个通道为一组求均值）</p><h2 id="Experiments："><a href="#Experiments：" class="headerlink" title="Experiments："></a>Experiments：</h2><p><img src="https://img-blog.csdnimg.cn/20181125210232669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>以resnet50为base model，batchsize设置为32在imagenet数据集上的训练误差（左）和测试误差（右）。GN没有表现出很大的优势，在测试误差上稍大于使用BN的结果。<br><img src="https://img-blog.csdnimg.cn/20181125210524825.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>上图是验证batch size大小分别对BN和GN的影响。可以看出<strong>GN基本上不受batch size的影响，鲁棒性更强</strong>。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ceg8ffmj30u009bn89.jpg" alt="在这里插入图片描述"><br>同时，作者以VGG16为例，分析了某一层卷积后的特征分布学习情况，分别根据不使用Norm 和使用BN，GN做了实验，实验结果如上图：统一batch size设置的是32，最左图是不使用norm的conv5的特征学习情况，中间是使用了BN结果，最右是使用了GN的学习情况，相比较不使用norm，使用norm的学习效果显著，而<strong>后两者学习情况相似，不过更改小的batch size后，BN是比不上GN的</strong>。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;论文链接：&lt;a href=&quot;https://arxiv.org/abs/1803.08494&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/abs/1803.08494&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;https://
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人工智能考试总结</title>
+    <link href="http://yoursite.com/2018/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E8%80%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2018/11/28/人工智能考试总结/</id>
+    <published>2018-11-28T13:31:55.000Z</published>
+    <updated>2019-03-12T13:50:41.797Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、AI四大派系："><a href="#1、AI四大派系：" class="headerlink" title="1、AI四大派系："></a>1、AI四大派系：</h2><p>符号主义–知识图谱</p><p>连接主义–深度学习网络</p><p>行为主义–机器人</p><p>统计主义–机器学习</p><h2 id="2、机器学习三部曲："><a href="#2、机器学习三部曲：" class="headerlink" title="2、机器学习三部曲："></a>2、机器学习三部曲：</h2><p>​      <img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cm9mg8tj308c095dg9.jpg" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动">       </p><p>训练集–用于学习参数，降低Loss</p><p>开发集–用于挑选超参数</p><p>测试集–用于估计泛化误差泛化误差。</p><p>for{超参数组合} on Dev set</p><p>​     for{each opoch} on Traing set</p><p>​           Minimize(Loss）</p><h3 id="4、机器学习的定义"><a href="#4、机器学习的定义" class="headerlink" title="4、机器学习的定义"></a><strong>4、机器学习的定义</strong></h3><p><strong>对于某类任务T和性能度量P，一个计算机程序被认为可以从经验E中学习是指，经过经验E改进后，它在任务T上由性能度量P衡量的性能有所提升。</strong></p><p><strong>任务T：Testing Set – 测试集</strong></p><p><strong>性能度量P：Loss Function – 损失函数</strong></p><p><strong>经验E：Training Set – 训练集</strong></p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cm8f143j305v018dfq.jpg" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p><p>文献中定义Model时每一列为一条数据，在tf中相反</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.matmul(x, W) + b</span><br></pre></td></tr></table></figure><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p><p>5、Bias and Variance</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cm9eedhj30oj0hmdni.jpg" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p><h2 id="6、欠拟合和过拟合"><a href="#6、欠拟合和过拟合" class="headerlink" title="6、欠拟合和过拟合"></a>6、欠拟合和过拟合</h2><p><strong>欠拟合：模型拟合不够，在训练集上拟合情况很差。往往会出现偏差大、方差小的情况；</strong></p><p><strong>过拟合：模型过度拟合，在训练集上拟合情况很好，但是在测试集上拟合情况很差。往往会出现偏差小、方差大的情况。</strong></p><p><strong>出现欠拟合时，解决办法有：</strong></p><p><strong>a) 增加新特征，可以考虑加入特征组合、高次特征，来增大假设空间;</strong><br><strong>b) 尝试非线性模型，比如核SVM 、决策树、DNN等模型;</strong><br><strong>c) 如果有正则项可以减小正则项参数λ；</strong><br><strong>d) Boosting，Boosting 往往会有较小的 Bias，比如 Gradient Boosting 等。</strong></p><p><strong>出现过拟合时，解决办法有：</strong></p><p><strong>a) 交叉检验，通过交叉检验得到较优的模型参数;</strong><br><strong>b) 特征选择，减少特征数或使用较少的特征组合，对于按区间离散化的特征，增大划分的区间;</strong><br><strong>c) 正则化，常用的有 L1、L2 正则。而且 L1正则还可以自动进行特征选择;</strong><br><strong>d) 如果有正则项则可以考虑增大正则项参数 λ;</strong><br><strong>e) 增加训练数据可以有限的避免过拟合;</strong><br><strong>f) Bagging，将多个弱学习器Bagging 一下效果会好很多，比如随机森林等。</strong></p><h3 id="7、Cross-Validation-–-交叉验证"><a href="#7、Cross-Validation-–-交叉验证" class="headerlink" title="7、Cross Validation – 交叉验证"></a><strong>7、Cross Validation – 交叉验证</strong></h3><p><strong>K折-交叉验证：把开发集的数据也拿来训练（2时刻选择D2作测试，则可以用1来训练），用于 数据集不是特别大时。</strong></p><p><strong>将数据集D划分成k个大小相似的互斥子集，每次用k-1个子集作为训练集，余下的子集做测试集，最终返回k个训练结果的平均值。交叉验证法评估结果的稳定性和保真性很大程度上取决于k的取值。</strong></p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g10cma1vjwj30h4089my7.jpg" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p><h2 id="8、正则化-L1、L2范数"><a href="#8、正则化-L1、L2范数" class="headerlink" title="8、正则化-L1、L2范数"></a>8、正则化-L1、L2范数</h2><p><strong>L1范数：向量元素绝对值之和，即：</strong></p><p><strong>L2范数：</strong></p><h2 id="9、如何加快模型的训练"><a href="#9、如何加快模型的训练" class="headerlink" title="9、如何加快模型的训练"></a><strong>9、如何加快模型的训练</strong></h2><p><strong>Tip1:</strong></p><p><strong>Tip2:</strong></p><p><strong>Tip3:</strong></p><h2 id="10、梯度优化算法"><a href="#10、梯度优化算法" class="headerlink" title="10、梯度优化算法"></a>10、梯度优化算法</h2><p>Adagrad、Momentum、Adam</p><h2 id="11、Classification"><a href="#11、Classification" class="headerlink" title="11、Classification"></a>11、Classification</h2><h2 id="12、CNN"><a href="#12、CNN" class="headerlink" title="12、CNN"></a>12、CNN</h2><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cm8nupmj30n50g941f.jpg" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p><h2 id="12、RNN"><a href="#12、RNN" class="headerlink" title="12、RNN"></a>12、RNN</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1、AI四大派系：&quot;&gt;&lt;a href=&quot;#1、AI四大派系：&quot; class=&quot;headerlink&quot; title=&quot;1、AI四大派系：&quot;&gt;&lt;/a&gt;1、AI四大派系：&lt;/h2&gt;&lt;p&gt;符号主义–知识图谱&lt;/p&gt;
+&lt;p&gt;连接主义–深度学习网络&lt;/p&gt;
+&lt;p&gt;行为主义–机
+      
+    
+    </summary>
+    
+      <category term="考试总结" scheme="http://yoursite.com/categories/%E8%80%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>人工智能考试复习</title>
+    <link href="http://yoursite.com/2018/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E8%80%83%E8%AF%95%E5%A4%8D%E4%B9%A0/"/>
+    <id>http://yoursite.com/2018/11/28/人工智能考试复习/</id>
+    <published>2018-11-28T13:31:55.000Z</published>
+    <updated>2019-03-12T13:52:42.194Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天刷了一些题目，查漏补缺的同时记录一下重要的知识。</p><h2 id="似然与概率（likelihood-and-probability-）"><a href="#似然与概率（likelihood-and-probability-）" class="headerlink" title="似然与概率（likelihood and probability ）"></a>似然与概率（likelihood and probability ）</h2><p><img src="https://img-blog.csdnimg.cn/20181203092100346.png" alt="在这里插入图片描述"><br>前者是给定联合<strong>样本值X</strong>下关于<strong>未知参数θ的函数</strong>,后者是关于x的函数。所以这里的等号= 理解为函数值形式的相等，而不是两个函数本身是同一函数(根据函数相等的定义，函数相等当且仅当定义域相等并且对应关系相等)。</p><p>概率(密度)表达给定θ下样本随机向量X=x的可能性，而似然表达了给定样本X=x下参数θ1(相对于另外的参数θ2)为真实值的可能性。我们总是对随机变量的取值谈概率，而在非贝叶斯统计的角度下，参数是一个实数而非随机变量，所以我们一般不谈一个参数的概率。<br><img src="https://img-blog.csdnimg.cn/20181203092624881.png" alt="在这里插入图片描述"><br>上图为严格书写方式，竖线|表示条件概率或者条件分布，分号;表示把参数隔开，因为θ在右端只当作参数理解。。</p><h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>离散信号f(n),g(n)的定义如下：<br><img src="https://img-blog.csdnimg.cn/20181201212711159.png" alt="在这里插入图片描述"></p><blockquote><p>在数学里我们知道f(-x)的图像是f(x)对y轴的反转，g(-m)就是把g(m)的序列反转，g(n-m)的意义是把g(-m)平移n点。</p></blockquote><p><img src="https://img-blog.csdnimg.cn/20181201213314624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>相当于滤波器或掩码g(m)反转后在信号f(n)上平移求和。</p><p><strong>二维卷积：</strong></p><p><img src="https://img-blog.csdnimg.cn/20181201213332900.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20181201213341829.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>二维卷积应用（边缘检测）：水平x轴与垂直y轴Sobel掩码算子：<br><img src="https://img-blog.csdnimg.cn/20181201214056790.png" alt="在这里插入图片描述"><br><strong>离散自相关</strong></p><p>有了卷积的概念相关的定义跟卷积相似，离散信息f(n)的自相关用下式定义<br><img src="https://img-blog.csdnimg.cn/20181201213925908.png" alt="在这里插入图片描述"><br>R(n) = f(n)*f(-n);</p><p>容易看出自相关函数有如下性质：</p><p>R(n)=R(-n);<br>n=0时，R(0)为信号的能量</p><h2 id="精确率和召回率："><a href="#精确率和召回率：" class="headerlink" title="精确率和召回率："></a>精确率和召回率：</h2><p><img src="https://img-blog.csdnimg.cn/20181201193401288.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">准确率就是找得对，召回率就是找得全，漏了（1-召回率）这么多。</p><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式是一种描述性的语言, 用来概括一类字符串 (或者说一个字符串集合。<br>a | b* , 这个正则表达式描述了 a 和 b, bb, bbb<br>(a|o)(n|ff). 前面描述的是 a 或者 o, 后面描述的是 n 或者 ff, 接起来, 描述了 an, aff, on, off。</p><h2 id="行方法"><a href="#行方法" class="headerlink" title="行方法"></a>行方法</h2><blockquote><p>A*B=C为例，常规方法即为A行与B列对应元素相乘相加得到C中对应的元素，</p></blockquote><p>即用<strong>A中每行指定的线性组合</strong>方法<strong>对B中所有行</strong>进行线性组合得到C中的每行，<br><img src="https://img-blog.csdnimg.cn/20181201151951502.png" alt="在这里插入图片描述"></p><h2 id="列方法（重点）"><a href="#列方法（重点）" class="headerlink" title="列方法（重点）"></a>列方法（重点）</h2><p>即用<strong>B中每列指定的线性组合</strong>方法<strong>对A中所有列进行组合</strong>得到C中的每列，<br><img src="https://img-blog.csdnimg.cn/20181201152346816.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20181201151847421.png" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20181201151852446.png" alt="在这里插入图片描述">用列的角度看待方程，这个问题即<strong>列的线性组合是否能覆盖整个空间</strong>?很明显这跟A矩阵有很大的关系，如果A是非奇异阵，这样才能组合出所有的b，以一个三方程三未知数的方程组来理解，如果系数矩阵A的3个列向量在一个平面上，那么由他们组合出的所有向量都在那个平面上，在那个平面之外的所有b都是无法得到的,这就造成方程无解。</p><h2 id="A列B行"><a href="#A列B行" class="headerlink" title="A列B行"></a>A列B行</h2><p><img src="https://img-blog.csdnimg.cn/20181201152046864.png" alt="在这里插入图片描述"></p><h2 id="分块方法"><a href="#分块方法" class="headerlink" title="分块方法"></a>分块方法</h2><p><img src="https://img-blog.csdnimg.cn/20181201152541182.png" alt="在这里插入图片描述"></p><h2 id="奇异值分解-SVD"><a href="#奇异值分解-SVD" class="headerlink" title="奇异值分解 - SVD"></a>奇异值分解 - SVD</h2><p><img src="https://img-blog.csdnimg.cn/20181201155141384.png" alt="在这里插入图片描述">中间为奇异值矩阵，特征值的平方根，从大到小排列，小的特征越来越不重要，U为左奇异向量（ui=Avi实际上为AAT的特征向量），vi为ATA的特征向量，称为A的右奇异向量。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">M = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</span><br><span class="line">U,D,vt = np.linalg.svd(M)</span><br></pre></td></tr></table></figure><p>奇异值分解可以将一个比较复杂的矩阵用更小更简单的几个子矩阵的相乘来表示，这些小矩阵描述的是矩阵的重要的特性。就像是描述一个人一样，给别人描述说这个人长得浓眉大眼，方脸，络腮胡，而且带个黑框的眼镜，这样寥寥的几个特征，就让别人脑海里面就有一个较为清楚的认识，实际上，人脸上的特征是有着无数种的，之所以能这么描述，是因为人天生就有着<strong>非常好的抽取重要特征的能力</strong>，让机器学会抽取重要的特征，SVD是一个重要的方法。 </p><h2 id="余弦相似度"><a href="#余弦相似度" class="headerlink" title="余弦相似度"></a>余弦相似度</h2><p><img src="https://img-blog.csdnimg.cn/20181201160229759.png" alt="在这里插入图片描述"><br>余弦相似度用向量空间中两个向量夹角的余弦值作为衡量两个个体间差异的大小。相比距离度量，余弦相似度<strong>更加注重两个向量在方向上的差异</strong>，而非距离或长度上。<br><img src="https://img-blog.csdnimg.cn/2018120116030155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cosine_similarity</span><span class="params">(vector1, vector2)</span>:</span></span><br><span class="line">    dot_product = <span class="number">0.0</span></span><br><span class="line">    normA = <span class="number">0.0</span></span><br><span class="line">    normB = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> a, b <span class="keyword">in</span> zip(vector1, vector2):</span><br><span class="line">        dot_product += a * b</span><br><span class="line">        normA += a ** <span class="number">2</span></span><br><span class="line">        normB += b ** <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> normA == <span class="number">0.0</span> <span class="keyword">or</span> normB == <span class="number">0.0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> round(dot_product / ((normA**<span class="number">0.5</span>)*(normB**<span class="number">0.5</span>)) * <span class="number">100</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天刷了一些题目，查漏补缺的同时记录一下重要的知识。&lt;/p&gt;
+&lt;h2 id=&quot;似然与概率（likelihood-and-probability-）&quot;&gt;&lt;a href=&quot;#似然与概率（likelihood-and-probability-）&quot; class=&quot;headerlin
+      
+    
+    </summary>
+    
+      <category term="考试总结" scheme="http://yoursite.com/categories/%E8%80%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Faster R-CNN 论文笔记</title>
+    <link href="http://yoursite.com/2018/11/27/Faster%20R-CNN%20%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2018/11/27/Faster R-CNN 论文笔记/</id>
+    <published>2018-11-27T13:31:55.000Z</published>
+    <updated>2019-03-12T13:41:11.850Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cb33bn3j30go091mz2.jpg" alt="图片: https://uploader.shimo.im/f/Q5QviyvyhzYKRMHk.png"><br>目前目标检测领域的深度学习方法主要分为两类：two stage的目标检测算法；one stage的目标检测算法。前者是<strong>先由算法生成一系列作为样本的候选框</strong>，<strong>再通过CNN进行样本分类</strong>；后者则不用产生候选框，直接将目标边框定位的问题转化为回归问题处理。正是由于两种方法的差异，在性能上也有不同，前者在<strong>检测准确率和定位精度上</strong>占优，后者在<strong>算法速度上</strong>占优。</p><p>首先，在介绍Faster R-CNN之前先介绍一下其历史，以便更好记忆Faster R-CNN的改进和优点。</p><ul><li><strong>R-CNN</strong></li></ul><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cb8lid1j30go04s0vw.jpg" alt="在这里插入图片描述"><br>1、R-CNN算法<strong>利用选择性搜索（Selective Search）算法评测</strong>相邻图像子块的特征相似度，通过对合并后的相似图像区域打分，选择出感兴趣区域的候选框作为样本<strong>输入到CNN内部</strong>，</p><p>2、选择性搜索算法：<img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cb3ehdtj30jn0grjya.jpg" alt="在这里插入图片描述">在目标检测时，为了定位到目标的具体位置，通常会把<strong>图像分成许多子块</strong>（sub-regions / patches），然后<strong>把子块作为输入</strong>，送到目标识别的模型中。分子块的最直接方法叫滑动窗口法（sliding window approach）。滑动窗口的方法就是按照子块的大小在整幅图像上穷举所有子图像块。这种方法产生的数据量想想都头大。<strong>和滑动窗口法相对</strong>的是另外一类<strong>基于区域（region proposal）的方法</strong>。selective search就是其中之一！</p><p>3、由网络学习候选框和标定框<strong>组成正负样本特征，形成对应的特征向量</strong></p><p>4、再由<strong>支持向量机设计分类器对特征向量分类</strong>，最后对候选框以及标定框完成边框<strong>回归操作</strong>达到目标检测的定位目的。</p><p>缺点：<strong>训练网络的正负样本候选区域由传统算法生成，</strong>使得算法速度受到限制；CNN需要分别对<strong>每一个生成的候选区域进行一次特征提取</strong>，实际存在大量的重复运算，制约了算法性能。</p><ul><li><strong>SPP-Net</strong></li></ul><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cb753f6j30go0b277y.jpg" alt="空间金字塔池化结构"><br>针对卷积神经网络重复运算问题，2015年微软研究院的何恺明等提出一种SPP-Net算法，通过在卷积层和全连接层之间<strong>加入空间金字塔池化结构</strong>（Spatial Pyramid Pooling）代替R-CNN算法在输入卷积神经网络前对各个候选区域进行剪裁、缩放操作使其图像子块尺寸一致的做法。利用空间金字塔池化结构有效避免了R-CNN算法对图像区域剪裁、缩放操作导致的图像物体剪裁不全以及形状扭曲等问题，更重要的是<strong>解决了CNN对图像重复特征提取的问题</strong>，大大提高了产生候选框的速度，且节省了计算成本。</p><p>缺点：和R-CNN算法一样<strong>训练数据的图像尺寸大小不一致</strong>，导致候选框的ROI感受野大，不能利用BP高效更新权重。</p><ul><li><strong>Fast R-CNN</strong><br><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cb3u6oyj30go06j79h.jpg" alt="在这里插入图片描述"></li></ul><p>借鉴SPP-Net算法结构，设计一种<strong>ROI pooling</strong>的池化层结构，有效<strong>解决R-CNN算法必须将图像区域剪裁、缩放到相同尺寸大小的操作</strong>。提出多任务损失函数思想，将<strong>分类损失和边框回归损失结合统一</strong>训练学习，并<strong>输出对应分类和边框坐标</strong>，不再需要额外的硬盘空间来存储中间层的特征，梯度能够通过RoI Pooling层直接传播。</p><p>可以细分为以下四步：</p><p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g10cb49wz9j30d60dv0w8.jpg" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20181206111056236.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">    <img src="https://img-blog.csdnimg.cn/20181206111106419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><p>最后就是关键的ROIPooling操作，由于之前提取的候选框很多，大小也都不同，ROI Projection映射到Feature map上也大小不一，为了后面做全连接，需要把这些大小不一的特征Pooling成一样的大小。</p><p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cb583rkj30ql0bxtdb.jpg" alt="在这里插入图片描述"></p><p>缺点：仍然没有摆脱<strong>SS生成正负样本候选框</strong>的问题，第一步候选框提取时间太长，根据Paper里的统计结果，如果CPU做需要2s per image，而之后的2，3，4三步加起来才用0.3s，Faster R-CNN即针对这一步（压缩提框时间）做的这个改进。</p><ul><li><strong>Faster R-CNN</strong><br><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1g10cb5qka4j30kj0d30uc.jpg" alt="在这里插入图片描述"></li></ul><p>1、Conv layers：作为一种CNN网络目标检测方法，Faster    RCNN首先使用一组基础的conv+relu+pooling层<strong>提取image的feature maps</strong>。该feature    maps被共享用于后续RPN层和全连接层。<br>2、 Region Proposal Networks：RPN网络用于生成region    proposals。该层<strong>通过softmax判断anchors属于foreground或者background</strong>，再利用bounding    box regression<strong>修正anchors获得精确的proposals</strong>。<br> 3、 Roi Pooling：该层收集输入的feature    maps和proposals，<strong>综合这些信息后提取proposal feature maps</strong>，送入后续全连接层判定目标类别。<br>  4、 Classification：利用proposal feature maps<strong>计算proposal的类别</strong>，同时再次bounding box    regression<strong>获得检测框最终的精确位置</strong>。<br><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cb66qo9j30k009sjvz.jpg" alt="在这里插入图片描述"><br>重点介绍一下RPN（Region Proposal Networks）网络，RPN网络实际分为2条线，上面一条<strong>通过softmax分类（分类指的是候选框中是不是有目标物体，而不是对其内部的具体类别进行分类）anchors获得foreground和background（检测目标是foreground）</strong>，下面一条用于<strong>计算对于anchors的bounding box regression偏移量</strong>，以获得精确的proposal。而最后的Proposal层则负责综合foreground anchors和bounding box regression偏移量获取proposals，同时剔除太小和超出边界的proposals。其实整个网络到了Proposal Layer这里，就<strong>完成了相当于目标定位的功能</strong>。<br><img src="https://img-blog.csdnimg.cn/20181125102736180.png" alt="在这里插入图片描述"><br>再介绍一下其中的Anchors，实际上就是一组由rpn/generate_anchors.py生成的矩形。直接运行论文作者demo中的generate_anchors.py可以得到以下输出：</p><blockquote><p>[[ -84.  -40.   99.   55.]<br> [-176.  -88.  191.  103.]<br> [-360. -184.  375.  199.]<br> [ -56.  -56.   71.   71.]<br> [-120. -120.  135.  135.]<br> [-248. -248.  263.  263.]<br> [ -36.  -80.   51.   95.]<br> [ -80. -168.   95.  183.]<br> [-168. -344.  183.  359.]]</p></blockquote><p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cb85cvcj30i60attac.jpg" alt="在这里插入图片描述">可以看到一共有 9 个anchors（三个大小，三种形状，with:height∈{1:1, 1:2, 2:1}），而这 9 个 anchors 的作用，就是用来遍历 Conv layers 获得的 feature map（将 anchor 中心点与滑窗中心点进行对其），为每一个点都配备anchors 作为初始的检测框。</p><p>当然，这样获得的检测框不会很准确，但是我们从整个网络来看，后面还会涉及到两次的 b-box regression，这两次回归处理都会对这个位置进行修正。 </p><p>此外，全部anchors拿去训练太多了，训练程序会在合适的anchors中随机选取128个postive anchors+128个negative anchors进行训练。</p><p>一句话总结：<strong>其实RPN最终就是在原图尺度上，设置了密密麻麻的候选Anchor。然后用cnn去判断哪些Anchor是里面有目标的foreground anchor，哪些是没目标的backgroud。所以，仅仅是个二分类而已</strong>！</p><p>缺点：由于RPN网络可在固定尺寸的卷积特征图中生成多尺寸的候选框，导致出现可变目标尺寸和固定感受野不一致的现象。</p><p>参考：<a href="https://www.zhihu.com/search?type=content&amp;q=%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;img src=&quot;https://ws3.sinaimg.cn/large/006tKfTcgy1g10cb33bn3j30go091mz2.jpg&quot; alt=&quot;图片: https://uploader.shimo.im/f/Q5QviyvyhzYKRMHk.png&quot;&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FPN（feature pyramid networks）论文笔记</title>
+    <link href="http://yoursite.com/2018/11/26/FPN%EF%BC%88feature-pyramid-networks%EF%BC%89%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
+    <id>http://yoursite.com/2018/11/26/FPN（feature-pyramid-networks）论文笔记的副本/</id>
+    <published>2018-11-26T13:31:55.000Z</published>
+    <updated>2019-03-12T13:37:02.101Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p><p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p><p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p><p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p><p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p><p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p><p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;论文概述：&quot;&gt;&lt;a href=&quot;#论文概述：&quot; class=&quot;headerlink&quot; title=&quot;论文概述：&quot;&gt;&lt;/a&gt;论文概述：&lt;/h2&gt;&lt;p&gt;这篇论文是CVPR2017年的文章，&lt;strong&gt;采用特征金字塔代替了传统的Scale handling 方法&lt;/
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FPN（feature pyramid networks）论文笔记</title>
+    <link href="http://yoursite.com/2018/11/26/FPN%EF%BC%88feature-pyramid-networks%EF%BC%89%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2018/11/26/FPN（feature-pyramid-networks）论文笔记/</id>
+    <published>2018-11-26T13:31:55.000Z</published>
+    <updated>2019-03-12T13:37:02.101Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p><p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p><p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p><p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p><p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p><p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p><p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;论文概述：&quot;&gt;&lt;a href=&quot;#论文概述：&quot; class=&quot;headerlink&quot; title=&quot;论文概述：&quot;&gt;&lt;/a&gt;论文概述：&lt;/h2&gt;&lt;p&gt;这篇论文是CVPR2017年的文章，&lt;strong&gt;采用特征金字塔代替了传统的Scale handling 方法&lt;/
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
     
   </entry>
   
