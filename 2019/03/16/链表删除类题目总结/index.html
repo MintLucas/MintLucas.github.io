@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="工程实践,">
+  <meta name="keywords" content="c++,">
 
 
 
@@ -81,26 +81,18 @@
 
 
 
-<meta name="description" content="论文概述：这篇论文是CVPR2017年的文章，采用特征金字塔代替了传统的Scale handling 方法，截止目前（2018.11.26）引用量为529次。论文链接：https://arxiv.org/abs/1612.03144 深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过自顶向下(top-down)">
-<meta name="keywords" content="工程实践">
+<meta name="description" content="上午刷题时，之前一道很简单的题写第二遍时卡住了。。。看来还是没理解透彻，题目为剑指Offer（五十六）：删除链表中重复的结点。 心得：先考虑一般情况1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;4-&amp;gt;4-&amp;gt;5 处理后为 1-&amp;gt;2-&amp;gt;5；再考虑要删除的是第一个结点的情况（需要移动头节点）1-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;5 处理后为 2-&amp;gt;5">
+<meta name="keywords" content="c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FPN（feature pyramid networks）论文笔记">
-<meta property="og:url" content="http://yoursite.com/2018/11/26/FPN（feature-pyramid-networks）论文笔记的副本/index.html">
+<meta property="og:title" content="链表删除类题目总结">
+<meta property="og:url" content="http://yoursite.com/2019/03/16/链表删除类题目总结/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="论文概述：这篇论文是CVPR2017年的文章，采用特征金字塔代替了传统的Scale handling 方法，截止目前（2018.11.26）引用量为529次。论文链接：https://arxiv.org/abs/1612.03144 深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过自顶向下(top-down)">
+<meta property="og:description" content="上午刷题时，之前一道很简单的题写第二遍时卡住了。。。看来还是没理解透彻，题目为剑指Offer（五十六）：删除链表中重复的结点。 心得：先考虑一般情况1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;4-&amp;gt;4-&amp;gt;5 处理后为 1-&amp;gt;2-&amp;gt;5；再考虑要删除的是第一个结点的情况（需要移动头节点）1-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;5 处理后为 2-&amp;gt;5">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126104937424.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105447628.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105541842.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-03-12T13:37:02.101Z">
+<meta property="og:updated_time" content="2019-03-16T03:22:05.311Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FPN（feature pyramid networks）论文笔记">
-<meta name="twitter:description" content="论文概述：这篇论文是CVPR2017年的文章，采用特征金字塔代替了传统的Scale handling 方法，截止目前（2018.11.26）引用量为529次。论文链接：https://arxiv.org/abs/1612.03144 深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过自顶向下(top-down)">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+<meta name="twitter:title" content="链表删除类题目总结">
+<meta name="twitter:description" content="上午刷题时，之前一道很简单的题写第二遍时卡住了。。。看来还是没理解透彻，题目为剑指Offer（五十六）：删除链表中重复的结点。 心得：先考虑一般情况1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;4-&amp;gt;4-&amp;gt;5 处理后为 1-&amp;gt;2-&amp;gt;5；再考虑要删除的是第一个结点的情况（需要移动头节点）1-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;5 处理后为 2-&amp;gt;5">
 
 
 
@@ -130,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/26/FPN（feature-pyramid-networks）论文笔记的副本/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/16/链表删除类题目总结/">
 
 
 
 
 
-  <title>FPN（feature pyramid networks）论文笔记 | ZHIPENG个人笔记</title>
+  <title>链表删除类题目总结 | ZHIPENG个人笔记</title>
   
 
 
@@ -283,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/FPN（feature-pyramid-networks）论文笔记的副本/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/链表删除类题目总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -300,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">FPN（feature pyramid networks）论文笔记</h1>
+          <h1 class="post-title" itemprop="name headline">链表删除类题目总结</h1>
         
 
         <div class="post-meta">
@@ -312,8 +304,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-26T21:31:55+08:00">
-                2018-11-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-16T11:03:39+08:00">
+                2019-03-16
               </time>
             
 
@@ -335,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/论文笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">论文笔记</span>
+                  <a href="/categories/刷题and刷题/" itemprop="url" rel="index">
+                    <span itemprop="name">刷题and刷题</span>
                   </a>
                 </span>
 
@@ -372,16 +364,14 @@
       
 
       
-        <h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p>
-<p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p>
-<p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p>
-<p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p>
-<p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p>
-<p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p>
-<p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>
-
+        <p>上午刷题时，之前一道很简单的题写第二遍时卡住了。。。看来还是没理解透彻，题目为剑指Offer（五十六）：删除链表中重复的结点。</p>
+<p>心得：先考虑一般情况1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5；<br>再考虑要删除的是第一个结点的情况（需要移动头节点）1-&gt;1-&gt;2-&gt;3-&gt;3-&gt;5 处理后为 2-&gt;5;<br>最后考虑遍历到最后指针为空的情况，1-&gt;1-&gt;1-&gt;1 处理后为 {}。</p>
+<blockquote>
+<p>coding就是一个思路转化成代码的过程，逻辑要清晰，善于用三种逻辑语句，卡在都想用<strong>pre = cur;cur = aft;</strong>语句来继续遍历，但如果删除重复后其实pre是不用移动的，遂if else考虑后清晰很多，if(删除重复)用<strong>cur = aft-&gt;next;</strong>，else。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) :</span></span><br><span class="line"><span class="comment">        val(x), next(NULL) &#123;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">deleteDuplication</span><span class="params">(ListNode* pHead)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pHead == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        ListNode* pre = pHead, *cur = pHead, *aft = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">            aft = cur-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;next != <span class="literal">NULL</span> &amp;&amp; cur-&gt;val == cur-&gt;next-&gt;val)&#123;</span><br><span class="line">                aft = cur-&gt;next;</span><br><span class="line">                <span class="keyword">while</span>(aft-&gt;next != <span class="literal">NULL</span> &amp;&amp; aft-&gt;next-&gt;val == cur-&gt;val)</span><br><span class="line">                    aft = aft-&gt;next;</span><br><span class="line">                <span class="comment">//处理cur在第一个结点时,前面已有cur-&gt;next-&gt;val判断重复</span></span><br><span class="line">                <span class="keyword">if</span>(cur == pHead)</span><br><span class="line">                    pHead = aft-&gt;next;</span><br><span class="line">                <span class="keyword">else</span><span class="comment">//既然pre在第一个结点重复时不能向后指，加到else里</span></span><br><span class="line">                    <span class="comment">//全重复需要pHead为空，前面在aft-&gt;next为空停下，所以要aft最后定位前移一下</span></span><br><span class="line">                    pre-&gt;next = aft-&gt;next;</span><br><span class="line">                cur = aft-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//既然在有重复时pre不需移动，那就分两种情况向后遍历</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                pre = cur;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pHead;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="类比删除值为x的元素"><a href="#类比删除值为x的元素" class="headerlink" title="类比删除值为x的元素"></a>类比删除值为x的元素</h4><p>printList函数见(<a href="https://mintlucas.github.io/2019/02/26/C-%E7%AE%80%E6%B4%81%E7%9A%84%E9%93%BE%E8%A1%A8%E5%88%9B%E5%BB%BA/" target="_blank" rel="noopener">https://mintlucas.github.io/2019/02/26/C-%E7%AE%80%E6%B4%81%E7%9A%84%E9%93%BE%E8%A1%A8%E5%88%9B%E5%BB%BA/</a>)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete_mutiX</span><span class="params">(ListNode* head, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    ListNode* pre = head, *cur = head, *aft = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cur-&gt;val == x)&#123;</span><br><span class="line">            aft = cur-&gt;next;</span><br><span class="line">            <span class="comment">//只要aft-&gt;val==x，就后移，即找删除节点的后一个节点</span></span><br><span class="line">            <span class="comment">//考虑遍历到最后一个结点时，atfer==NULL时访问-&gt;val会出错，用短路避免</span></span><br><span class="line">            <span class="keyword">if</span>(cur == head)&#123;</span><br><span class="line">                head = aft;</span><br><span class="line">                pre = head;</span><br><span class="line">                <span class="comment">//加上这句话仅输出头节点后的第一个0</span></span><br><span class="line">                <span class="comment">//pre-&gt;next = NULL;</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                pre-&gt;next = aft;</span><br><span class="line">            cur = aft;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printList(head);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -398,7 +388,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/工程实践/" rel="tag"># 工程实践</a>
+            <a href="/tags/c/" rel="tag"># c++</a>
           
         </div>
       
@@ -411,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/26/FPN（feature-pyramid-networks）论文笔记/" rel="next" title="FPN（feature pyramid networks）论文笔记">
-                <i class="fa fa-chevron-left"></i> FPN（feature pyramid networks）论文笔记
+              <a href="/2019/03/11/面试问题/" rel="next" title="面试问题">
+                <i class="fa fa-chevron-left"></i> 面试问题
               </a>
             
           </div>
@@ -420,10 +410,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/27/Faster R-CNN 论文笔记/" rel="prev" title="Faster R-CNN 论文笔记">
-                Faster R-CNN 论文笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -511,7 +497,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -562,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#论文概述："><span class="nav-number">1.</span> <span class="nav-text">论文概述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction："><span class="nav-number">2.</span> <span class="nav-text">Introduction：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Note："><span class="nav-number">3.</span> <span class="nav-text">Note：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#类比删除值为x的元素"><span class="nav-number">1.</span> <span class="nav-text">类比删除值为x的元素</span></a></li></ol></div>
             
 
           </div>

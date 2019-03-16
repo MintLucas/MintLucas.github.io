@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-03-12T13:35:00.911Z</updated>
+  <updated>2019-03-16T03:22:05.311Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>链表删除类题目总结</title>
+    <link href="http://yoursite.com/2019/03/16/%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4%E7%B1%BB%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2019/03/16/链表删除类题目总结/</id>
+    <published>2019-03-16T03:03:39.000Z</published>
+    <updated>2019-03-16T03:22:05.311Z</updated>
+    
+    <content type="html"><![CDATA[<p>上午刷题时，之前一道很简单的题写第二遍时卡住了。。。看来还是没理解透彻，题目为剑指Offer（五十六）：删除链表中重复的结点。</p><p>心得：先考虑一般情况1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5；<br>再考虑要删除的是第一个结点的情况（需要移动头节点）1-&gt;1-&gt;2-&gt;3-&gt;3-&gt;5 处理后为 2-&gt;5;<br>最后考虑遍历到最后指针为空的情况，1-&gt;1-&gt;1-&gt;1 处理后为 {}。</p><blockquote><p>coding就是一个思路转化成代码的过程，逻辑要清晰，善于用三种逻辑语句，卡在都想用<strong>pre = cur;cur = aft;</strong>语句来继续遍历，但如果删除重复后其实pre是不用移动的，遂if else考虑后清晰很多，if(删除重复)用<strong>cur = aft-&gt;next;</strong>，else。</p></blockquote><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) :</span></span><br><span class="line"><span class="comment">        val(x), next(NULL) &#123;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">deleteDuplication</span><span class="params">(ListNode* pHead)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pHead == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        ListNode* pre = pHead, *cur = pHead, *aft = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">            aft = cur-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(cur-&gt;next != <span class="literal">NULL</span> &amp;&amp; cur-&gt;val == cur-&gt;next-&gt;val)&#123;</span><br><span class="line">                aft = cur-&gt;next;</span><br><span class="line">                <span class="keyword">while</span>(aft-&gt;next != <span class="literal">NULL</span> &amp;&amp; aft-&gt;next-&gt;val == cur-&gt;val)</span><br><span class="line">                    aft = aft-&gt;next;</span><br><span class="line">                <span class="comment">//处理cur在第一个结点时,前面已有cur-&gt;next-&gt;val判断重复</span></span><br><span class="line">                <span class="keyword">if</span>(cur == pHead)</span><br><span class="line">                    pHead = aft-&gt;next;</span><br><span class="line">                <span class="keyword">else</span><span class="comment">//既然pre在第一个结点重复时不能向后指，加到else里</span></span><br><span class="line">                    <span class="comment">//全重复需要pHead为空，前面在aft-&gt;next为空停下，所以要aft最后定位前移一下</span></span><br><span class="line">                    pre-&gt;next = aft-&gt;next;</span><br><span class="line">                cur = aft-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//既然在有重复时pre不需移动，那就分两种情况向后遍历</span></span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                pre = cur;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pHead;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h4 id="类比删除值为x的元素"><a href="#类比删除值为x的元素" class="headerlink" title="类比删除值为x的元素"></a>类比删除值为x的元素</h4><p>printList函数见(<a href="https://mintlucas.github.io/2019/02/26/C-%E7%AE%80%E6%B4%81%E7%9A%84%E9%93%BE%E8%A1%A8%E5%88%9B%E5%BB%BA/" target="_blank" rel="noopener">https://mintlucas.github.io/2019/02/26/C-%E7%AE%80%E6%B4%81%E7%9A%84%E9%93%BE%E8%A1%A8%E5%88%9B%E5%BB%BA/</a>)</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete_mutiX</span><span class="params">(ListNode* head, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    ListNode* pre = head, *cur = head, *aft = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(cur)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cur-&gt;val == x)&#123;</span><br><span class="line">            aft = cur-&gt;next;</span><br><span class="line">            <span class="comment">//只要aft-&gt;val==x，就后移，即找删除节点的后一个节点</span></span><br><span class="line">            <span class="comment">//考虑遍历到最后一个结点时，atfer==NULL时访问-&gt;val会出错，用短路避免</span></span><br><span class="line">            <span class="keyword">if</span>(cur == head)&#123;</span><br><span class="line">                head = aft;</span><br><span class="line">                pre = head;</span><br><span class="line">                <span class="comment">//加上这句话仅输出头节点后的第一个0</span></span><br><span class="line">                <span class="comment">//pre-&gt;next = NULL;</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                pre-&gt;next = aft;</span><br><span class="line">            cur = aft;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printList(head);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;上午刷题时，之前一道很简单的题写第二遍时卡住了。。。看来还是没理解透彻，题目为剑指Offer（五十六）：删除链表中重复的结点。&lt;/p&gt;
+&lt;p&gt;心得：先考虑一般情况1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;4-&amp;gt;4-&amp;gt;5 处理后为 1-&amp;gt;2-&amp;gt;5
+      
+    
+    </summary>
+    
+      <category term="刷题and刷题" scheme="http://yoursite.com/categories/%E5%88%B7%E9%A2%98and%E5%88%B7%E9%A2%98/"/>
+    
+    
+      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
   
   <entry>
     <title>面试问题</title>
@@ -237,31 +263,6 @@
   </entry>
   
   <entry>
-    <title>Group Normalization 论文笔记</title>
-    <link href="http://yoursite.com/2018/11/28/Group%20Normalization%20%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2018/11/28/Group Normalization 论文笔记/</id>
-    <published>2018-11-28T13:31:55.000Z</published>
-    <updated>2019-03-12T13:42:36.236Z</updated>
-    
-    <content type="html"><![CDATA[<p>论文链接：<a href="https://arxiv.org/abs/1803.08494" target="_blank" rel="noopener">https://arxiv.org/abs/1803.08494</a><br><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cedngqwj30j80793ze.jpg" alt="在这里插入图片描述"></p><h2 id="提出背景："><a href="#提出背景：" class="headerlink" title="提出背景："></a>提出背景：</h2><p>Group Normalization（GN）是<strong>针对Batch Normalization（BN）在batch size较小时错误率较高而提出的改进算法</strong>，因为BN层的计算结果依赖当前batch的数据，当batch size较小时（比如2、4这样），<strong>该batch数据的均值和方差的代表性较差</strong>，因此对最后的结果影响也较大。</p><p>如下图所示，随着batch size越来越小，BN层所计算的统计信息的可靠性越来越差，这样就容易导致最后错误率的上升；而在batch size较大时则没有明显的差别。虽然在分类算法中一般的GPU显存都能cover住较大的batch设置，但是<strong>在目标检测、分割以及视频相关的算法中，由于输入图像较大、维度多样以及算法本身原因等，batch size一般都设置比较小</strong>，所以GN对于这种类型算法的改进应该比较明显。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cedzzytj30ey0a7ac9.jpg" alt="在这里插入图片描述"></p><p>因此Group Normalization（GN）的思想并不复杂，简单讲就是要使归一化操作的计算不依赖batch size的大小，深度网络中的数据维度一般是[N, C, H, W]格式，N是batch size，H/W是feature的高/宽，C是feature的channel，压缩H/W至一个维度，<strong>自然想到能否把注意力纬度从batch这一纬转移至chanel这一纬度</strong>，Batch归一化有BD、MBGD、SGD，同样G归一化有Layer Normalization、Group Normalization、Instance Normalization，<strong>这些均按chanel大小划分，与batch纬无关</strong>。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cefqfj6j30u009bn89.jpg" alt="在这里插入图片描述"></p><p>引用论文原文中的话概括：</p><blockquote><p>GN divides the channels into groups and computes within each group the<br>mean and variance for normalization. GN’s computation is independent<br>of batch sizes, and its accuracy is stable in a wide range of batch<br>sizes.</p></blockquote><p>下面<strong>着重记录论文第三部分</strong>即理论部分，首先来看Figure2中提到的四种归一化方式的公式计算。首先常见的特征归一化算法（BN,LN,IN,GN）基本上都如公式1+公式6所示。公式1是减均值并除以标准差的操作，<strong>公式6是一个线性变换，来控制均值和方差让机器自动学习得到最佳的分布组合</strong>。 </p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cehacrmj30u009bn89.jpg" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20181125203453580.png" alt="在这里插入图片描述"></p><p>xi中i的含义如论文高亮部分，其实就是四个维度的坐标，这样xi就是feautre map中指定位置的一个点，<strong>下图中的k代表在map中索引的下标，S是满足k|条件后要计算均值的点集区域</strong>。 <img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ceehxebj30hp0fuada.jpg" alt="在这里插入图片描述"></p><p>BatchNorm：batch方向做归一化，<strong>相同通道的点才参与计算当前点的均值和标准差</strong>，假设要计算公式1的点的i.C是3（RGB=B），那么从公式3来看，只有kC=3的点才<strong>构成的集合Si才参与计算均值和方差</strong>，<strong>算N<em>H</em>W的均值</strong>（以batch方向，不同的N会相加，自然除以N算均值，下同）</p><p>LayerNorm：channel方向做归一化，<strong>LN中Si如公式4所示，换句话说就是相同feature map（N这个维度）</strong>的点才参与计算当前点的均值和标准差，<strong>算C<em>H</em>W的均值</strong>，（除以C，以channel方向，不同的C会相加，自然除以C算均值）</p><p>InstanceNorm：channel内做归一化，<strong>IN的Si如公式5所示，换句话说就是相同通道且相同feature map（N这个维度）的点才参与计算当前点的均值和标准差</strong>，<strong>算H*W的均值</strong><br><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cei83ktj30b101e0t7.jpg" alt="在这里插入图片描述"><br>GroupNorm：<strong>channel方向分group，然后每个group内做归一化，算(C//G)<em>H</em>W的均值</strong>(图1中channel=6，group=2，三个通道为一组求均值）</p><h2 id="Experiments："><a href="#Experiments：" class="headerlink" title="Experiments："></a>Experiments：</h2><p><img src="https://img-blog.csdnimg.cn/20181125210232669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>以resnet50为base model，batchsize设置为32在imagenet数据集上的训练误差（左）和测试误差（右）。GN没有表现出很大的优势，在测试误差上稍大于使用BN的结果。<br><img src="https://img-blog.csdnimg.cn/20181125210524825.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>上图是验证batch size大小分别对BN和GN的影响。可以看出<strong>GN基本上不受batch size的影响，鲁棒性更强</strong>。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ceg8ffmj30u009bn89.jpg" alt="在这里插入图片描述"><br>同时，作者以VGG16为例，分析了某一层卷积后的特征分布学习情况，分别根据不使用Norm 和使用BN，GN做了实验，实验结果如上图：统一batch size设置的是32，最左图是不使用norm的conv5的特征学习情况，中间是使用了BN结果，最右是使用了GN的学习情况，相比较不使用norm，使用norm的学习效果显著，而<strong>后两者学习情况相似，不过更改小的batch size后，BN是比不上GN的</strong>。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;论文链接：&lt;a href=&quot;https://arxiv.org/abs/1803.08494&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/abs/1803.08494&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;https://
-      
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
-    
-  </entry>
-  
-  <entry>
     <title>人工智能考试总结</title>
     <link href="http://yoursite.com/2018/11/28/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E8%80%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2018/11/28/人工智能考试总结/</id>
@@ -283,6 +284,31 @@
     
       <category term="考试总结" scheme="http://yoursite.com/categories/%E8%80%83%E8%AF%95%E6%80%BB%E7%BB%93/"/>
     
+    
+  </entry>
+  
+  <entry>
+    <title>Group Normalization 论文笔记</title>
+    <link href="http://yoursite.com/2018/11/28/Group%20Normalization%20%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2018/11/28/Group Normalization 论文笔记/</id>
+    <published>2018-11-28T13:31:55.000Z</published>
+    <updated>2019-03-12T13:42:36.236Z</updated>
+    
+    <content type="html"><![CDATA[<p>论文链接：<a href="https://arxiv.org/abs/1803.08494" target="_blank" rel="noopener">https://arxiv.org/abs/1803.08494</a><br><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1g10cedngqwj30j80793ze.jpg" alt="在这里插入图片描述"></p><h2 id="提出背景："><a href="#提出背景：" class="headerlink" title="提出背景："></a>提出背景：</h2><p>Group Normalization（GN）是<strong>针对Batch Normalization（BN）在batch size较小时错误率较高而提出的改进算法</strong>，因为BN层的计算结果依赖当前batch的数据，当batch size较小时（比如2、4这样），<strong>该batch数据的均值和方差的代表性较差</strong>，因此对最后的结果影响也较大。</p><p>如下图所示，随着batch size越来越小，BN层所计算的统计信息的可靠性越来越差，这样就容易导致最后错误率的上升；而在batch size较大时则没有明显的差别。虽然在分类算法中一般的GPU显存都能cover住较大的batch设置，但是<strong>在目标检测、分割以及视频相关的算法中，由于输入图像较大、维度多样以及算法本身原因等，batch size一般都设置比较小</strong>，所以GN对于这种类型算法的改进应该比较明显。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cedzzytj30ey0a7ac9.jpg" alt="在这里插入图片描述"></p><p>因此Group Normalization（GN）的思想并不复杂，简单讲就是要使归一化操作的计算不依赖batch size的大小，深度网络中的数据维度一般是[N, C, H, W]格式，N是batch size，H/W是feature的高/宽，C是feature的channel，压缩H/W至一个维度，<strong>自然想到能否把注意力纬度从batch这一纬转移至chanel这一纬度</strong>，Batch归一化有BD、MBGD、SGD，同样G归一化有Layer Normalization、Group Normalization、Instance Normalization，<strong>这些均按chanel大小划分，与batch纬无关</strong>。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10cefqfj6j30u009bn89.jpg" alt="在这里插入图片描述"></p><p>引用论文原文中的话概括：</p><blockquote><p>GN divides the channels into groups and computes within each group the<br>mean and variance for normalization. GN’s computation is independent<br>of batch sizes, and its accuracy is stable in a wide range of batch<br>sizes.</p></blockquote><p>下面<strong>着重记录论文第三部分</strong>即理论部分，首先来看Figure2中提到的四种归一化方式的公式计算。首先常见的特征归一化算法（BN,LN,IN,GN）基本上都如公式1+公式6所示。公式1是减均值并除以标准差的操作，<strong>公式6是一个线性变换，来控制均值和方差让机器自动学习得到最佳的分布组合</strong>。 </p><p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cehacrmj30u009bn89.jpg" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20181125203453580.png" alt="在这里插入图片描述"></p><p>xi中i的含义如论文高亮部分，其实就是四个维度的坐标，这样xi就是feautre map中指定位置的一个点，<strong>下图中的k代表在map中索引的下标，S是满足k|条件后要计算均值的点集区域</strong>。 <img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ceehxebj30hp0fuada.jpg" alt="在这里插入图片描述"></p><p>BatchNorm：batch方向做归一化，<strong>相同通道的点才参与计算当前点的均值和标准差</strong>，假设要计算公式1的点的i.C是3（RGB=B），那么从公式3来看，只有kC=3的点才<strong>构成的集合Si才参与计算均值和方差</strong>，<strong>算N<em>H</em>W的均值</strong>（以batch方向，不同的N会相加，自然除以N算均值，下同）</p><p>LayerNorm：channel方向做归一化，<strong>LN中Si如公式4所示，换句话说就是相同feature map（N这个维度）</strong>的点才参与计算当前点的均值和标准差，<strong>算C<em>H</em>W的均值</strong>，（除以C，以channel方向，不同的C会相加，自然除以C算均值）</p><p>InstanceNorm：channel内做归一化，<strong>IN的Si如公式5所示，换句话说就是相同通道且相同feature map（N这个维度）的点才参与计算当前点的均值和标准差</strong>，<strong>算H*W的均值</strong><br><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1g10cei83ktj30b101e0t7.jpg" alt="在这里插入图片描述"><br>GroupNorm：<strong>channel方向分group，然后每个group内做归一化，算(C//G)<em>H</em>W的均值</strong>(图1中channel=6，group=2，三个通道为一组求均值）</p><h2 id="Experiments："><a href="#Experiments：" class="headerlink" title="Experiments："></a>Experiments：</h2><p><img src="https://img-blog.csdnimg.cn/20181125210232669.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>以resnet50为base model，batchsize设置为32在imagenet数据集上的训练误差（左）和测试误差（右）。GN没有表现出很大的优势，在测试误差上稍大于使用BN的结果。<br><img src="https://img-blog.csdnimg.cn/20181125210524825.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>上图是验证batch size大小分别对BN和GN的影响。可以看出<strong>GN基本上不受batch size的影响，鲁棒性更强</strong>。<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1g10ceg8ffmj30u009bn89.jpg" alt="在这里插入图片描述"><br>同时，作者以VGG16为例，分析了某一层卷积后的特征分布学习情况，分别根据不使用Norm 和使用BN，GN做了实验，实验结果如上图：统一batch size设置的是32，最左图是不使用norm的conv5的特征学习情况，中间是使用了BN结果，最右是使用了GN的学习情况，相比较不使用norm，使用norm的学习效果显著，而<strong>后两者学习情况相似，不过更改小的batch size后，BN是比不上GN的</strong>。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;论文链接：&lt;a href=&quot;https://arxiv.org/abs/1803.08494&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/abs/1803.08494&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;https://
+      
+    
+    </summary>
+    
+      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
     
   </entry>
   
@@ -324,31 +350,6 @@
       
       
         &lt;p&gt;&lt;img src=&quot;https://ws3.sinaimg.cn/large/006tKfTcgy1g10cb33bn3j30go091mz2.jpg&quot; alt=&quot;图片: https://uploader.shimo.im/f/Q5QviyvyhzYKRMHk.png&quot;&gt;&lt;
-      
-    
-    </summary>
-    
-      <category term="论文笔记" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
-    
-    
-      <category term="工程实践" scheme="http://yoursite.com/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>FPN（feature pyramid networks）论文笔记</title>
-    <link href="http://yoursite.com/2018/11/26/FPN%EF%BC%88feature-pyramid-networks%EF%BC%89%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
-    <id>http://yoursite.com/2018/11/26/FPN（feature-pyramid-networks）论文笔记的副本/</id>
-    <published>2018-11-26T13:31:55.000Z</published>
-    <updated>2019-03-12T13:37:02.101Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="论文概述："><a href="#论文概述：" class="headerlink" title="论文概述："></a>论文概述：</h2><p>这篇论文是CVPR2017年的文章，<strong>采用特征金字塔代替了传统的Scale handling 方法</strong>，截止目前（2018.11.26）引用量为529次。<br><img src="https://img-blog.csdnimg.cn/2018112611160950.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>论文链接：<a href="https://arxiv.org/abs/1612.03144" target="_blank" rel="noopener">https://arxiv.org/abs/1612.03144</a></p><p>深度卷积神经网络天然地就能计算出金字塔特征结构，作者正是要利用这一点来构造一个在所有层级上都能有强语义的特征金字塔结构。 具体说来是要通过<strong>自顶向下(top-down)的通路</strong>以及横向连接将低分辨率、强语义特征和高分辨率、弱<strong>语义特征进行有机的结合</strong>，<strong>与类似算法不同之处在于FPN预测是在不同特征层独立进行的，而不是融合后在某一个单一的层次做预测，这很好保留了低层次的信息不丢失</strong>。下图描述了这两类网络的不同。</p><p><img src="https://img-blog.csdnimg.cn/20181126112137152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h2><p>1、<strong>特征图金字塔（Featurized image pyramid）</strong>，计算量大<br><img src="https://img-blog.csdnimg.cn/20181126104937424.png" alt="在这里插入图片描述"><br><strong>CNN中卷积层产生不同scale的图像，对每个scale的图像对应生成feature后作predict，计算开销和存储开销都较大</strong>。基于深度网络的检测算法出来之前，检测算法基本都是基于这种scale handling；后来出现的SNIP、SNIPER也是基于Image Pyramid。</p><p>2、<strong>Single feature map</strong> 框不出小物体像<br><img src="https://img-blog.csdnimg.cn/20181126105447628.png" alt="在这里插入图片描述"><br>多数的object detection算法如R-CNN、SPPNet、Fast R-CNN、Faster R-CNN、YOLOv1以及R-FCN系列均采用这种方式，即<strong>仅采用网络顶层特征作预测</strong>。</p><p>3、<strong>Pyramidal feature hierarchy</strong> 底虽然框出了小物体，但小物体容易被错分：<br><img src="https://img-blog.csdnimg.cn/20181126105541842.png" alt="在这里插入图片描述"><br>One-stage算法SSD（Single Shot Detector）<strong>采用多尺度特征融合的方式</strong>，<strong>没有上采样过程</strong>，<strong>直接由特征做预测</strong>，这种方式不会增加额外的计算量。作者认为SSD算法中没有用到足够低层的特征（在SSD中，最低层的特征是VGG网络的conv4_3），而在作者看来足够低层的特征对于检测小物体是很有帮助的。</p><p>4、<strong>Feature Pyramid Networks</strong><br>FPN结构包含三大要素：<strong>从底向上的通路(bottom-up pathway)、从顶向下的通路(top-down pathway)和横向连接(lateral connection)</strong>，来 融合 “ 少位置信息而多语义信息的top层feature map ” 和 “ 多位置信息而少语义信息的down层feature map ” ：<br><img src="https://img-blog.csdnimg.cn/20181126105754497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 下图中放大的区域就是横向连接，这里1*1的卷积核的主要作用是减少卷积核的个数，也就是减少了feature map的个数，并不改变feature map的尺寸大小。<br><img src="https://img-blog.csdnimg.cn/20181126105822424.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p><h2 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h2><p>在FPN(+Faster R-CNN)中，选用了 C2~C5 四个scale，并对C5下采样出了 P6 一个scale。</p><p>在RetinaNet中，选用了 C3~C5 三个scale，并对C5下采样出了 P6、P7 两个scale。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;论文概述：&quot;&gt;&lt;a href=&quot;#论文概述：&quot; class=&quot;headerlink&quot; title=&quot;论文概述：&quot;&gt;&lt;/a&gt;论文概述：&lt;/h2&gt;&lt;p&gt;这篇论文是CVPR2017年的文章，&lt;strong&gt;采用特征金字塔代替了传统的Scale handling 方法&lt;/
       
     
     </summary>
