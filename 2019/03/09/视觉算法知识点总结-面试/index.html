@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="ZHIPENG个人笔记">
 <meta property="og:description" content="BN(Batch Normalization) 在网络的每一层输入的时候，又插入了一个归一化层，也就是先做一个归一化处理（归一化至：均值0、方差为1），然后再进入网络的下一层。不过归一化层可不像我们想象的那么简单，它是一个可学习、有参数（γ,β \gamma , \betaγ,β）的网络层。 CNN在图像中的广泛应用的原因 局部连接：捕获局部特征结构权值共享：减小参数量池化操作：增大感受野多层次结">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-12T13:34:50.719Z">
+<meta property="og:updated_time" content="2019-03-22T07:54:53.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="视觉算法知识点总结&#x2F;面试">
 <meta name="twitter:description" content="BN(Batch Normalization) 在网络的每一层输入的时候，又插入了一个归一化层，也就是先做一个归一化处理（归一化至：均值0、方差为1），然后再进入网络的下一层。不过归一化层可不像我们想象的那么简单，它是一个可学习、有参数（γ,β \gamma , \betaγ,β）的网络层。 CNN在图像中的广泛应用的原因 局部连接：捕获局部特征结构权值共享：减小参数量池化操作：增大感受野多层次结">
@@ -378,6 +378,11 @@
 <h3 id="梯度下降法与牛顿法的区别与优劣性"><a href="#梯度下降法与牛顿法的区别与优劣性" class="headerlink" title="梯度下降法与牛顿法的区别与优劣性"></a>梯度下降法与牛顿法的区别与优劣性</h3><p>主要的的区别：梯度下降法是一阶，牛顿法是二阶<br>牛顿法相对于梯度下降法：<br>优点：二阶比一阶收敛速度快；<br>缺点：对目标函数严格，要求目标函数二阶可微，Hessian矩阵正定；需要计算Hessian矩阵以及它的逆，计算量大。</p>
 <h3 id="描述Canny算法的流程"><a href="#描述Canny算法的流程" class="headerlink" title="描述Canny算法的流程"></a>描述Canny算法的流程</h3><p>先用高斯滤波器进行图像模糊（一般边缘检测算法都需要先滤波降低对噪声的敏感）<br>计算图像的梯度幅值图像和角度图像（计算梯度即提取边缘，参考其它边缘检测算法；计算角度是为步骤3要用）<br>对梯度幅值图像进行非最大值抑制（目的是为了细化边缘）<br>用双阈值对边缘进行选择和连接（主体思想是把弱边缘连接到强边缘上）</p>
 <h3 id="CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？"><a href="#CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？" class="headerlink" title="CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？"></a>CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？</h3><p>CNN是用于挖掘数据之间的空间相关性（相对于RNN用于挖掘时序相关性），所以不管是NLP，Speech还是AlphaGo，只要数据之间存在空间相关性，就可以使用CNN。而CNN最成功的应用在CV是因为在图像数据中的空间相关性最明显，像素之间存在两个维度上的空间相关性。<br>回答CNN通过什么手段抓住此共性这个问题，实质上是回答卷积和池化的特点。主要手段有局部连接(local connectivity)、权值共享(parameter sharing)和池化(pooling)（跟原文回答有点出入，觉得多层次是深度学习的特点而不是CNN的特点）。局部连接和权值共享有效地减少了网络的权值参数，抑制过拟合，同时保持了原始数据之间的空间联系。池化是下采样的一种方式，只取数值最大的特征，减少参数并且在空间上对原图物体保持平移不变性。</p>
+<p>3.在概率统计学里，自由度是如何被定义的，又该怎样去应用？<br>定义为一个随机向量域的维数。</p>
+<p>分类树和回归树的区别</p>
+<p>总结：分类树使用信息增益或增益比率来划分节点；每个节点样本的类别情况投票决定测试样本的类别</p>
+<p>回归树总体流程也是类似，区别在于，回归树的每个节点（不一定是叶子节点）都会得一个预测值，以年龄为例，该预测值等于属于这个节点的所有人年龄的平均值。分枝时穷举每一个feature的每个阈值找最好的分割点，但衡量最好的标准不再是最大熵，而是最小化均方差即(每个人的年龄-预测年龄)^2 的总和 / N。也就是被预测出错的人数越多，错的越离谱，均方差就越大，通过最小化均方差能够找到最可靠的分枝依据。分枝直到每个叶子节点上人的年龄都唯一或者达到预设的终止条件(如叶子个数上限)，若最终叶子节点上人的年龄不唯一，则以该节点上所有人的平均年龄做为该叶子节点的预测年龄。<br>总结：回归树使用最大均方差划分节点；每个节点样本的均值作为测试样本的回归预测值</p>
+<p>LR推导-&gt;梯度消失-&gt;激活函数-&gt;TensorFlow调参经验这条路，</p>
 <p>###为什么很多做人脸的Paper会最后加入一个Local Connected Conv？</p>
 <p>###对所有优化问题来说, 有没有可能找到比現在已知算法更好的算法?</p>
 <p>###Dropout怎么做，有什么用处，解释；用贝叶斯机率说明Dropout的原理</p>
@@ -500,7 +505,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -511,7 +516,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -522,7 +527,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
