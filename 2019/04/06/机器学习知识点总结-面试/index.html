@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="请简要介绍下SVM 线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为硬间隔支持向量机；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为软间隔支持向量机；当训练数据线性不可分时，通过使用核技巧及软间隔最大化，学习非线性支持向量机。 在k-means或kNN，我们">
+<meta name="description" content="请简要介绍下SVM 线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为硬间隔支持向量机；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为软间隔支持向量机；当训练数据线性不可分时，通过使用核技巧及软间隔最大化，学习非线性支持向量机。 SVM的基本思想：  　　间隔">
 <meta name="keywords" content="面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习知识点总结-面试">
 <meta property="og:url" content="http://yoursite.com/2019/04/06/机器学习知识点总结-面试/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="请简要介绍下SVM 线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为硬间隔支持向量机；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为软间隔支持向量机；当训练数据线性不可分时，通过使用核技巧及软间隔最大化，学习非线性支持向量机。 在k-means或kNN，我们">
+<meta property="og:description" content="请简要介绍下SVM 线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为硬间隔支持向量机；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为软间隔支持向量机；当训练数据线性不可分时，通过使用核技巧及软间隔最大化，学习非线性支持向量机。 SVM的基本思想：  　　间隔">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-06T10:51:14.736Z">
+<meta property="og:updated_time" content="2019-04-17T03:48:55.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习知识点总结-面试">
-<meta name="twitter:description" content="请简要介绍下SVM 线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为硬间隔支持向量机；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为软间隔支持向量机；当训练数据线性不可分时，通过使用核技巧及软间隔最大化，学习非线性支持向量机。 在k-means或kNN，我们">
+<meta name="twitter:description" content="请简要介绍下SVM 线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为硬间隔支持向量机；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为软间隔支持向量机；当训练数据线性不可分时，通过使用核技巧及软间隔最大化，学习非线性支持向量机。 SVM的基本思想：  　　间隔">
 
 
 
@@ -366,6 +366,12 @@
       
         <p><strong>请简要介绍下SVM</strong></p>
 <p>线性可分支持向量机、线性支持向量机及非线性支持向量机。当训练数据线性可分时，通过硬间隔最大化，学习一个线性的分类器，即线性可分支持向量机，又称为<strong>硬间隔支持向量机</strong>；当训练数据近似线性可分时，通过软间隔最大化，也学习一个线性的分类器，即线性支持向量机，又称为<strong>软间隔支持向量机</strong>；当训练数据线性不可分时，通过<strong>使用核技巧</strong>及软间隔最大化，学习<strong>非线性支持向量机</strong>。</p>
+<p><strong>SVM的基本思想</strong>： </p>
+<p>　　<strong>间隔最大化来得到最优分离超平面</strong>。<strong>方法是</strong>将这个问题<strong>形式化为一个凸二次规划问题</strong>，<strong>还可以等价位一个正则化的合页(hinge loss即max(0,1-z) )损失最小化问题</strong>。SVM又有硬间隔最大化和软间隔SVM两种。</p>
+<p>1、这时首先要考虑的是<strong>如何定义间隔</strong>，这就引出了函数间隔和几何间隔的概念（这里只说思路），我们<strong>选择了几何间隔作为距离评定标准</strong>（为什么要这样，怎么求出来的要知道），我们希望能够最大化与超平面之间的几何间隔x，同时要求所有点都大于这个值，通过一些变化就得到了我们常见的SVM表达式。</p>
+<p>2、<strong>接着我们发现</strong>定义出的x<strong>只是由个别几个支持向量决定的</strong>。对于原始问题（primal problem）而言，<strong>可以利用凸函数的函数包来进行求解</strong>，<strong>但是</strong>发现如果用对偶问题（dual ）<strong>求解会变得更简单</strong>。而原始问题<strong>转化为</strong>对偶问题<strong>需要满足KKT条件</strong>（这个条件应该细细思考一下）到这里还都是比较好求解的。</p>
+<p>3、<strong>而且可以引入核函数（替代对偶问题实例间的内积计算）</strong>。</p>
+<p>PS：因为我们前面说过<strong>可以变成软间隔问题</strong>，<strong>引入了惩罚系数</strong>，<strong>这样还可以引出hinge损失的等价形式，把y(wx+b)带入z（这样可以用梯度下降的思想求解SVM了）</strong>。我个人认为难的地方在于求解参数的SMO算法。</p>
 <p><strong>在k-means或kNN，我们是用欧氏距离来计算最近的邻居之间的距离。为什么不用曼哈顿距离？</strong></p>
 <p><strong>曼哈顿距离只计算水平或垂直距离，有维度的限制</strong>。另一方面，<strong>欧氏距离可用于任何空间的距离计算问题</strong>。因为，数据点可以存在于任何空间，欧氏距离是更可行的选择。例如：想象一下国际象棋棋盘，象或车所做的移动是由曼哈顿距离计算的，因为它们是在各自的水平和垂直方向做的运动。</p>
 <p><strong>LR和SVM的联系与区别？</strong></p>
@@ -411,6 +417,12 @@
 <p>第三，<strong>Relu会使一部分神经元的输出为0，这样就造成了网络的稀疏性</strong>，并且减少了参数的相互依存关系，缓解了过拟合问题的发生（以及一些人的生物解释balabala）。</p>
 <p><strong>为什么LSTM模型中既存在Sigmoid又存在Tanh两种激活函数？</strong></p>
 <p>sigmoid 用在了各种gate上，产生0~1之间的值，这个一般只有sigmoid最直接了。tanh 用在了状态和输出上，是对数据的处理，这个用其他激活函数或许也可以。</p>
+<p><strong>各种熵的计算</strong></p>
+<p>熵、联合熵、条件熵、交叉熵、KL散度（相对熵）</p>
+<p>熵用于衡量不确定性，所以均分的时候熵最大</p>
+<p>KL散度用于<strong>度量两个分布的不相似性</strong>，KL(p||q)等于交叉熵H(p,q)-熵H(p)。交叉熵可以看成是用<strong>q编码P所需的bit数，减去p本身需要的bit数</strong>，KL散度相当于用q编码p需要的额外bits。</p>
+<p>交互信息Mutual information ：I(x,y) = H(x)-H(x|y) = H(y)-H(y|x) 表示观察到x后，y的熵会减少多少。</p>
+<p>信息增益衡量<strong>按照某个特征分割前后熵的减少程度</strong>，其实就是交互信息。</p>
 
       
     </div>
@@ -521,7 +533,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

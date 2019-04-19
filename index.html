@@ -271,6 +271,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/cppDFS和BFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/19/cppDFS和BFS/" itemprop="url">cppDFS和BFS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-19T09:11:44+08:00">
+                2019-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          DFS核心代码：关于dfs参数问题，什么在变化，就把什么设置成参数。
+
+如果要求输出所有可能的解，往往都是要用深度优先搜索。
+如果是要求找出最优的解，或者解的数量，往往可以使用动态规划。
+
+
+123456789101112131415161718192021222324252627282930313
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/19/cppDFS和BFS/" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/cpp排序算法总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -879,7 +1033,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/opencv03空域滤波/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/opencv06车道线检测/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -898,7 +1052,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/30/opencv03空域滤波/" itemprop="url">opencv03空域滤波</a></h1>
+                <a class="post-title-link" href="/2019/04/02/opencv06车道线检测/" itemprop="url">opencv06车道线检测</a></h1>
         
 
         <div class="post-meta">
@@ -910,8 +1064,8 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-30T19:11:39+08:00">
-                2019-03-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-02T15:29:15+08:00">
+                2019-04-02
               </time>
             
 
@@ -972,13 +1126,25 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
       
         
           
-          实验内容:1、利用均值模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的均值模板平滑灰度图像
-2、利用高斯模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的高斯模板平滑灰度图像
-3
+          车道线检测
+实验步骤：
+
+
+
+
+
+
+
+
+
+
+
+代码框架：完整课程PPT和实验要求戳：https://github.com/MintLucas/Digital_image_process
+123456789101112131415161718192021222324252627282930313233
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/30/opencv03空域滤波/" rel="contents">
+            <a class="btn" href="/2019/04/02/opencv06车道线检测/" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1029,7 +1195,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/opencv02直方图均衡化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/opencv05频域滤波/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -1048,7 +1214,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/26/opencv02直方图均衡化/" itemprop="url">opencv02直方图均衡</a></h1>
+                <a class="post-title-link" href="/2019/04/01/opencv05频域滤波/" itemprop="url">opencv05频域滤波</a></h1>
         
 
         <div class="post-meta">
@@ -1060,8 +1226,8 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-26T11:55:48+08:00">
-                2019-03-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-01T14:27:06+08:00">
+                2019-04-01
               </time>
             
 
@@ -1122,14 +1288,14 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
       
         
           
-          实验内容：1、计算灰度图像的归一化直方图。 具体内容:利用 OpenCV 对图像像素进行操作，计算归一化直方图.并在 窗口中以图形的方式显示出来 
-2、灰度图像直方图均衡处理 
-具体内容:通过计算归一化直方图,设计算法实现直方图均衡化处理。 
-3、彩色图像直方图均衡处理 具体内容: 在灰度图像直方图
+          实验内容: 1、 灰度图像的 DFT 和 IDFT。 
+具体内容:利用 OpenCV 提供的 cvDFT 函数对图像进行 DFT 和 IDFT 变换 
+2、利用理想高通和低通滤波器对灰度图像进行频域滤波 具体内容:利用 cvDFT 函数实现 DFT，在频域上利用理想高通和低通滤波 
+器进行滤波，并把
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/26/opencv02直方图均衡化/" rel="contents">
+            <a class="btn" href="/2019/04/01/opencv05频域滤波/" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1180,7 +1346,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/opencv01灰度变换/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/31/opencv04图像去噪/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -1199,7 +1365,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/24/opencv01灰度变换/" itemprop="url">opencv01灰度变换</a></h1>
+                <a class="post-title-link" href="/2019/03/31/opencv04图像去噪/" itemprop="url">opencv04图像去噪</a></h1>
         
 
         <div class="post-meta">
@@ -1211,8 +1377,8 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-24T19:02:43+08:00">
-                2019-03-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-31T19:02:43+08:00">
+                2019-03-31
               </time>
             
 
@@ -1273,165 +1439,13 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
       
         
           
-          实验内容:1、利用 OpenCV 读取图像具体内容:用打开 OpenCV 打开图像，并在窗口中显示
-2、灰度图像二值化处理具体内容:设置并调整阈值对图像进行二值化处理。
-3、灰度图像的对数变换具体内容:设置并调整 r 值对图像进行对数变换。
-4、灰度图像的伽马变换具体内容:设置并调整γ值对图像进行伽
+          实验内容:1、均值滤波 具体内容:利用 OpenCV 对灰度图像像素进行操作，分别利用算术均值滤 
+波器、几何均值滤波器、谐波和逆谐波均值滤波器进行图像去噪。模板大小为 5*5。(注:请分别为图像添加高斯噪声、胡椒噪声、盐噪声和椒盐噪声，并观察 滤波效果) 
+2、中值滤波 具体内容:利用 OpenC
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/24/opencv01灰度变换/" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/哈希表总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ZHIPENG">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ZHIPENG个人笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/22/哈希表总结/" itemprop="url">哈希表总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-22T17:22:00+08:00">
-                2019-03-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对。
-
-应用1：第一个只出现一次的字符题目描述：在一个字符串中找出第一个只出现一次的字符，如输入”abaccdeff”，
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/22/哈希表总结/" rel="contents">
+            <a class="btn" href="/2019/03/31/opencv04图像去噪/" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1473,7 +1487,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1519,7 +1533,7 @@ vector1234567int x = 3;vector&lt;int&gt; nums&#123; 1,2,3,4,5 &#125;;auto it = f
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
