@@ -81,20 +81,22 @@
 
 
 
-<meta name="description" content="第二章 空间配置器1、allocator简述1234567#include &amp;lt;vector&amp;gt;int main()&amp;#123;    std::vector&amp;lt;int&amp;gt; v;    // Do something;    return 0;&amp;#125; allocator隐藏在所有容器（包括vector）身后，完成1.内存配置与释放；2.对象构造和析构的工作。 2、alloca">
+<meta name="description" content="第二章 空间配置器1、allocator简述1234567#include &amp;lt;vector&amp;gt;int main()&amp;#123;    std::vector&amp;lt;int&amp;gt; v;    // Do something;    return 0;&amp;#125; allocator隐藏在所有容器（包括vector）身后，完成1.内存配置与释放；2.对象构造和析构的工作。  2、alloc">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&lt;&lt;STL源码剖析&gt;&gt;笔记">
-<meta property="og:url" content="http://yoursite.com/2019/04/27/STL源码剖析-笔记/index.html">
+<meta property="og:title" content="STL源码剖析笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/27/STL源码剖析笔记/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="第二章 空间配置器1、allocator简述1234567#include &amp;lt;vector&amp;gt;int main()&amp;#123;    std::vector&amp;lt;int&amp;gt; v;    // Do something;    return 0;&amp;#125; allocator隐藏在所有容器（包括vector）身后，完成1.内存配置与释放；2.对象构造和析构的工作。 2、alloca">
+<meta property="og:description" content="第二章 空间配置器1、allocator简述1234567#include &amp;lt;vector&amp;gt;int main()&amp;#123;    std::vector&amp;lt;int&amp;gt; v;    // Do something;    return 0;&amp;#125; allocator隐藏在所有容器（包括vector）身后，完成1.内存配置与释放；2.对象构造和析构的工作。  2、alloc">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2h1m0vbycj30go06yaaa.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2h0jhm6nfj30go0i63z6.jpg">
-<meta property="og:updated_time" content="2019-04-27T03:40:13.240Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2h1me2hxsj30cy09xaay.jpg">
+<meta property="og:updated_time" content="2019-04-27T03:44:56.773Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&lt;&lt;STL源码剖析&gt;&gt;笔记">
-<meta name="twitter:description" content="第二章 空间配置器1、allocator简述1234567#include &amp;lt;vector&amp;gt;int main()&amp;#123;    std::vector&amp;lt;int&amp;gt; v;    // Do something;    return 0;&amp;#125; allocator隐藏在所有容器（包括vector）身后，完成1.内存配置与释放；2.对象构造和析构的工作。 2、alloca">
-<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2h0jhm6nfj30go0i63z6.jpg">
+<meta name="twitter:title" content="STL源码剖析笔记">
+<meta name="twitter:description" content="第二章 空间配置器1、allocator简述1234567#include &amp;lt;vector&amp;gt;int main()&amp;#123;    std::vector&amp;lt;int&amp;gt; v;    // Do something;    return 0;&amp;#125; allocator隐藏在所有容器（包括vector）身后，完成1.内存配置与释放；2.对象构造和析构的工作。  2、alloc">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2h1m0vbycj30go06yaaa.jpg">
 
 
 
@@ -124,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/27/STL源码剖析-笔记/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/27/STL源码剖析笔记/">
 
 
 
 
 
-  <title><<stl源码剖析>>笔记 | ZHIPENG个人笔记</stl源码剖析></title>
+  <title>STL源码剖析笔记 | ZHIPENG个人笔记</title>
   
 
 
@@ -277,7 +279,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/STL源码剖析-笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/STL源码剖析笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZHIPENG">
@@ -294,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"><<stl源码剖析>>笔记</stl源码剖析></h1>
+          <h1 class="post-title" itemprop="name headline">STL源码剖析笔记</h1>
         
 
         <div class="post-meta">
@@ -379,6 +381,7 @@
       
         <h3 id="第二章-空间配置器"><a href="#第二章-空间配置器" class="headerlink" title="第二章 空间配置器"></a>第二章 空间配置器</h3><h4 id="1、allocator简述"><a href="#1、allocator简述" class="headerlink" title="1、allocator简述"></a><strong>1、allocator简述</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="comment">// Do something;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>allocator隐藏在所有容器（包括vector）身后，<strong>完成1.内存配置与释放；2.对象构造和析构的工作</strong>。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2h1m0vbycj30go06yaaa.jpg" alt="img"></p>
 <h4 id="2、allocator接口规范"><a href="#2、allocator接口规范" class="headerlink" title="2、allocator接口规范"></a><strong>2、allocator接口规范</strong></h4><p>STL是一个标准，只对接口进行规范，接口背后的实现可以有不同版本，所以目前流行的STL如Visual C++采用的P. J. Plauger 版本，GCC编译器采用的SGI STL版本等都是常见的STL。SGI STL是最流行的版本，我们主要关注SGI STL的allocator实现。</p>
 <p>STL标准要求的allocator必要接口：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下几种自定义类型是一种type_traits技巧，暂时不需要了解</span></span><br><span class="line">allocator::value_type</span><br><span class="line">allocator::pointer</span><br><span class="line">allocator::const_pointer</span><br><span class="line">allocator::reference</span><br><span class="line">allocator::const_reference</span><br><span class="line">allocator::size_type</span><br><span class="line">allocator::difference</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个嵌套的(nested)class template，class rebind&lt;U&gt;拥有唯一成员other，那是一个typedef，代表allocator&lt;U&gt;</span></span><br><span class="line">allocator::rebind</span><br><span class="line"></span><br><span class="line">allocator::allocator() <span class="comment">// 默认构造函数</span></span><br><span class="line">allocator::allocator(<span class="keyword">const</span> allocator&amp;) <span class="comment">// 拷贝构造函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt;<span class="title">allocator</span>:</span>:allocator(<span class="keyword">const</span> allocator&lt;U&gt;&amp;) <span class="comment">// 泛化的拷贝构造函数</span></span><br><span class="line">allocator::~allocator() <span class="comment">// 析构函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回某个对象的地址，a.address(x)等同于&amp;x</span></span><br><span class="line">pointer allocator::address(reference x) <span class="keyword">const</span></span><br><span class="line"><span class="comment">// 返回某个const对象的地址，a.address(x)等同于&amp;x</span></span><br><span class="line">const_pointer allocator::address(const_reference x) <span class="keyword">const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置空间，足以存储n个T对象。第二个参数是个提示。实现上可能会利用它来增进区域性(locality)，或完全忽略之</span></span><br><span class="line">pointer allocator::allocate(size_type n, <span class="keyword">const</span> <span class="keyword">void</span>* = <span class="number">0</span>)</span><br><span class="line"><span class="comment">// 释放先前配置的空间</span></span><br><span class="line"><span class="keyword">void</span> allocator::deallocate(pointer p, size_type n)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回可成功配置的最大量</span></span><br><span class="line">size_type allocator:maxsize() <span class="keyword">const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用对象的构造函数，等同于 new((void*)p) T(x)</span></span><br><span class="line"><span class="keyword">void</span> allocator::construct(pointer p, <span class="keyword">const</span> T&amp; x)</span><br><span class="line"><span class="comment">// 调用对象的析构函数，等同于 p-&gt;~T()</span></span><br><span class="line"><span class="keyword">void</span> allocator::destroy(pointer p)</span><br></pre></td></tr></table></figure>
@@ -388,8 +391,9 @@
 <p>现在，我们可以使用自己编写的allocator来为vector分配空间：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>, my_alloc::allocator&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line">    <span class="comment">// Do something;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>然而，这样并不能通过编译（如果你使用的是GCC编译器），因为SGI STL的allocator并不完全符合STL规范，我们编写的符合规范的自然不能搭配使用，</strong>SGI STL版本的allocator具体实现在下文阐述。</p>
-<h4 id="3-SGI-STL-的-两种allocator"><a href="#3-SGI-STL-的-两种allocator" class="headerlink" title="3. SGI STL 的 两种allocator"></a>3. SGI STL 的 两种allocator</h4><p>SGI STL 实现了两个allocator：一个是标准的std::allocator，标准就是对new和construtc的简单包装，为了兼容老版本而存在；<strong>另一个是特殊的std::alloc(<a href="https://blog.csdn.net/LF_2016/article/details/53511648)，分为两级配置，小于128kb直接向1级申请，2级维护空闲链表方便小内存的申请" target="_blank" rel="noopener">https://blog.csdn.net/LF_2016/article/details/53511648)，分为两级配置，小于128kb直接向1级申请，2级维护空闲链表方便小内存的申请</a></strong>，不同于之前标准的allocator，这里不需要实例化一个空间配置器，类内声明了静态全局函数，只需要调用<code>alloc</code>的静态函数就行了。</p>
+<h4 id="3-SGI-STL-的-两种allocator"><a href="#3-SGI-STL-的-两种allocator" class="headerlink" title="3. SGI STL 的 两种allocator"></a>3. SGI STL 的 两种allocator</h4><p>SGI STL 实现了两个allocator：一个是标准的std::allocator，标准就是对new和construtc的简单包装，为了兼容老版本而存在；<strong>另一个是特殊的<a href="https://blog.csdn.net/LF_2016/article/details/53511648" target="_blank" rel="noopener">std::alloc</a>，分为两级配置，小于128kb直接向1级申请，2级维护空闲链表方便小内存的申请</strong>，不同于之前标准的allocator，这里不需要实例化一个空间配置器，类内声明了静态全局函数，只需要调用<code>alloc</code>的静态函数就行了。</p>
 <p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2h0jhm6nfj30go0i63z6.jpg" alt="img"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2h1me2hxsj30cy09xaay.jpg" alt="image-20190427114358475"></p>
 <p>参考：<a href="https://zhuanlan.zhihu.com/p/34725232" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34725232</a></p>
 
       
@@ -421,8 +425,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/20/数字图像处理总结/" rel="next" title="数字图像处理总结">
-                <i class="fa fa-chevron-left"></i> 数字图像处理总结
+              <a href="/2019/04/19/cppDFS和BFS/" rel="next" title="cppDFS和BFS">
+                <i class="fa fa-chevron-left"></i> cppDFS和BFS
               </a>
             
           </div>
@@ -506,7 +510,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -528,7 +532,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
