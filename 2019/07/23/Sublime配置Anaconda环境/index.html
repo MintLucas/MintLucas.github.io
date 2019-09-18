@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="Sublime配置Anaconda command+shift+p输入install package  安装conda使其变为一个命令，再进入conda activate，但只能找到根环境  tools-&amp;gt;build system-&amp;gt;new build system 123456#cmd里路径用source activate你要加载的虚拟环境，which python即可查到&amp;#123">
+<meta name="description" content="Anaconda虚拟环境管理123456conda env listconda remove -n py27tf15 --allconda create -n py27tf15 pip python=2.7source activate py27tf15pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package --ig">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sublime配置Anaconda环境">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/Sublime配置Anaconda环境/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="Sublime配置Anaconda command+shift+p输入install package  安装conda使其变为一个命令，再进入conda activate，但只能找到根环境  tools-&amp;gt;build system-&amp;gt;new build system 123456#cmd里路径用source activate你要加载的虚拟环境，which python即可查到&amp;#123">
+<meta property="og:description" content="Anaconda虚拟环境管理123456conda env listconda remove -n py27tf15 --allconda create -n py27tf15 pip python=2.7source activate py27tf15pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package --ig">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-23T07:47:18.900Z">
+<meta property="og:updated_time" content="2019-08-30T09:15:19.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sublime配置Anaconda环境">
-<meta name="twitter:description" content="Sublime配置Anaconda command+shift+p输入install package  安装conda使其变为一个命令，再进入conda activate，但只能找到根环境  tools-&amp;gt;build system-&amp;gt;new build system 123456#cmd里路径用source activate你要加载的虚拟环境，which python即可查到&amp;#123">
+<meta name="twitter:description" content="Anaconda虚拟环境管理123456conda env listconda remove -n py27tf15 --allconda create -n py27tf15 pip python=2.7source activate py27tf15pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package --ig">
 
 
 
@@ -342,7 +342,32 @@
       
 
       
-        <h3 id="Sublime配置Anaconda"><a href="#Sublime配置Anaconda" class="headerlink" title="Sublime配置Anaconda"></a>Sublime配置Anaconda</h3><ol>
+        <h3 id="Anaconda虚拟环境管理"><a href="#Anaconda虚拟环境管理" class="headerlink" title="Anaconda虚拟环境管理"></a>Anaconda虚拟环境管理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conda env <span class="built_in">list</span></span><br><span class="line">conda remove -n py27tf15 --all</span><br><span class="line">conda create -n py27tf15 pip python=<span class="number">2.7</span></span><br><span class="line">source activate py27tf15</span><br><span class="line">pip install -i https:<span class="comment">//pypi.tuna.tsinghua.edu.cn/simple some-package --ignore-installed --upgrade tensorflow-gpu</span></span><br><span class="line">source deactivate py27tf15</span><br></pre></td></tr></table></figure>
+<p>(‘BasicLSTMcell:’, 349.05505180358887)</p>
+<p>Tensor(“rnn/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘BasicLSTMcell:’, 60.812950134277344)</p>
+<p>Tensor(“rnn/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘BasicLSTMcell:’, 46.89965796470642)</p>
+<p>Tensor(“rnn/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMCell:’, 349.45082664489746)</p>
+<p>Tensor(“rnn_1/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMCell:’, 66.5581226348877)</p>
+<p>Tensor(“rnn_1/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMCell:’, 50.83539009094238)</p>
+<p>Tensor(“rnn_1/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMBlockCell:’, 338.85693550109863)</p>
+<p>Tensor(“rnn/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMBlockCell:’, 46.974897384643555)</p>
+<p>Tensor(“rnn/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMBlockCell:’, 48.72284984588623)</p>
+<p>Tensor(“rnn/transpose_1:0”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMBlockFusedCell:’, 242.3081398010254)</p>
+<p>Tensor(“lstm_fused_cell/BlockLSTM:6”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMBlockFusedCell:’, 33.186912536621094)</p>
+<p>Tensor(“lstm_fused_cell/BlockLSTM:6”, shape=(64, 100, 512), dtype=float32)</p>
+<p>(‘LSTMBlockFusedCell:’, 23.065222024917603)</p>
+<p>Tensor(“lstm_fused_cell/BlockLSTM:6”, shape=(64, 100, 512), dtype=float32)</p>
+<h3 id="Sublime配置Anaconda"><a href="#Sublime配置Anaconda" class="headerlink" title="Sublime配置Anaconda"></a>Sublime配置Anaconda</h3><ol>
 <li><p>command+shift+p输入install package</p>
 </li>
 <li><p>安装conda使其变为一个命令，再进入conda activate，但只能找到根环境</p>
@@ -359,6 +384,7 @@
 <p>conda install nb_conda_kernals</p>
 <p>每个环境都装，jupyter notebook不需要每个都装</p>
 </blockquote>
+<h3 id="Cuda命令记录"><a href="#Cuda命令记录" class="headerlink" title="Cuda命令记录"></a>Cuda命令记录</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -g -G <span class="number">00</span>_NVIDABlog_lstm.cu -o <span class="number">00</span>_NVIDABlog_lstm -L -arch=sm_52 -DPERFOPTS=<span class="number">31</span> -lcublas -lcurand</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -478,7 +504,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -540,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime配置Anaconda"><span class="nav-number">1.</span> <span class="nav-text">Sublime配置Anaconda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jupyter-NoteBook切换虚拟环境"><span class="nav-number">2.</span> <span class="nav-text">Jupyter NoteBook切换虚拟环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Anaconda虚拟环境管理"><span class="nav-number">1.</span> <span class="nav-text">Anaconda虚拟环境管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime配置Anaconda"><span class="nav-number">2.</span> <span class="nav-text">Sublime配置Anaconda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jupyter-NoteBook切换虚拟环境"><span class="nav-number">3.</span> <span class="nav-text">Jupyter NoteBook切换虚拟环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cuda命令记录"><span class="nav-number">4.</span> <span class="nav-text">Cuda命令记录</span></a></li></ol></div>
             
 
           </div>
