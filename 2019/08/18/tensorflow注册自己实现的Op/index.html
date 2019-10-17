@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="1. 源代码编译tensorflowhttps://www.tensorflow.org/install/source?hl=zh-cn 2. 注册OP流程：http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html 3. 例子 按上图准备好cc文件  12345678910111213141516171819202122232425262728">
+<meta name="description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  1. 源代码编译tensorflow因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，官方步骤写的很清楚，就不自己瞎写了。 2. 注册OP流程： 定义 O">
 <meta name="keywords" content="tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tensorflow注册自己实现的Op">
 <meta property="og:url" content="http://yoursite.com/2019/08/18/tensorflow注册自己实现的Op/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="1. 源代码编译tensorflowhttps://www.tensorflow.org/install/source?hl=zh-cn 2. 注册OP流程：http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html 3. 例子 按上图准备好cc文件  12345678910111213141516171819202122232425262728">
+<meta property="og:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  1. 源代码编译tensorflow因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，官方步骤写的很清楚，就不自己瞎写了。 2. 注册OP流程： 定义 O">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-25T01:01:53.219Z">
+<meta property="og:updated_time" content="2019-10-17T03:35:58.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensorflow注册自己实现的Op">
-<meta name="twitter:description" content="1. 源代码编译tensorflowhttps://www.tensorflow.org/install/source?hl=zh-cn 2. 注册OP流程：http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html 3. 例子 按上图准备好cc文件  12345678910111213141516171819202122232425262728">
+<meta name="twitter:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  1. 源代码编译tensorflow因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，官方步骤写的很清楚，就不自己瞎写了。 2. 注册OP流程： 定义 O">
 
 
 
@@ -364,8 +364,18 @@
       
 
       
-        <h3 id="1-源代码编译tensorflow"><a href="#1-源代码编译tensorflow" class="headerlink" title="1. 源代码编译tensorflow"></a>1. 源代码编译tensorflow</h3><p><a href="https://www.tensorflow.org/install/source?hl=zh-cn" target="_blank" rel="noopener">https://www.tensorflow.org/install/source?hl=zh-cn</a></p>
-<h3 id="2-注册OP流程："><a href="#2-注册OP流程：" class="headerlink" title="2. 注册OP流程："></a>2. 注册OP流程：</h3><p><a href="http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html" target="_blank" rel="noopener">http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html</a></p>
+        <blockquote>
+<p>目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。<br>整个项目见<a href="https://github.com/MintLucas/Cuda_lstm_forward/tree/master" target="_blank" rel="noopener">Github</a>，流程见<a href="https://mintlucas.github.io/plan/" target="_blank" rel="noopener">博客</a>，博主也刚入门cuda，欢迎留言探讨~</p>
+</blockquote>
+<h3 id="1-源代码编译tensorflow"><a href="#1-源代码编译tensorflow" class="headerlink" title="1. 源代码编译tensorflow"></a>1. 源代码编译tensorflow</h3><p>因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，<a href="https://www.tensorflow.org/install/source?hl=zh-cn" target="_blank" rel="noopener">官方步骤</a>写的很清楚，就不自己瞎写了。</p>
+<h3 id="2-注册OP流程："><a href="#2-注册OP流程：" class="headerlink" title="2. 注册OP流程："></a>2. 注册OP流程：</h3><ol>
+<li><p>定义 Op 的接口，即按规则写好cc文件</p>
+</li>
+<li><p>为 Op 实现 kernel，即你自己的.cu文件</p>
+</li>
+<li><p>编译出so，即(BUILD.sh)文件，上述三个文件如下，同样先看<a href="http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html" target="_blank" rel="noopener">官方网站</a>，再来看例子会豁然开朗</p>
+</li>
+</ol>
 <h3 id="3-例子"><a href="#3-例子" class="headerlink" title="3. 例子"></a>3. 例子</h3><ol>
 <li><h4 id="按上图准备好cc文件"><a href="#按上图准备好cc文件" class="headerlink" title="按上图准备好cc文件"></a>按上图准备好cc文件</h4></li>
 </ol>
@@ -382,7 +392,7 @@
 <p>静态库： nvcc -lib 00_lstm.cu -o lib00_lstm.a</p>
 <p>g++ -o test 00_lstm.o 01_cpptest_cuda_lstm.o -L/usr/local/cuda/lib64</p>
 <p>动态库(BUILD.sh)：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#注意要在源码编译后的tensorflow文件夹编译,pwd=~/tensorflow/tensorflow/core/user_ops</span><br><span class="line">TF_CFLAGS=( $(python -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_compile_flags()))') );TF_LFLAGS=( $(python -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_link_flags()))') )</span><br><span class="line"></span><br><span class="line"><span class="meta">#g++ -std=c++11 -shared -o cuda_lstm_forward.so -c cuda_lstm_forward.cc -ltestcu -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -L /home/resources/yxwang/cuda-10.0/lib64/ -lcublas -lcurand</span></span><br><span class="line">  </span><br><span class="line">#把<span class="number">00</span>_lstm.cu -o 成lib00_lstm.so</span><br><span class="line">nvcc -o lib00_lstm.so -shared -Xcompiler -fPIC <span class="number">00</span>_lstm.cu -lcublas -lcurand -L /home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/</span><br><span class="line"> </span><br><span class="line">#把cuda_lstm_forward.cc -o成cuda_lstm_forward.so，用到-l00_lstm -L.</span><br><span class="line">g++ -<span class="built_in">std</span>=c++<span class="number">11</span> -shared cuda_lstm_forward.cc -o cuda_lstm_forward.so -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -l00_lstm -L. -lcublas -lcurand -L/home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/</span><br><span class="line"></span><br><span class="line">#-l链接库名 -库地址 </span><br><span class="line">#单纯编译测试：nvcc -g -G <span class="number">00</span>_lstm.cu -o <span class="number">00</span>_lstm -L -arch=sm_52 -DPERFOPTS=<span class="number">31</span> -lcublas -lcurand</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#注意要在源码编译后的tensorflow文件夹编译,pwd=~/tensorflow/tensorflow/core/user_ops</span><br><span class="line">#注意执行sh用cpu1<span class="number">.5</span><span class="number">.0</span>版tf[py27tf15]，单纯运行py或cuda用gpu1<span class="number">.4</span><span class="number">.0</span>版tf[py27tf15gpu], [py27tf15s]为<span class="number">1.14</span>版cpu</span><br><span class="line">TF_CFLAGS=( $(python -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_compile_flags()))') );TF_LFLAGS=( $(python -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_link_flags()))') )</span><br><span class="line"></span><br><span class="line"><span class="meta">#g++ -std=c++11 -shared -o cuda_lstm_forward.so -c cuda_lstm_forward.cc -ltestcu -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -L /home/resources/yxwang/cuda-10.0/lib64/ -lcublas -lcurand</span></span><br><span class="line">  </span><br><span class="line">#把<span class="number">00</span>_lstm.cu -o 成lib00_lstm.so</span><br><span class="line">nvcc -o lib00_lstm.so -shared -Xcompiler -fPIC <span class="number">00</span>_lstm.cu -lcublas -lcurand -L /home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/</span><br><span class="line"> </span><br><span class="line">#把cuda_lstm_forward.cc -o成cuda_lstm_forward.so，用到-l00_lstm -L.</span><br><span class="line">g++ -<span class="built_in">std</span>=c++<span class="number">11</span> -shared cuda_lstm_forward.cc -o cuda_lstm_forward.so -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -l00_lstm -L. -lcublas -lcurand -L/home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/</span><br><span class="line"></span><br><span class="line">#-l链接库名 -库地址 </span><br><span class="line">#单纯编译测试：nvcc -g -G <span class="number">00</span>_lstm.cu -o <span class="number">00</span>_lstm -L -arch=sm_52 -DPERFOPTS=<span class="number">31</span> -lcublas -lcurand</span><br></pre></td></tr></table></figure>
 <p>或写Makefile, : 后为依赖项，从下往上看</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">all : cpp</span><br><span class="line"></span><br><span class="line">cpp : lib00_lstm.so</span><br><span class="line">	g++ <span class="number">01</span>_cpptest_cuda_lstm.cpp -o <span class="number">01</span>_cpptest_cuda_lstm /home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/libcublas.so -l00_lstm -L.</span><br><span class="line"></span><br><span class="line">lib00_lstm.so : <span class="number">00</span>_lstm.cu</span><br><span class="line">	nvcc -o lib00_lstm.so -shared -Xcompiler -fPIC <span class="number">00</span>_lstm.cu -lcublas -lcurand -L /home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/</span><br></pre></td></tr></table></figure>
 
@@ -425,8 +435,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/13/GRE and TOEFL Writing/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/18/LSTM的cuda加速/" rel="prev" title="LSTM的cuda加速">
+                LSTM的cuda加速 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -504,7 +514,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -526,7 +536,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
