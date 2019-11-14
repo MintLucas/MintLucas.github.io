@@ -90,7 +90,7 @@
 <meta property="og:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  使用自定义操作提供TensorFlow模型TensorFlow预先构建了一个广泛的操作库和操作内核（实现），可针对不同的硬件类型（CPU，GPU等）进行微调。这些操作自动链接到Tens">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/Users/zhipeng/Library/Application%20Support/typora-user-images/image-20190923101116942.png">
-<meta property="og:updated_time" content="2019-10-17T03:25:59.192Z">
+<meta property="og:updated_time" content="2019-11-11T01:43:54.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己实现Op注册到tensorflow serving">
 <meta name="twitter:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  使用自定义操作提供TensorFlow模型TensorFlow预先构建了一个广泛的操作库和操作内核（实现），可针对不同的硬件类型（CPU，GPU等）进行微调。这些操作自动链接到Tens">
@@ -377,7 +377,7 @@
 <p>注意：从2.0版开始，TensorFlow不再分发contrib模块; 如果您使用contrib ops提供TensorFlow程序，请使用本指南明确地将这些操作链接到ModelServer。</p>
 <p>无论您是否实现了操作，为了使用自定义操作来提供模型，您都需要访问操作系统的源代码。本指南将指导您完成使用源以使自定义操作可用于服务的步骤。有关自定义操作的实现的指导，请参阅 <a href="https://blog.csdn.net/qq_43208303/article/details/102601500" target="_blank" rel="noopener">tensorflow </a>。</p>
 <p>先决条件：已经编写了自定义操作并注册到tensorflow op。</p>
-<h2 id="将op源复制到Serving项目中"><a href="#将op源复制到Serving项目中" class="headerlink" title="将op源复制到Serving项目中"></a>将op源复制到Serving项目中</h2><p>tensorflow_serving文件夹下创建以cuda_lstm_forward命名的文件夹</p>
+<h2 id="将op源复制到Serving项目中"><a href="#将op源复制到Serving项目中" class="headerlink" title="将op源复制到Serving项目中"></a>将op源复制到Serving项目中</h2><p><code>/home/public/serving_gpu_15addopjiami/tensorflow_serving</code>文件夹下创建以cuda_lstm_forward命名的文件夹</p>
 <p>然后同时把”00_lstm.cu”, “00_lstm.so” , “cuda_lstm_forward.h”, “cuda_lstm_forward.cc”，”cuda_lstm_forward.so,”即所有依赖项放到当前文件夹下</p>
 <p><img src="/Users/zhipeng/Library/Application Support/typora-user-images/image-20190923101116942.png" alt="image-20190923101116942"></p>
 <h2 id="为op构建静态库"><a href="#为op构建静态库" class="headerlink" title="为op构建静态库"></a>为op构建静态库</h2><p>在cuda_lstm_forward的文件夹，您会看到一个生成共享对象文件（<code>.so</code>）的目标，您可以将其加载到python中以创建和训练模型。但是，TensorFlow服务在构建时静态链接操作，并且需要一个<code>.a</code>文件。因此，需要创建一个生成此文件的构建规则 <code>tensorflow_serving/cuda_lstm_forward/BUILD</code>：</p>
@@ -515,7 +515,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
