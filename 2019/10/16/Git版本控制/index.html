@@ -90,7 +90,7 @@
 <meta property="og:description" content="Git命令 1. 注册Github账号，让Git 知道这台电脑做的修改要连结到哪一个使用者12git config --global user.name &quot;&amp;lt;Your Name&amp;gt;&quot;git config --global user.email &quot;&amp;lt; your@gmail.com &amp;gt;&quot; 2. 建立本机repo，初始化git管理12345678mkdir Local_repo c">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191202152532.png">
-<meta property="og:updated_time" content="2019-12-06T03:49:14.086Z">
+<meta property="og:updated_time" content="2020-02-17T01:37:16.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git版本控制">
 <meta name="twitter:description" content="Git命令 1. 注册Github账号，让Git 知道这台电脑做的修改要连结到哪一个使用者12git config --global user.name &quot;&amp;lt;Your Name&amp;gt;&quot;git config --global user.email &quot;&amp;lt; your@gmail.com &amp;gt;&quot; 2. 建立本机repo，初始化git管理12345678mkdir Local_repo c">
@@ -401,7 +401,7 @@
 <p>如果误删，使用<code>git checkout -- &lt;filename&gt;</code>可从远端恢复</p>
 <p><code>git checkout</code>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。</p>
 <h4 id="7-远端创建新分支"><a href="#7-远端创建新分支" class="headerlink" title="7. 远端创建新分支"></a>7. 远端创建新分支</h4><p>从远端clone代码，又不想覆盖之前的master代码，就创建新分支全部提交到新分支上。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在远端创建新分支</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin online_11yue</span><br><span class="line">  </span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"测试"</span></span><br><span class="line">git push origin 本地分支:远端希望创建的分支</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先在本地创建，才能远程推送</span></span><br><span class="line">git checkout -b offline_vad_txtsmooth_v1</span><br><span class="line"><span class="comment">//在远端创建新分支</span></span><br><span class="line">git push --<span class="built_in">set</span>-upstream origin offline_vad_txtsmooth_v1</span><br><span class="line">  </span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"测试"</span></span><br><span class="line">git push origin 本地分支:远端希望创建的分支</span><br></pre></td></tr></table></figure>
 <h3 id="提高Github-Clone速度"><a href="#提高Github-Clone速度" class="headerlink" title="提高Github Clone速度"></a>提高Github Clone速度</h3><h4 id="1-用-git-内置代理，直接走系统中运行的代理工具中转，比如，你的-SS-本地端口是-1086（一般port均为1080-查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理："><a href="#1-用-git-内置代理，直接走系统中运行的代理工具中转，比如，你的-SS-本地端口是-1086（一般port均为1080-查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理：" class="headerlink" title="1. 用 git 内置代理，直接走系统中运行的代理工具中转，比如，你的 SS 本地端口是 1086（一般port均为1080,查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理："></a>1. 用 git 内置代理，直接走系统中运行的代理工具中转，比如，你的 SS 本地端口是 1086（一般port均为1080,查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理：</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --<span class="keyword">global</span> http.proxy socks5:<span class="comment">//127.0.0.1:1086</span></span><br><span class="line">git config --<span class="keyword">global</span> https.proxy socks5:<span class="comment">//127.0.0.1:1086</span></span><br></pre></td></tr></table></figure>
 <p>或<code>vim ~/.gitconfig</code>，手动添加</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span> [http]</span><br><span class="line"><span class="number">5</span>     proxy = socks5:<span class="comment">//127.0.0.1:1086</span></span><br><span class="line"><span class="number">6</span> [https]</span><br><span class="line"><span class="number">7</span>     proxy = socks5:<span class="comment">//127.0.0.1:1086</span></span><br></pre></td></tr></table></figure>
@@ -410,7 +410,8 @@
 <p>然后依旧在vim上编辑，命令如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">151.101</span><span class="number">.72</span><span class="number">.249</span> http:<span class="comment">//global-ssl.fastly.Net</span></span><br><span class="line"><span class="number">192.30</span><span class="number">.253</span><span class="number">.112</span> http:<span class="comment">//github.com</span></span><br></pre></td></tr></table></figure>
 <h4 id="3-最后如果clone过大文件需要增加缓存"><a href="#3-最后如果clone过大文件需要增加缓存" class="headerlink" title="3. 最后如果clone过大文件需要增加缓存"></a>3. 最后如果clone过大文件需要增加缓存</h4><p><code>git config --global http.postBuffer 24288000</code></p>
-<h4 id="4-取消全局代理"><a href="#4-取消全局代理" class="headerlink" title="4. 取消全局代理"></a>4. 取消全局代理</h4><p><code>git config --global --unset https.proxy</code></p>
+<h4 id="4-取消全局代理"><a href="#4-取消全局代理" class="headerlink" title="4. 取消全局代理"></a>4. 取消全局代理</h4><p><code>git config --global --unset http.proxy</code></p>
+<p><code>git config --global --unset https.proxy</code></p>
 <h3 id="老玩家直接看这里总结"><a href="#老玩家直接看这里总结" class="headerlink" title="老玩家直接看这里总结"></a>老玩家直接看这里总结</h3><h4 id="Git-global-setup"><a href="#Git-global-setup" class="headerlink" title="Git global setup"></a>Git global setup</h4><p><code>git config --global user.name &quot;zhipeng.li_sx&quot;</code></p>
 <p> <code>git config --global user.email &quot;zhipeng.li_sx@aispeech.com&quot;</code></p>
 <h4 id="Create-a-new-repository"><a href="#Create-a-new-repository" class="headerlink" title="Create a new repository"></a>Create a new repository</h4><p><code>git clone https://git.aispeech.com.cn/zhipeng.li_sx/Cuda_lstm_forward.git cd Cuda_lstm_forward</code></p>
@@ -421,6 +422,12 @@
 <h4 id="Existing-folder-or-Git-repository"><a href="#Existing-folder-or-Git-repository" class="headerlink" title="Existing folder or Git repository"></a>Existing folder or Git repository</h4><p><code>cd existing_folder</code></p>
 <p><code>git init</code></p>
 <p><code>git remote add origin https://git.aispeech.com.cn/zhipeng.li_sx/Cuda_lstm_forward.git git add . git commit git push -u origin master</code></p>
+<h4 id="从远端更新"><a href="#从远端更新" class="headerlink" title="从远端更新"></a>从远端更新</h4><p><code>git pull origin master</code>注意会直接和本地合并</p>
+<p><code>git pull --rebase</code><strong>不会合并本地</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout . #本地所有修改的。没有的提交的，都返回到原来的状态</span><br></pre></td></tr></table></figure>
+<h4 id="拉取远程某个分支"><a href="#拉取远程某个分支" class="headerlink" title="拉取远程某个分支"></a>拉取远程某个分支</h4><p><code>git checkout -t origin/python_mail.skin</code></p>
+<p>作用是checkout远程的分支，在本地创建分支，并切换到本地分支</p>
+<h4 id="撤回提交版本的reflog"><a href="#撤回提交版本的reflog" class="headerlink" title="撤回提交版本的reflog"></a><a href="https://blog.csdn.net/Qidi_Huang/article/details/53839591" target="_blank" rel="noopener">撤回提交版本的reflog</a></h4><p><a href="代码库有更新以及本地有更新的解决方法">代码库有更新以及本地有更新的解决方法</a></p>
 
       
     </div>
@@ -540,7 +547,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -551,7 +558,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -562,7 +569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -602,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git命令"><span class="nav-number">1.</span> <span class="nav-text">Git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-注册Github账号，让Git-知道这台电脑做的修改要连结到哪一个使用者"><span class="nav-number">1.1.</span> <span class="nav-text">1. 注册Github账号，让Git 知道这台电脑做的修改要连结到哪一个使用者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-建立本机repo，初始化git管理"><span class="nav-number">1.2.</span> <span class="nav-text">2. 建立本机repo，初始化git管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-将repo-add到cashed里"><span class="nav-number">1.3.</span> <span class="nav-text">3. 将repo add到cashed里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-提交和撤回"><span class="nav-number">1.4.</span> <span class="nav-text">4. 提交和撤回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-将repository-做本机和远端的连结"><span class="nav-number">1.5.</span> <span class="nav-text">5. 将repository 做本机和远端的连结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-文件删除"><span class="nav-number">1.6.</span> <span class="nav-text">6. 文件删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-远端创建新分支"><span class="nav-number">1.7.</span> <span class="nav-text">7. 远端创建新分支</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提高Github-Clone速度"><span class="nav-number">2.</span> <span class="nav-text">提高Github Clone速度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-用-git-内置代理，直接走系统中运行的代理工具中转，比如，你的-SS-本地端口是-1086（一般port均为1080-查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理："><span class="nav-number">2.1.</span> <span class="nav-text">1. 用 git 内置代理，直接走系统中运行的代理工具中转，比如，你的 SS 本地端口是 1086（一般port均为1080,查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-此外，git-clone或者git-push特别慢，并不是因为-http-github-com-的这个域名被限制了。而是-http-github-global-ssl-fastly-Net-这个域名被限制了。那么可以在hosts文件里进行绑定映射。"><span class="nav-number">2.2.</span> <span class="nav-text">2. 此外，git clone或者git push特别慢，并不是因为 http://github.com 的这个域名被限制了。而是 http://github.global.ssl.fastly.Net 这个域名被限制了。那么可以在hosts文件里进行绑定映射。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体步骤如下："><span class="nav-number">2.3.</span> <span class="nav-text">具体步骤如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-最后如果clone过大文件需要增加缓存"><span class="nav-number">2.4.</span> <span class="nav-text">3. 最后如果clone过大文件需要增加缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-取消全局代理"><span class="nav-number">2.5.</span> <span class="nav-text">4. 取消全局代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老玩家直接看这里总结"><span class="nav-number">3.</span> <span class="nav-text">老玩家直接看这里总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-global-setup"><span class="nav-number">3.1.</span> <span class="nav-text">Git global setup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-a-new-repository"><span class="nav-number">3.2.</span> <span class="nav-text">Create a new repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Existing-folder-or-Git-repository"><span class="nav-number">3.3.</span> <span class="nav-text">Existing folder or Git repository</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git命令"><span class="nav-number">1.</span> <span class="nav-text">Git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-注册Github账号，让Git-知道这台电脑做的修改要连结到哪一个使用者"><span class="nav-number">1.1.</span> <span class="nav-text">1. 注册Github账号，让Git 知道这台电脑做的修改要连结到哪一个使用者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-建立本机repo，初始化git管理"><span class="nav-number">1.2.</span> <span class="nav-text">2. 建立本机repo，初始化git管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-将repo-add到cashed里"><span class="nav-number">1.3.</span> <span class="nav-text">3. 将repo add到cashed里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-提交和撤回"><span class="nav-number">1.4.</span> <span class="nav-text">4. 提交和撤回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-将repository-做本机和远端的连结"><span class="nav-number">1.5.</span> <span class="nav-text">5. 将repository 做本机和远端的连结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-文件删除"><span class="nav-number">1.6.</span> <span class="nav-text">6. 文件删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-远端创建新分支"><span class="nav-number">1.7.</span> <span class="nav-text">7. 远端创建新分支</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提高Github-Clone速度"><span class="nav-number">2.</span> <span class="nav-text">提高Github Clone速度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-用-git-内置代理，直接走系统中运行的代理工具中转，比如，你的-SS-本地端口是-1086（一般port均为1080-查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理："><span class="nav-number">2.1.</span> <span class="nav-text">1. 用 git 内置代理，直接走系统中运行的代理工具中转，比如，你的 SS 本地端口是 1086（一般port均为1080,查看方法ShadowSocks偏好设置高级），那么可以如下方式走代理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-此外，git-clone或者git-push特别慢，并不是因为-http-github-com-的这个域名被限制了。而是-http-github-global-ssl-fastly-Net-这个域名被限制了。那么可以在hosts文件里进行绑定映射。"><span class="nav-number">2.2.</span> <span class="nav-text">2. 此外，git clone或者git push特别慢，并不是因为 http://github.com 的这个域名被限制了。而是 http://github.global.ssl.fastly.Net 这个域名被限制了。那么可以在hosts文件里进行绑定映射。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体步骤如下："><span class="nav-number">2.3.</span> <span class="nav-text">具体步骤如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-最后如果clone过大文件需要增加缓存"><span class="nav-number">2.4.</span> <span class="nav-text">3. 最后如果clone过大文件需要增加缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-取消全局代理"><span class="nav-number">2.5.</span> <span class="nav-text">4. 取消全局代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老玩家直接看这里总结"><span class="nav-number">3.</span> <span class="nav-text">老玩家直接看这里总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-global-setup"><span class="nav-number">3.1.</span> <span class="nav-text">Git global setup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-a-new-repository"><span class="nav-number">3.2.</span> <span class="nav-text">Create a new repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Existing-folder-or-Git-repository"><span class="nav-number">3.3.</span> <span class="nav-text">Existing folder or Git repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从远端更新"><span class="nav-number">3.4.</span> <span class="nav-text">从远端更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拉取远程某个分支"><span class="nav-number">3.5.</span> <span class="nav-text">拉取远程某个分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#撤回提交版本的reflog"><span class="nav-number">3.6.</span> <span class="nav-text">撤回提交版本的reflog</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -622,7 +629,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

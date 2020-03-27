@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ZHIPENG个人笔记">
 <meta property="og:description" content="Softmax1234567891011121314151617181920212223242526//查找最大元素float max_element(float* src, int count)&amp;#123;    float max = src[0];    for (size_t i = 0; i &amp;lt; count; i++)    &amp;#123;        if(src[i] &amp;gt;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-27T07:54:13.577Z">
+<meta property="og:updated_time" content="2020-02-07T07:15:52.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C常用函数实现">
 <meta name="twitter:description" content="Softmax1234567891011121314151617181920212223242526//查找最大元素float max_element(float* src, int count)&amp;#123;    float max = src[0];    for (size_t i = 0; i &amp;lt; count; i++)    &amp;#123;        if(src[i] &amp;gt;">
@@ -366,7 +366,8 @@
       
         <h4 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找最大元素</span></span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">max_element</span><span class="params">(<span class="keyword">float</span>* src, <span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">    <span class="keyword">float</span> max = src[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(src[i] &gt; max)</span><br><span class="line">            max = src[i];    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//对一行进行softmax</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">softmax</span><span class="params">(<span class="keyword">float</span> *src, <span class="keyword">float</span> *dst, <span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">float</span> max = max_element(src, count);</span><br><span class="line">    <span class="keyword">float</span> denominator = <span class="number">0.</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        dst[i] = <span class="built_in">std</span>::<span class="built_in">exp</span>(src[i] - max);</span><br><span class="line">        denominator += dst[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        dst[i] /= denominator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="去除空格"><a href="#去除空格" class="headerlink" title="去除空格"></a>去除空格</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteAllMark</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="keyword">const</span> <span class="built_in">string</span> &amp;mark)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> nSize = mark.size();</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">size_t</span> pos = s.find(mark);    <span class="comment">//  尤其是这里</span></span><br><span class="line">        <span class="keyword">if</span>(pos == <span class="built_in">string</span>::npos)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        s.erase(pos, nSize);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">Trim</span><span class="params">(<span class="keyword">char</span> *str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> uLen = <span class="built_in">strlen</span>(str);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="number">0</span> == uLen)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> *strRet = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(uLen + <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">memset</span>(strRet, <span class="number">0</span>, uLen+<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;uLen+<span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(str[i] != <span class="string">' '</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            strRet[j++] = str[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    strRet[j] = <span class="string">'\0'</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> strRet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4>
+<h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -485,7 +486,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -496,7 +497,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -507,7 +508,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -567,7 +568,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
