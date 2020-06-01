@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对。  应用1：第一个只出现一次的字符题目描述：在一个字符串中找出第一个只出现一次的字符，如输入”abaccdeff”，输出’b’.解题思路：用数组创建一个简单的哈希表来存储每一个字符出现的次数，再次遍历字符串，并用O(">
+<meta name="description" content="用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对，见下方createHash，若字符则更方便用int hash[256] = {0};hash[s[0]] = 出现次数或自己赋予的意义(也可存储当前字符)，这里256相当于hash的size，每次字符%size时即原">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="哈希表总结">
 <meta property="og:url" content="http://yoursite.com/2019/03/22/哈希表总结/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对。  应用1：第一个只出现一次的字符题目描述：在一个字符串中找出第一个只出现一次的字符，如输入”abaccdeff”，输出’b’.解题思路：用数组创建一个简单的哈希表来存储每一个字符出现的次数，再次遍历字符串，并用O(">
+<meta property="og:description" content="用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对，见下方createHash，若字符则更方便用int hash[256] = {0};hash[s[0]] = 出现次数或自己赋予的意义(也可存储当前字符)，这里256相当于hash的size，每次字符%size时即原">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-22T09:31:26.659Z">
+<meta property="og:updated_time" content="2020-03-29T04:16:01.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="哈希表总结">
-<meta name="twitter:description" content="用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对。  应用1：第一个只出现一次的字符题目描述：在一个字符串中找出第一个只出现一次的字符，如输入”abaccdeff”，输出’b’.解题思路：用数组创建一个简单的哈希表来存储每一个字符出现的次数，再次遍历字符串，并用O(">
+<meta name="twitter:description" content="用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对，见下方createHash，若字符则更方便用int hash[256] = {0};hash[s[0]] = 出现次数或自己赋予的意义(也可存储当前字符)，这里256相当于hash的size，每次字符%size时即原">
 
 
 
@@ -365,7 +365,7 @@
 
       
         <ul>
-<li>用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对。</li>
+<li>用数组来实现简单的哈希表，把数组的小标设为哈希表的键值（Key）,而把数组中的每一个数字设为哈希表的值（Value），这样每一个下标及数组中该下标对应的数字就组成了一个键-值的配对，见下方createHash，若字符则更方便用int hash[256] = {0};hash[s[0]] = 出现次数或自己赋予的意义(也可存储当前字符)，这里256相当于hash的size，每次字符%size时即原位置。</li>
 </ul>
 <h5 id="应用1：第一个只出现一次的字符"><a href="#应用1：第一个只出现一次的字符" class="headerlink" title="应用1：第一个只出现一次的字符"></a>应用1：第一个只出现一次的字符</h5><p>题目描述：在一个字符串中找出第一个只出现一次的字符，如输入”abaccdeff”，输出’b’.<br>解题思路：<br>用数组创建一个简单的哈希表来存储每一个字符出现的次数，再次遍历字符串，并用O(1)的时间判断该字符是否只出现了一次</p>
 <h4 id="应用2：定义一个函数，输入两个字符串，从第一个字符串中删除在第二个字符串中出现过的所有字符。例如，从第一个字符串“We-are-stduents”中删除在第二个字符串”aeio”中出现过的字符得到的结果时”W-r-stdnts”"><a href="#应用2：定义一个函数，输入两个字符串，从第一个字符串中删除在第二个字符串中出现过的所有字符。例如，从第一个字符串“We-are-stduents”中删除在第二个字符串”aeio”中出现过的字符得到的结果时”W-r-stdnts”" class="headerlink" title="应用2：定义一个函数，输入两个字符串，从第一个字符串中删除在第二个字符串中出现过的所有字符。例如，从第一个字符串“We are stduents”中删除在第二个字符串”aeio”中出现过的字符得到的结果时”W r stdnts”"></a>应用2：定义一个函数，输入两个字符串，从第一个字符串中删除在第二个字符串中出现过的所有字符。例如，从第一个字符串“We are stduents”中删除在第二个字符串”aeio”中出现过的字符得到的结果时”W r stdnts”</h4><p>解题思路：<br>创建一个用数组实现的简单哈希表来存储第二个字符串，从头到尾扫描第一个字符串的每一个字符时，用O(1)时间判断该字符是不是在第二个字符中</p>
@@ -492,7 +492,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -503,7 +503,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

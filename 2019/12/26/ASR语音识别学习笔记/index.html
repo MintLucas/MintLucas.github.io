@@ -84,7 +84,7 @@
 <meta name="description" content="基本原理语音识别（Automatic Speech Recognition），一般简称ASR；是将声音转化为文字的过程，相当于人类的耳朵。   文本w 发音S 音素q 特征向量v   文本|发音    直观左右等价再展开多事件贝叶斯 音素 | 特征向量  文本|发音  —-&amp;gt; 文本 | 特征向量 —-&amp;gt; 文本, 音素|特征向量  —-&amp;gt; (贝叶斯) p(特征向量|音素)p(音素|">
 <meta name="keywords" content="AiSpeech">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ASR语音识别学习笔记">
+<meta property="og:title" content="ZHIPENG个人笔记">
 <meta property="og:url" content="http://yoursite.com/2019/12/26/ASR语音识别学习笔记/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
 <meta property="og:description" content="基本原理语音识别（Automatic Speech Recognition），一般简称ASR；是将声音转化为文字的过程，相当于人类的耳朵。   文本w 发音S 音素q 特征向量v   文本|发音    直观左右等价再展开多事件贝叶斯 音素 | 特征向量  文本|发音  —-&amp;gt; 文本 | 特征向量 —-&amp;gt; 文本, 音素|特征向量  —-&amp;gt; (贝叶斯) p(特征向量|音素)p(音素|">
@@ -94,13 +94,14 @@
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/image-20191226154428912.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20180112113259072?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWkxKOTI1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226160201.png">
+<meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/2020/20200331175544.png">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226161003.png">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226161058.png">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/image-20191226170121499.png">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226170336.png">
-<meta property="og:updated_time" content="2020-03-24T06:49:31.965Z">
+<meta property="og:updated_time" content="2020-04-27T12:50:50.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ASR语音识别学习笔记">
+<meta name="twitter:title" content="ZHIPENG个人笔记">
 <meta name="twitter:description" content="基本原理语音识别（Automatic Speech Recognition），一般简称ASR；是将声音转化为文字的过程，相当于人类的耳朵。   文本w 发音S 音素q 特征向量v   文本|发音    直观左右等价再展开多事件贝叶斯 音素 | 特征向量  文本|发音  —-&amp;gt; 文本 | 特征向量 —-&amp;gt; 文本, 音素|特征向量  —-&amp;gt; (贝叶斯) p(特征向量|音素)p(音素|">
 <meta name="twitter:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/image-20191226152359796.png">
 
@@ -138,7 +139,7 @@
 
 
 
-  <title>ASR语音识别学习笔记 | ZHIPENG个人笔记</title>
+  <title> | ZHIPENG个人笔记</title>
   
 
 
@@ -302,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ASR语音识别学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -389,8 +390,9 @@
 <p>“传统”方式的声学模型一般采用<strong>隐马尔可夫模型（HMM）</strong>，而“端到端”方式一般采用<strong>深度神经网络（DNN）</strong>。</p>
 <h3 id="声学模型"><a href="#声学模型" class="headerlink" title="声学模型"></a>声学模型</h3><p><img src="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226160201.png" alt></p>
 <p>如上图所示，原始语音信号S(不稳定信号所以要交叉分帧)，切割成多个短时的近似平稳信号后，经过特征提取转换成特征向量V, 声学模型就是对该特征向量的一种建模。</p>
-<p>（1）混合声学模型</p>
-<p>混合高斯-隐马尔科夫模型   GMM-HMM</p>
+<p>（1）混合声学模型–都是为了算HMM中的发射概率矩阵</p>
+<p><img src="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/2020/20200331175544.png" alt></p>
+<p>混合高斯-隐马尔科夫模型   <a href="https://blog.csdn.net/zbuger/article/details/50359889" target="_blank" rel="noopener">GMM-HMM详解</a></p>
 <p>深度神经网络-隐马尔科夫模型   DNN-HMM</p>
 <p>深度循环神经网络-隐马尔科夫模型   RNN-HMM</p>
 <p>深度卷积神经网络-隐马尔科夫模型   CNN-HMM</p>
@@ -401,6 +403,7 @@
 <p>（1）基于GMM-HMM的声学模型</p>
 <p>优点：GMM训练速度快</p>
 <pre><code>声学模型较小，容易移植到嵌入式平台
+GMM把所有的训练样本学习一遍。把类似离散马尔科夫中的发射矩阵训练出来。也就是状态-&gt;观察值（可以是数，向量等）。这样HMM再训练自己的状态转移矩阵等，这样HMM就可以用了。
 </code></pre><p>缺点：GMM没有利用帧的上下文信息</p>
 <pre><code>GMM不能学习深层非线性特征变换
 </code></pre><p>（2）基于DNN-HMM模型</p>
@@ -418,7 +421,7 @@
 <p><img src="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226161058.png" alt></p>
 <h3 id="语言模型"><a href="#语言模型" class="headerlink" title="语言模型"></a>语言模型</h3><p><img src="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/image-20191226170121499.png" alt></p>
 <h3 id="MFCC特征提取"><a href="#MFCC特征提取" class="headerlink" title="MFCC特征提取"></a><a href="https://www.zhihu.com/question/27268668/answer/38253151?utm_source=weibo&amp;utm_medium=weibo_share&amp;utm_content=share_answer&amp;utm_campaign=share_button" target="_blank" rel="noopener">MFCC特征提取</a></h3><p><img src="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191226170336.png" alt></p>
-<p>MFCC是在Fbank的基础上做DCT变换，去除特征维度之间的相关性，同时也可以起降维的作用，现在随着数据量的增大，这种传统机器学习逐渐被<strong>神经网络特征提取</strong>代替(CLD)。</p>
+<p>MFCC是<strong>在Fbank的基础上做DCT变换，去除特征维度之间的相关性，同时也可以起降维的作用，得到一般40维或13维梅尔频率</strong>，现在随着数据量的增大，这种传统机器学习逐渐被<strong>神经网络特征提取</strong>代替(CLD)。</p>
 <h3 id="各个组件"><a href="#各个组件" class="headerlink" title="各个组件"></a>各个组件</h3><p><strong>1）语音激活检测（voice active detection，VAD）</strong></p>
 <p>A）需求背景：在近场识别场景，比如使用语音输入法时，用户可以用手按着语音按键说话，结束之后松开，由于近场情况下<strong>信噪比（signal to noise ratio, SNR）</strong>）比较高，信号清晰，简单算法也能做到有效可靠。<br>但远场识别场景下，用户不能用手接触设备，这时噪声比较大，SNR下降剧烈，必须使用VAD了。</p>
 <p>B）定义：判断什么时候有语音什么时候没有语音（静音）。<br>后续的语音信号处理或是语音识别都是在VAD截取出来的有效语音片段上进行的。</p>
@@ -434,6 +437,16 @@
 <p>B）定义：<br>单工：a和b说话，b只能听a说<br>半双工：参考对讲机，A：能不能听到我说话，over；B：可以可以，over<br>全双工：参考打电话，A：哎，老王啊！balabala……；B：balabala……</p>
 <p><strong>5）纠错</strong><br>A）需求背景：做了以上硬件、算法优化后，语音识别就会OK了吗？还不够。因为还会因为同音字（词）等各种异常情况，导致识别出来的文字有偏差，这时，就需要做“纠错”了。</p>
 <p>B）用户主动纠错。<br>比如用户语音说“我们今天，不对，明天晚上吃啥？”，经过云端的自然语言理解过程，可以直接显示用户真正希望的结果“我们明天晚上吃啥”。</p>
+<p>f=sig(wX+uH+bf)<br>i=sig(wX+uH+bi)</p>
+<p>o=sig(wX+uH+bo)</p>
+<p>j=tanh(wX+uH+bj)</p>
+<p>ElemntWise</p>
+<p>Set stream </p>
+<p>EventRecord</p>
+<p>j~=f<em>w+j</em>w<br>h=o*j</p>
+<p>p(i)logP(i)-q(i)logQ(i)</p>
+<p>m,,,,</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -553,7 +566,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -564,7 +577,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

@@ -90,7 +90,7 @@
 <meta property="og:description" content="Git命令 1. 注册Github账号，让Git 知道这台电脑做的修改要连结到哪一个使用者12git config --global user.name &quot;&amp;lt;Your Name&amp;gt;&quot;git config --global user.email &quot;&amp;lt; your@gmail.com &amp;gt;&quot; 2. 建立本机repo，初始化git管理12345678mkdir Local_repo c">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/20191202152532.png">
-<meta property="og:updated_time" content="2020-02-17T01:37:16.813Z">
+<meta property="og:updated_time" content="2020-05-26T08:39:56.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git版本控制">
 <meta name="twitter:description" content="Git命令 1. 注册Github账号，让Git 知道这台电脑做的修改要连结到哪一个使用者12git config --global user.name &quot;&amp;lt;Your Name&amp;gt;&quot;git config --global user.email &quot;&amp;lt; your@gmail.com &amp;gt;&quot; 2. 建立本机repo，初始化git管理12345678mkdir Local_repo c">
@@ -425,7 +425,9 @@
 <h4 id="从远端更新"><a href="#从远端更新" class="headerlink" title="从远端更新"></a>从远端更新</h4><p><code>git pull origin master</code>注意会直接和本地合并</p>
 <p><code>git pull --rebase</code><strong>不会合并本地</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout . #本地所有修改的。没有的提交的，都返回到原来的状态</span><br></pre></td></tr></table></figure>
-<h4 id="拉取远程某个分支"><a href="#拉取远程某个分支" class="headerlink" title="拉取远程某个分支"></a>拉取远程某个分支</h4><p><code>git checkout -t origin/python_mail.skin</code></p>
+<h4 id="拉取远程某个分支"><a href="#拉取远程某个分支" class="headerlink" title="拉取远程某个分支"></a>拉取远程某个分支</h4><p>先查看远程所有分支</p>
+<p><code>git branch -a</code></p>
+<p><code>git checkout -t origin/offline_unite_puncsmooth</code></p>
 <p>作用是checkout远程的分支，在本地创建分支，并切换到本地分支</p>
 <h4 id="撤回提交版本的reflog"><a href="#撤回提交版本的reflog" class="headerlink" title="撤回提交版本的reflog"></a><a href="https://blog.csdn.net/Qidi_Huang/article/details/53839591" target="_blank" rel="noopener">撤回提交版本的reflog</a></h4><p><a href="代码库有更新以及本地有更新的解决方法">代码库有更新以及本地有更新的解决方法</a></p>
 
@@ -547,7 +549,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -558,7 +560,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

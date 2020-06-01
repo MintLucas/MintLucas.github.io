@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ZHIPENG个人笔记">
 <meta property="og:description" content="Mac源码编译安装tensorflow1. 安装 Bazel注意版本 macOS CPU   版本 Python 版本 编译器 编译工具     tensorflow-1.13.1 2.7、3.3-3.6 XCode 中的 Clang Bazel 0.19.2   tensorflow-1.12.0 2.7、3.3-3.6 XCode 中的 Clang Bazel 0.15.0   tensorf">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-31T07:29:49.444Z">
+<meta property="og:updated_time" content="2020-04-27T14:05:55.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac源码编译安装tensorflow">
 <meta name="twitter:description" content="Mac源码编译安装tensorflow1. 安装 Bazel注意版本 macOS CPU   版本 Python 版本 编译器 编译工具     tensorflow-1.13.1 2.7、3.3-3.6 XCode 中的 Clang Bazel 0.19.2   tensorflow-1.12.0 2.7、3.3-3.6 XCode 中的 Clang Bazel 0.15.0   tensorf">
@@ -485,6 +485,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./bazel-bin/tensorflow/tools/pip_package/build_pip_package --nightly_flag /tmp/tensorflow_pkg</span><br></pre></td></tr></table></figure>
 <h4 id="4-安装软件包"><a href="#4-安装软件包" class="headerlink" title="4. 安装软件包"></a>4. 安装软件包</h4><p>生成的 <code>.whl</code> 文件的文件名取决于 TensorFlow 版本和您的平台。例如，使用 <code>pip install</code> 安装软件包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install /tmp/tensorflow_pkg/tensorflow-version-tags.whl</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BTNode</span>&#123;</span></span><br><span class="line">  BTNode* left;</span><br><span class="line">  BTNode* right;</span><br><span class="line">  <span class="keyword">int</span> val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">highofT</span><span class="params">(BTNode *T)</span></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(T == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> lh = highofT(T-&gt;left);</span><br><span class="line">  <span class="keyword">int</span> rh = highofT(T-&gt;right);</span><br><span class="line">  <span class="keyword">if</span>(lh&gt;rh) max = lh;</span><br><span class="line">  <span class="keyword">else</span> max = rh;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -604,7 +605,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -615,7 +616,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

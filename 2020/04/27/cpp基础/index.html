@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="AiSpeech,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="C++常见面试问题汇总 指针和引用的区别  指针是一个变量，引用不过是别名；指针可以多级；指针可空，引用不可空且定义时必须初始化  堆和栈的区别  堆存放用户自定义的；栈存放函数信息；  new和delete是如何实现的，new 与 malloc的异同处  new和delete是cpp操作符，malloc库函数；new可以调构造函数，自动计算对象大小；  C和C++的区别 C++、Java的联系与">
+<meta name="keywords" content="AiSpeech">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cpp基础">
+<meta property="og:url" content="http://yoursite.com/2020/04/27/cpp基础/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="C++常见面试问题汇总 指针和引用的区别  指针是一个变量，引用不过是别名；指针可以多级；指针可空，引用不可空且定义时必须初始化  堆和栈的区别  堆存放用户自定义的；栈存放函数信息；  new和delete是如何实现的，new 与 malloc的异同处  new和delete是cpp操作符，malloc库函数；new可以调构造函数，自动计算对象大小；  C和C++的区别 C++、Java的联系与">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-04-27T12:57:32.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cpp基础">
+<meta name="twitter:description" content="C++常见面试问题汇总 指针和引用的区别  指针是一个变量，引用不过是别名；指针可以多级；指针可空，引用不可空且定义时必须初始化  堆和栈的区别  堆存放用户自定义的；栈存放函数信息；  new和delete是如何实现的，new 与 malloc的异同处  new和delete是cpp操作符，malloc库函数；new可以调构造函数，自动计算对象大小；  C和C++的区别 C++、Java的联系与">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/27/cpp基础/">
+
+
+
+
+
+  <title>cpp基础 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/27/cpp基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cpp基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-27T20:45:32+08:00">
+                2020-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AiSpeeech/" itemprop="url" rel="index">
+                    <span itemprop="name">AiSpeeech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="C-常见面试问题汇总"><a href="#C-常见面试问题汇总" class="headerlink" title="C++常见面试问题汇总"></a>C++常见面试问题汇总</h2><ul>
+<li>指针和引用的区别</li>
+</ul>
+<p>指针是一个变量，引用不过是别名；指针可以多级；指针可空，引用不可空且定义时必须初始化</p>
+<ul>
+<li>堆和栈的区别</li>
+</ul>
+<p>堆存放用户自定义的；栈存放函数信息；</p>
+<ul>
+<li>new和delete是如何实现的，new 与 malloc的异同处</li>
+</ul>
+<p>new和delete是cpp操作符，malloc库函数；new可以调构造函数，自动计算对象大小；</p>
+<ul>
+<li>C和C++的区别</li>
+<li>C++、Java的联系与区别，包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制）</li>
+<li>Struct和class的区别</li>
+</ul>
+<p><strong>class</strong> 是引用类型，它在堆中分配空间；而<strong>struct</strong> 是值类型，它在栈中分配空间。</p>
+<p>class默认private，struct默认public，保留是因为向下兼容。</p>
+<ul>
+<li>define 和const的区别（编译阶段、安全性、内存占用等）</li>
+<li>在C++中const和static的用法（定义，用途）</li>
+</ul>
+<p>static局部变量，函数，全局变量，persistent&amp;private，存放在数据区，函数仅当前文件可用。</p>
+<ul>
+<li>const和static在类中使用的注意事项（定义、初始化和使用）</li>
+<li>C++中的const类成员函数（用法和意义），以及和非const成员函数的区别</li>
+<li>C++的顶层const和底层const</li>
+<li>final和override关键字</li>
+<li>拷贝初始化和直接初始化，初始化和赋值的区别</li>
+<li>extern “C”的用法</li>
+<li>模板函数和模板类的特例化</li>
+<li>C++的STL源码（这个系列也很重要，建议侯捷老师的<strong>STL源码剖析</strong>书籍与视频），其中包括内存池机制，各种容器的底层实现机制，算法的实现原理等）</li>
+<li>STL源码中的hashtable的实现</li>
+<li>STL中unordered_map和map的区别和应用场景</li>
+<li>STL中vector的实现</li>
+<li>STL容器的几种迭代器以及对应的容器（输入迭代器，输出迭代器，前向迭代器，双向迭代器，随机访问迭代器）</li>
+</ul>
+<blockquote>
+<p>顺序容器：vector,deque是随机访问迭代器；list是双向迭代器</p>
+<p>容器适配器：stack,queue,priority_queue没有迭代器</p>
+<p>关联容器：set,map,multiset,multimap是双向迭代器</p>
+<p>unordered_set,unordered_map,unordered_multiset,unordered_multimap是前向迭代器</p>
+</blockquote>
+<ul>
+<li>STL中的traits技法</li>
+</ul>
+<blockquote>
+<p>type_traits</p>
+<p>iterator_traits</p>
+<p>char traits</p>
+<p>allocator_traits</p>
+<p>pointer_traits</p>
+<p>array_traits</p>
+</blockquote>
+<ul>
+<li>vector使用的注意点及其原因，频繁对vector调用push_back()对性能的影响和原因。</li>
+<li>C++中的重载和重写的区别</li>
+<li>C++内存管理，内存池技术（热门问题），与csapp中几种内存分配方式对比学习加深理解</li>
+<li>介绍面向对象的三大特性，并且举例说明每一个</li>
+<li>C++多态的实现</li>
+<li>C++虚函数相关（虚函数表，虚函数指针），虚函数的实现原理（包括单一继承，多重继承等）（拓展问题：为什么基类指针指向派生类对象时可以调用派生类成员函数，基类的虚函数存放在内存的什么区，虚函数表指针vptr的初始化时间）</li>
+<li>C++中类的数据成员和成员函数内存分布情况</li>
+<li>this指针</li>
+<li>析构函数一般写成虚函数的原因</li>
+<li>构造函数、拷贝构造函数和赋值操作符的区别</li>
+</ul>
+<blockquote>
+<p>构造函数：对象不存在，没用别的对象初始化</p>
+<p>拷贝构造函数：对象不存在，用别的对象初始化</p>
+<p>赋值运算符：对象存在，用别的对象给它赋值</p>
+</blockquote>
+<ul>
+<li>构造函数声明为explicit</li>
+<li>构造函数为什么一般不定义为虚函数</li>
+<li>构造函数的几种关键字(default delete 0)</li>
+</ul>
+<blockquote>
+<p>= default：将拷贝控制成员定义为=default显式要求编译器生成合成的版本</p>
+<p>= delete：将拷贝构造函数和拷贝赋值运算符定义删除的函数，阻止拷贝（析构函数不能是删除的函数 C++Primer P450）</p>
+<p>= 0：将虚函数定义为纯虚函数（纯虚函数无需定义，= 0只能出现在类内部虚函数的声明语句处；当然，也可以为纯虚函数提供定义，不过函数体必须定义在类的外部）</p>
+</blockquote>
+<ul>
+<li>构造函数或者析构函数中调用虚函数会怎样</li>
+<li>纯虚函数</li>
+<li>静态类型和动态类型，静态绑定和动态绑定的介绍</li>
+<li>引用是否能实现动态绑定，为什么引用可以实现</li>
+<li>深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）</li>
+<li>对象复用的了解，零拷贝的了解</li>
+<li>介绍C++所有的构造函数</li>
+<li>什么情况下会调用拷贝构造函数（三种情况）</li>
+<li>结构体内存对齐方式和为什么要进行内存对齐？</li>
+<li>内存泄露的定义，如何检测与避免？</li>
+<li>手写智能指针的实现（shared_ptr和weak_ptr实现的区别）</li>
+<li>智能指针的循环引用</li>
+<li>遇到coredump要怎么调试</li>
+<li>内存检查工具的了解</li>
+<li>模板的用法与适用场景</li>
+<li>成员初始化列表的概念，为什么用成员初始化列表会快一些（性能优势）？</li>
+<li>用过C++ 11吗，知道C++ 11哪些新特性？</li>
+<li>C++的调用惯例（简单一点C++函数调用的压栈过程）</li>
+<li>C++的四种强制转换</li>
+</ul>
+<blockquote>
+<p>static_cast</p>
+<p>dynamic_cast</p>
+<p>const_cast</p>
+<p>reinterpret_cast</p>
+</blockquote>
+<ul>
+<li>C++中将临时变量作为返回值的时候的处理过程（栈上的内存分配、拷贝过程）</li>
+<li>C++的异常处理</li>
+<li>volatile关键字</li>
+<li>优化程序的几种方法</li>
+<li>public，protected和private访问权限和继承</li>
+<li>class和struct的区别</li>
+<li>decltype()和auto</li>
+<li>inline和宏定义的区别</li>
+<li>C++和C的类型安全</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AiSpeech/" rel="tag"># AiSpeech</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/26/必背算法/" rel="next" title="必背算法">
+                <i class="fa fa-chevron-left"></i> 必背算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/21/tensorflow的三种保存格式总结/" rel="prev" title="tensorflow的三种保存格式总结">
+                tensorflow的三种保存格式总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-常见面试问题汇总"><span class="nav-number">1.</span> <span class="nav-text">C++常见面试问题汇总</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
