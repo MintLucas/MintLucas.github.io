@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf15 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsingh">
+<meta name="description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsing">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Anaconda虚拟环境管理">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/Anaconda虚拟环境管理/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf15 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsingh">
+<meta property="og:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsing">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-01T03:40:44.392Z">
+<meta property="og:updated_time" content="2020-07-27T11:37:33.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Anaconda虚拟环境管理">
-<meta name="twitter:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf15 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsingh">
+<meta name="twitter:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsing">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h3 id="Anaconda虚拟环境管理"><a href="#Anaconda虚拟环境管理" class="headerlink" title="Anaconda虚拟环境管理"></a>Anaconda虚拟环境管理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">conda env <span class="built_in">list</span></span><br><span class="line">conda remove -n py27tf15 --all</span><br><span class="line">conda create -n py27tf15 pip python=<span class="number">2.7</span></span><br><span class="line">source activate py27tf15</span><br><span class="line"><span class="keyword">export</span> PIP_DEFAULT_TIMEOUT=<span class="number">100</span> </span><br><span class="line">pip install -i https:<span class="comment">//pypi.tuna.tsinghua.edu.cn/simple some-package --ignore-installed --upgrade tensorflow-gpu</span></span><br><span class="line">source deactivate py27tf15</span><br><span class="line">pip uninstall tensorflow-gpu<span class="number">-1.5</span><span class="number">.0</span></span><br><span class="line">pip install tensorflow-gpu==<span class="number">1.4</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Anaconda虚拟环境管理"><a href="#Anaconda虚拟环境管理" class="headerlink" title="Anaconda虚拟环境管理"></a>Anaconda虚拟环境管理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">conda env <span class="built_in">list</span></span><br><span class="line">conda remove -n py27tf15 --all</span><br><span class="line">conda create -n py27tf113 pip python=<span class="number">2.7</span></span><br><span class="line">source activate py27tf15</span><br><span class="line"><span class="keyword">export</span> PIP_DEFAULT_TIMEOUT=<span class="number">100</span> </span><br><span class="line">pip install -i https:<span class="comment">//pypi.tuna.tsinghua.edu.cn/simple some-package --ignore-installed --upgrade tensorflow-gpu</span></span><br><span class="line">source deactivate py27tf15</span><br><span class="line">pip uninstall tensorflow-gpu<span class="number">-1.5</span><span class="number">.0</span></span><br><span class="line">pip install tensorflow-gpu==<span class="number">1.4</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
 <h3 id="Sublime配置Anaconda"><a href="#Sublime配置Anaconda" class="headerlink" title="Sublime配置Anaconda"></a>Sublime配置Anaconda</h3><ol>
 <li><p>command+shift+p输入install package</p>
 </li>
@@ -363,6 +363,19 @@
 <h3 id="Cuda命令记录"><a href="#Cuda命令记录" class="headerlink" title="Cuda命令记录"></a>Cuda命令记录</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -g -G <span class="number">00</span>_NVIDABlog_lstm.cu -o <span class="number">00</span>_NVIDABlog_lstm -L -arch=sm_52 -DPERFOPTS=<span class="number">31</span> -lcublas -lcurand</span><br></pre></td></tr></table></figure>
 <h3 id="Cuda多环境管理"><a href="#Cuda多环境管理" class="headerlink" title="Cuda多环境管理"></a>Cuda多环境管理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># added by Anaconda3 installer</span></span><br><span class="line"><span class="keyword">export</span> PATH=<span class="string">"/home/resources/lizhipeng/anaconda3/bin:$PATH"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> CUDA_HOME=/home/resources/yxwang/cuda<span class="number">-10.0</span></span><br><span class="line"><span class="keyword">export</span> PATH=/home/resources/yxwang/cuda<span class="number">-10.0</span>/bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line"><span class="keyword">export</span> LD_LIBRARY_PATH=/home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64$&#123;LD_LIBRARY_PATH:+:$&#123;LD_LIBRARY_PATH&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#<span class="keyword">export</span> CUDA_HOME=/home/resources/users/root/cuda<span class="number">-8.0</span></span><br><span class="line">#<span class="keyword">export</span> PATH=/usr/local/cuda/bin$&#123;PATH:+:$&#123;PATH&#125;&#125;</span><br><span class="line">#<span class="keyword">export</span> LD_LIBRARY_PATH=<span class="string">"$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"</span></span><br><span class="line"></span><br><span class="line">#<span class="keyword">export</span> LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64/</span><br></pre></td></tr></table></figure>
 <p><code>vim ~/.bashrc</code>是shell交互时默认配置文件，修改配置后<code>source ~/.bashrc</code></p>
+<h3 id="Linux一些命令"><a href="#Linux一些命令" class="headerlink" title="Linux一些命令"></a>Linux一些命令</h3><h4 id="目录相关"><a href="#目录相关" class="headerlink" title="目录相关"></a>目录相关</h4><ul>
+<li>drwxrwxrwx</li>
+</ul>
+<blockquote>
+<p>除去第一位的字母：<br>   前三位代表的是：文件所拥有者对此文件的权限<br>   中间三位代表的是：当前用户所属的组对此文件的权限<br>   后三位代表的是：其他用户组对此文件的权限</p>
+<p>而第一位代表的是文件的类型：<br>   d  目录文件。<br>   l  符号链接(指向另一个文件,类似于瘟下的快捷方式)。<br>   s  套接字文件。<br>   b  块设备文件,二进制文件。<br>   c  字符设备文件。<br>   p  命名管道文件。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.查看登录的用户名？</span><br><span class="line">whoami:查看登录的用户名</span><br><span class="line">2.查看当前登录用户属于哪个用户组？</span><br><span class="line">groups:查看当前登录用户属于哪个用户组</span><br><span class="line"></span><br><span class="line">1.更改目录所有者命令:</span><br><span class="line">chown -R 用户名称 目录名称</span><br><span class="line">2.更改目录权限命令:</span><br><span class="line">chmod -R 755 目录名称</span><br><span class="line">其实就是在给目录赋予权限：rwx r-x r-x</span><br><span class="line">rwx =7 ，r-x=5，r-x=5</span><br><span class="line"></span><br><span class="line">sudo -i进入root</span><br></pre></td></tr></table></figure>
+<h4 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h4><ul>
+<li>Zip -r 压缩后文件名 要压缩的文件 —– 解压缩直接unzip <strong>文件名</strong> 即可</li>
+<li><em>tar</em> -czvf FileName.<em>tar</em> DirName   —– 解压缩<em>tar</em> -czvf FileName.<em>tar</em>.gz</li>
+<li></li>
+</ul>
 
       
     </div>
@@ -482,7 +495,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -544,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Anaconda虚拟环境管理"><span class="nav-number">1.</span> <span class="nav-text">Anaconda虚拟环境管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime配置Anaconda"><span class="nav-number">2.</span> <span class="nav-text">Sublime配置Anaconda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jupyter-NoteBook切换虚拟环境"><span class="nav-number">3.</span> <span class="nav-text">Jupyter NoteBook切换虚拟环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cuda命令记录"><span class="nav-number">4.</span> <span class="nav-text">Cuda命令记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cuda多环境管理"><span class="nav-number">5.</span> <span class="nav-text">Cuda多环境管理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Anaconda虚拟环境管理"><span class="nav-number">1.</span> <span class="nav-text">Anaconda虚拟环境管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sublime配置Anaconda"><span class="nav-number">2.</span> <span class="nav-text">Sublime配置Anaconda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jupyter-NoteBook切换虚拟环境"><span class="nav-number">3.</span> <span class="nav-text">Jupyter NoteBook切换虚拟环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cuda命令记录"><span class="nav-number">4.</span> <span class="nav-text">Cuda命令记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cuda多环境管理"><span class="nav-number">5.</span> <span class="nav-text">Cuda多环境管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux一些命令"><span class="nav-number">6.</span> <span class="nav-text">Linux一些命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目录相关"><span class="nav-number">6.1.</span> <span class="nav-text">目录相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩"><span class="nav-number">6.2.</span> <span class="nav-text">压缩</span></a></li></ol></li></ol></div>
             
 
           </div>
