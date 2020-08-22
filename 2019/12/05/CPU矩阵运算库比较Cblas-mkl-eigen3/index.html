@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ZHIPENG个人笔记">
 <meta property="og:description" content="安装必要的库Eigen31234567891011121314151617181920212223242526272829执行命令：sudo apt-get install libeigen3-devor sudo yum install eigen3安装后执行以下命令运行命令：sudo cp -r /usr/include/eigen3/Eigen /usr/include注意：参考cp指令 /">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-09T07:23:43.496Z">
+<meta property="og:updated_time" content="2020-08-16T07:49:08.192Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPU矩阵运算库比较DNNL,mkl,eigen3">
 <meta name="twitter:description" content="安装必要的库Eigen31234567891011121314151617181920212223242526272829执行命令：sudo apt-get install libeigen3-devor sudo yum install eigen3安装后执行以下命令运行命令：sudo cp -r /usr/include/eigen3/Eigen /usr/include注意：参考cp指令 /">
@@ -405,7 +405,133 @@
 <p>-o a.out</p>
 </blockquote>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* dense_mult_eigen.cpp</span></span><br><span class="line"><span class="comment"> * Copyright (C) 2013, Siddharth Gopal (gcdart AT gmail)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This program is free software; you can redistribute it and/or modify</span></span><br><span class="line"><span class="comment"> * it under the terms of version 2.1 of the GNU Lesser General Public License</span></span><br><span class="line"><span class="comment"> * as published by the Free Software Foundation.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This program is distributed in the hope that it will be useful,</span></span><br><span class="line"><span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span></span><br><span class="line"><span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></span><br><span class="line"><span class="comment"> * GNU Lesser General Public License for more details.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * You should have received a copy of the GNU Lesser General Public License</span></span><br><span class="line"><span class="comment"> * along with this program; if not, write to the Free Software</span></span><br><span class="line"><span class="comment"> * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA, 02111-1307, USA,</span></span><br><span class="line"><span class="comment"> * or visit the GNU web site, www.gnu.org.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EIGEN_NO_DEBUG</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Sparse&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Eigen/Core&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> Eigen;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REP(i,n) for ( int i = 0; i &lt; (n); ++i ) </span></span><br><span class="line"><span class="keyword">typedef</span> Matrix&lt; <span class="keyword">int8_t</span>, Dynamic, Dynamic &gt;  MatrixX;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_matrix</span> <span class="params">(MatrixXd&amp; A, <span class="keyword">int</span> dim1 , <span class="keyword">int</span> dim2 )</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> mod = <span class="number">100003</span>, prod = <span class="number">7</span> , e = <span class="number">1</span> , i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  REP(i,dim1) REP(j,dim2) &#123;</span><br><span class="line">    e = (e*prod + <span class="number">1</span>)%mod;</span><br><span class="line">    A(i,j) = e * <span class="number">.91739210437</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_matrix_float</span><span class="params">(MatrixXf&amp; A, <span class="keyword">int</span> dim1 , <span class="keyword">int</span> dim2 )</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> mod = <span class="number">100003</span>, prod = <span class="number">7</span> , e = <span class="number">1</span> , i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  REP(i,dim1) REP(j,dim2) &#123;</span><br><span class="line">    e = (e*prod + <span class="number">1</span>)%mod;</span><br><span class="line">    A(i*dim2 + j) = <span class="number">0.0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_matrix_X</span><span class="params">(MatrixX&amp; A, <span class="keyword">int</span> dim1 , <span class="keyword">int</span> dim2 )</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> mod = <span class="number">100003</span>, prod = <span class="number">7</span> , e = <span class="number">1</span> , i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  REP(i,dim1) REP(j,dim2) &#123;</span><br><span class="line">    e = (e*prod + <span class="number">1</span>)%mod;</span><br><span class="line">    A(i*dim2 + j) = <span class="number">0.0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_matrix</span> <span class="params">(MatrixXd&amp; A, <span class="keyword">int</span> dim1 , <span class="keyword">int</span> dim2 )</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> i, j;</span><br><span class="line"></span><br><span class="line">  REP(i,dim1) &#123;</span><br><span class="line">    REP(j,dim2) <span class="built_in">printf</span>(<span class="string">"%lf "</span> , A(i,j) );</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc , <span class="keyword">char</span> *argv[] )</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> m , n , k , i , j , u , nrep = <span class="number">1</span> , cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">double</span> totaltime , error = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">before</span> , <span class="title">after</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( argc &lt;= <span class="number">1</span> || argc &gt;= <span class="number">6</span> ) &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"./exe [nrep] &lt;dim1&gt; [dim2 dim3]"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( argc == <span class="number">2</span> ) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">1</span>] , <span class="string">"%d"</span> , &amp;m );</span><br><span class="line">    n = k = m;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( argc == <span class="number">3</span> ) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">1</span>] , <span class="string">"%d"</span> , &amp;nrep );</span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">2</span>] , <span class="string">"%d"</span> , &amp;m );</span><br><span class="line">    n = k = m;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( argc == <span class="number">4</span> ) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">1</span>] , <span class="string">"%d"</span> , &amp;m );</span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">2</span>] , <span class="string">"%d"</span> , &amp;k );</span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">3</span>] , <span class="string">"%d"</span> , &amp;n );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( argc == <span class="number">5</span> ) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">1</span>] , <span class="string">"%d"</span> , &amp;nrep );</span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">2</span>] , <span class="string">"%d"</span> , &amp;m );</span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">3</span>] , <span class="string">"%d"</span> , &amp;k );</span><br><span class="line">    <span class="built_in">sscanf</span> ( argv[<span class="number">4</span>] , <span class="string">"%d"</span> , &amp;n );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  MatrixX A(m,k) , B(k,n) , C(m,n);</span><br><span class="line"></span><br><span class="line">  init_matrix_X ( A , m , k );</span><br><span class="line">  init_matrix_X( B , k , n );</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span> (<span class="string">"Matrices Initialized [%dx%d , %dx%d , %dx%d ]\n"</span> , m , k , k , n , m , n);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span> (<span class="string">"Running %d Iteration(s) \n"</span> , nrep );</span><br><span class="line"></span><br><span class="line">  totaltime = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  REP(i,nrep) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> runtime;</span><br><span class="line"></span><br><span class="line">    gettimeofday ( &amp;before , <span class="literal">NULL</span> );</span><br><span class="line">  </span><br><span class="line">    C.noalias() = A * B;</span><br><span class="line"></span><br><span class="line">    gettimeofday ( &amp;after , <span class="literal">NULL</span> );</span><br><span class="line"></span><br><span class="line">    runtime = ( after.tv_usec - before.tv_usec )/<span class="number">1000000.0</span>  + (after.tv_sec - before.tv_sec);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( nrep == <span class="number">1</span> || i &gt; <span class="number">0</span> ) </span><br><span class="line">      totaltime += runtime , cnt++;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">" [Iteration %d Time : %lf ]\n"</span> , i+<span class="number">1</span> , runtime );</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    REP(i,m) REP(j,n) &#123;</span></span><br><span class="line"><span class="comment">      double ans = 0;</span></span><br><span class="line"><span class="comment">      REP(u,k) ans += A[i*k+u]*B[u*n+j];</span></span><br><span class="line"><span class="comment">      error += (ans-C[i*n+j])*(ans-C[i*n+j]);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    printf(" [Error = %lf ]\n" , error );</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Average Time : %lf \n"</span> , totaltime/cnt );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><table>
+<thead>
+<tr>
+<th>AVX16 单线程CPU</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>矩阵大小</td>
+<td></td>
+<td></td>
+<td>Float16</td>
+<td></td>
+<td></td>
+<td>Int16</td>
+<td></td>
+<td></td>
+<td>Int8</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>M</td>
+<td>N</td>
+<td>K</td>
+<td>MKLDNN</td>
+<td>MKL</td>
+<td>Eigen3</td>
+<td>MKLDNN</td>
+<td>MKL</td>
+<td>Eigen3</td>
+<td>MKLDNN</td>
+<td>MKL</td>
+<td>Eigen3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2048</td>
+<td>1320</td>
+<td>0.001295</td>
+<td>0.001204</td>
+<td>0.002072</td>
+<td>\</td>
+<td>0.001089</td>
+<td>0.005318</td>
+<td>0.038058</td>
+<td>0.000793</td>
+<td>0.006</td>
+</tr>
+<tr>
+<td>5</td>
+<td>512</td>
+<td>2048</td>
+<td>0.000763</td>
+<td>0.000498</td>
+<td>0.000786</td>
+<td>\</td>
+<td>0.000539</td>
+<td>0.001926</td>
+<td>0.017806</td>
+<td>0.000354</td>
+<td>0.002</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2048</td>
+<td>512</td>
+<td>0.000679</td>
+<td>0.000475</td>
+<td>0.000801</td>
+<td>\</td>
+<td>0.000490</td>
+<td>0.002057</td>
+<td>0.017584</td>
+<td>0.000317</td>
+<td>0.002</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2048</td>
+<td>2048</td>
+<td>0.002650</td>
+<td>0.002028</td>
+<td>0.003185</td>
+<td>\</td>
+<td>0.002116</td>
+<td>0.007945</td>
+<td>0.080426</td>
+<td>0.001405</td>
+<td>0.009</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2457</td>
+<td>2048</td>
+<td>0.003639</td>
+<td>0.002482</td>
+<td>0.003942</td>
+<td>\</td>
+<td>0.002531</td>
+<td>0.009683</td>
+<td>0.096175</td>
+<td>0.001714</td>
+<td>0.011:</td>
+</tr>
+</tbody>
+</table>
+<p>OpenBLAS似乎是实现密集密集矩阵乘法的最佳库（至少是我测试过的机器的w.r.t）。随着核心数量的增加和矩阵的尺寸的增加，它可以很好地扩展。</p>
+<p>对于多线程应用程序，</p>
+<p>OpenBLAS&gt;MKL&gt;ATLAS&gt;&gt;EIGEN&gt;ACML</p>
+<p>对于单线程应用，</p>
+<p>OpenBLAS≈ACML&gt;MKL&gt;ATLAS&gt;&gt;EIGEN</p>
+<p>也许下次我会把稀疏稠密矩阵乘法的一些比较，</p>
+<p>源代码</p>
+<p>我已经附上了源代码的程序和绘图脚本在这里以及在</p>
+
       
     </div>
     
@@ -524,7 +650,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

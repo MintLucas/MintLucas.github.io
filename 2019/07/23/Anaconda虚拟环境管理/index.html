@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsing">
+<meta name="description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install some-package --ignore-inst">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Anaconda虚拟环境管理">
 <meta property="og:url" content="http://yoursite.com/2019/07/23/Anaconda虚拟环境管理/index.html">
 <meta property="og:site_name" content="ZHIPENG个人笔记">
-<meta property="og:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsing">
+<meta property="og:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install some-package --ignore-inst">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-27T11:37:33.168Z">
+<meta property="og:updated_time" content="2020-07-29T02:46:47.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Anaconda虚拟环境管理">
-<meta name="twitter:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install -i https://pypi.tuna.tsing">
+<meta name="twitter:description" content="Anaconda虚拟环境管理123456789conda env listconda remove -n py27tf15 --allconda create -n py27tf113 pip python=2.7source activate py27tf15export PIP_DEFAULT_TIMEOUT=100 pip install some-package --ignore-inst">
 
 
 
@@ -342,7 +342,7 @@
       
 
       
-        <h3 id="Anaconda虚拟环境管理"><a href="#Anaconda虚拟环境管理" class="headerlink" title="Anaconda虚拟环境管理"></a>Anaconda虚拟环境管理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">conda env <span class="built_in">list</span></span><br><span class="line">conda remove -n py27tf15 --all</span><br><span class="line">conda create -n py27tf113 pip python=<span class="number">2.7</span></span><br><span class="line">source activate py27tf15</span><br><span class="line"><span class="keyword">export</span> PIP_DEFAULT_TIMEOUT=<span class="number">100</span> </span><br><span class="line">pip install -i https:<span class="comment">//pypi.tuna.tsinghua.edu.cn/simple some-package --ignore-installed --upgrade tensorflow-gpu</span></span><br><span class="line">source deactivate py27tf15</span><br><span class="line">pip uninstall tensorflow-gpu<span class="number">-1.5</span><span class="number">.0</span></span><br><span class="line">pip install tensorflow-gpu==<span class="number">1.4</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Anaconda虚拟环境管理"><a href="#Anaconda虚拟环境管理" class="headerlink" title="Anaconda虚拟环境管理"></a>Anaconda虚拟环境管理</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">conda env <span class="built_in">list</span></span><br><span class="line">conda remove -n py27tf15 --all</span><br><span class="line">conda create -n py27tf113 pip python=<span class="number">2.7</span></span><br><span class="line">source activate py27tf15</span><br><span class="line"><span class="keyword">export</span> PIP_DEFAULT_TIMEOUT=<span class="number">100</span> </span><br><span class="line">pip install some-package --ignore-installed --upgrade tensorflow-gpu -i https:<span class="comment">//pypi.tuna.tsinghua.edu.cn/simple</span></span><br><span class="line">source deactivate py27tf15</span><br><span class="line">pip uninstall tensorflow-gpu<span class="number">-1.5</span><span class="number">.0</span></span><br><span class="line">pip install tensorflow-gpu==<span class="number">1.4</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
 <h3 id="Sublime配置Anaconda"><a href="#Sublime配置Anaconda" class="headerlink" title="Sublime配置Anaconda"></a>Sublime配置Anaconda</h3><ol>
 <li><p>command+shift+p输入install package</p>
 </li>
@@ -356,8 +356,8 @@
 </ol>
 <h3 id="Jupyter-NoteBook切换虚拟环境"><a href="#Jupyter-NoteBook切换虚拟环境" class="headerlink" title="Jupyter NoteBook切换虚拟环境"></a>Jupyter NoteBook切换虚拟环境</h3><blockquote>
 <p>同样进入虚拟环境后</p>
-<p>conda install ipykernal</p>
-<p>conda install nb_conda_kernals</p>
+<p>pip install ipykernel -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple" target="_blank" rel="noopener">https://pypi.tuna.tsinghua.edu.cn/simple</a></p>
+<p>python -m ipykernel install –name py27tf15</p>
 <p>每个环境都装，jupyter notebook不需要每个都装</p>
 </blockquote>
 <h3 id="Cuda命令记录"><a href="#Cuda命令记录" class="headerlink" title="Cuda命令记录"></a>Cuda命令记录</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -g -G <span class="number">00</span>_NVIDABlog_lstm.cu -o <span class="number">00</span>_NVIDABlog_lstm -L -arch=sm_52 -DPERFOPTS=<span class="number">31</span> -lcublas -lcurand</span><br></pre></td></tr></table></figure>
@@ -495,7 +495,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
