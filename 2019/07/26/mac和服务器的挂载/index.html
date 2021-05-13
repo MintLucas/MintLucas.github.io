@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="ZHIPENG个人笔记">
 <meta property="og:description" content="12345&amp;gt; brew install sshfs&amp;gt; brew update-reset&amp;gt; sshfs -C -o reconnect lizhipeng@10.12.8.26:/home/resources/lizhipeng /Users/zhipeng/win10/sshRemote&amp;gt; sudo diskutil umount force /Users/zhipen">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-01T09:32:29.411Z">
+<meta property="og:updated_time" content="2021-04-29T02:58:50.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac和服务器的挂载">
 <meta name="twitter:description" content="12345&amp;gt; brew install sshfs&amp;gt; brew update-reset&amp;gt; sshfs -C -o reconnect lizhipeng@10.12.8.26:/home/resources/lizhipeng /Users/zhipeng/win10/sshRemote&amp;gt; sudo diskutil umount force /Users/zhipen">
@@ -370,6 +370,9 @@
 <p>参考：<a href="https://segmentfault.com/a/1190000007501763" target="_blank" rel="noopener">https://segmentfault.com/a/1190000007501763</a></p>
 <p>最早只是想复制，复制操作太多直接挂载了⬆️</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r lizhipeng@<span class="number">10.12</span><span class="number">.8</span><span class="number">.26</span>:/home/resources/lizhipeng/lstm-src /Users/zhipeng/win10</span><br></pre></td></tr></table></figure>
+<h3 id="删除某软件日志"><a href="#删除某软件日志" class="headerlink" title="删除某软件日志"></a>删除某软件日志</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以IDEA为例</span><br><span class="line">rm -rf ~/Library/Application Support/JetBrains/IntelliJIdea2021.1</span><br><span class="line">rm -rf ~/Library/Cashe/JetBrains/IntelliJIdea2021.1</span><br></pre></td></tr></table></figure>
+<p>删除JAVA</p>
+<p>查看路径/usr/libexec/java_home -V<br>出来的全删了</p>
 
       
     </div>
@@ -464,8 +467,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -480,7 +492,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -532,6 +544,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除某软件日志"><span class="nav-number">1.</span> <span class="nav-text">删除某软件日志</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
