@@ -90,7 +90,7 @@
 <meta property="og:description" content="hive操作123456789101112131415161718192021222324252627282930313233343536373839404142434445#1.创建数据库hive&amp;gt;create database myhive1;#2.使用数据库hive&amp;gt;use myhive1;#3.查询现在使用的数据库hive&amp;gt;select current_database;">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://zpl-1257951097.cos.ap-beijing.myqcloud.com/blog_img/2020/20200619102135.png">
-<meta property="og:updated_time" content="2021-05-13T08:15:37.194Z">
+<meta property="og:updated_time" content="2021-05-21T02:19:15.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hive操作和踩坑指北">
 <meta name="twitter:description" content="hive操作123456789101112131415161718192021222324252627282930313233343536373839404142434445#1.创建数据库hive&amp;gt;create database myhive1;#2.使用数据库hive&amp;gt;use myhive1;#3.查询现在使用的数据库hive&amp;gt;select current_database;">
@@ -446,11 +446,12 @@
 <p>使用distribute和sort进行分组排序</p>
 <p><code>select * from baidu_click distribute by 列名 sort by click desc;</code></p>
 <p>distribute by + sort by就是该替代方案，被distribute by设定的字段为KEY，数据会被HASH分发到不同的reducer机器上，然后sort by会对同一个reducer机器上的每组数据进行局部排序。</p>
-<h4 id="3-Group-By"><a href="#3-Group-By" class="headerlink" title="3. Group By"></a>3. Group By</h4><ul>
+<h4 id="3-Group-By"><a href="#3-Group-By" class="headerlink" title="3. Group By"></a>3. <a href="https://www.huaweicloud.com/articles/c48969c9211a71d531e4773feb9148a0.html" target="_blank" rel="noopener">Group By</a></h4><ul>
 <li>group by的作用是用来分组，表示按照某些字段的值进行分组，相同的值放到一起</li>
-<li>GROUP BY X, Y意思是将所有具有相同X字段值和Y字段值的记录放到一个分组里，我们找同一学期报同一课程的总(count)人数或其他函数</li>
+<li>GROUP BY X, Y意思是将所有具有相同X字段值和Y字段值的记录对应其他列数据放入一行，我们找同一学期报同一课程的总(count)人数，筛选条件是且的关系</li>
 <li>一些没有聚合函数的字段必须要加到group by 后边，不和聚合函数使用<strong>可起到去重作用</strong></li>
 <li>通常和聚合函数sum,avg一起使用，一个Key就是一个逻辑上的group来分组操作，having联合使用在组内过滤，where是整个数据过滤</li>
+<li>Select列表中的所有列必须是聚合列（SUM,MIN/MAX,AVG等）或是GROUP BY 子句中包括的列</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">输出</span><br><span class="line">Subject   学期   Attendee</span><br><span class="line">---------------------------------</span><br><span class="line">ITB001    1          John</span><br><span class="line">ITB001    1          Bob</span><br><span class="line">ITB001    1          Mickey</span><br><span class="line">ITB001    2          Jenny</span><br><span class="line">ITB001    2          James</span><br><span class="line">MKB114    1          John</span><br><span class="line">MKB114    1          Erica</span><br><span class="line"></span><br><span class="line">SELECT Subject, Count(*)</span><br><span class="line">FROM Subject_Selection</span><br><span class="line">GROUP BY Subject</span><br><span class="line"></span><br><span class="line">Subject    Count</span><br><span class="line">------------------------------</span><br><span class="line">ITB001     5</span><br><span class="line">MKB114     2</span><br><span class="line"></span><br><span class="line">GROUP BY Subject，学期</span><br><span class="line"></span><br><span class="line">Subject    Semester   Count</span><br><span class="line">------------------------------</span><br><span class="line">ITB001     1          3</span><br><span class="line">ITB001     2          2</span><br><span class="line">MKB114     1          2</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
