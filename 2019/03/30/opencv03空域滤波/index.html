@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="opencv,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="实验内容:1、利用均值模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的均值模板平滑灰度图像 2、利用高斯模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的高斯模板平滑灰度图像 3、利用 Laplacian、Robert、Sobel 模板锐化灰度图像。 具体内容:利用 OpenC">
+<meta name="keywords" content="opencv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="opencv03空域滤波">
+<meta property="og:url" content="http://yoursite.com/2019/03/30/opencv03空域滤波/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="实验内容:1、利用均值模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的均值模板平滑灰度图像 2、利用高斯模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的高斯模板平滑灰度图像 3、利用 Laplacian、Robert、Sobel 模板锐化灰度图像。 具体内容:利用 OpenC">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-19T06:21:26.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="opencv03空域滤波">
+<meta name="twitter:description" content="实验内容:1、利用均值模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的均值模板平滑灰度图像 2、利用高斯模板平滑灰度图像。 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 33、55 和 9*9 尺寸的高斯模板平滑灰度图像 3、利用 Laplacian、Robert、Sobel 模板锐化灰度图像。 具体内容:利用 OpenC">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/30/opencv03空域滤波/">
+
+
+
+
+
+  <title>opencv03空域滤波 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/opencv03空域滤波/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">opencv03空域滤波</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-30T19:11:39+08:00">
+                2019-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数字图像处理/" itemprop="url" rel="index">
+                    <span itemprop="name">数字图像处理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容:"></a>实验内容:</h2><p>1、利用均值模板平滑灰度图像。<br> 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 3<em>3、5</em>5 和 9*9 尺寸的均值模板平滑灰度图像</p>
+<p>2、利用高斯模板平滑灰度图像。<br> 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 3<em>3、5</em>5 和 9*9 尺寸的高斯模板平滑灰度图像</p>
+<p>3、利用 Laplacian、Robert、Sobel 模板锐化灰度图像。<br> 具体内容:利用 OpenCV 对图像像素进行操作，分别利用 Laplacian、Robert、Sobel 模板锐化灰度图像 </p>
+<p>4、利用高提升滤波算法增强灰度图像。<br> 具体内容:利用 OpenCV 对图像像素进行操作，设计高提升滤波算法增强图像 </p>
+<p>5、利用均值模板平滑彩色图像。<br> 具体内容:利用 OpenCV 分别对图像像素的 RGB 三个通道进行操作，利用 3<em>3、5</em>5 和 9*9 尺寸的均值模板平滑彩色图像 </p>
+<p>6、利用高斯模板平滑彩色图像。<br> 具体内容:利用 OpenCV 分别对图像像素的 RGB 三个通道进行操作，分别利用 3<em>3、5</em>5 和 9*9 尺寸的高斯模板平滑彩色图像 </p>
+<p>7、利用 Laplacian、Robert、Sobel 模板锐化灰度图像。<br> 具体内容:利用 OpenCV 分别对图像像素的 RGB 三个通道进行操作，分别利用 Laplacian、Robert、Sobel 模板锐化彩色图像 </p>
+<h2 id="实验代码："><a href="#实验代码：" class="headerlink" title="实验代码："></a>实验代码：</h2><p>完整课程PPT和实验要求戳：<a href="https://github.com/MintLucas/Digital_image_process" target="_blank" rel="noopener">https://github.com/MintLucas/Digital_image_process</a></p>
+<p>（<strong>讲解用注释标注在代码中</strong>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lab03_spacialFilter.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/imgcodecs.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/imgproc/imgproc.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/types_c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/core_c.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">spacialFilter</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; f)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, IMREAD_COLOR); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    res.create(image.size(), image.type());<span class="comment">//为输出图像分配内容</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*拉普拉斯滤波核3*3</span></span><br><span class="line"><span class="comment">     0  -1   0</span></span><br><span class="line"><span class="comment">     -1   5  -1</span></span><br><span class="line"><span class="comment">     0  -1   0  */</span></span><br><span class="line">    <span class="comment">//处理除最外围一圈外的所有像素值</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; image.rows - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> uchar * pre = image.ptr&lt;<span class="keyword">const</span> uchar&gt;(i - <span class="number">1</span>);<span class="comment">//前一行</span></span><br><span class="line">        <span class="keyword">const</span> uchar * cur = image.ptr&lt;<span class="keyword">const</span> uchar&gt;(i);<span class="comment">//当前行，第i行</span></span><br><span class="line">        <span class="keyword">const</span> uchar * next = image.ptr&lt;<span class="keyword">const</span> uchar&gt;(i + <span class="number">1</span>);<span class="comment">//下一行</span></span><br><span class="line">        uchar * output = res.ptr&lt;uchar&gt;(i);<span class="comment">//输出图像的第i行</span></span><br><span class="line">        <span class="keyword">int</span> ch = image.channels();<span class="comment">//通道个数</span></span><br><span class="line">        <span class="keyword">int</span> startCol = ch;<span class="comment">//每一行的开始处理点</span></span><br><span class="line">        <span class="keyword">int</span> endCol = (image.cols - <span class="number">1</span>)* ch;<span class="comment">//每一行的处理结束点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = startCol; j &lt; endCol; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//输出图像的遍历指针与当前行的指针同步递增, 以每行的每一个像素点的每一个通道值为一个递增量, 因为要</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//考虑到图像的通道数</span></span><br><span class="line">            <span class="comment">//saturate_cast&lt;uchar&gt;保证结果在uchar范围内</span></span><br><span class="line">            <span class="keyword">if</span>(f.size() == <span class="number">9</span>)&#123;</span><br><span class="line">                <span class="comment">//*output++ = saturate_cast&lt;uchar&gt;(5 * cur[j] - pre[j] - next[j] - cur[j - ch] - cur[j + ch]);</span></span><br><span class="line">                *output++ = saturate_cast&lt;uchar&gt;(f[<span class="number">0</span>]*pre[j-ch] + f[<span class="number">1</span>]*pre[j] + f[<span class="number">2</span>]*pre[j+ch] + f[<span class="number">3</span>]*cur[j-ch] + f[<span class="number">4</span>]*cur[j] + f[<span class="number">5</span>]*cur[j+ch] + f[<span class="number">6</span>]*next[j-ch] + f[<span class="number">7</span>]*next[j] + f[<span class="number">8</span>]*next[j+ch]);</span><br><span class="line">            &#125;</span><br><span class="line">         </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将最外围一圈的像素值设为0</span></span><br><span class="line">    res.row(<span class="number">0</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    res.row(res.rows - <span class="number">1</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    res.col(<span class="number">0</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    res.col(res.cols - <span class="number">1</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    <span class="comment">/*/或者也可以尝试将最外围一圈设置为原图的像素值</span></span><br><span class="line"><span class="comment">     image.row(0).copyTo(result.row(0));</span></span><br><span class="line"><span class="comment">     image.row(image.rows-1).copyTo(result.row(result.rows-1));</span></span><br><span class="line"><span class="comment">     image.col(0).copyTo(result.col(0));</span></span><br><span class="line"><span class="comment">     image.col(image.cols-1).copyTo(result.col(result.cols-1));*/</span></span><br><span class="line">    namedWindow(<span class="string">"拉普拉斯模板-手写"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"拉普拉斯模板-手写"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">xGradient</span><span class="params">(Mat image, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> gx;</span><br><span class="line">    gx = image.at&lt;uchar&gt;(y<span class="number">-1</span>,x+<span class="number">1</span>) + <span class="number">2</span>*image.at&lt;uchar&gt;(y,x+<span class="number">1</span>) + image.at&lt;uchar&gt;(y+<span class="number">1</span>,x+<span class="number">1</span>)</span><br><span class="line">    - image.at&lt;uchar&gt;(y<span class="number">-1</span>,x<span class="number">-1</span>) - <span class="number">2</span>*image.at&lt;uchar&gt;(y,x<span class="number">-1</span>) -image.at&lt;uchar&gt;(y<span class="number">-1</span>,x<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> gx;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">yGradient</span><span class="params">(Mat image, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> gy;</span><br><span class="line">    gy = image.at&lt;uchar&gt;(y<span class="number">-1</span>,x+<span class="number">1</span>) + <span class="number">2</span>*image.at&lt;uchar&gt;(y<span class="number">-1</span>,x) + image.at&lt;uchar&gt;(y+<span class="number">1</span>,x+<span class="number">1</span>)</span><br><span class="line">    - image.at&lt;uchar&gt;(y<span class="number">-1</span>,x<span class="number">-1</span>) - <span class="number">2</span>*image.at&lt;uchar&gt;(y+<span class="number">1</span>,x) -image.at&lt;uchar&gt;(y<span class="number">-1</span>,x<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> gy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sobelXY</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> Gx, Gy, sum;</span><br><span class="line">    Mat img = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>);</span><br><span class="line">    Mat dst = img.clone();</span><br><span class="line">    <span class="keyword">if</span>(!img.data)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> y = <span class="number">0</span>; y &lt; img.rows; y++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> x = <span class="number">0</span>; x &lt; img.cols; x++)</span><br><span class="line">        &#123;</span><br><span class="line">            dst.at&lt;uchar&gt;(y,x) = <span class="number">0.0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> y = <span class="number">1</span>; y &lt; img.rows - <span class="number">1</span>; y++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">int</span> x = <span class="number">1</span>; x &lt; img.cols - <span class="number">1</span> ; x++ )<span class="comment">//错误原因，-1忘了，所以维数不匹配</span></span><br><span class="line">        &#123;</span><br><span class="line">            Gx = xGradient(img, x, y);</span><br><span class="line">            Gy = yGradient(img, x, y);</span><br><span class="line">            sum = <span class="built_in">abs</span>(Gx) + <span class="built_in">abs</span>(Gy);</span><br><span class="line">            sum = sum &gt; <span class="number">255</span> ? <span class="number">255</span> : sum;</span><br><span class="line">            sum = sum &lt; <span class="number">0</span> ? <span class="number">0</span> : sum;</span><br><span class="line">            dst.at&lt;uchar&gt;(y,x) = sum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    imshow(<span class="string">"Sobel"</span>,dst);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MeanFilter_Gray</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, meanRes;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    blur(image, meanRes, Size(a, b));            <span class="comment">//均值滤波</span></span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"均值滤波"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"均值滤波"</span>, meanRes);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MeanFilter_Color</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, meanRes;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">1</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    blur(image, meanRes, Size(a, b));            <span class="comment">//均值滤波</span></span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"均值滤波"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"均值滤波"</span>, meanRes);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GaussianFilter_Gray</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    GaussianBlur(image, res, Size(a, b), <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"高斯滤波"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"高斯滤波"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GaussianFilter_Color</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">1</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    GaussianBlur(image, res, Size(a, b), <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"高斯滤波"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"高斯滤波"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sobel</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat grad_x, grad_y;</span><br><span class="line">    Mat abs_grad_x, abs_grad_y;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    Sobel(image, grad_x, image.depth(), <span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, BORDER_DEFAULT);</span><br><span class="line">    convertScaleAbs(grad_x, abs_grad_x);</span><br><span class="line">    imshow(<span class="string">"【效果图】 X方向Sobel"</span>, abs_grad_x);</span><br><span class="line">    </span><br><span class="line">    Sobel(image, grad_y, image.depth(), <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, BORDER_DEFAULT);</span><br><span class="line">    convertScaleAbs(grad_y, abs_grad_y);</span><br><span class="line">    imshow(<span class="string">"【效果图】Y方向Sobel"</span>, abs_grad_y);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//【5】合并梯度(近似)</span></span><br><span class="line">    addWeighted(abs_grad_x, <span class="number">0.5</span>, abs_grad_y, <span class="number">0.5</span>, <span class="number">0</span>, res);</span><br><span class="line">    imshow(<span class="string">"【效果图】整体方向Sobel"</span>, res);</span><br><span class="line">    </span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sobel_Color</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat grad_x, grad_y;</span><br><span class="line">    Mat abs_grad_x, abs_grad_y;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">1</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    Sobel(image, grad_x, image.depth(), <span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, BORDER_DEFAULT);</span><br><span class="line">    convertScaleAbs(grad_x, abs_grad_x);</span><br><span class="line">    imshow(<span class="string">"【效果图】 X方向Sobel"</span>, abs_grad_x);</span><br><span class="line">    </span><br><span class="line">    Sobel(image, grad_y, image.depth(), <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, BORDER_DEFAULT);</span><br><span class="line">    convertScaleAbs(grad_y, abs_grad_y);</span><br><span class="line">    imshow(<span class="string">"【效果图】Y方向Sobel"</span>, abs_grad_y);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//【5】合并梯度(近似)</span></span><br><span class="line">    addWeighted(abs_grad_x, <span class="number">0.5</span>, abs_grad_y, <span class="number">0.5</span>, <span class="number">0</span>, res);</span><br><span class="line">    imshow(<span class="string">"【效果图】整体方向Sobel"</span>, res);</span><br><span class="line">    </span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//拉普拉斯模板</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Laplacian_Color</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, IMREAD_COLOR); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    Mat kernel = (Mat_&lt;<span class="keyword">float</span>&gt;(<span class="number">3</span>, <span class="number">3</span>) &lt;&lt; <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">5</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line">    filter2D(image, res, image.depth(), kernel);</span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"拉普拉斯模板"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"拉普拉斯模板"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Laplacian_Gray</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    Mat kernel = (Mat_&lt;<span class="keyword">float</span>&gt;(<span class="number">3</span>, <span class="number">3</span>) &lt;&lt; <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">5</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>);</span><br><span class="line">    filter2D(image, res, image.depth(), kernel);</span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"拉普拉斯模板"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"拉普拉斯模板"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Lap2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, IMREAD_COLOR); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    res.create(image.size(), image.type());<span class="comment">//为输出图像分配内容</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*拉普拉斯滤波核3*3</span></span><br><span class="line"><span class="comment">     0  -1   0</span></span><br><span class="line"><span class="comment">     -1   5  -1</span></span><br><span class="line"><span class="comment">     0  -1   0  */</span></span><br><span class="line">    <span class="comment">//处理除最外围一圈外的所有像素值</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; image.rows - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> uchar * pre = image.ptr&lt;<span class="keyword">const</span> uchar&gt;(i - <span class="number">1</span>);<span class="comment">//前一行</span></span><br><span class="line">        <span class="keyword">const</span> uchar * cur = image.ptr&lt;<span class="keyword">const</span> uchar&gt;(i);<span class="comment">//当前行，第i行</span></span><br><span class="line">        <span class="keyword">const</span> uchar * next = image.ptr&lt;<span class="keyword">const</span> uchar&gt;(i + <span class="number">1</span>);<span class="comment">//下一行</span></span><br><span class="line">        uchar * output = res.ptr&lt;uchar&gt;(i);<span class="comment">//输出图像的第i行</span></span><br><span class="line">        <span class="keyword">int</span> ch = image.channels();<span class="comment">//通道个数</span></span><br><span class="line">        <span class="keyword">int</span> startCol = ch;<span class="comment">//每一行的开始处理点</span></span><br><span class="line">        <span class="keyword">int</span> endCol = (image.cols - <span class="number">1</span>)* ch;<span class="comment">//每一行的处理结束点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = startCol; j &lt; endCol; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//输出图像的遍历指针与当前行的指针同步递增, 以每行的每一个像素点的每一个通道值为一个递增量, 因为要</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//考虑到图像的通道数</span></span><br><span class="line">            <span class="comment">//saturate_cast&lt;uchar&gt;保证结果在uchar范围内</span></span><br><span class="line">            *output++ = saturate_cast&lt;uchar&gt;(<span class="number">5</span> * cur[j] - pre[j] - next[j] - cur[j - ch] - cur[j + ch]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将最外围一圈的像素值设为0</span></span><br><span class="line">    res.row(<span class="number">0</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    res.row(res.rows - <span class="number">1</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    res.col(<span class="number">0</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    res.col(res.cols - <span class="number">1</span>).setTo(Scalar(<span class="number">0</span>));</span><br><span class="line">    <span class="comment">/*/或者也可以尝试将最外围一圈设置为原图的像素值</span></span><br><span class="line"><span class="comment">     image.row(0).copyTo(result.row(0));</span></span><br><span class="line"><span class="comment">     image.row(image.rows-1).copyTo(result.row(result.rows-1));</span></span><br><span class="line"><span class="comment">     image.col(0).copyTo(result.col(0));</span></span><br><span class="line"><span class="comment">     image.col(image.cols-1).copyTo(result.col(result.cols-1));*/</span></span><br><span class="line">    namedWindow(<span class="string">"拉普拉斯模板-手写"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"拉普拉斯模板-手写"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Robert_RGB</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">1</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    </span><br><span class="line">    res = image.clone();</span><br><span class="line">    </span><br><span class="line">    CvScalar t1, t2, t3, t4, t;</span><br><span class="line">    IplImage res2 = IplImage(image);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; res2.height<span class="number">-1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; res2.width<span class="number">-1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            t1 = cvGet2D(&amp;res2, i, j);</span><br><span class="line">            t2 = cvGet2D(&amp;res2, i+<span class="number">1</span>, j+<span class="number">1</span>);</span><br><span class="line">            t3 = cvGet2D(&amp;res2, i, j + <span class="number">1</span>);</span><br><span class="line">            t4 = cvGet2D(&amp;res2, i + <span class="number">1</span>, j);</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">3</span>; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> t7 = (t1.val[k] - t2.val[k])*(t1.val[k] - t2.val[k])+ (t4.val[k] - t3.val[k])*(t4.val[k] - t3.val[k]);</span><br><span class="line">                t.val[k] = <span class="built_in">sqrt</span>(t7);</span><br><span class="line">            &#125;</span><br><span class="line">            cvSet2D(&amp;res2, i, j, t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    res = cvarrToMat(&amp;res2);</span><br><span class="line">    namedWindow(<span class="string">"Robert_RGB滤波"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"Robert_RGB滤波"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Robert_G</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    namedWindow(<span class="string">"原图"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"原图"</span>, image);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    res = image.clone();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; image.rows - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; image.cols - <span class="number">1</span>; j++) &#123;</span><br><span class="line">            <span class="comment">//根据公式计算</span></span><br><span class="line">            <span class="keyword">int</span> t1 = (image.at&lt;uchar&gt;(i, j) -</span><br><span class="line">                      image.at&lt;uchar&gt;(i + <span class="number">1</span>, j + <span class="number">1</span>))*</span><br><span class="line">            (image.at&lt;uchar&gt;(i, j) -</span><br><span class="line">             image.at&lt;uchar&gt;(i + <span class="number">1</span>, j + <span class="number">1</span>));</span><br><span class="line">            <span class="keyword">int</span> t2 = (image.at&lt;uchar&gt;(i + <span class="number">1</span>, j) -</span><br><span class="line">                      image.at&lt;uchar&gt;(i, j + <span class="number">1</span>))*</span><br><span class="line">            (image.at&lt;uchar&gt;(i + <span class="number">1</span>, j) -</span><br><span class="line">             image.at&lt;uchar&gt;(i, j + <span class="number">1</span>));</span><br><span class="line">            <span class="comment">//计算g（x,y）</span></span><br><span class="line">            res.at&lt;uchar&gt;(i, j) = (uchar)<span class="built_in">sqrt</span>(t1 + t2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    namedWindow(<span class="string">"Robert_G滤波"</span>, WINDOW_AUTOSIZE); <span class="comment">// Create a window for display.</span></span><br><span class="line">    imshow(<span class="string">"Robert_G滤波"</span>, res);                <span class="comment">// Show our image inside it.</span></span><br><span class="line">    waitKey(<span class="number">0</span>); <span class="comment">// Wait for a keystroke in the window</span></span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EnhanceFilter</span><span class="params">(Mat img, Mat &amp;dst, <span class="keyword">double</span> dProportion, <span class="keyword">int</span> nTempH, <span class="keyword">int</span> nTempW, <span class="keyword">int</span> nTempMY, <span class="keyword">int</span> nTempMX, <span class="keyword">float</span> *pfArray, <span class="keyword">float</span> fCoef)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> i, j, nHeight = img.rows, nWidth = img.cols;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; GrayMat1, GrayMat2, GrayMat3;<span class="comment">//暂存按比例叠加图像，R,G,B三通道</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vecRow1(nWidth, <span class="number">0</span>), vecRow2(nWidth, <span class="number">0</span>), vecRow3(nWidth, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nHeight; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        GrayMat1.push_back(vecRow1);</span><br><span class="line">        GrayMat2.push_back(vecRow2);</span><br><span class="line">        GrayMat3.push_back(vecRow3);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//锐化图像，输出带符号响应，并与原图像按比例叠加</span></span><br><span class="line">    <span class="keyword">for</span> (i = nTempMY; i &lt; nHeight - (nTempH - nTempMY) + <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = nTempMX; j &lt; nWidth - (nTempW - nTempMX) + <span class="number">1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">float</span> fResult1 = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">float</span> fResult2 = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">float</span> fResult3 = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; nTempH; k++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">0</span>; l &lt; nTempW; l++)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//分别计算三通道加权和</span></span><br><span class="line">                    fResult1 += img.at&lt;Vec3b&gt;(i, j)[<span class="number">0</span>] * pfArray[k*nTempW + <span class="number">1</span>];</span><br><span class="line">                    fResult2 += img.at&lt;Vec3b&gt;(i, j)[<span class="number">1</span>] * pfArray[k*nTempW + <span class="number">1</span>];</span><br><span class="line">                    fResult3 += img.at&lt;Vec3b&gt;(i, j)[<span class="number">2</span>] * pfArray[k*nTempW + <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//三通道加权和分别乘以系数并限制响应范围，最后和原图像按比例混合</span></span><br><span class="line">            fResult1 *= fCoef;</span><br><span class="line">            <span class="keyword">if</span> (fResult1 &gt; <span class="number">255</span>)</span><br><span class="line">                fResult1 = <span class="number">255</span>;</span><br><span class="line">            <span class="keyword">if</span> (fResult1 &lt; <span class="number">-255</span>)</span><br><span class="line">                fResult1 = <span class="number">-255</span>;</span><br><span class="line">            GrayMat1[i][j] = dProportion * img.at&lt;Vec3b&gt;(i, j)[<span class="number">0</span>] + fResult1 + <span class="number">0.5</span>;</span><br><span class="line">            </span><br><span class="line">            fResult2 *= fCoef;</span><br><span class="line">            <span class="keyword">if</span> (fResult2 &gt; <span class="number">255</span>)</span><br><span class="line">                fResult2 = <span class="number">255</span>;</span><br><span class="line">            <span class="keyword">if</span> (fResult2 &lt; <span class="number">-255</span>)</span><br><span class="line">                fResult2 = <span class="number">-255</span>;</span><br><span class="line">            GrayMat2[i][j] = dProportion * img.at&lt;Vec3b&gt;(i, j)[<span class="number">1</span>] + fResult2 + <span class="number">0.5</span>;</span><br><span class="line">            </span><br><span class="line">            fResult3 *= fCoef;</span><br><span class="line">            <span class="keyword">if</span> (fResult3 &gt; <span class="number">255</span>)</span><br><span class="line">                fResult3 = <span class="number">255</span>;</span><br><span class="line">            <span class="keyword">if</span> (fResult3 &lt; <span class="number">-255</span>)</span><br><span class="line">                fResult3 = <span class="number">-255</span>;</span><br><span class="line">            GrayMat3[i][j] = dProportion * img.at&lt;Vec3b&gt;(i, j)[<span class="number">2</span>] + fResult3 + <span class="number">0.5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> nMax1 = <span class="number">0</span>, nMax2 = <span class="number">0</span>, nMax3 = <span class="number">0</span>;<span class="comment">//三通道最大灰度和值</span></span><br><span class="line">    <span class="keyword">int</span> nMin1 = <span class="number">65535</span>, nMin2 = <span class="number">65535</span>, nMin3 = <span class="number">65535</span>;<span class="comment">//三通道最小灰度和值</span></span><br><span class="line">    <span class="comment">//分别统计三通道最大值最小值</span></span><br><span class="line">    <span class="keyword">for</span> (i = nTempMY; i &lt; nHeight - (nTempH - nTempMY) + <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = nTempMX; j &lt; nWidth - (nTempW - nTempMX) + <span class="number">1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (GrayMat1[i][j] &gt; nMax1)</span><br><span class="line">                nMax1 = GrayMat1[i][j];</span><br><span class="line">            <span class="keyword">if</span> (GrayMat1[i][j] &lt; nMin1)</span><br><span class="line">                nMin1 = GrayMat1[i][j];</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (GrayMat2[i][j] &gt; nMax2)</span><br><span class="line">                nMax2 = GrayMat2[i][j];</span><br><span class="line">            <span class="keyword">if</span> (GrayMat2[i][j] &lt; nMin2)</span><br><span class="line">                nMin2 = GrayMat2[i][j];</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (GrayMat3[i][j] &gt; nMax3)</span><br><span class="line">                nMax3 = GrayMat3[i][j];</span><br><span class="line">            <span class="keyword">if</span> (GrayMat3[i][j] &lt; nMin3)</span><br><span class="line">                nMin3 = GrayMat3[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将按比例叠加后的三通道图像取值范围重新归一化到[0,255]</span></span><br><span class="line">    <span class="keyword">int</span> nSpan1 = nMax1 - nMin1, nSpan2 = nMax2 - nMin2, nSpan3 = nMax3 - nMin3;</span><br><span class="line">    <span class="keyword">for</span> (i = nTempMY; i &lt; nHeight - (nTempH - nTempMY) + <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = nTempMX; j &lt; nWidth - (nTempW - nTempMX) + <span class="number">1</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> br, bg, bb;</span><br><span class="line">            <span class="keyword">if</span> (nSpan1 &gt; <span class="number">0</span>)</span><br><span class="line">                br = (GrayMat1[i][j] - nMin1) * <span class="number">255</span> / nSpan1;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (GrayMat1[i][j] &lt;= <span class="number">255</span>)</span><br><span class="line">                br = GrayMat1[i][j];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                br = <span class="number">255</span>;</span><br><span class="line">            dst.at&lt;Vec3b&gt;(i, j)[<span class="number">0</span>] = br;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (nSpan2 &gt; <span class="number">0</span>)</span><br><span class="line">                bg = (GrayMat2[i][j] - nMin2) * <span class="number">255</span> / nSpan2;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (GrayMat2[i][j] &lt;= <span class="number">255</span>)</span><br><span class="line">                bg = GrayMat2[i][j];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                bg = <span class="number">255</span>;</span><br><span class="line">            dst.at&lt;Vec3b&gt;(i, j)[<span class="number">1</span>] = bg;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (nSpan3 &gt; <span class="number">0</span>)</span><br><span class="line">                bb = (GrayMat3[i][j] - nMin3) * <span class="number">255</span> / nSpan3;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (GrayMat3[i][j] &lt;= <span class="number">255</span>)</span><br><span class="line">                bb = GrayMat3[i][j];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                bb = <span class="number">255</span>;</span><br><span class="line">            dst.at&lt;Vec3b&gt;(i, j)[<span class="number">2</span>] = bb;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">enhanceFilter</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>);</span><br><span class="line">    imshow(<span class="string">"原图"</span>, img);</span><br><span class="line">    Mat dst = img.clone();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> Template_Laplacian2[<span class="number">9</span>] = &#123; <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">8</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span> &#125;;<span class="comment">//对45度各向同性</span></span><br><span class="line">    <span class="comment">/*************************************************************************************************************</span></span><br><span class="line"><span class="comment">     高提升滤波</span></span><br><span class="line"><span class="comment">     dProportion：高提升滤波中原图像的混合比例</span></span><br><span class="line"><span class="comment">     nTempH：模板高度，nTempW：模板宽度</span></span><br><span class="line"><span class="comment">     nTempMY：模板中心元素坐标，nTempMX：模板中心元素坐标</span></span><br><span class="line"><span class="comment">     fpArray：指向模板数组的指针，可以选取不同模板实现不同滤波的高提升版本</span></span><br><span class="line"><span class="comment">     fCoef：模板系数</span></span><br><span class="line"><span class="comment">     **************************************************************************************************************/</span></span><br><span class="line">    EnhanceFilter(img, dst, <span class="number">1.8</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, Template_Laplacian2, <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    imshow(<span class="string">"高提升Laplacian"</span>, dst);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Lab03</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Smooth_Avg = &#123; <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span>, <span class="number">1</span>/<span class="number">9</span> &#125;;</span><br><span class="line">    <span class="comment">//Gauss平滑1/16</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Smooth_Gauss = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="comment">//Sobel垂直边缘检测</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Smooth_HSobel = &#123; <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="comment">//Sobel水平边缘检测</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Smooth_VSobel = &#123; <span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="comment">//LOG边缘检测</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Log = &#123; <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">-2</span>, <span class="number">16</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="comment">//Laplacian边缘检测</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Laplacian1 = &#123; <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">5</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span> &#125;;<span class="comment">//对90度各向同性</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">float</span>&gt; Template_Laplacian2 = &#123; <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">8</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span> &#125;;<span class="comment">//对45度各向同性</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//    MeanFilter_Gray(3,3);</span></span><br><span class="line"><span class="comment">//    MeanFilter_Gray(5, 5);</span></span><br><span class="line"><span class="comment">//    MeanFilter_Gray(9, 9);</span></span><br><span class="line"><span class="comment">//    GaussianFilter_Gray(3,3);</span></span><br><span class="line"><span class="comment">//    GaussianFilter_Gray(5, 5);</span></span><br><span class="line"><span class="comment">//    GaussianFilter_Gray(9, 9);</span></span><br><span class="line"><span class="comment">//    Laplacian_Gray();</span></span><br><span class="line"><span class="comment">//    Robert_G();</span></span><br><span class="line">    <span class="comment">//Sobel();</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    MeanFilter_Color(<span class="number">3</span>, <span class="number">3</span>);</span><br><span class="line">    MeanFilter_Color(<span class="number">5</span>, <span class="number">5</span>);</span><br><span class="line">    MeanFilter_Color(<span class="number">9</span>, <span class="number">9</span>);</span><br><span class="line">    GaussianFilter_Color(<span class="number">3</span>, <span class="number">3</span>);</span><br><span class="line">    GaussianFilter_Color(<span class="number">5</span>, <span class="number">5</span>);</span><br><span class="line">    GaussianFilter_Color(<span class="number">9</span>, <span class="number">9</span>);</span><br><span class="line">    sobelXY();</span><br><span class="line">    spacialFilter(Template_Laplacian1);</span><br><span class="line">    spacialFilter(Template_Laplacian2);</span><br><span class="line">    Laplacian_Color();</span><br><span class="line">    enhanceFilter();</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">//    Robert_RGB();</span></span><br><span class="line"><span class="comment">//    Sobel_Color();</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/opencv/" rel="tag"># opencv</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/26/opencv02直方图均衡化/" rel="next" title="opencv02直方图均衡">
+                <i class="fa fa-chevron-left"></i> opencv02直方图均衡
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/31/opencv04图像去噪/" rel="prev" title="opencv04图像去噪">
+                opencv04图像去噪 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验内容"><span class="nav-number">1.</span> <span class="nav-text">实验内容:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验代码："><span class="nav-number">2.</span> <span class="nav-text">实验代码：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

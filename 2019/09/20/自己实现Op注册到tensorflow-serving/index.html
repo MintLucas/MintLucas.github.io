@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="tensorflow,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  使用自定义操作提供TensorFlow模型TensorFlow预先构建了一个广泛的操作库和操作内核（实现），可针对不同的硬件类型（CPU，GPU等）进行微调。这些操作自动链接到Tens">
+<meta name="keywords" content="tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己实现Op注册到tensorflow serving">
+<meta property="og:url" content="http://yoursite.com/2019/09/20/自己实现Op注册到tensorflow-serving/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  使用自定义操作提供TensorFlow模型TensorFlow预先构建了一个广泛的操作库和操作内核（实现），可针对不同的硬件类型（CPU，GPU等）进行微调。这些操作自动链接到Tens">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Users/zhipeng/Library/Application%20Support/typora-user-images/image-20190923101116942.png">
+<meta property="og:updated_time" content="2020-08-09T09:48:34.152Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己实现Op注册到tensorflow serving">
+<meta name="twitter:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  使用自定义操作提供TensorFlow模型TensorFlow预先构建了一个广泛的操作库和操作内核（实现），可针对不同的硬件类型（CPU，GPU等）进行微调。这些操作自动链接到Tens">
+<meta name="twitter:image" content="http://yoursite.com/Users/zhipeng/Library/Application%20Support/typora-user-images/image-20190923101116942.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/20/自己实现Op注册到tensorflow-serving/">
+
+
+
+
+
+  <title>自己实现Op注册到tensorflow serving | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/自己实现Op注册到tensorflow-serving/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">自己实现Op注册到tensorflow serving</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-20T13:41:04+08:00">
+                2019-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AiSpeech/" itemprop="url" rel="index">
+                    <span itemprop="name">AiSpeech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。<br>整个项目见<a href="https://github.com/MintLucas/Cuda_lstm_forward/tree/master" target="_blank" rel="noopener">Github</a>，流程见<a href="https://mintlucas.github.io/plan/" target="_blank" rel="noopener">博客</a>，博主也刚入门cuda，欢迎留言探讨~</p>
+</blockquote>
+<h1 id="使用自定义操作提供TensorFlow模型"><a href="#使用自定义操作提供TensorFlow模型" class="headerlink" title="使用自定义操作提供TensorFlow模型"></a>使用自定义操作提供TensorFlow模型</h1><p>TensorFlow预先构建了一个广泛的操作库和操作内核（实现），可针对不同的硬件类型（CPU，GPU等）进行微调。这些操作自动链接到TensorFlow Serving ModelServer二进制文件，无需用户进行额外的工作。但是，有两个用例需要用户在ops中显式链接到ModelServer：</p>
+<ul>
+<li>您已经编写了自己的自定义操作（例如，使用 <a href="https://mp.csdn.net/mdeditor/102598577#" target="_blank" rel="noopener">本指南</a>）</li>
+<li>您正在使用TensorFlow未附带的已实现的操作系统</li>
+</ul>
+<p>注意：从2.0版开始，TensorFlow不再分发contrib模块; 如果您使用contrib ops提供TensorFlow程序，请使用本指南明确地将这些操作链接到ModelServer。</p>
+<p>无论您是否实现了操作，为了使用自定义操作来提供模型，您都需要访问操作系统的源代码。本指南将指导您完成使用源以使自定义操作可用于服务的步骤。有关自定义操作的实现的指导，请参阅 <a href="https://blog.csdn.net/qq_43208303/article/details/102601500" target="_blank" rel="noopener">tensorflow </a>。</p>
+<p>先决条件：已经编写了自定义操作并注册到tensorflow op。</p>
+<h2 id="将op源复制到Serving项目中"><a href="#将op源复制到Serving项目中" class="headerlink" title="将op源复制到Serving项目中"></a>将op源复制到Serving项目中</h2><p><code>/home/public/serving_gpu_15addopjiami/tensorflow_serving</code>文件夹下创建以cuda_lstm_forward命名的文件夹</p>
+<p>然后同时把”00_lstm.cu”, “00_lstm.so” , “cuda_lstm_forward.h”, “cuda_lstm_forward.cc”，”cuda_lstm_forward.so,”即所有依赖项放到当前文件夹下</p>
+<p><img src="/Users/zhipeng/Library/Application Support/typora-user-images/image-20190923101116942.png" alt="image-20190923101116942"></p>
+<h2 id="为op构建静态库"><a href="#为op构建静态库" class="headerlink" title="为op构建静态库"></a>为op构建静态库</h2><p>在cuda_lstm_forward的文件夹，您会看到一个生成共享对象文件（<code>.so</code>）的目标，您可以将其加载到python中以创建和训练模型。但是，TensorFlow服务在构建时静态链接操作，并且需要一个<code>.a</code>文件。因此，需要创建一个生成此文件的构建规则 <code>tensorflow_serving/cuda_lstm_forward/BUILD</code>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package(</span><br><span class="line">    default_visibility = [</span><br><span class="line">        <span class="string">"//tensorflow_serving:internal"</span>,</span><br><span class="line">    ],</span><br><span class="line">    features = [<span class="string">"-layering_check"</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">    name = <span class="string">"cuda_lstm_forward.so"</span>,</span><br><span class="line">    visibility = [<span class="string">"//visibility:public"</span>],</span><br><span class="line">    srcs = [</span><br><span class="line">            <span class="string">"cuda_lstm_forward.cc"</span>,</span><br><span class="line">            <span class="comment">#"cuda_lstm_forward.h",</span></span><br><span class="line">            <span class="string">"lib00_lstm.so"</span>,</span><br><span class="line">            <span class="comment">#"00_lstm.cu.cc"</span></span><br><span class="line">           ] ,</span><br><span class="line">    copts = [<span class="string">"-std=c++11"</span>],</span><br><span class="line">    deps = [<span class="string">"@org_tensorflow//tensorflow/core:framework_headers_lib"</span>,</span><br><span class="line">            <span class="string">"@org_tensorflow//tensorflow/core/util/ctc"</span>,</span><br><span class="line">            <span class="string">"@org_tensorflow//third_party/eigen3"</span>,</span><br><span class="line">    ],</span><br><span class="line">    alwayslink=1,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>bazel BUILD规则参考：<a href="https://docs.bazel.build/versions/master/be/c-cpp.html" target="_blank" rel="noopener"> bazel C/C++ Rules</a></p>
+<h2 id="使用op链接构建ModelServer"><a href="#使用op链接构建ModelServer" class="headerlink" title="使用op链接构建ModelServer"></a>使用op链接构建ModelServer</h2><p>要为使用自定义操作的模型提供服务，您必须使用链接的操作构建ModelServer二进制文件。具体来说，您将<code>cuda_lstm_forward</code>上面创建的构建目标添加到ModelServer的<code>BUILD</code>文件中。</p>
+<p>编辑<code>tensorflow_serving/model_servers/BUILD</code>以添加目标中<code>SUPPORTED_TENSORFLOW_OPS</code>包含的自定义op构建<code>server_lib</code>目标：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">找到“SUPPORTED_TENSORFLOW_OPS”，做如下修改：</span><br><span class="line"></span><br><span class="line">SUPPORTED_TENSORFLOW_OPS = [</span><br><span class="line">    <span class="string">"@org_tensorflow//tensorflow/contrib:contrib_kernels"</span>,</span><br><span class="line">    <span class="string">"@org_tensorflow//tensorflow/contrib:contrib_ops_op_lib"</span>,</span><br><span class="line">    <span class="comment">#Added this line</span></span><br><span class="line">    <span class="comment">#"//tensorflow_serving/fsmn_forward:fsmn_forward.so",</span></span><br><span class="line">    <span class="string">"//tensorflow_serving/cuda_lstm_forward:cuda_lstm_forward.so"</span>  </span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>然后使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```sh</span><br><span class="line">#FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04</span><br><span class="line">export TF_CUDA_VERSION=8.0</span><br><span class="line">export TF_CUDNN_VERSION=6</span><br><span class="line">TF_SERVING_COMMIT=tags/1.5.0</span><br><span class="line">#TF_COMMIT=tags/ais_v0.0.1</span><br><span class="line">BAZEL_VERSION=0.15.0</span><br><span class="line"></span><br><span class="line">export  TF_NEED_CUDA=1</span><br><span class="line">export  TF_NEED_S3=1</span><br><span class="line">export  TF_CUDA_COMPUTE_CAPABILITIES=&quot;3.5,5.2,6.1&quot;</span><br><span class="line">export  TF_NEED_GCP=1</span><br><span class="line">export  TF_NEED_JEMALLOC=0</span><br><span class="line">export  TF_NEED_HDFS=0</span><br><span class="line">export  TF_NEED_OPENCL=0</span><br><span class="line">#export  TF_NEED_MKL=1</span><br><span class="line">export  TF_NEED_VERBS=0</span><br><span class="line">export  TF_NEED_MPI=0</span><br><span class="line">export  TF_NEED_GDR=0</span><br><span class="line">export  TF_ENABLE_XLA=0</span><br><span class="line">export  TF_CUDA_CLANG=0</span><br><span class="line">export  TF_NEED_OPENCL_SYCL=0</span><br><span class="line">export  CUDA_TOOLKIT_PATH=/usr/local/cuda</span><br><span class="line">export  CUDNN_INSTALL_PATH=/usr/local/cuda</span><br><span class="line">#export  MKL_INSTALL_PATH=/opt/intel/mkl</span><br><span class="line">export  GCC_HOST_COMPILER_PATH=/usr/bin/gcc</span><br><span class="line">export  PYTHON_BIN_PATH=/usr/bin/python</span><br><span class="line">export  PYTHON_LIB_PATH=/usr/lib/python2.7/site-packages/</span><br><span class="line">export  CC_OPT_FLAGS=&quot;-march=native&quot;</span><br><span class="line"></span><br><span class="line">if [ ! -d &quot;./tensorflow&quot; ]; then</span><br><span class="line">        git clone https://gitlab.spetechcular.com/core/tensorflow.git</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ ! -d &quot;./build_out&quot; ]; then</span><br><span class="line">    mkdir ./build_out</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">#git checkout $TF_SERVING_COMMIT</span><br><span class="line">cd ./tensorflow &amp;&amp; \</span><br><span class="line">#git checkout $TF_COMMIT</span><br><span class="line">TF_SET_ANDROID_WORKSPACE= ./configure</span><br><span class="line"></span><br><span class="line">cd ..</span><br><span class="line">    #bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both --copt=-msse4.2 --config=cuda -k --verbose_failures  --crosstool_top=@local_config_cuda//crosstool:toolchain tensorflow_serving/model_servers:tensorflow_model_server</span><br><span class="line"></span><br><span class="line">    #bazel build -c opt --copt=-mavx --copt=-mfpmath=both --copt=-msse4.2 --config=cuda -k --verbose_failures --crosstool_top=@local_config_cuda//crosstool:toolchain --spawn_strategy=standalone tensorflow_serving/model_servers:tensorflow_model_server</span><br><span class="line">    bazel build -c opt --config=cuda -k --verbose_failures --crosstool_top=@local_config_cuda//crosstool:toolchain tensorflow_serving/model_servers:tensorflow_model_server</span><br></pre></td></tr></table></figure></p>
+<h2 id="提供包含您的自定义操作的模型"><a href="#提供包含您的自定义操作的模型" class="headerlink" title="提供包含您的自定义操作的模型"></a>提供包含您的自定义操作的模型</h2><ol>
+<li><p>在<code>/home/resources/lizhipeng/lstmkernel_test</code>文件下运行<code>00_build_lstm_owncompli.py</code>，生成savemodel文件夹拷贝到/home/public/tfs_sever_gpu/tfs_models/cudalstm/，后重命名为1</p>
+<blockquote>
+<ul>
+<li><p>cp -r /home/resources/lizhipeng/lstmkernel_test/savedmodel/ /home/public/tfs_sever_gpu/tfs_models/cudalstm/</p>
+</li>
+<li><p>cd /home/public/tfs_server_gpu/tfs_models/cudalstm/</p>
+</li>
+<li>mv savedmodel/ 1</li>
+</ul>
+</blockquote>
+</li>
+<li><p>把依赖项lib00_lstm.so拷贝到<code>/home/public/tfs_sever_gpu/cuda_so/</code></p>
+</li>
+<li><p>把编译好的<code>/home/public/serving_gpu_15addopjiami/bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server</code>拷贝到<code>/home/public/tfs_sever_gpu/bin/</code>下，拷贝时无权限用chmod 777 ，建议用<code>ll命令</code>查看更新时间确保拷贝成功</p>
+</li>
+<li><p><code>ps -ef |grep tensorflow</code>查看端口号，开服务器时配置相应端口号</p>
+</li>
+<li><p>在<code>/home/public/tfs_sever_gpu/</code>下 <code>sh run13.sh</code>开服务器，不需要激活环境和本机无关</p>
+</li>
+<li><p>在<code>/home/public/tfs_sever_gpu/model_transfer/</code>下<code>python lstmctc.py and python cudalstm.py</code>即可使用，这里的虚拟环境可以用<code>source activate /home/pz853/anaconda3/envs/py2</code>，若环境缺很多包<code>grpc, tensorflow-serving-api</code>，pip第二个后少abs，并且无可逆，因此建议使用<code>py2.7, tf1.4gpu版本</code></p>
+</li>
+<li><p>多并发即同样目录下写个shell脚本用 &amp; 多次跑，测到1 2 4 8 16 32 64 128</p>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/home/public/tfs_sever_gpu/run.sh</span></span><br><span class="line"></span><br><span class="line">basepath=$(dirname $(readlink -f <span class="variable">$0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># ipcpath 按需修改</span></span><br><span class="line"><span class="comment">#ipcpath=unix:$&#123;basepath&#125;/f</span></span><br><span class="line">ipcpath=10.12.8.26:9001</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$&#123;basepath&#125;</span>/cuda_so</span><br><span class="line"></span><br><span class="line"><span class="comment"># del model.cfg if exist</span></span><br><span class="line"><span class="keyword">if</span> [ -f <span class="string">"<span class="variable">$&#123;basepath&#125;</span>/cfg/model.cfg"</span> ]; <span class="keyword">then</span></span><br><span class="line">    rm <span class="string">"<span class="variable">$&#123;basepath&#125;</span>/cfg/model.cfg"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare model.cfg file</span></span><br><span class="line">model_cfg=<span class="variable">$&#123;basepath&#125;</span>/cfg/model.cfg</span><br><span class="line">touch <span class="string">"<span class="variable">$model_cfg</span>"</span></span><br><span class="line"><span class="built_in">echo</span>  <span class="string">"model_config_list: &#123;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line"><span class="keyword">for</span> dir <span class="keyword">in</span> `ls <span class="variable">$&#123;basepath&#125;</span>/tfs_models`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$&#123;basepath&#125;</span>/tfs_models/<span class="variable">$&#123;dir&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"  config: &#123;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"    name: \"<span class="variable">$&#123;dir&#125;</span>\","</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"    ## must be absolute path"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"    base_path: \"<span class="variable">$&#123;basepath&#125;</span>/tfs_models/<span class="variable">$&#123;dir&#125;</span>\","</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"    model_platform: \"tensorflow\""</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"    model_version_policy: &#123;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"      all: &#123;&#125;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"    &#125;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"  &#125;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"&#125;"</span> &gt;&gt; <span class="variable">$model_cfg</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$model_cfg</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"error: <span class="variable">$model_cfg</span> not exist"</span></span><br><span class="line">    <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">platform_cfg=<span class="variable">$&#123;basepath&#125;</span>/cfg/platform.cfg</span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$platform_cfg</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"error: <span class="variable">$platform_cfg</span> not exist"</span></span><br><span class="line">    <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">tfs_bin=<span class="variable">$&#123;basepath&#125;</span>/bin/tensorflow_model_server_addop</span><br><span class="line"></span><br><span class="line"><span class="comment">#cpuinfo=`cat /proc/cpuinfo |grep flags | sed -n '1p' |grep avx -c`</span></span><br><span class="line"><span class="comment">#if [ $cpuinfo -gt 0 ]; then</span></span><br><span class="line"><span class="comment">#    tfs_bin=$&#123;basepath&#125;/bin/tensorflow_model_server_xla</span></span><br><span class="line"><span class="comment">#fi</span></span><br><span class="line"><span class="comment">#cpuinfo=`cat /proc/cpuinfo |grep flags | sed -n '1p' |grep avx2 -c`</span></span><br><span class="line"><span class="comment">#if [ $cpuinfo -gt 0 ]; then</span></span><br><span class="line"><span class="comment">#    tfs_bin=$&#123;basepath&#125;/bin/tensorflow_model_server_sse</span></span><br><span class="line"><span class="comment">#fi</span></span><br><span class="line"><span class="comment">#echo $tfs_bin </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tfs_bin=$&#123;basepath&#125;/bin/tensorflow_model_server</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="comment">#CUDA_VISIBLE_DEVICES=0 exec $&#123;tfs_bin&#125;  --ipcpath=10.12.8.26:9002 --model_config_file=$&#123;model_cfg&#125; --platform_config_file=$&#123;platform_cfg&#125;</span></span><br><span class="line">    CUDA_VISIBLE_DEVICES=0 <span class="built_in">exec</span> <span class="variable">$&#123;tfs_bin&#125;</span>  --port=9001 --model_config_file=<span class="variable">$&#123;model_cfg&#125;</span> --platform_config_file=<span class="variable">$&#123;platform_cfg&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/18/LSTM的cuda加速/" rel="next" title="LSTM的cuda加速">
+                <i class="fa fa-chevron-left"></i> LSTM的cuda加速
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/05/TOFLE-Mistake/" rel="prev" title="TOFLE Mistake">
+                TOFLE Mistake <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用自定义操作提供TensorFlow模型"><span class="nav-number">1.</span> <span class="nav-text">使用自定义操作提供TensorFlow模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将op源复制到Serving项目中"><span class="nav-number">1.1.</span> <span class="nav-text">将op源复制到Serving项目中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为op构建静态库"><span class="nav-number">1.2.</span> <span class="nav-text">为op构建静态库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用op链接构建ModelServer"><span class="nav-number">1.3.</span> <span class="nav-text">使用op链接构建ModelServer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供包含您的自定义操作的模型"><span class="nav-number">1.4.</span> <span class="nav-text">提供包含您的自定义操作的模型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

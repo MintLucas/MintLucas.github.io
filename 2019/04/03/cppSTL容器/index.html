@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="面试,C++,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="RoadMap**  新特性 emplace 系列函数   vector 向量/数组 (#include &amp;lt;vecetor&amp;gt;) 其他操作   list 链表 (#include &amp;lt;list&amp;gt;) deque 双端队列 (#include &amp;lt;deque&amp;gt;) queue 队列 / stack 栈 (#include &amp;lt;queue&amp;gt;/&amp;lt;stack&amp;gt">
+<meta name="keywords" content="面试,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cppSTL容器">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/cppSTL容器/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="RoadMap**  新特性 emplace 系列函数   vector 向量/数组 (#include &amp;lt;vecetor&amp;gt;) 其他操作   list 链表 (#include &amp;lt;list&amp;gt;) deque 双端队列 (#include &amp;lt;deque&amp;gt;) queue 队列 / stack 栈 (#include &amp;lt;queue&amp;gt;/&amp;lt;stack&amp;gt">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-25T00:50:35.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cppSTL容器">
+<meta name="twitter:description" content="RoadMap**  新特性 emplace 系列函数   vector 向量/数组 (#include &amp;lt;vecetor&amp;gt;) 其他操作   list 链表 (#include &amp;lt;list&amp;gt;) deque 双端队列 (#include &amp;lt;deque&amp;gt;) queue 队列 / stack 栈 (#include &amp;lt;queue&amp;gt;/&amp;lt;stack&amp;gt">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/03/cppSTL容器/">
+
+
+
+
+
+  <title>cppSTL容器 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/cppSTL容器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cppSTL容器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-03T21:00:04+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="RoadMap"><a href="#RoadMap" class="headerlink" title="RoadMap**"></a>RoadMap**</h1><!-- TOC -->
+<ul>
+<li><a href="#新特性">新特性</a><ul>
+<li><a href="#emplace-系列函数">emplace 系列函数</a></li>
+</ul>
+</li>
+<li><a href="#vector-向量数组-include-vecetor">vector 向量/数组 (<code>#include &lt;vecetor&gt;</code>)</a><ul>
+<li><a href="#其他操作">其他操作</a></li>
+</ul>
+</li>
+<li><a href="#list-链表-include-list">list 链表 (<code>#include &lt;list&gt;</code>)</a></li>
+<li><a href="#deque-双端队列-include-deque">deque 双端队列 (<code>#include &lt;deque&gt;</code>)</a></li>
+<li><a href="#queue-队列--stack-栈-include-queuestack">queue 队列 / stack 栈 (<code>#include &lt;queue&gt;/&lt;stack&gt;</code>)</a></li>
+<li><a href="#堆优先队列-priority_queue">堆/优先队列 priority_queue</a></li>
+<li><a href="#setmultiset-集合-include-set">set/multiset 集合 (<code>#include &lt;set&gt;</code>)</a></li>
+<li><a href="#mapmultimap-字典-include-map">map/multimap 字典 (<code>#include &lt;map&gt;</code>)</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h2><h3 id="emplace-系列函数"><a href="#emplace-系列函数" class="headerlink" title="emplace 系列函数"></a>emplace 系列函数</h3><p>C++11 新特性，可以直接传入参数构造对象（见下面的例子说明），不需要拷贝或者移动内存，相比 push 系列拥有更好的性能；</p>
+<p>除 array 外（array 不可变），所有标准容器都添加了相关函数，如 emplace、emplace_front、emplace_back、、emplace_hint（set/map） 等。</p>
+<p>面试手写代码时可以用，平时网上 OJ 一般没有那么细的性能要求</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设 Date 类型接收 3 个参数来构造对象</span></span><br><span class="line"><span class="built_in">vector</span>&lt;Date&gt; vd;</span><br><span class="line"><span class="comment">// 一般的 push 或 insert 需要这么作</span></span><br><span class="line">vd.push_back(Date(<span class="string">"2018"</span>, <span class="string">"4"</span>, <span class="string">"1"</span>));</span><br><span class="line"><span class="comment">// 而 emplace 使用不定参数，可以这么写</span></span><br><span class="line">vd.emplace(<span class="string">"2018"</span>, <span class="string">"4"</span>, <span class="string">"1"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="vector-向量-数组-include-lt-vecetor-gt"><a href="#vector-向量-数组-include-lt-vecetor-gt" class="headerlink" title="vector 向量/数组 (#include &lt;vecetor&gt;)"></a>vector 向量/数组 (<code>#include &lt;vecetor&gt;</code>)</h2><p>下面详细列出 vector 所有常用过的接口（不是全部）；其他容器大同小异，就不全列出来了</p>
+<ul>
+<li><p>初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1;  <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> &#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v3(<span class="number">3</span>, <span class="number">10</span>);  <span class="comment">// &#123;10,10,10&#125;</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v4(v2.begin() + <span class="number">1</span>, v2.end());  <span class="comment">// &#123;2,3,4&#125;</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v5(v3);  <span class="comment">// &#123;2,3,4&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = v5.begin(); it != v5.end(); it++)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="string">' '</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> i = <span class="number">0</span>; i &lt; v3.size(); i++)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v3[i] &lt;&lt; <span class="string">' '</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> i : v4)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">' '</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>逆序遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = v5.rbegin(); it != v5.rend(); it++)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="string">' '</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>容器长度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2.size();  <span class="comment">// len(v2)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取第一个元素，最后一个元素</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v2.front() = <span class="number">1</span>;  <span class="comment">// v2[0] = 1</span></span><br><span class="line">v2.back() -= v2.front();  <span class="comment">// v2[-1] -= v2[0]</span></span><br><span class="line"><span class="comment">// 注意：这两个函数的返回的是元素的引用，可以直接对其修改</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断为空</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v1.empty();  <span class="comment">// len(v1) == 0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尾插/弹出</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v1.push_back(<span class="number">3</span>);  <span class="comment">// v1.append(3)</span></span><br><span class="line">v1.push_back(<span class="number">2</span>);  <span class="comment">// v1.append(2)</span></span><br><span class="line">v1.push_back(<span class="number">1</span>);  <span class="comment">// v1.append(1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// last_val = v1.pop()</span></span><br><span class="line">last_val = v1.back();</span><br><span class="line">v1.pop_back();  <span class="comment">// return void</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">v1.insert(v1.begin() + <span class="number">1</span>, <span class="number">0</span>);  <span class="comment">// v1.insert(1, 0)</span></span><br><span class="line">v1.insert(v1.begin() + <span class="number">1</span>, v2.begin(), v2.end());  </span><br><span class="line"><span class="comment">// 这个挺厉害，好像 Python 都没有直接插入另一个数组的方法，</span></span><br><span class="line"><span class="comment">// 只能 `v1 = v1[:1] + v2 + v1[1:]`</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>合并</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v1.insert(v1.end(), v2.begin(), v2.end())  <span class="comment">// v1 += v2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">v1.erase(v1.begin() + <span class="number">1</span>);  <span class="comment">// del v1[1]</span></span><br><span class="line"><span class="comment">// erase() 有一个返回值，指向被删除元素下一个</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除区间</span></span><br><span class="line">v1.erase(v1.begin() + <span class="number">1</span>, v1.begin() + <span class="number">3</span>);  <span class="comment">// del v1[1:3]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清空</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v1.clear()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="其他操作"><a href="#其他操作" class="headerlink" title="其他操作"></a>其他操作</h3><ul>
+<li><p>判断是否存在</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 find() 不需要引入头文件</span></span><br><span class="line"><span class="comment">// 注意: lower_bound() 要求容器有序，这里不适用</span></span><br><span class="line"><span class="keyword">auto</span> it = find(v2.begin(), v2.end(), val);</span><br><span class="line"><span class="keyword">if</span>(it != v2.end()) &#123;  <span class="comment">// if val in v2:</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排序</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 降序</span></span><br><span class="line">sort(v2.begin(), v2.end(), greater&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line"><span class="comment">// 升序</span></span><br><span class="line">sort(v2.begin(), v2.end());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二级排序</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; ii;</span><br><span class="line"><span class="built_in">vector</span>&lt;ii&gt; vp&#123; &#123;<span class="number">1</span>,<span class="number">1</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">2</span>&#125;, &#123;<span class="number">2</span>,<span class="number">3</span>&#125;, &#123;<span class="number">3</span>,<span class="number">3</span>&#125; &#125;;</span><br><span class="line"></span><br><span class="line">sort(vp.begin(), vp.end(), [](<span class="keyword">const</span> ii &amp;l, <span class="keyword">const</span> ii &amp;r) &#123;</span><br><span class="line">    <span class="keyword">return</span> l.first != r.first ? l.first &lt; r.first : l.second &gt; r.second;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 这里反而 C++ 比 Python 要简单些</span></span><br><span class="line"><span class="comment">// 因为 Python3 中移除了 cmp 参数，所以需要排序两次才能达到要求</span></span><br><span class="line"><span class="comment">// l.sort(key=lambda x: x[1], reverse=True)  # 要先排第二级</span></span><br><span class="line"><span class="comment">// l.sort(key=lambda x: x[0])</span></span><br><span class="line"><span class="comment">// 也可以使用 functools.cmp_to_key()，但我没有成功</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>交换 swap</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vector.swap(v) 交换的是两个容器中的内容，而不是元素交换</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1;  <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> &#125;;</span><br><span class="line"></span><br><span class="line">v1.swap(v2);  <span class="comment">// v1: &#123;1,2,3,4&#125; </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 交换两个元素</span></span><br><span class="line">swap(v2[<span class="number">1</span>, v2[<span class="number">2</span>]])</span><br><span class="line"><span class="comment">// 这个 swap() 是内置函数，不清楚具体在哪个头文件</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="list-链表-include-lt-list-gt"><a href="#list-链表-include-lt-list-gt" class="headerlink" title="list 链表 (#include &lt;list&gt;)"></a>list 链表 (<code>#include &lt;list&gt;</code>)</h2><p>list 的接口与 vector 基本相同，多了 push_front/pop_front</p>
+<p>此外不能随机存取（想一下链表和数组的区别）；而 Python 中的 list 其实是数组。</p>
+<ul>
+<li>头插</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; l1 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">l1.push_front(<span class="number">0</span>);  <span class="comment">// &#123; 0,1,2,3 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> front_val = l1.front();  <span class="comment">// 0</span></span><br><span class="line">l1.pop_front();  <span class="comment">// &#123; 1,2,3 &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="deque-双端队列-include-lt-deque-gt"><a href="#deque-双端队列-include-lt-deque-gt" class="headerlink" title="deque 双端队列 (#include &lt;deque&gt;)"></a>deque 双端队列 (<code>#include &lt;deque&gt;</code>)</h2><p>把它当作支持 push_front/pop_front 的 vector 即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; d1 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">d1.push_front(<span class="number">0</span>);  <span class="comment">// &#123;0,1,2,3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> front_val = d1.front();  <span class="comment">// 0</span></span><br><span class="line">d1.pop_front();  <span class="comment">// &#123;1,2,3&#125;</span></span><br></pre></td></tr></table></figure>
+<p>deque 是 queue/stack 的底层容器</p>
+<h2 id="queue-队列-stack-栈-include-lt-queue-gt-lt-stack-gt"><a href="#queue-队列-stack-栈-include-lt-queue-gt-lt-stack-gt" class="headerlink" title="queue 队列 / stack 栈 (#include &lt;queue&gt;/&lt;stack&gt;)"></a>queue 队列 / stack 栈 (<code>#include &lt;queue&gt;/&lt;stack&gt;</code>)</h2><p>这两个的内部容器都是 <del>list</del> deque，相当于对接口做了限制的 deque；实际中完全可以使用 deque 代替</p>
+<ul>
+<li>queue 开放的接口<ul>
+<li>empty</li>
+<li>size</li>
+<li>front</li>
+<li>back</li>
+<li>push (push_back)</li>
+<li>pop (<strong>pop_front</strong>)</li>
+</ul>
+</li>
+<li>stack 开放的接口<ul>
+<li>empty</li>
+<li>size</li>
+<li>top (back)</li>
+<li>push (push_back)</li>
+<li>pop (<strong>pop_back</strong>)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; d1 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// queue</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q1(d1);</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt; l = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span> &#125;;</span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>, <span class="built_in">list</span>&lt;<span class="keyword">int</span>&gt;&gt; q2(l);</span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q3 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;  <span class="comment">// error</span></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; q4;  <span class="comment">// warning</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// stack</span></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s1(d1);</span><br><span class="line">s1.push(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">auto</span> top_val = s1.top();  <span class="comment">// 4</span></span><br><span class="line">s1.pop();  <span class="comment">// &#123;1,2,3&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: 它们都不能使用<strong>初始化列表</strong>，也不支持 range 构造；只要是支持对应接口的都可以作为它们的底层容器，比如 vector 不能做 queue 的容器，因为它不支持 pop_front（虽然不会报错）；但它可以做 stack 的容器</p>
+</blockquote>
+<h2 id="堆-优先队列-priority-queue"><a href="#堆-优先队列-priority-queue" class="headerlink" title="堆/优先队列 priority_queue"></a>堆/优先队列 priority_queue</h2><p>priority_queue 被定义在 <code>&lt;queue&gt;</code> 中，但它的底层容器默认是 vector，而不是 deque</p>
+<ul>
+<li>priority_queue 支持的接口<ul>
+<li>empty</li>
+<li>size</li>
+<li>top (front)</li>
+<li>push (push_back)</li>
+<li>pop (push_back)</li>
+</ul>
+</li>
+</ul>
+<p>默认构建的是最大堆/大顶堆</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1 = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>&gt; p1(v1.begin(), v1.end());</span><br><span class="line">p1.top();  <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p>构建最小堆</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;functional&gt;  // greater</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> arr[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt;&gt; p2(arr, arr + <span class="number">3</span>);</span><br><span class="line">p2.top();  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>记: <strong>小于</strong> -&gt; 大顶堆；<strong>大于</strong> -&gt; 小顶堆</p>
+</blockquote>
+<p>自定义优先级（效果同 greater）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 大于 -&gt; 小顶堆</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> l &gt; r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> arr[] = &#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125;;</span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, cmp&gt; p2(arr, arr + <span class="number">3</span>);</span><br><span class="line">p2.top();  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>更复杂点的例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> v1;</span><br><span class="line">    <span class="keyword">int</span> v2;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小于 -&gt; 大顶堆</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp2</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(node l, node r)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> l.v1 != r.v1 ? l.v1 &lt; r.v1 : l.v2 &lt; r.v2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">node arr2[] = &#123; &#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">2</span>, <span class="number">2</span>&#125;, &#123;<span class="number">2</span>, <span class="number">4</span>&#125;, &#123;<span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>&#125; &#125;;</span><br><span class="line">priority_queue&lt;node, <span class="built_in">vector</span>&lt;node&gt;, cmp2&gt; p3(arr2, arr2 + <span class="number">5</span>);</span><br><span class="line">p3.pop();  <span class="comment">// &#123;2, 4&#125;</span></span><br><span class="line">p3.pop();  <span class="comment">// &#123;2, 3&#125;</span></span><br><span class="line">p3.pop();  <span class="comment">// &#123;2, 2&#125;</span></span><br><span class="line">p3.pop();  <span class="comment">// &#123;1, 2&#125;</span></span><br><span class="line">p3.pop();  <span class="comment">// &#123;1, 1&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>priority_queue 也不支持初始化列表，甚至还不支持 <code>priority_queue&lt;int&gt; p1(v1);</code>，但又可以使用 range 构造（区别于 queue 和 stack）；这就是 C++ 最讨厌的地方，<strong>不统一</strong>（我不认为存在技术上的问题）</p>
+</blockquote>
+<blockquote>
+<p>C++ 还提供了 make_heap 方法（不是类）用于对<strong>数组类</strong>容器中的元素重排，但是不推荐使用</p>
+</blockquote>
+<h2 id="set-multiset-集合-include-lt-set-gt"><a href="#set-multiset-集合-include-lt-set-gt" class="headerlink" title="set/multiset 集合 (#include &lt;set&gt;)"></a>set/multiset 集合 (<code>#include &lt;set&gt;</code>)</h2><p>set 不支持重复元素，multiset (多重集)支持重复元素</p>
+<p>内部实现是<strong>红黑树</strong>（平衡二叉搜索树），插入的同时也在排序（默认使用 less 比较器，即升序）</p>
+<p>set 的查找效率高于 vector/deque/list 等容器</p>
+<ul>
+<li><p>初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set&lt;int&gt; s1;</span><br><span class="line">set&lt;int&gt; s2&#123; 3,1,2 &#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;int&gt; v &#123; 3,2,1,5,4 &#125;;</span><br><span class="line">set&lt;int&gt; s3(v.begin(), v.end());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历：默认遍历方式是<strong>中序遍历</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> i : s3)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 逆序</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span> it = s3.rbegin(); it != s3.rend(); it++)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *it &lt;&lt; <span class="string">' '</span>;  <span class="comment">// &#123;5,4,3,2,1&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入/删除</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s2.insert(<span class="number">4</span>);  <span class="comment">// &#123;1,2,3,4&#125;</span></span><br><span class="line">s2.erase(<span class="number">3</span>);  <span class="comment">// &#123;1,2,4&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找</p>
+<p>set/multiset 支持三种查找方式: find, lower_bound, upper_bound；因为 set 是有序的，所以这三种方法其实都是二分查找</p>
+<blockquote>
+<p>lower_bound 找目标下界（包含）；upper_bound 找目标上界（不包含）；find 内部调用的就是 lower_bound</p>
+</blockquote>
+<blockquote>
+<p>注意: C++ 中的查找并不是返回 bool 值，而是返回一个指向目标的<strong>迭代器指针</strong>；如果没有找到，则指向 end() 指针。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// set</span></span><br><span class="line"><span class="keyword">auto</span> it = s2.find(<span class="number">4</span>);</span><br><span class="line"><span class="keyword">if</span> (it != s2.end()) &#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// multiset</span></span><br><span class="line"><span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; ms1&#123; <span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span> &#125;;</span><br><span class="line"><span class="keyword">auto</span> itp1 = ms1.find(<span class="number">2</span>);  <span class="comment">// No.2 （迭代器指针是从 1 开始计数的）</span></span><br><span class="line"><span class="keyword">auto</span> itp2 = ms1.lower_bound(<span class="number">2</span>);  <span class="comment">// No.2</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; (itp1 == itp2) &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> itp3 = ms1.upper_bound(<span class="number">2</span>);  <span class="comment">// No.5</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; *itp3 &lt;&lt; <span class="built_in">endl</span>;  <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="map-multimap-字典-include-lt-map-gt"><a href="#map-multimap-字典-include-lt-map-gt" class="headerlink" title="map/multimap 字典 (#include &lt;map&gt;)"></a>map/multimap 字典 (<code>#include &lt;map&gt;</code>)</h2><p>底层也是红黑树，内部实现相当于一个 <code>set&lt;pair&lt;key, value&gt;&gt;</code></p>
+<ul>
+<li><p>初始化 + 遍历</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m1&#123; &#123; <span class="number">1</span>,<span class="number">2</span> &#125;,&#123; <span class="number">2</span>,<span class="number">3</span> &#125;,&#123; <span class="number">3</span>,<span class="number">4</span> &#125; &#125;;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m2(m1.begin(), m1.end());</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m3(m2);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp; i : m3)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i.first &lt;&lt; <span class="string">": "</span> &lt;&lt; i.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;::iterator p = m1.begin();</span><br><span class="line"><span class="keyword">for</span>(; p != m1.end(); ++p)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; p-&gt;first &lt;&lt; <span class="string">" "</span> &lt;&lt; p-&gt;second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main222</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; input(n*m);</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; m1;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; m2;</span><br><span class="line">    <span class="keyword">int</span> i,j,temp;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; ++i)</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;m; ++j)&#123;</span><br><span class="line">            <span class="keyword">if</span>((i*m+j) % <span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">                input[i*m+j] = temp;</span><br><span class="line">                m1[temp]++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; temp;</span><br><span class="line">                input[i*m+j] = temp;</span><br><span class="line">                m2[temp]++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> cnt1,max1,ncnt1,next1;</span><br><span class="line">    findMax(list1,cnt1,max1,ncnt1,next1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入/更新</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">m3[<span class="number">1</span>] = <span class="number">3</span>;  <span class="comment">// 更新</span></span><br><span class="line">m3[<span class="number">4</span>] = <span class="number">5</span>;  <span class="comment">// 插入</span></span><br><span class="line"></span><br><span class="line">pair&lt;<span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;::iterator, <span class="keyword">bool</span>&gt; ret;</span><br><span class="line">ret = m3.insert(pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;(<span class="number">1</span>, <span class="number">4</span>));</span><br><span class="line"><span class="keyword">if</span> (ret.second == <span class="literal">false</span>)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"exist"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// hint 插入</span></span><br><span class="line"><span class="keyword">auto</span> it = m3.begin();</span><br><span class="line">it = m3.insert(it, pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;(<span class="number">6</span>, <span class="number">7</span>));  </span><br><span class="line"><span class="comment">// 使用 hint 不一定能提高效率</span></span><br><span class="line"><span class="comment">// 很多编译器在实现时，只有当 hint 恰好是最终位置是才会使用 hint，否则直接忽略它 </span></span><br><span class="line"><span class="comment">// 一般的使用场景是顺序插入一系列有序的数时，用返回值作为 hint </span></span><br><span class="line"><span class="comment">// ref: http://en.cppreference.com/w/cpp/container/set/emplace_hint</span></span><br><span class="line"></span><br><span class="line">ret = m3.emplace(<span class="number">5</span>, <span class="number">6</span>);  <span class="comment">// 插入</span></span><br><span class="line">ret = m3.emplace(<span class="number">1</span>, <span class="number">4</span>);  <span class="comment">// 未更新</span></span><br><span class="line">it = m3.emplace_hint(it, <span class="number">8</span>, <span class="number">9</span>);  <span class="comment">// hint 插入</span></span><br><span class="line"><span class="comment">// emplace 内部调用的是 insert</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m3.erase(3);  // 删除 by key</span><br><span class="line">auto it = m3.find(7);  // 删除 by iterator</span><br><span class="line">if (it != m3.end())</span><br><span class="line">    m3.erase(it);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找<br>跟 set 类似，略</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/02/cpp常用函数/" rel="next" title="cpp常用函数">
+                <i class="fa fa-chevron-left"></i> cpp常用函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/06/机器学习知识点总结-面试/" rel="prev" title="机器学习知识点总结-面试">
+                机器学习知识点总结-面试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RoadMap"><span class="nav-number">1.</span> <span class="nav-text">RoadMap**</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新特性"><span class="nav-number">1.1.</span> <span class="nav-text">新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#emplace-系列函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">emplace 系列函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector-向量-数组-include-lt-vecetor-gt"><span class="nav-number">1.2.</span> <span class="nav-text">vector 向量/数组 (#include &lt;vecetor&gt;)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他操作"><span class="nav-number">1.2.1.</span> <span class="nav-text">其他操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#list-链表-include-lt-list-gt"><span class="nav-number">1.3.</span> <span class="nav-text">list 链表 (#include &lt;list&gt;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque-双端队列-include-lt-deque-gt"><span class="nav-number">1.4.</span> <span class="nav-text">deque 双端队列 (#include &lt;deque&gt;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#queue-队列-stack-栈-include-lt-queue-gt-lt-stack-gt"><span class="nav-number">1.5.</span> <span class="nav-text">queue 队列 / stack 栈 (#include &lt;queue&gt;/&lt;stack&gt;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆-优先队列-priority-queue"><span class="nav-number">1.6.</span> <span class="nav-text">堆/优先队列 priority_queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-multiset-集合-include-lt-set-gt"><span class="nav-number">1.7.</span> <span class="nav-text">set/multiset 集合 (#include &lt;set&gt;)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-multimap-字典-include-lt-map-gt"><span class="nav-number">1.8.</span> <span class="nav-text">map/multimap 字典 (#include &lt;map&gt;)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="tensorflow,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  1. 源代码编译tensorflow因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，官方步骤写的很清楚，就不自己瞎写了。 2. 注册OP流程： 定义 O">
+<meta name="keywords" content="tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tensorflow注册自己实现的Op">
+<meta property="og:url" content="http://yoursite.com/2019/08/18/tensorflow注册自己实现的Op/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  1. 源代码编译tensorflow因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，官方步骤写的很清楚，就不自己瞎写了。 2. 注册OP流程： 定义 O">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-09T08:13:29.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tensorflow注册自己实现的Op">
+<meta name="twitter:description" content="目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。整个项目见Github，流程见博客，博主也刚入门cuda，欢迎留言探讨~  1. 源代码编译tensorflow因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，官方步骤写的很清楚，就不自己瞎写了。 2. 注册OP流程： 定义 O">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/18/tensorflow注册自己实现的Op/">
+
+
+
+
+
+  <title>tensorflow注册自己实现的Op | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/18/tensorflow注册自己实现的Op/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tensorflow注册自己实现的Op</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-18T10:41:09+08:00">
+                2019-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AiSpeech/" itemprop="url" rel="index">
+                    <span itemprop="name">AiSpeech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>目的是云端算法中执行LSTM部分计算过程的加速，即用cu文件编译出so，用此so中的LSTM类或函数替代tf.LSTMCell进行运算。<br>整个项目见<a href="https://github.com/MintLucas/Cuda_lstm_forward/tree/master" target="_blank" rel="noopener">Github</a>，流程见<a href="https://mintlucas.github.io/plan/" target="_blank" rel="noopener">博客</a>，博主也刚入门cuda，欢迎留言探讨~</p>
+</blockquote>
+<h3 id="1-源代码编译tensorflow"><a href="#1-源代码编译tensorflow" class="headerlink" title="1. 源代码编译tensorflow"></a>1. 源代码编译tensorflow</h3><p>因为我们要对tf库进行修改，所以需要用源码编译方式重新安装tensorflow，<a href="https://www.tensorflow.org/install/source?hl=zh-cn" target="_blank" rel="noopener">官方步骤</a>写的很清楚，就不自己瞎写了。</p>
+<h3 id="2-注册OP流程："><a href="#2-注册OP流程：" class="headerlink" title="2. 注册OP流程："></a>2. 注册OP流程：</h3><ol>
+<li><p>定义 Op 的接口，即按规则写好cc文件</p>
+</li>
+<li><p>为 Op 实现 kernel，即你自己的.cu文件</p>
+</li>
+<li><p>编译出so，即(BUILD.sh)文件，上述三个文件如下，同样先看<a href="http://www.tensorfly.cn/tfdoc/how_tos/adding_an_op.html" target="_blank" rel="noopener">官方网站</a>，再来看例子会豁然开朗</p>
+</li>
+</ol>
+<h3 id="3-例子"><a href="#3-例子" class="headerlink" title="3. 例子"></a>3. 例子</h3><ol>
+<li><h4 id="按上图准备好cc文件"><a href="#按上图准备好cc文件" class="headerlink" title="按上图准备好cc文件"></a>按上图准备好cc文件</h4></li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/framework/op.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/framework/op_kernel.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/framework/shape_inference.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/kernels/bounds_check.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"tensorflow/core/framework/allocator.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fsmn_forward.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstddef&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> tensorflow;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LSTMTest</span><span class="params">(<span class="keyword">int</span> miniBatch, <span class="keyword">int</span> seqLength, <span class="keyword">int</span> inputSize, <span class="keyword">int</span> hiddenSize, <span class="keyword">int</span> outSize,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">float</span>* input, <span class="keyword">float</span>* h_data_in, <span class="keyword">float</span> *c_data_in, <span class="keyword">float</span>* weight_i, <span class="keyword">float</span>* weight_h, <span class="keyword">float</span>*bias_data_in, <span class="keyword">float</span>* w_i_diag_in,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">float</span>* w_f_diag_in, <span class="keyword">float</span>* w_o_diag_in, <span class="keyword">float</span>* proj_kernel_in, <span class="keyword">float</span>* h_data_out, <span class="keyword">float</span>* c_data_out, <span class="keyword">float</span>* output,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">bool</span> use_peepholes = <span class="literal">true</span>, <span class="keyword">float</span> cell_clip = <span class="number">0.0</span>, <span class="keyword">float</span> proj_clip = <span class="number">0.0</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">REGISTER_OP(<span class="string">"CudaLstmForward"</span>)</span><br><span class="line">.Input(<span class="string">"input: float32"</span>)</span><br><span class="line">.Input(<span class="string">"cdata_in: float32"</span>)</span><br><span class="line">.Input(<span class="string">"hdata_in: float32"</span>)</span><br><span class="line">.Input(<span class="string">"weight_i: float32"</span>)</span><br><span class="line">.Input(<span class="string">"weight_h: float32"</span>)</span><br><span class="line">.Input(<span class="string">"bias: float32"</span>)</span><br><span class="line">.Input(<span class="string">"w_i_diag: float32"</span>)</span><br><span class="line">.Input(<span class="string">"w_f_diag: float32"</span>)</span><br><span class="line">.Input(<span class="string">"w_o_diag: float32"</span>)</span><br><span class="line">.Input(<span class="string">"proj_kernel: float32"</span>)</span><br><span class="line">.Output(<span class="string">"cdata_out: float32"</span>)</span><br><span class="line">.Output(<span class="string">"hdata_out: float32"</span>)</span><br><span class="line">.Output(<span class="string">"output: float32"</span>)</span><br><span class="line">.SetShapeFn([](::tensorflow::shape_inference::InferenceContext *c) &#123;</span><br><span class="line">    c-&gt;set_output(<span class="number">0</span>, c-&gt;Matrix(c-&gt;Dim(c-&gt;input(<span class="number">1</span>), <span class="number">0</span>), c-&gt;Dim(c-&gt;input(<span class="number">1</span>), <span class="number">1</span>)));</span><br><span class="line">    c-&gt;set_output(<span class="number">1</span>, c-&gt;Matrix(c-&gt;Dim(c-&gt;input(<span class="number">1</span>), <span class="number">0</span>), c-&gt;Dim(c-&gt;input(<span class="number">2</span>), <span class="number">1</span>)));</span><br><span class="line">    c-&gt;set_output(<span class="number">2</span>, c-&gt;Matrix(c-&gt;Dim(c-&gt;input(<span class="number">0</span>), <span class="number">0</span>), c-&gt;Dim(c-&gt;input(<span class="number">2</span>), <span class="number">1</span>)));</span><br><span class="line">    <span class="keyword">return</span> Status::OK();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CudaLstmForwardOp</span> :</span> <span class="keyword">public</span> OpKernel &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    explicit CudaLstmForwardOp(OpKernelConstruction* ctx) : OpKernel(ctx)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Compute</span><span class="params">(OpKernelContext* ctx)</span> override </span>&#123;</span><br><span class="line">        <span class="comment">//printf("begin....");</span></span><br><span class="line">        </span><br><span class="line">        Tensor input_data= ctx-&gt;mutable_input(<span class="number">0</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor cdata_in= ctx-&gt;mutable_input(<span class="number">1</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor hdata_in= ctx-&gt;mutable_input(<span class="number">2</span>, <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//printf("input....");</span></span><br><span class="line">        OP_REQUIRES(ctx, input_data.shape().dims() == <span class="number">2</span>,</span><br><span class="line">                    errors::InvalidArgument(<span class="string">"input data is not a 2-Tensor"</span>));</span><br><span class="line">        OP_REQUIRES(ctx, hdata_in.shape().dims() == <span class="number">2</span>,</span><br><span class="line">                    errors::InvalidArgument(<span class="string">"hdata in is not a 2-Tensor"</span>));</span><br><span class="line">        OP_REQUIRES(ctx, cdata_in.shape().dims() == <span class="number">2</span>,</span><br><span class="line">                    errors::InvalidArgument(<span class="string">"cdata in is not a 2-Tensor"</span>));</span><br><span class="line">        <span class="comment">//printf("weight....");</span></span><br><span class="line">        Tensor weight_i= ctx-&gt;mutable_input(<span class="number">3</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor weight_h= ctx-&gt;mutable_input(<span class="number">4</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor bias= ctx-&gt;mutable_input(<span class="number">5</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor wi_diag= ctx-&gt;mutable_input(<span class="number">6</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor wf_diaf= ctx-&gt;mutable_input(<span class="number">7</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor wo_diag= ctx-&gt;mutable_input(<span class="number">8</span>, <span class="literal">true</span>);</span><br><span class="line">        Tensor proj= ctx-&gt;mutable_input(<span class="number">9</span>, <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">inputdata_t</span> = input_data.tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">cdatain_t</span> = cdata_in.tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">hdatain_t</span> = hdata_in.tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">weighti_t</span> = weight_i.tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">weighth_t</span> = weight_h.tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">bias_t</span> = bias.tensor&lt;<span class="keyword">float</span>, <span class="number">1</span>&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">widiag_t</span> = wi_diag.tensor&lt;<span class="keyword">float</span>, <span class="number">1</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">wfdiag_t</span> = wf_diaf.tensor&lt;<span class="keyword">float</span>, <span class="number">1</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">wodiag_t</span> = wo_diag.tensor&lt;<span class="keyword">float</span>, <span class="number">1</span>&gt;();</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">proj_t</span> = proj.tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> &amp;acti_shape = input_data.shape();</span><br><span class="line">        <span class="keyword">int</span> seq_batch = acti_shape.dim_size(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> inputsize = acti_shape.dim_size(<span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> &amp;acth_shape = cdata_in.shape();</span><br><span class="line">        <span class="keyword">int</span> batch = acth_shape.dim_size(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> hiddensize = acth_shape.dim_size(<span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> &amp;actc_shape = hdata_in.shape();</span><br><span class="line">        <span class="keyword">int</span> outputsize = actc_shape.dim_size(<span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> length = seq_batch/batch;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Create an state out tensor</span></span><br><span class="line">        Tensor *state_outc = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="function">TensorShape <span class="title">indice_shape</span><span class="params">(&#123;batch, hiddensize&#125;)</span></span>;</span><br><span class="line">        OP_REQUIRES_OK(ctx, ctx-&gt;allocate_output(<span class="string">"cdata_out"</span>, indice_shape, &amp;state_outc));</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">statec_t</span> = state_outc-&gt;tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Create an state out tensor</span></span><br><span class="line">        Tensor *state_outh = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="function">TensorShape <span class="title">indice_shape1</span><span class="params">(&#123;batch, outputsize&#125;)</span></span>;</span><br><span class="line">        OP_REQUIRES_OK(ctx, ctx-&gt;allocate_output(<span class="string">"hdata_out"</span>, indice_shape1, &amp;state_outh));</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">stateh_t</span> = state_outh-&gt;tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Create an output tensor</span></span><br><span class="line">        Tensor *out_put = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="function">TensorShape <span class="title">indice_shape2</span><span class="params">(&#123;seq_batch, outputsize&#125;)</span></span>;</span><br><span class="line">        OP_REQUIRES_OK(ctx, ctx-&gt;allocate_output(<span class="string">"output"</span>, indice_shape2, &amp;out_put));</span><br><span class="line">        <span class="keyword">auto</span> <span class="keyword">out_t</span> = out_put-&gt;tensor&lt;<span class="keyword">float</span>, <span class="number">2</span>&gt;();</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 执行计算操作</span></span><br><span class="line">        LSTMTest(batch, length, inputsize, hiddensize, outputsize,</span><br><span class="line">                 <span class="keyword">inputdata_t</span>.data(), <span class="keyword">cdatain_t</span>.data(), <span class="keyword">hdatain_t</span>.data(),</span><br><span class="line">                 <span class="keyword">weighti_t</span>.data(), <span class="keyword">weighth_t</span>.data(), <span class="keyword">bias_t</span>.data(),</span><br><span class="line">                 <span class="keyword">widiag_t</span>.data(), <span class="keyword">wfdiag_t</span>.data(), <span class="keyword">wodiag_t</span>.data(), <span class="keyword">proj_t</span>.data(),</span><br><span class="line">                 <span class="keyword">statec_t</span>.data(), <span class="keyword">stateh_t</span>.data(), <span class="keyword">out_t</span>.data(),</span><br><span class="line">                 <span class="literal">true</span>, <span class="number">0.0</span>, <span class="number">50.0</span>);</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    </span><br><span class="line">&#125;; <span class="comment">//class CudaLstmForward end</span></span><br><span class="line">REGISTER_KERNEL_BUILDER(Name(<span class="string">"CudaLstmForward"</span>).Device(::tensorflow::DEVICE_CPU), CudaLstmForwardOp);</span><br><span class="line">REGISTER_KERNEL_BUILDER(Name(<span class="string">"CudaLstmForward"</span>).Device(DEVICE_GPU), CudaLstmForwardOp);</span><br></pre></td></tr></table></figure>
+<p>00_lstm.cu</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function"><span class="keyword">void</span> <span class="title">LSTMTest</span><span class="params">(<span class="keyword">int</span> miniBatch, <span class="keyword">int</span> seqLength, <span class="keyword">int</span> inputSize, <span class="keyword">int</span> hiddenSize, <span class="keyword">int</span> outSize,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">float</span>* input, <span class="keyword">float</span>* c_data_in, <span class="keyword">float</span> *h_data_in, <span class="keyword">float</span>* weight_i, <span class="keyword">float</span>* weight_h, <span class="keyword">float</span>*bias_data_in, <span class="keyword">float</span>* w_i_diag_in,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">float</span>* w_f_diag_in, <span class="keyword">float</span>* w_o_diag_in, <span class="keyword">float</span>* proj_kernel_in, <span class="keyword">float</span>* c_data_out, <span class="keyword">float</span>* h_data_out, <span class="keyword">float</span>* output,</span></span></span><br><span class="line"><span class="function"><span class="params">              <span class="keyword">bool</span> use_peepholes = <span class="literal">true</span>, <span class="keyword">float</span> cell_clip = <span class="number">0.0</span>, <span class="keyword">float</span> proj_clip = <span class="number">0.0</span>)</span></span>&#123;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> layer0_size = (<span class="number">7</span> + <span class="number">320</span> + <span class="number">2</span> * miniBatch + <span class="number">4</span> * miniBatch) * <span class="number">1536</span> + (<span class="number">2</span> * miniBatch + miniBatch * <span class="number">4</span>) * <span class="number">320</span> + (miniBatch * <span class="number">4</span>) * <span class="number">320</span> + (<span class="number">320</span> + <span class="number">320</span> + miniBatch * <span class="number">4</span> + miniBatch) * <span class="number">4</span> * <span class="number">1536</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> layer1_size = (<span class="number">7</span> + <span class="number">320</span> + <span class="number">2</span> * miniBatch + <span class="number">4</span> * miniBatch) * <span class="number">1536</span> + (<span class="number">2</span> * miniBatch + miniBatch * <span class="number">4</span>) * <span class="number">320</span> + (miniBatch * <span class="number">4</span>) * <span class="number">320</span> + (<span class="number">320</span> + <span class="number">320</span> + miniBatch * <span class="number">4</span> + miniBatch) * <span class="number">4</span> * <span class="number">1536</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> layer2_size = (<span class="number">7</span> + <span class="number">448</span> + <span class="number">2</span> * miniBatch + <span class="number">4</span> * miniBatch) * <span class="number">1536</span> + (<span class="number">2</span> * miniBatch + miniBatch * <span class="number">4</span>) * <span class="number">448</span> + (miniBatch * <span class="number">4</span>) * <span class="number">320</span> + (<span class="number">320</span> + <span class="number">448</span> + miniBatch * <span class="number">4</span> + miniBatch) * <span class="number">4</span> * <span class="number">1536</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> layer3_size = (<span class="number">7</span> + <span class="number">448</span> + <span class="number">2</span> * miniBatch + <span class="number">4</span> * miniBatch) * <span class="number">1536</span> + (<span class="number">2</span> * miniBatch + miniBatch * <span class="number">4</span>) * <span class="number">448</span> + (miniBatch * <span class="number">4</span>) * <span class="number">448</span> + (<span class="number">448</span> + <span class="number">448</span> + miniBatch * <span class="number">4</span> + miniBatch) * <span class="number">4</span> * <span class="number">1536</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> *w_diag_bias_proj;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> *init_pointer;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> all_layer_size = layer0_size + layer1_size + layer2_size + layer3_size;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> alpha = <span class="number">1.f</span>;</span><br><span class="line">    <span class="keyword">float</span> beta  = <span class="number">0.f</span>;</span><br><span class="line">    <span class="keyword">int</span> input_depth = inputSize;</span><br><span class="line">    <span class="keyword">int</span> gateSize = hiddenSize * <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> h_depth;</span><br><span class="line">    <span class="keyword">int</span> numElements = miniBatch * hiddenSize;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(use_peepholes == <span class="literal">true</span>)</span><br><span class="line">        h_depth = outSize;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        h_depth = hiddenSize;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">int</span> w_diag_bias_proj_size = (<span class="number">7</span> + h_depth) * hiddenSize;</span><br><span class="line">    <span class="keyword">int</span> h_op_data_size = <span class="number">2</span> * miniBatch * h_depth + miniBatch * seqLength * h_depth;</span><br><span class="line">    <span class="keyword">int</span> input_T_size = miniBatch * seqLength * input_depth + (input_depth + h_depth) * gateSize;</span><br><span class="line">    <span class="keyword">int</span> c_o_data_size = <span class="number">2</span> * miniBatch * hiddenSize + miniBatch * seqLength * hiddenSize;</span><br><span class="line">    <span class="keyword">int</span> tmp_i_size = miniBatch * seqLength * gateSize;</span><br><span class="line">    <span class="comment">// int tmp_h_size = miniBatch * gateSize;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// printf("the seqLength is: %d, inputSize: %d, input_depth: %d, hiddenSize: %d, outSize: %d\n", seqLength, inputSize, input_depth, hiddenSize, outSize);</span></span><br><span class="line">    </span><br><span class="line">    cudaErrCheck(cudaGetLastError());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(flag == <span class="number">0</span>)&#123;</span><br><span class="line">        cudaErrCheck(cudaMalloc((<span class="keyword">void</span>**)&amp;w_diag_bias_proj, all_layer_size * <span class="keyword">sizeof</span>(<span class="keyword">float</span>)));</span><br><span class="line">        init_pointer = w_diag_bias_proj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(flag == <span class="number">1</span>)</span><br><span class="line">      w_diag_bias_proj = w_diag_bias_proj + layer0_size;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">2</span>)</span><br><span class="line">      w_diag_bias_proj = w_diag_bias_proj + layer1_size;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(flag == <span class="number">3</span>)</span><br><span class="line">      w_diag_bias_proj = w_diag_bias_proj + layer2_size;</span><br><span class="line">    flag++;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"flag: %d\n"</span>, flag);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//b = a + size(a);</span></span><br><span class="line">    <span class="keyword">float</span> *input_T = w_diag_bias_proj + w_diag_bias_proj_size;</span><br><span class="line">    <span class="comment">//c = b + size(b);</span></span><br><span class="line">    <span class="keyword">float</span> *h_op_data = input_T + input_T_size;</span><br><span class="line">    <span class="keyword">float</span> *c_o_data = h_op_data + h_op_data_size;</span><br><span class="line">    <span class="keyword">float</span> *tmp_i = c_o_data + c_o_data_size;</span><br><span class="line">    <span class="keyword">float</span> *tmp_h = tmp_i + tmp_i_size;</span><br><span class="line"></span><br><span class="line">    cudaStream_t stream_i, stream_h;</span><br><span class="line">    cudaErrCheck(cudaStreamCreate(&amp;stream_i));</span><br><span class="line">    cudaErrCheck(cudaStreamCreate(&amp;stream_h));</span><br><span class="line">    <span class="keyword">bool</span> stream_i_flag = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(input_T, input, miniBatch * input_depth * seqLength * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_i));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(input_T + miniBatch * input_depth * seqLength, weight_i, input_depth * gateSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_i));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(input_T + miniBatch * input_depth * seqLength + input_depth * gateSize, weight_h, h_depth * gateSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    <span class="comment">// printf("*************************%d\n", hiddenSize);</span></span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(h_op_data, h_data_in, h_depth * miniBatch * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(c_o_data, c_data_in, numElements * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// printf("i_data up and i_data_beforeProj down and the seqLength is%d\n", seqLength);</span></span><br><span class="line">    </span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(w_diag_bias_proj, w_i_diag_in, hiddenSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(w_diag_bias_proj + hiddenSize, w_f_diag_in, hiddenSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(w_diag_bias_proj + <span class="number">2</span> * hiddenSize, w_o_diag_in, hiddenSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(w_diag_bias_proj + <span class="number">3</span> * hiddenSize , bias_data_in, gateSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    cudaErrCheck(cudaMemcpyAsync(w_diag_bias_proj + <span class="number">7</span> * hiddenSize, proj_kernel_in, h_depth * hiddenSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyHostToDevice, stream_h));</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    cudaErrCheck(cudaGetLastError());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// cudaDeviceSynchronize();</span></span><br><span class="line">    <span class="comment">// Need a cuBLAS handle.</span></span><br><span class="line">    cublasHandle_t handle;</span><br><span class="line">    cublasErrCheck(cublasCreate(&amp;handle));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    cublasErrCheck(cublasSetStream(handle, stream_i));</span><br><span class="line">    cublasErrCheck(cublasSgemm(handle,</span><br><span class="line">                               CUBLAS_OP_N, CUBLAS_OP_N,</span><br><span class="line">                               gateSize, miniBatch * seqLength, input_depth,</span><br><span class="line">                               &amp;alpha,</span><br><span class="line">                               input_T + miniBatch * input_depth * seqLength,</span><br><span class="line">                               gateSize,</span><br><span class="line">                               input_T,</span><br><span class="line">                               input_depth,</span><br><span class="line">                               &amp;beta,</span><br><span class="line">                               tmp_i,</span><br><span class="line">                               gateSize));</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    cudaErrCheck(cudaGetLastError());</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; seqLength; ++i)&#123;</span><br><span class="line">        <span class="comment">// cudaEventRecord(event1, 0);</span></span><br><span class="line">        cublasErrCheck(cublasSetStream(handle, stream_h));</span><br><span class="line">        cublasErrCheck(cublasSgemm(handle,</span><br><span class="line">                                   CUBLAS_OP_N, CUBLAS_OP_N,</span><br><span class="line">                                   gateSize, miniBatch, h_depth,</span><br><span class="line">                                   &amp;alpha,</span><br><span class="line">                                   input_T + miniBatch * input_depth * seqLength + input_depth * gateSize,</span><br><span class="line">                                   gateSize,</span><br><span class="line">                                   h_op_data,</span><br><span class="line">                                   h_depth ,</span><br><span class="line">                                   &amp;beta,</span><br><span class="line">                                   tmp_h,</span><br><span class="line">                                   gateSize));</span><br><span class="line">        </span><br><span class="line">        dim3 blockDim;</span><br><span class="line">        dim3 gridDim;</span><br><span class="line">        </span><br><span class="line">        blockDim.x = <span class="number">256</span>;</span><br><span class="line">        gridDim.x = (miniBatch * hiddenSize + blockDim.x - <span class="number">1</span>) / blockDim.x;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">if</span>(stream_i_flag == <span class="literal">true</span>)</span><br><span class="line">            cudaErrCheck(cudaStreamSynchronize(stream_i));</span><br><span class="line">        elementWise_fp &lt;&lt;&lt; gridDim, blockDim, <span class="number">0</span> , stream_h &gt;&gt;&gt;</span><br><span class="line">        (hiddenSize, miniBatch,</span><br><span class="line">         tmp_h,</span><br><span class="line">         tmp_i + i * miniBatch * gateSize,</span><br><span class="line">         w_diag_bias_proj + <span class="number">3</span> * hiddenSize,</span><br><span class="line">         <span class="literal">NULL</span>,</span><br><span class="line">         h_op_data + miniBatch * h_depth,</span><br><span class="line">         c_o_data + <span class="number">2</span> * numElements + i * miniBatch * hiddenSize,</span><br><span class="line">         c_o_data,</span><br><span class="line">         c_o_data + numElements,</span><br><span class="line">         <span class="literal">false</span>,</span><br><span class="line">         w_diag_bias_proj,</span><br><span class="line">         w_diag_bias_proj + hiddenSize,</span><br><span class="line">         w_diag_bias_proj + <span class="number">2</span> * hiddenSize,</span><br><span class="line">         use_peepholes,</span><br><span class="line">         h_depth,</span><br><span class="line">         cell_clip);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(stream_i_flag == <span class="literal">true</span>)&#123;</span><br><span class="line">            cudaErrCheck(cudaStreamDestroy(stream_i));</span><br><span class="line">            stream_i_flag = <span class="literal">false</span>;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        cudaErrCheck(cudaGetLastError());</span><br><span class="line">        <span class="keyword">if</span>(use_peepholes != <span class="number">0</span>)&#123;</span><br><span class="line">            cublasErrCheck(cublasSgemm(handle,</span><br><span class="line">                                       CUBLAS_OP_N, CUBLAS_OP_N,</span><br><span class="line">                                       h_depth, miniBatch, hiddenSize,</span><br><span class="line">                                       &amp;alpha,</span><br><span class="line">                                       w_diag_bias_proj + <span class="number">7</span> * hiddenSize,</span><br><span class="line">                                       h_depth,</span><br><span class="line">                                       c_o_data + <span class="number">2</span> * numElements + i * miniBatch * hiddenSize,</span><br><span class="line">                                       hiddenSize,</span><br><span class="line">                                       &amp;beta,</span><br><span class="line">                                       h_op_data + <span class="number">2</span> * miniBatch * h_depth + i * miniBatch * h_depth,</span><br><span class="line">                                       h_depth));</span><br><span class="line">            <span class="keyword">if</span>(proj_clip != <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="comment">// printf("in proj_clip\n");</span></span><br><span class="line">                dim3 blockDim;</span><br><span class="line">                dim3 gridDim;</span><br><span class="line">                blockDim.x = <span class="number">256</span>;</span><br><span class="line">                gridDim.x = (h_depth * miniBatch + blockDim.x - <span class="number">1</span>) / blockDim.x;</span><br><span class="line">                clip_by_value &lt;&lt;&lt; gridDim, blockDim, <span class="number">0</span>, stream_h &gt;&gt;&gt;</span><br><span class="line">                (h_op_data + <span class="number">2</span> * miniBatch * h_depth + i * h_depth * miniBatch, proj_clip, miniBatch * h_depth);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//h_data和i_data保持同步</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        cudaErrCheck(cudaMemcpy(h_op_data + miniBatch * h_depth, h_op_data + <span class="number">2</span> * miniBatch * h_depth + i * miniBatch * h_depth, miniBatch * h_depth * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyDeviceToDevice));</span><br><span class="line">        cudaErrCheck(cudaMemcpy(h_op_data, h_op_data + miniBatch * h_depth, miniBatch * h_depth * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyDeviceToDevice));</span><br><span class="line">        cudaErrCheck(cudaMemcpy(c_o_data, c_o_data + numElements, miniBatch * hiddenSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyDeviceToDevice));</span><br><span class="line">        cudaErrCheck(cudaGetLastError());</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        cudaErrCheck(cudaGetLastError());</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    cudaErrCheck(cudaMemcpy(h_data_out, h_op_data + miniBatch * h_depth, miniBatch * h_depth * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyDeviceToHost));</span><br><span class="line">    cudaErrCheck(cudaMemcpy(c_data_out, c_o_data + numElements, miniBatch * hiddenSize * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyDeviceToHost));</span><br><span class="line">    cudaErrCheck(cudaMemcpy(output, h_op_data + <span class="number">2</span> * miniBatch * h_depth, seqLength * miniBatch * h_depth * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), cudaMemcpyDeviceToHost));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(flag == <span class="number">4</span>)&#123;</span><br><span class="line">        cudaErrCheck(cudaFree(init_pointer));</span><br><span class="line">        flag = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">    cudaErrCheck(cudaStreamDestroy(stream_h));</span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line">   </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> seqLength;</span><br><span class="line">   <span class="keyword">int</span> numLayers;</span><br><span class="line">   <span class="keyword">int</span> hiddenSize;</span><br><span class="line">   <span class="keyword">int</span> miniBatch; </span><br><span class="line">   <span class="keyword">bool</span> use_peepholes;</span><br><span class="line">   <span class="keyword">int</span> num_proj;</span><br><span class="line">   <span class="keyword">float</span> cell_clip = <span class="number">0.0</span>;</span><br><span class="line">   <span class="keyword">float</span> proj_clip = <span class="number">0.0</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (argc == <span class="number">5</span>) &#123;</span><br><span class="line">      seqLength = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">      numLayers =  atoi(argv[<span class="number">2</span>]);</span><br><span class="line">      hiddenSize =  atoi(argv[<span class="number">3</span>]);</span><br><span class="line">      miniBatch =  atoi(argv[<span class="number">4</span>]);   </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> <span class="keyword">if</span> (argc == <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"Running with default settings\n"</span>);</span><br><span class="line">      seqLength = <span class="number">2</span>;</span><br><span class="line">      numLayers = <span class="number">1</span>;</span><br><span class="line">      hiddenSize = <span class="number">1536</span>;</span><br><span class="line">      miniBatch = <span class="number">100</span>;</span><br><span class="line">      use_peepholes = <span class="literal">true</span>;</span><br><span class="line">      num_proj = <span class="number">320</span>;</span><br><span class="line">      cell_clip = <span class="number">0.00</span>;</span><br><span class="line">      proj_clip = <span class="number">50.00</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"Usage: ./LSTM &lt;seqLength&gt; &lt;numLayers&gt; &lt;hiddenSize&gt; &lt;miniBatch&gt;\n"</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;      </span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"seqLength %d, numLayers %d, num_proj %d, miniBatch %d\n"</span>, seqLength, numLayers, num_proj, miniBatch);  </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">int</span> outSize = num_proj;</span><br><span class="line">   <span class="keyword">int</span> numRuns = <span class="number">4</span>;  </span><br><span class="line">   <span class="keyword">float</span> totalTime = <span class="number">0.f</span>;</span><br><span class="line">   <span class="keyword">int</span> input_depth = <span class="number">320</span>;</span><br><span class="line">   <span class="keyword">float</span>* input = init_Matrix(miniBatch * input_depth * seqLength);</span><br><span class="line">   <span class="keyword">float</span>* h_data_in = init_Matrix_zeros(miniBatch * num_proj);</span><br><span class="line">   <span class="keyword">float</span>* c_data_in = init_Matrix_zeros(miniBatch * hiddenSize);</span><br><span class="line">   <span class="keyword">float</span>* weight_i = init_Matrix(input_depth* hiddenSize * <span class="number">4</span>);</span><br><span class="line">   <span class="keyword">float</span>* weight_h = init_Matrix(num_proj* hiddenSize * <span class="number">4</span>);</span><br><span class="line">   <span class="keyword">float</span>* bias_data_in = init_Matrix_zeros(hiddenSize * <span class="number">4</span>);</span><br><span class="line">   <span class="keyword">float</span>* w_i_diag_in = init_Matrix(hiddenSize);</span><br><span class="line">   <span class="keyword">float</span>* w_f_diag_in = init_Matrix(hiddenSize);</span><br><span class="line">   <span class="keyword">float</span>* w_o_diag_in = init_Matrix(hiddenSize);</span><br><span class="line">   <span class="keyword">float</span>* proj_kernel_in = init_Matrix(hiddenSize * num_proj);</span><br><span class="line">   <span class="keyword">float</span>* h_data_out = init_Matrix_zeros(miniBatch * num_proj);</span><br><span class="line">   <span class="keyword">float</span>* c_data_out = init_Matrix_zeros(miniBatch * hiddenSize);</span><br><span class="line">   <span class="keyword">float</span>* output = init_Matrix_zeros(miniBatch * seqLength * num_proj);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> run = <span class="number">0</span>; run &lt; numRuns; run++) &#123;</span><br><span class="line"></span><br><span class="line">      LSTMTest(miniBatch, seqLength, input_depth, hiddenSize, outSize,</span><br><span class="line">        input, c_data_in, h_data_in, weight_i, weight_h, bias_data_in, w_i_diag_in,</span><br><span class="line">      w_f_diag_in, w_o_diag_in, proj_kernel_in, c_data_out, h_data_out, output, use_peepholes, cell_clip, proj_clip);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"Runtime %fms\n"</span>, totalTime / numRuns);</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">return</span> time &lt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><h4 id="混合编译-c-cpp与-cu文件"><a href="#混合编译-c-cpp与-cu文件" class="headerlink" title="混合编译.c/.cpp与.cu文件"></a><a href="https://www.cnblogs.com/zjutzz/p/10272424.html" target="_blank" rel="noopener">混合编译.c/.cpp与.cu文件</a></h4></li>
+</ol>
+<ul>
+<li><strong>即在cpp里使用cu文件，编译cpp时将编译好的cuda库链接进来</strong></li>
+</ul>
+<p>分别编译：g++ -o test 00_lstm.o 01_cpptest_cuda_lstm.o -lcudart -L/usr/local/cuda/lib64 -lcublas -lcurand -L/home/resources/yxwang/cuda-10.0/lib64/</p>
+<p>静态库： nvcc -lib 00_lstm.cu -o lib00_lstm.a</p>
+<p>g++ -o test 00_lstm.o 01_cpptest_cuda_lstm.o -L/usr/local/cuda/lib64</p>
+<p>动态库(BUILD.sh)：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#注意要在源码编译后的tensorflow文件夹编译,pwd=~/tensorflow/tensorflow/core/user_ops</span><br><span class="line">TF_CFLAGS=( $(python -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_compile_flags()))') );TF_LFLAGS=( $(python -c 'import tensorflow as tf; print(" ".join(tf.sysconfig.get_link_flags()))') )</span><br><span class="line"></span><br><span class="line"><span class="meta">#g++ -std=c++11 -shared -o cuda_lstm_forward.so -c cuda_lstm_forward.cc -ltestcu -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -L /home/resources/yxwang/cuda-10.0/lib64/ -lcublas -lcurand</span></span><br><span class="line"></span><br><span class="line">##把<span class="number">00</span>_lstm.cu -o 成lib00_lstm.so</span><br><span class="line"><span class="meta">#nvcc -o lib00_lstm.so -shared -Xcompiler -fPIC 00_lstm.cu -lcublas -lcurand -L /home/resources/yxwang/cuda-10.0/lib64/ -std=c++11</span></span><br><span class="line">#</span><br><span class="line">##把cuda_lstm_forward.cc -o成cuda_lstm_forward.so，用到-l00_lstm -L.</span><br><span class="line"><span class="meta">#g++ -std=c++11 -shared cuda_lstm_forward.cc -o cuda_lstm_forward.so -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -l00_lstm -L. -lcublas -lcurand -L/home/resources/yxwang/cuda-10.0/lib64/</span></span><br><span class="line"></span><br><span class="line">nvcc -o lib00_lstm.so -shared -Xcompiler -fPIC <span class="number">00</span>_lstm.cu -lcublas -lcurand -L /usr/local/cuda/lib64/ -<span class="built_in">std</span>=c++<span class="number">11</span></span><br><span class="line"></span><br><span class="line">g++ -<span class="built_in">std</span>=c++<span class="number">11</span> -shared cuda_lstm_forward.cc -o cuda_lstm_forward.so -fPIC $&#123;TF_CFLAGS[@]&#125; $&#123;TF_LFLAGS[@]&#125; -O2  -ltensorflow_framework -l00_lstm -L. -lcublas -lcurand -L/usr/local/cuda/lib64/</span><br><span class="line"></span><br><span class="line">#-l链接库名 -库地址</span><br><span class="line">#单纯编译测试：nvcc -g -G <span class="number">00</span>_lstm.cu -o <span class="number">00</span>_lstm -L -arch=sm_52 -DPERFOPTS=<span class="number">31</span> -lcublas -lcurand</span><br></pre></td></tr></table></figure>
+<p>或写Makefile, : 后为依赖项，从下往上看</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">all : cpp</span><br><span class="line"></span><br><span class="line">cpp : lib00_lstm.so</span><br><span class="line">	g++ <span class="number">01</span>_cpptest_cuda_lstm.cpp -o <span class="number">01</span>_cpptest_cuda_lstm /home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/libcublas.so -l00_lstm -L.</span><br><span class="line"></span><br><span class="line">lib00_lstm.so : <span class="number">00</span>_lstm.cu</span><br><span class="line">	nvcc -o lib00_lstm.so -shared -Xcompiler -fPIC <span class="number">00</span>_lstm.cu -lcublas -lcurand -L /home/resources/yxwang/cuda<span class="number">-10.0</span>/lib64/</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ShapeHandle x, cs_prev;</span><br><span class="line">TF_RETURN_IF_ERROR(c-&gt;WithRank(c-&gt;input(<span class="number">0</span>), <span class="number">2</span>, &amp;x));</span><br><span class="line">TF_RETURN_IF_ERROR(c-&gt;WithRank(c-&gt;input(<span class="number">1</span>), <span class="number">2</span>, &amp;cs_prev));</span><br><span class="line"></span><br><span class="line">DimensionHandle batch_size = c-&gt;Dim(x, <span class="number">0</span>);</span><br><span class="line">DimensionHandle cell_size = c-&gt;Dim(cs_prev, <span class="number">1</span>);</span><br><span class="line">ShapeHandle output = c-&gt;Matrix(batch_size, cell_size);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; ++i) &#123;</span><br><span class="line">  c-&gt;set_output(i, output);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> tensorflow::Status::OK();</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/26/mac和服务器的挂载/" rel="next" title="mac和服务器的挂载">
+                <i class="fa fa-chevron-left"></i> mac和服务器的挂载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/18/LSTM的cuda加速/" rel="prev" title="LSTM的cuda加速">
+                LSTM的cuda加速 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-源代码编译tensorflow"><span class="nav-number">1.</span> <span class="nav-text">1. 源代码编译tensorflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-注册OP流程："><span class="nav-number">2.</span> <span class="nav-text">2. 注册OP流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-例子"><span class="nav-number">3.</span> <span class="nav-text">3. 例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#按上图准备好cc文件"><span class="nav-number">3.1.</span> <span class="nav-text">按上图准备好cc文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合编译-c-cpp与-cu文件"><span class="nav-number">3.2.</span> <span class="nav-text">混合编译.c/.cpp与.cu文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

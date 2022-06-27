@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="opencv,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="实验内容: 1、 灰度图像的 DFT 和 IDFT。  具体内容:利用 OpenCV 提供的 cvDFT 函数对图像进行 DFT 和 IDFT 变换  2、利用理想高通和低通滤波器对灰度图像进行频域滤波 具体内容:利用 cvDFT 函数实现 DFT，在频域上利用理想高通和低通滤波  器进行滤波，并把滤波过后的图像显示在屏幕上(观察振铃现象)，要求截止频 率可输入。  3、利用布特沃斯高通和低通滤波">
+<meta name="keywords" content="opencv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="opencv05频域滤波">
+<meta property="og:url" content="http://yoursite.com/2019/04/01/opencv05频域滤波/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="实验内容: 1、 灰度图像的 DFT 和 IDFT。  具体内容:利用 OpenCV 提供的 cvDFT 函数对图像进行 DFT 和 IDFT 变换  2、利用理想高通和低通滤波器对灰度图像进行频域滤波 具体内容:利用 cvDFT 函数实现 DFT，在频域上利用理想高通和低通滤波  器进行滤波，并把滤波过后的图像显示在屏幕上(观察振铃现象)，要求截止频 率可输入。  3、利用布特沃斯高通和低通滤波">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-19T06:28:49.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="opencv05频域滤波">
+<meta name="twitter:description" content="实验内容: 1、 灰度图像的 DFT 和 IDFT。  具体内容:利用 OpenCV 提供的 cvDFT 函数对图像进行 DFT 和 IDFT 变换  2、利用理想高通和低通滤波器对灰度图像进行频域滤波 具体内容:利用 cvDFT 函数实现 DFT，在频域上利用理想高通和低通滤波  器进行滤波，并把滤波过后的图像显示在屏幕上(观察振铃现象)，要求截止频 率可输入。  3、利用布特沃斯高通和低通滤波">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/01/opencv05频域滤波/">
+
+
+
+
+
+  <title>opencv05频域滤波 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/opencv05频域滤波/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">opencv05频域滤波</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-01T14:27:06+08:00">
+                2019-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数字图像处理/" itemprop="url" rel="index">
+                    <span itemprop="name">数字图像处理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容:"></a>实验内容:</h3><p> 1、 灰度图像的 DFT 和 IDFT。 </p>
+<p>具体内容:利用 OpenCV 提供的 cvDFT 函数对图像进行 DFT 和 IDFT 变换 </p>
+<p>2、利用理想高通和低通滤波器对灰度图像进行频域滤波<br> 具体内容:利用 cvDFT 函数实现 DFT，在频域上利用理想高通和低通滤波 </p>
+<p>器进行滤波，并把滤波过后的图像显示在屏幕上(观察振铃现象)，要求截止频 率可输入。 </p>
+<p>3、利用布特沃斯高通和低通滤波器对灰度图像进行频域滤波。 具体内容:利用 cvDFT 函数实现 DFT，在频域上进行利用布特沃斯高通和 低通滤波器进行滤波，并把滤波过后的图像显示在屏幕上(观察振铃现象)，要 </p>
+<p>求截止频率和 n 可输入。 </p>
+<h2 id="实验代码："><a href="#实验代码：" class="headerlink" title="实验代码："></a>实验代码：</h2><p>完整课程PPT和实验要求戳：<a href="https://github.com/MintLucas/Digital_image_process" target="_blank" rel="noopener">https://github.com/MintLucas/Digital_image_process</a></p>
+<p>（<strong>讲解用注释标注在代码中</strong>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lab05_spectrumFileter.hpp"</span></span></span><br><span class="line"><span class="comment">//图像灰度变换</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/imgcodecs.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/imgproc/imgproc.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/types_c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/core_c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/core.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function">Mat <span class="title">DFT</span><span class="params">( Mat I)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//Mat I = imread("/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png", IMREAD_GRAYSCALE);       //读入图像灰度图</span></span><br><span class="line">    </span><br><span class="line">    Mat padded;                 <span class="comment">//以0填充输入图像矩阵</span></span><br><span class="line">    <span class="keyword">int</span> m = getOptimalDFTSize(I.rows);</span><br><span class="line">    <span class="keyword">int</span> n = getOptimalDFTSize(I.cols);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//填充输入图像I，输入矩阵为padded，上方和左方不做填充处理</span></span><br><span class="line">    copyMakeBorder(I, padded, <span class="number">0</span>, m - I.rows, <span class="number">0</span>, n - I.cols, BORDER_CONSTANT, Scalar::all(<span class="number">0</span>));</span><br><span class="line">    </span><br><span class="line">    Mat planes[] = &#123; Mat_&lt;<span class="keyword">float</span>&gt;(padded), Mat::zeros(padded.size(),CV_32F) &#125;;</span><br><span class="line">    Mat complexI;</span><br><span class="line">    merge(planes, <span class="number">2</span>, complexI);     <span class="comment">//将planes融合合并成一个多通道数组complexI</span></span><br><span class="line">    </span><br><span class="line">    dft(complexI, complexI);        <span class="comment">//进行傅里叶变换</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//计算幅值，转换到对数尺度(logarithmic scale)</span></span><br><span class="line">    <span class="comment">//=&gt; log(1 + sqrt(Re(DFT(I))^2 + Im(DFT(I))^2))</span></span><br><span class="line">    split(complexI, planes);        <span class="comment">//planes[0] = Re(DFT(I),planes[1] = Im(DFT(I))</span></span><br><span class="line">    <span class="comment">//即planes[0]为实部,planes[1]为虚部</span></span><br><span class="line">    magnitude(planes[<span class="number">0</span>], planes[<span class="number">1</span>], planes[<span class="number">0</span>]);     <span class="comment">//planes[0] = magnitude</span></span><br><span class="line">    Mat magI = planes[<span class="number">0</span>];</span><br><span class="line">    </span><br><span class="line">    magI += Scalar::all(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">log</span>(magI, magI);                <span class="comment">//转换到对数尺度(logarithmic scale)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//如果有奇数行或列，则对频谱进行裁剪</span></span><br><span class="line">    magI = magI(Rect(<span class="number">0</span>, <span class="number">0</span>, magI.cols&amp;<span class="number">-2</span>, magI.rows&amp;<span class="number">-2</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//重新排列傅里叶图像中的象限，使得原点位于图像中心</span></span><br><span class="line">    <span class="keyword">int</span> cx = magI.cols / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> cy = magI.rows / <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">Mat <span class="title">q0</span><span class="params">(magI, Rect(<span class="number">0</span>, <span class="number">0</span>, cx, cy))</span></span>;       <span class="comment">//左上角图像划定ROI区域</span></span><br><span class="line">    <span class="function">Mat <span class="title">q1</span><span class="params">(magI, Rect(cx, <span class="number">0</span>, cx, cy))</span></span>;      <span class="comment">//右上角图像</span></span><br><span class="line">    <span class="function">Mat <span class="title">q2</span><span class="params">(magI, Rect(<span class="number">0</span>, cy, cx, cy))</span></span>;      <span class="comment">//左下角图像</span></span><br><span class="line">    <span class="function">Mat <span class="title">q3</span><span class="params">(magI, Rect(cx, cy, cx, cy))</span></span>;     <span class="comment">//右下角图像</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//变换左上角和右下角象限</span></span><br><span class="line">    Mat tmp;</span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//变换右上角和左下角象限</span></span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//归一化处理，用0-1之间的浮点数将矩阵变换为可视的图像格式</span></span><br><span class="line">    normalize(magI, magI, <span class="number">0</span>, <span class="number">1</span>, <span class="number">32</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> magI;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DFTAndIDFT</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat input = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>);</span><br><span class="line">    imshow(<span class="string">"input"</span>, input);<span class="comment">//显示原图</span></span><br><span class="line">    <span class="keyword">int</span> w = getOptimalDFTSize(input.cols);</span><br><span class="line">    <span class="keyword">int</span> h = getOptimalDFTSize(input.rows);<span class="comment">//获取最佳尺寸，快速傅立叶变换要求尺寸为2的n次方</span></span><br><span class="line">    Mat padded;</span><br><span class="line">    copyMakeBorder(input, padded, <span class="number">0</span>, h - input.rows, <span class="number">0</span>, w - input.cols, BORDER_CONSTANT, Scalar::all(<span class="number">0</span>));<span class="comment">//填充图像保存到padded中</span></span><br><span class="line">    Mat plane[] = &#123; Mat_&lt;<span class="keyword">float</span>&gt;(padded),Mat::zeros(padded.size(),CV_32F) &#125;;<span class="comment">//创建通道</span></span><br><span class="line">    Mat complexIm;</span><br><span class="line">    merge(plane, <span class="number">2</span>, complexIm);<span class="comment">//合并通道</span></span><br><span class="line">    dft(complexIm, complexIm);<span class="comment">//进行傅立叶变换，结果保存在自身</span></span><br><span class="line">    split(complexIm, plane);<span class="comment">//分离通道</span></span><br><span class="line">    magnitude(plane[<span class="number">0</span>], plane[<span class="number">1</span>], plane[<span class="number">0</span>]);<span class="comment">//获取幅度图像，0通道为实数通道，1为虚数，因为二维傅立叶变换结果是复数</span></span><br><span class="line">    <span class="keyword">int</span> cx = padded.cols / <span class="number">2</span>; <span class="keyword">int</span> cy = padded.rows / <span class="number">2</span>;<span class="comment">//一下的操作是移动图像，左上与右下交换位置，右上与左下交换位置</span></span><br><span class="line">    Mat temp;</span><br><span class="line">    <span class="function">Mat <span class="title">part1</span><span class="params">(plane[<span class="number">0</span>], Rect(<span class="number">0</span>, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">part2</span><span class="params">(plane[<span class="number">0</span>], Rect(cx, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">part3</span><span class="params">(plane[<span class="number">0</span>], Rect(<span class="number">0</span>, cy, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">part4</span><span class="params">(plane[<span class="number">0</span>], Rect(cx, cy, cx, cy))</span></span>;</span><br><span class="line">    part1.copyTo(temp);</span><br><span class="line">    part4.copyTo(part1);</span><br><span class="line">    temp.copyTo(part4);</span><br><span class="line">    part2.copyTo(temp);</span><br><span class="line">    part3.copyTo(part2);</span><br><span class="line">    temp.copyTo(part3);</span><br><span class="line">    <span class="comment">//*******************************************************************</span></span><br><span class="line">    </span><br><span class="line">    Mat _complexim;</span><br><span class="line">    complexIm.copyTo(_complexim);<span class="comment">//把变换结果复制一份，进行逆变换，也就是恢复原图</span></span><br><span class="line">    Mat iDft[] = &#123; Mat::zeros(plane[<span class="number">0</span>].size(),CV_32F),Mat::zeros(plane[<span class="number">0</span>].size(),CV_32F) &#125;;<span class="comment">//创建两个通道，类型为float，大小为填充后的尺寸</span></span><br><span class="line">    idft(_complexim, _complexim);<span class="comment">//傅立叶逆变换</span></span><br><span class="line">    split(_complexim, iDft);<span class="comment">//结果貌似也是复数</span></span><br><span class="line">    magnitude(iDft[<span class="number">0</span>], iDft[<span class="number">1</span>], iDft[<span class="number">0</span>]);<span class="comment">//分离通道，主要获取0通道</span></span><br><span class="line">    normalize(iDft[<span class="number">0</span>], iDft[<span class="number">0</span>], <span class="number">1</span>, <span class="number">0</span>, CV_MINMAX);<span class="comment">//归一化处理，float类型的显示范围为0-1,大于1为白色，小于0为黑色</span></span><br><span class="line">    imshow(<span class="string">"idft"</span>, iDft[<span class="number">0</span>]);<span class="comment">//显示逆变换</span></span><br><span class="line">    <span class="comment">//*******************************************************************</span></span><br><span class="line">    plane[<span class="number">0</span>] += Scalar::all(<span class="number">1</span>);<span class="comment">//傅立叶变换后的图片不好分析，进行对数处理，结果比较好看</span></span><br><span class="line">    <span class="built_in">log</span>(plane[<span class="number">0</span>], plane[<span class="number">0</span>]);</span><br><span class="line">    normalize(plane[<span class="number">0</span>], plane[<span class="number">0</span>], <span class="number">1</span>, <span class="number">0</span>, CV_MINMAX);</span><br><span class="line">    imshow(<span class="string">"dft"</span>, plane[<span class="number">0</span>]);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ideal_Low_Pass_Filter</span><span class="params">(<span class="keyword">double</span> D0 = <span class="number">60</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat src, fourier, res;</span><br><span class="line">    src = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    Mat img = src.clone();</span><br><span class="line">    <span class="comment">//cvtColor(src, img, CV_BGR2GRAY);</span></span><br><span class="line">    <span class="comment">//调整图像加速傅里叶变换</span></span><br><span class="line">    <span class="keyword">int</span> M = getOptimalDFTSize(img.rows);</span><br><span class="line">    <span class="keyword">int</span> N = getOptimalDFTSize(img.cols);</span><br><span class="line">    Mat padded;</span><br><span class="line">    copyMakeBorder(img, padded, <span class="number">0</span>, M - img.rows, <span class="number">0</span>, N - img.cols, BORDER_CONSTANT, Scalar::all(<span class="number">0</span>));</span><br><span class="line">    <span class="comment">//记录傅里叶变换的实部和虚部</span></span><br><span class="line">    Mat planes[] = &#123; Mat_&lt;<span class="keyword">float</span>&gt;(padded), Mat::zeros(padded.size(), CV_32F) &#125;;</span><br><span class="line">    Mat complexImg;</span><br><span class="line">    merge(planes, <span class="number">2</span>, complexImg);</span><br><span class="line">    <span class="comment">//进行傅里叶变换</span></span><br><span class="line">    dft(complexImg, complexImg);</span><br><span class="line">    <span class="comment">//获取图像</span></span><br><span class="line">    Mat mag = complexImg;</span><br><span class="line">    mag = mag(Rect(<span class="number">0</span>, <span class="number">0</span>, mag.cols &amp; <span class="number">-2</span>, mag.rows &amp; <span class="number">-2</span>));<span class="comment">//这里为什么&amp;上-2具体查看opencv文档</span></span><br><span class="line">    <span class="comment">//其实是为了把行和列变成偶数 -2的二进制是11111111.......10 最后一位是0</span></span><br><span class="line">    <span class="comment">//获取中心点坐标</span></span><br><span class="line">    <span class="keyword">int</span> cx = mag.cols / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> cy = mag.rows / <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//调整频域</span></span><br><span class="line">    Mat tmp;</span><br><span class="line">    <span class="function">Mat <span class="title">q0</span><span class="params">(mag, Rect(<span class="number">0</span>, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q1</span><span class="params">(mag, Rect(cx, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q2</span><span class="params">(mag, Rect(<span class="number">0</span>, cy, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q3</span><span class="params">(mag, Rect(cx, cy, cx, cy))</span></span>;</span><br><span class="line">    </span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    </span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    <span class="comment">//Do为自己设定的阀值具体看公式</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//处理按公式保留中心部分,在二维频谱上画个圆,高频对应灰度变化剧烈的点,让低频通过</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; mag.rows; y++) &#123;</span><br><span class="line">        <span class="keyword">double</span>* data = mag.ptr&lt;<span class="keyword">double</span>&gt;(y);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; mag.cols; x++) &#123;</span><br><span class="line">            <span class="keyword">double</span> d = <span class="built_in">sqrt</span>(<span class="built_in">pow</span>((y - cy), <span class="number">2</span>) + <span class="built_in">pow</span>((x - cx), <span class="number">2</span>));</span><br><span class="line">            <span class="keyword">if</span> (d &lt;= D0)</span><br><span class="line">            &#123;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                data[x] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//再调整频域</span></span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    <span class="comment">//逆变换</span></span><br><span class="line">    Mat invDFT, invDFTcvt;</span><br><span class="line">    idft(mag, invDFT, DFT_SCALE | DFT_REAL_OUTPUT); <span class="comment">// Applying IDFT</span></span><br><span class="line">    invDFT.convertTo(invDFTcvt, CV_8U);</span><br><span class="line">    imgShow(invDFTcvt, <span class="string">"Butterworth_Low_Paass_Filter"</span>);</span><br><span class="line">    Mat freImg;</span><br><span class="line">    freImg = DFT(invDFTcvt);</span><br><span class="line">    imgShow(freImg, <span class="string">"freImg_Butterworth_Low_Paass_Filter"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ideal_High_Pass_Filter</span><span class="params">(<span class="keyword">double</span> D0 = <span class="number">60</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat src, fourier, res;</span><br><span class="line">    src = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    Mat img = src.clone();</span><br><span class="line">    <span class="comment">//cvtColor(src, img, CV_BGR2GRAY);</span></span><br><span class="line">    <span class="comment">//调整图像加速傅里叶变换</span></span><br><span class="line">    <span class="keyword">int</span> M = getOptimalDFTSize(img.rows);</span><br><span class="line">    <span class="keyword">int</span> N = getOptimalDFTSize(img.cols);</span><br><span class="line">    Mat padded;</span><br><span class="line">    copyMakeBorder(img, padded, <span class="number">0</span>, M - img.rows, <span class="number">0</span>, N - img.cols, BORDER_CONSTANT, Scalar::all(<span class="number">0</span>));</span><br><span class="line">    <span class="comment">//记录傅里叶变换的实部和虚部</span></span><br><span class="line">    Mat planes[] = &#123; Mat_&lt;<span class="keyword">float</span>&gt;(padded), Mat::zeros(padded.size(), CV_32F) &#125;;</span><br><span class="line">    Mat complexImg;</span><br><span class="line">    merge(planes, <span class="number">2</span>, complexImg);</span><br><span class="line">    <span class="comment">//进行傅里叶变换</span></span><br><span class="line">    dft(complexImg, complexImg);</span><br><span class="line">    <span class="comment">//获取图像</span></span><br><span class="line">    Mat mag = complexImg;</span><br><span class="line">    mag = mag(Rect(<span class="number">0</span>, <span class="number">0</span>, mag.cols &amp; <span class="number">-2</span>, mag.rows &amp; <span class="number">-2</span>));<span class="comment">//这里为什么&amp;上-2具体查看opencv文档</span></span><br><span class="line">    <span class="comment">//其实是为了把行和列变成偶数 -2的二进制是11111111.......10 最后一位是0</span></span><br><span class="line">    <span class="comment">//获取中心点坐标</span></span><br><span class="line">    <span class="keyword">int</span> cx = mag.cols / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> cy = mag.rows / <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//调整频域</span></span><br><span class="line">    Mat tmp;</span><br><span class="line">    <span class="function">Mat <span class="title">q0</span><span class="params">(mag, Rect(<span class="number">0</span>, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q1</span><span class="params">(mag, Rect(cx, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q2</span><span class="params">(mag, Rect(<span class="number">0</span>, cy, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q3</span><span class="params">(mag, Rect(cx, cy, cx, cy))</span></span>;</span><br><span class="line">    </span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    </span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    <span class="comment">//Do为自己设定的阀值具体看公式</span></span><br><span class="line">    <span class="comment">//处理按公式保留中心部分</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; mag.rows; y++) &#123;</span><br><span class="line">        <span class="keyword">double</span>* data = mag.ptr&lt;<span class="keyword">double</span>&gt;(y);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; mag.cols; x++) &#123;</span><br><span class="line">            <span class="keyword">double</span> d = <span class="built_in">sqrt</span>(<span class="built_in">pow</span>((y - cy), <span class="number">2</span>) + <span class="built_in">pow</span>((x - cx), <span class="number">2</span>));</span><br><span class="line">            <span class="keyword">if</span> (d &lt;= D0)</span><br><span class="line">            &#123;</span><br><span class="line">                data[x] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">/*和低通相反，通过高的，所以这里啥都没有*/</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//再调整频域</span></span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    <span class="comment">//逆变换</span></span><br><span class="line">    Mat invDFT, invDFTcvt;</span><br><span class="line">    idft(mag, invDFT, DFT_SCALE | DFT_REAL_OUTPUT); <span class="comment">// Applying IDFT</span></span><br><span class="line">    invDFT.convertTo(invDFTcvt, CV_8U);</span><br><span class="line">    </span><br><span class="line">    imgShow(invDFTcvt, <span class="string">"ideal_High_Pass_Filter"</span>);</span><br><span class="line">    Mat freImg;</span><br><span class="line">    freImg = DFT(invDFTcvt);</span><br><span class="line">    imgShow(freImg, <span class="string">"freImg_ideal_High_Pass_Filter"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Butterworth_Low_Paass_Filter</span><span class="params">(<span class="keyword">double</span> D0=<span class="number">60</span>, <span class="keyword">int</span> n=<span class="number">2</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat src, fourier, res;</span><br><span class="line">    src = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    imshow(<span class="string">"原始图像"</span>, src);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//H = 1 / (1+(D/D0)^2n)</span></span><br><span class="line">    Mat img = src.clone();</span><br><span class="line">    <span class="comment">//cvtColor(src, img, CV_BGR2GRAY);</span></span><br><span class="line">    <span class="comment">//调整图像加速傅里叶变换</span></span><br><span class="line">    <span class="keyword">int</span> M = getOptimalDFTSize(img.rows);</span><br><span class="line">    <span class="keyword">int</span> N = getOptimalDFTSize(img.cols);</span><br><span class="line">    Mat padded;</span><br><span class="line">    copyMakeBorder(img, padded, <span class="number">0</span>, M - img.rows, <span class="number">0</span>, N - img.cols, BORDER_CONSTANT, Scalar::all(<span class="number">0</span>));</span><br><span class="line">    </span><br><span class="line">    Mat planes[] = &#123; Mat_&lt;<span class="keyword">float</span>&gt;(padded), Mat::zeros(padded.size(), CV_32F) &#125;;</span><br><span class="line">    Mat complexImg;</span><br><span class="line">    merge(planes, <span class="number">2</span>, complexImg);</span><br><span class="line">    </span><br><span class="line">    dft(complexImg, complexImg);</span><br><span class="line">    </span><br><span class="line">    Mat mag = complexImg;</span><br><span class="line">    mag = mag(Rect(<span class="number">0</span>, <span class="number">0</span>, mag.cols &amp; <span class="number">-2</span>, mag.rows &amp; <span class="number">-2</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> cx = mag.cols / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> cy = mag.rows / <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    Mat tmp;</span><br><span class="line">    <span class="function">Mat <span class="title">q0</span><span class="params">(mag, Rect(<span class="number">0</span>, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q1</span><span class="params">(mag, Rect(cx, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q2</span><span class="params">(mag, Rect(<span class="number">0</span>, cy, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q3</span><span class="params">(mag, Rect(cx, cy, cx, cy))</span></span>;</span><br><span class="line">    </span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    </span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; mag.rows; y++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">double</span>* data = mag.ptr&lt;<span class="keyword">double</span>&gt;(y);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; mag.cols; x++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; data[x] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">double</span> d = <span class="built_in">sqrt</span>(<span class="built_in">pow</span>((y - cy), <span class="number">2</span>) + <span class="built_in">pow</span>((x - cx), <span class="number">2</span>));</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; d &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">double</span> h = <span class="number">1.0</span> / (<span class="number">1</span> + <span class="built_in">pow</span>(d / D0, <span class="number">2</span> * n));</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; h &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">if</span> (h &lt;= <span class="number">0.5</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                data[x] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//data[x] = data[x]*0.5;</span></span><br><span class="line">                <span class="comment">//cout &lt;&lt; h &lt;&lt; endl;</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//cout &lt;&lt; data[x] &lt;&lt; endl;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    <span class="comment">//逆变换</span></span><br><span class="line">    Mat invDFT, invDFTcvt;</span><br><span class="line">    idft(complexImg, invDFT, DFT_SCALE | DFT_REAL_OUTPUT); <span class="comment">// Applying IDFT</span></span><br><span class="line">    invDFT.convertTo(invDFTcvt, CV_8U);</span><br><span class="line">    </span><br><span class="line">    imgShow(invDFTcvt, <span class="string">"Butterworth_Low_Paass_Filter"</span>);</span><br><span class="line">    Mat freImg;</span><br><span class="line">    freImg = DFT(invDFTcvt);</span><br><span class="line">    imgShow(freImg, <span class="string">"freImg_Butterworth_Low_Paass_Filter"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Butterworth_High_Paass_Filter</span><span class="params">(<span class="keyword">double</span> D0 = <span class="number">60</span>, <span class="keyword">int</span> n =<span class="number">2</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat src, fourier, res;</span><br><span class="line">    src = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//H = 1 / (1+(D/D0)^2n)</span></span><br><span class="line">    Mat img = src.clone();</span><br><span class="line">    <span class="comment">//cvtColor(src, img, CV_BGR2GRAY);</span></span><br><span class="line">    <span class="comment">//调整图像加速傅里叶变换</span></span><br><span class="line">    <span class="keyword">int</span> M = getOptimalDFTSize(img.rows);</span><br><span class="line">    <span class="keyword">int</span> N = getOptimalDFTSize(img.cols);</span><br><span class="line">    Mat padded;</span><br><span class="line">    copyMakeBorder(img, padded, <span class="number">0</span>, M - img.rows, <span class="number">0</span>, N - img.cols, BORDER_CONSTANT, Scalar::all(<span class="number">0</span>));</span><br><span class="line">    </span><br><span class="line">    Mat planes[] = &#123; Mat_&lt;<span class="keyword">float</span>&gt;(padded), Mat::zeros(padded.size(), CV_32F) &#125;;</span><br><span class="line">    Mat complexImg;</span><br><span class="line">    merge(planes, <span class="number">2</span>, complexImg);</span><br><span class="line">    </span><br><span class="line">    dft(complexImg, complexImg);</span><br><span class="line">    </span><br><span class="line">    Mat mag = complexImg;</span><br><span class="line">    mag = mag(Rect(<span class="number">0</span>, <span class="number">0</span>, mag.cols &amp; <span class="number">-2</span>, mag.rows &amp; <span class="number">-2</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> cx = mag.cols / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> cy = mag.rows / <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    Mat tmp;</span><br><span class="line">    <span class="function">Mat <span class="title">q0</span><span class="params">(mag, Rect(<span class="number">0</span>, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q1</span><span class="params">(mag, Rect(cx, <span class="number">0</span>, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q2</span><span class="params">(mag, Rect(<span class="number">0</span>, cy, cx, cy))</span></span>;</span><br><span class="line">    <span class="function">Mat <span class="title">q3</span><span class="params">(mag, Rect(cx, cy, cx, cy))</span></span>;</span><br><span class="line">    </span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    </span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; mag.rows; y++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">double</span>* data = mag.ptr&lt;<span class="keyword">double</span>&gt;(y);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; mag.cols; x++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//cout &lt;&lt; data[x] &lt;&lt; endl;</span></span><br><span class="line">            <span class="keyword">double</span> d = <span class="built_in">sqrt</span>(<span class="built_in">pow</span>((y - cy), <span class="number">2</span>) + <span class="built_in">pow</span>((x - cx), <span class="number">2</span>));</span><br><span class="line">            <span class="comment">//cout &lt;&lt; d &lt;&lt; endl;</span></span><br><span class="line">            <span class="keyword">double</span> h = <span class="number">1.0</span> / (<span class="number">1</span> + <span class="built_in">pow</span>(D0 / d, <span class="number">2</span> * n));</span><br><span class="line">            <span class="keyword">if</span> (h &lt;= <span class="number">0.5</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                data[x] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//data[x] = data[x]*0.5;</span></span><br><span class="line">                <span class="comment">//cout &lt;&lt; h &lt;&lt; endl;</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//cout &lt;&lt; data[x] &lt;&lt; endl;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    q0.copyTo(tmp);</span><br><span class="line">    q3.copyTo(q0);</span><br><span class="line">    tmp.copyTo(q3);</span><br><span class="line">    q1.copyTo(tmp);</span><br><span class="line">    q2.copyTo(q1);</span><br><span class="line">    tmp.copyTo(q2);</span><br><span class="line">    <span class="comment">//逆变换</span></span><br><span class="line">    Mat invDFT, invDFTcvt;</span><br><span class="line">    idft(complexImg, invDFT, DFT_SCALE | DFT_REAL_OUTPUT); <span class="comment">// Applying IDFT</span></span><br><span class="line">    invDFT.convertTo(invDFTcvt, CV_8U);</span><br><span class="line">    </span><br><span class="line">    imgShow(invDFTcvt, <span class="string">"Butterworth_High_Paass_Filter"</span>);</span><br><span class="line">    Mat freImg;</span><br><span class="line">    freImg = DFT(invDFTcvt);</span><br><span class="line">    imgShow(freImg, <span class="string">"freImg_Butterworth_High_Paass_Filter"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showdft</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat image, res;</span><br><span class="line">    image = imread(<span class="string">"/Users/zhipeng/ustc_term2/Opencv/Opencv/Opencv/Digital_imgae_process/CSet12/lena.png"</span>, <span class="number">0</span>); <span class="comment">// Read the file</span></span><br><span class="line">    imshow(<span class="string">"原始图像"</span>, image);</span><br><span class="line">    </span><br><span class="line">    res = DFT(image);</span><br><span class="line">    imshow(<span class="string">"频谱图"</span>, res);</span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    destroyAllWindows();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Lab05</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//    DFTAndIDFT();</span></span><br><span class="line"></span><br><span class="line">    showdft();</span><br><span class="line">    ideal_Low_Pass_Filter(<span class="number">40.0</span>);</span><br><span class="line">    ideal_High_Pass_Filter(<span class="number">40.0</span>);</span><br><span class="line">    Butterworth_Low_Paass_Filter(<span class="number">40</span>,<span class="number">2</span>);</span><br><span class="line">    Butterworth_High_Paass_Filter(<span class="number">40</span>,<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/opencv/" rel="tag"># opencv</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/31/opencv04图像去噪/" rel="next" title="opencv04图像去噪">
+                <i class="fa fa-chevron-left"></i> opencv04图像去噪
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/02/opencv06车道线检测/" rel="prev" title="opencv06车道线检测">
+                opencv06车道线检测 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验内容"><span class="nav-number">1.</span> <span class="nav-text">实验内容:</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#实验代码："><span class="nav-number"></span> <span class="nav-text">实验代码：</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

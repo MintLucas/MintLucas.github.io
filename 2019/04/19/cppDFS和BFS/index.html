@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="c++,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="DFS核心代码：参考：https://blog.csdn.net/qq_40763929/article/details/81629800 关于dfs参数问题，什么在变化，就把什么设置成参数。  如果要求输出所有可能的解，往往都是要用深度优先搜索。  如果是要求找出最优的解，或者解的数量，往往可以使用动态规划。   12345678910111213141516171819202122232425">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cppDFS和BFS">
+<meta property="og:url" content="http://yoursite.com/2019/04/19/cppDFS和BFS/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="DFS核心代码：参考：https://blog.csdn.net/qq_40763929/article/details/81629800 关于dfs参数问题，什么在变化，就把什么设置成参数。  如果要求输出所有可能的解，往往都是要用深度优先搜索。  如果是要求找出最优的解，或者解的数量，往往可以使用动态规划。   12345678910111213141516171819202122232425">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2sy0txxutj305k04iq3c.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g27odhyt8vj30cq07fdgf.jpg">
+<meta property="og:updated_time" content="2020-03-26T09:40:17.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cppDFS和BFS">
+<meta name="twitter:description" content="DFS核心代码：参考：https://blog.csdn.net/qq_40763929/article/details/81629800 关于dfs参数问题，什么在变化，就把什么设置成参数。  如果要求输出所有可能的解，往往都是要用深度优先搜索。  如果是要求找出最优的解，或者解的数量，往往可以使用动态规划。   12345678910111213141516171819202122232425">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2sy0txxutj305k04iq3c.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/19/cppDFS和BFS/">
+
+
+
+
+
+  <title>cppDFS和BFS | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/19/cppDFS和BFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cppDFS和BFS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-19T09:11:44+08:00">
+                2019-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="DFS核心代码："><a href="#DFS核心代码：" class="headerlink" title="DFS核心代码："></a>DFS核心代码：</h3><p>参考：<a href="https://blog.csdn.net/qq_40763929/article/details/81629800" target="_blank" rel="noopener">https://blog.csdn.net/qq_40763929/article/details/81629800</a></p>
+<p>关于dfs参数问题，<strong>什么在变化，就把什么设置成参数</strong>。</p>
+<ul>
+<li><p>如果要求输出所有可能的解，往往都是要用深度优先搜索。</p>
+</li>
+<li><p>如果是要求找出最优的解，或者解的数量，往往可以使用动态规划。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">()</span><span class="comment">//参数用来表示状态  </span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    <span class="title">if</span><span class="params">(到达终点状态)</span>  </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line"></span><br><span class="line">        ...<span class="comment">//根据题意添加  </span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;  </span><br><span class="line"></span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(越界或者是不合法状态)  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(特殊状态)<span class="comment">//剪枝，可放在递归调用前</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(扩展方式)  </span><br><span class="line"></span><br><span class="line">    &#123;  </span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(扩展方式所达到状态合法)  </span><br><span class="line"></span><br><span class="line">        &#123;  </span><br><span class="line"></span><br><span class="line">            修改全局变量;<span class="comment">//根据题意来添加  </span></span><br><span class="line"></span><br><span class="line">            visit标记；  </span><br><span class="line"></span><br><span class="line">            dfs（）；</span><br><span class="line"></span><br><span class="line">            恢复全局变量<span class="comment">//回溯部分</span></span><br><span class="line"></span><br><span class="line">            (还原标记)；  </span><br><span class="line"></span><br><span class="line">            <span class="comment">//是否还原标记根据题意</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果加上（还原标记）就是 回溯法 </span></span><br><span class="line"></span><br><span class="line">        &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="全排列问题"><a href="#全排列问题" class="headerlink" title="全排列问题"></a>全排列问题</h3><p>先给一个正整数 ( 1 &lt; = n &lt; = 10 ) </p>
+<p>例如n＝3，所有组合,并且按字典序输出： </p>
+<p>1 2 3 </p>
+<p>1 3 2 </p>
+<p>2 1 3 </p>
+<p>2 3 1 </p>
+<p>3 1 2 </p>
+<p>3 2 1 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">combineDfs</span><span class="params">(<span class="keyword">int</span> dep, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;cur, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;res, <span class="keyword">int</span> len, <span class="keyword">int</span> vis[])</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(dep == len + <span class="number">1</span>)<span class="comment">//到达终点状态</span></span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        res.push_back(cur);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">		<span class="comment">//静态扩展方式，每次重头遍历，需要设置visit确保哪个入栈</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; ++i)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(vis[i] == <span class="literal">false</span>)<span class="comment">//扩展方式所达到状态合法(结点可访问</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//if(vis[i]==false&amp;&amp; i&gt;cur[dep])剪枝后一个进入的要比当前的大</span></span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            vis[i] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            cur.push_back(i);<span class="comment">//当前层数用某个,若层数返回记得退回</span></span><br><span class="line"></span><br><span class="line">            combineDfs(dep+<span class="number">1</span>, cur, res, len, vis);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//一趟深搜结束,还原标记下次还可用来深搜</span></span><br><span class="line"></span><br><span class="line">            cur.pop_back();</span><br><span class="line"></span><br><span class="line">            vis[i] = <span class="literal">false</span>;<span class="comment">//结点是否可重复使用</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">                                                                      </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> vis[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    n = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res1;</span><br><span class="line"></span><br><span class="line">    combineDfs(<span class="number">1</span>, cur, res1, n, vis);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="组合问题"><a href="#组合问题" class="headerlink" title="组合问题"></a><a href="https://www.nowcoder.com/practice/345e2ed5f81d4017bbb8cc6055b0b711?tpId=46&amp;tqId=29163&amp;tPage=1&amp;rp=1&amp;ru=/ta/leetcode&amp;qru=/ta/leetcode/question-ranking" target="_blank" rel="noopener">组合问题</a></h3><p>Given array nums = [-1, 0, 1, 2, -1, -4],</p>
+<p>A solution set is:</p>
+<p>[</p>
+<p>  [-1, 0, 1],</p>
+<p>  [-1, -1, 2]</p>
+<p>]</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">threeSumCore</span><span class="params">(<span class="built_in">set</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;res, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;cur, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator p,<span class="keyword">int</span> dep)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dep == <span class="number">4</span>)&#123;</span><br><span class="line">        <span class="comment">//用一个临时变量sum记录当前和更好</span></span><br><span class="line">        <span class="keyword">if</span>(accumulate(cur.begin(), cur.end(), <span class="number">0</span>) == <span class="number">0</span>)</span><br><span class="line">            res.insert(cur);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (; p != nums.end(); ++p) &#123;</span><br><span class="line">        cur.push_back(*p);</span><br><span class="line">        threeSumCore(res, cur, nums, p + <span class="number">1</span>, dep + <span class="number">1</span>);</span><br><span class="line">        cur.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; threeSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; temp;</span><br><span class="line">    <span class="keyword">if</span>(nums.size() &lt; <span class="number">1</span>) <span class="keyword">return</span> res;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//关键步骤对原生数组排序，方便去重</span></span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur;</span><br><span class="line">  </span><br><span class="line">    threeSumCore(temp, cur, nums, nums.begin(), <span class="number">1</span>);</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> i : temp)</span><br><span class="line">        res.push_back(i);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec = &#123;<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">-1</span>, <span class="number">-4</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res = threeSum(vec);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="LeetCode-17-Letter-Combinations-of-a-Phone-Number"><a href="#LeetCode-17-Letter-Combinations-of-a-Phone-Number" class="headerlink" title="LeetCode 17. Letter Combinations of a Phone Number"></a><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number/" target="_blank" rel="noopener">LeetCode 17. Letter Combinations of a Phone Number</a></h3><p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2sy0txxutj305k04iq3c.jpg" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;23&quot;</span><br><span class="line">Output: [&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">letterCombinationsDfs</span><span class="params">(<span class="built_in">map</span>&lt;<span class="keyword">char</span>, <span class="built_in">string</span>&gt; &amp;mp, <span class="keyword">const</span> <span class="built_in">string</span> &amp;digits, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;res, <span class="built_in">string</span> cur, <span class="keyword">int</span> dep)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dep == digits.size()) res.push_back(cur);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//dfs全排列，展开方式多了映射digits[dep]里的值来展开组合</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c : mp[digits[dep]])&#123;</span><br><span class="line">        cur.push_back(c);</span><br><span class="line">        letterCombinationsDfs(mp, digits, res, cur, dep+<span class="number">1</span>);</span><br><span class="line">        cur.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; letterCombinations(<span class="built_in">string</span> digits)&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(digits.size() &lt; <span class="number">1</span>) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="keyword">char</span>,<span class="built_in">string</span>&gt; mp=&#123;&#123;<span class="string">'2'</span>,<span class="string">"abc"</span>&#125;,&#123;<span class="string">'3'</span>,<span class="string">"def"</span>&#125;,&#123;<span class="string">'4'</span>,<span class="string">"ghi"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'5'</span>,<span class="string">"jkl"</span>&#125;,&#123;<span class="string">'6'</span>,<span class="string">"mno"</span>&#125;,&#123;<span class="string">'7'</span>,<span class="string">"pqrs"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'8'</span>,<span class="string">"tuv"</span>&#125;,&#123;<span class="string">'9'</span>,<span class="string">"wxyz"</span>&#125;&#125;;</span><br><span class="line">    <span class="built_in">string</span> cur = <span class="string">""</span>;</span><br><span class="line">    letterCombinationsDfs(mp, digits, res, cur, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//BFS解法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; letterCombinations(<span class="built_in">string</span> digits) &#123;</span><br><span class="line">        <span class="keyword">if</span> (digits.empty()) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; d(<span class="number">10</span>);</span><br><span class="line">        d[<span class="number">0</span>] = &#123;<span class="string">' '</span>&#125;;</span><br><span class="line">        d[<span class="number">1</span>] = &#123;&#125;;</span><br><span class="line">        d[<span class="number">2</span>] = &#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>&#125;;</span><br><span class="line">        d[<span class="number">3</span>] = &#123;<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>&#125;;</span><br><span class="line">        d[<span class="number">4</span>] = &#123;<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>&#125;;</span><br><span class="line">        d[<span class="number">5</span>] = &#123;<span class="string">'j'</span>,<span class="string">'k'</span>,<span class="string">'l'</span>&#125;;</span><br><span class="line">        d[<span class="number">6</span>] = &#123;<span class="string">'m'</span>,<span class="string">'n'</span>,<span class="string">'o'</span>&#125;;</span><br><span class="line">        d[<span class="number">7</span>] = &#123;<span class="string">'p'</span>,<span class="string">'q'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>&#125;;</span><br><span class="line">        d[<span class="number">8</span>] = &#123;<span class="string">'t'</span>,<span class="string">'u'</span>,<span class="string">'v'</span>&#125;;</span><br><span class="line">        d[<span class="number">9</span>] = &#123;<span class="string">'w'</span>,<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>&#125;;</span><br><span class="line">      <span class="comment">//由i+1位在i位上滚动追加，生成第0位的即root进队</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; ans&#123;<span class="string">""</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> digit : digits) &#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; tmp;</span><br><span class="line">          <span class="comment">//在1位的结果上bfs追加</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">string</span>&amp; s : ans)</span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">char</span> c : d[digit - <span class="string">'0'</span>])</span><br><span class="line">                    tmp.push_back(s + c);</span><br><span class="line">          <span class="comment">//ans = &#123;a,b,c&#125;</span></span><br><span class="line">            ans.swap(tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="回文字符串问题"><a href="#回文字符串问题" class="headerlink" title="回文字符串问题"></a>回文字符串问题</h3><p>类似全排列，亦是for 1:len展开所有</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> s == <span class="built_in">string</span>(s.rbegin(), s.rend());</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">palindromeDfs</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;cur, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;res)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(s == <span class="string">""</span>)&#123;</span><br><span class="line"></span><br><span class="line">        res.push_back(cur);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">//展开方式,每次从0开始取i个单位当子串</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= s.size(); ++i) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span> sub = s.substr(<span class="number">0</span>, i);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isPalindrome(sub)) &#123;</span><br><span class="line"></span><br><span class="line">            cur.push_back(sub);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//当前是回文,从i开始再取len-i个子串</span></span><br><span class="line"></span><br><span class="line">            palindromeDfs(s.substr(i, s.size() - i), cur, res);</span><br><span class="line"></span><br><span class="line">            cur.pop_back();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; partition(<span class="built_in">string</span> s)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; cur;</span><br><span class="line"></span><br><span class="line">    palindromeDfs(s, cur, res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="N皇后问题："><a href="#N皇后问题：" class="headerlink" title="N皇后问题："></a>N皇后问题：</h3><p>题目链接：<a href="http://codeup.cn/problem.php?cid=100000608&amp;pid=3" target="_blank" rel="noopener">http://codeup.cn/problem.php?cid=100000608&amp;pid=3</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canPut</span><span class="params">(<span class="keyword">int</span> rows, <span class="keyword">int</span> cols, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; cur, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> tag = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">//检查列</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(cur[i][cols] == <span class="string">'Q'</span>)</span><br><span class="line">            tag = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//检查行,每行放一个可不检查</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; ++i)</span><br><span class="line">        <span class="keyword">if</span>(cur[rows][i] == <span class="string">'Q'</span>)</span><br><span class="line">            tag = <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//左上角斜</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = rows<span class="number">-1</span>,j = cols<span class="number">-1</span>; i&gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span>; j--, i-- )</span><br><span class="line">        <span class="keyword">if</span>(cur[i][j] == <span class="string">'Q'</span>)</span><br><span class="line">            tag = <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//右上角倾斜</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = rows<span class="number">-1</span>,j = cols+<span class="number">1</span>; i&gt;=<span class="number">0</span> &amp;&amp; j&lt;n; j++, i-- )</span><br><span class="line">        <span class="keyword">if</span>(cur[i][j] == <span class="string">'Q'</span>)</span><br><span class="line">            tag = <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> tag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">NQueensDfs</span><span class="params">(<span class="keyword">int</span> dep, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;cur, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;res, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dep == n)&#123;</span><br><span class="line">        res.push_back(cur);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//每行一个，用递进层数代表行,列展开判断是否能放</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)&#123;</span><br><span class="line">        <span class="keyword">if</span>(canPut(dep, i, cur, n))&#123;</span><br><span class="line">            cur[dep][i] = <span class="string">'Q'</span>;</span><br><span class="line">            NQueensDfs(dep+<span class="number">1</span>, cur, res, n);</span><br><span class="line">            cur[dep][i] = <span class="string">'.'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; solveNQueens(<span class="keyword">int</span> n)&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="comment">// 初始化棋盘，所有的位置都没有摆放皇后</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; cur(n, <span class="built_in">string</span>(n, <span class="string">'.'</span>));</span><br><span class="line">    NQueensDfs(<span class="number">0</span>, cur, res, n);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="LeetCode-surrounded-regions"><a href="#LeetCode-surrounded-regions" class="headerlink" title="LeetCode:surrounded-regions"></a>LeetCode:surrounded-regions</h3><p>题目链接：&lt;<a href="https://leetcode.com/problems/surrounded-regions/" target="_blank" rel="noopener">https://leetcode.com/problems/surrounded-regions/</a></p>
+<p><strong>思路：</strong></p>
+<ul>
+<li>遍历四条边上的O，并深度遍历与其相连的O，将这些O都转为1</li>
+</ul>
+<ul>
+<li>1代表没被包围，再将这些1都变为O</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X X X X           X X X X             X X X X</span><br><span class="line">   X X O X  -&gt;       X X O X    -&gt;       X X X X</span><br><span class="line">   X O X X           X <span class="number">1</span> X X             X O X X</span><br><span class="line">   X O X X           X <span class="number">1</span> X X             X O X X</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">surrounded_regions</span><span class="params">(<span class="keyword">int</span> rows, <span class="keyword">int</span> cols, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp;board)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(rows &lt; <span class="number">0</span> || rows &gt;= board.size() || cols &lt; <span class="number">0</span> || cols &gt;= board[<span class="number">0</span>].size()) <span class="keyword">return</span> ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(board[rows][cols] == <span class="string">'O'</span>)&#123;</span><br><span class="line">        board[rows][cols] = <span class="string">'1'</span>;</span><br><span class="line">        surrounded_regions(rows<span class="number">-1</span>, cols, board);</span><br><span class="line">        surrounded_regions(rows+<span class="number">1</span>, cols, board);</span><br><span class="line">        surrounded_regions(rows, cols<span class="number">-1</span>, board);</span><br><span class="line">        surrounded_regions(rows, cols+<span class="number">1</span>, board);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; &amp;board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(board.size() &lt;= <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> rows = <span class="keyword">int</span>(board.size());</span><br><span class="line">    <span class="keyword">int</span> cols = <span class="keyword">int</span>(board[<span class="number">0</span>].size());</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; ++i) &#123;</span><br><span class="line">        surrounded_regions(i, <span class="number">0</span>, board);</span><br><span class="line">        surrounded_regions(i, cols<span class="number">-1</span>, board);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cols; ++i) &#123;</span><br><span class="line">        surrounded_regions(<span class="number">0</span>, i, board);</span><br><span class="line">        surrounded_regions(rows<span class="number">-1</span>, i, board);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cols; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span>(board[i][j] == <span class="string">'1'</span>)</span><br><span class="line">                board[i][j] = <span class="string">'O'</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                board[i][j] = <span class="string">'X'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BFS："><a href="#BFS：" class="headerlink" title="BFS："></a>BFS：</h3><p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g27odhyt8vj30cq07fdgf.jpg" alt="è¿éåå¾çæè¿°"></p>
+<h3 id="最典型的模版就是树的层序遍历："><a href="#最典型的模版就是树的层序遍历：" class="headerlink" title="最典型的模版就是树的层序遍历："></a>最典型的模版就是树的层序遍历：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; que;<span class="comment">//初始化队列Q</span></span><br><span class="line">  </span><br><span class="line">    TreeNode* cur = <span class="literal">NULL</span>;</span><br><span class="line">  </span><br><span class="line">    que.push(root);<span class="comment">//Q=起点</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">while</span> (!que.empty()) &#123;</span><br><span class="line">        cur = que.front();<span class="comment">//取队首元素出队</span></span><br><span class="line">        que.pop();</span><br><span class="line">      </span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; cur-&gt;val &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">      </span><br><span class="line">        <span class="keyword">if</span>(cur-&gt;left) que.push(cur-&gt;left);<span class="comment">//满足目标状态</span></span><br><span class="line">        <span class="keyword">if</span>(cur-&gt;right) que.push(cur-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="矩阵中的路径问题："><a href="#矩阵中的路径问题：" class="headerlink" title="矩阵中的路径问题："></a>矩阵中的路径问题：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> h[<span class="number">606</span>][<span class="number">606</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mm = <span class="built_in">pow</span>(<span class="number">10</span>,<span class="number">9</span>);</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">point</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    point(<span class="keyword">int</span> a, <span class="keyword">int</span> b) :x(a), y(b)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maina</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j) &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; h[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> x, y, z, w;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; z &gt;&gt; w;</span><br><span class="line">  </span><br><span class="line">    <span class="built_in">queue</span>&lt;point&gt; q;</span><br><span class="line">    q.push(point(x, y));</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        point cur = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">if</span> (cur.x == z &amp;&amp; cur.y == w) &#123;</span><br><span class="line">            ++count;</span><br><span class="line">            count %= mm;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cur.x - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; h[cur.x - <span class="number">1</span>][cur.y] &gt; h[cur.x][cur.y])</span><br><span class="line">            q.push(point(cur.x - <span class="number">1</span>, cur.y));</span><br><span class="line">        <span class="keyword">if</span> (cur.x + <span class="number">1</span> &lt; n &amp;&amp; h[cur.x + <span class="number">1</span>][cur.y] &gt; h[cur.x][cur.y])</span><br><span class="line">            q.push(point(cur.x + <span class="number">1</span>, cur.y));</span><br><span class="line">        <span class="keyword">if</span> (cur.y - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; h[cur.x][cur.y - <span class="number">1</span>] &gt; h[cur.x][cur.y])</span><br><span class="line">            q.push(point(cur.x, cur.y - <span class="number">1</span>));</span><br><span class="line">        <span class="keyword">if</span> (cur.y + <span class="number">1</span> &lt; m &amp;&amp; h[cur.x][cur.y + <span class="number">1</span>] &gt; h[cur.x][cur.y])</span><br><span class="line">            q.push(point(cur.x, cur.y + <span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; count &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="广搜或深搜可分为两大类题型："><a href="#广搜或深搜可分为两大类题型：" class="headerlink" title="广搜或深搜可分为两大类题型："></a>广搜或深搜可分为两大类题型：</h3><p>1 . <strong>地图型</strong>：这种题型将地图输入，要求完成一定的任务。因为地图的存在。使得题意清楚形象化，容易理清搜索思路。</p>
+<p>2 . <strong>数据型</strong>：这种题型没有给定地图，一般是一串数字或字母，要求按照一定的任务解题。相对于地图型，这种题型较为抽象，需要在数据中进行搜索。数据以数组的形式存储，那么只要将数组也当作一张图来进行搜索就可以了。</p>
+<p>PS：二维数组的题目即地图型</p>
+<p>N小于20的，适用DFS。<br>而一般 N&lt;= 200，N&lt;=1000这种<br>一定不可能用DFS去做<br>而且并不只是整个题目不能用DFS，其中的每一步也不能使用DFS</p>
+<h3 id="BFS和DFS对比"><a href="#BFS和DFS对比" class="headerlink" title="BFS和DFS对比"></a>BFS和DFS对比</h3><ul>
+<li>DFS多用于连通性问题因为其运行思想与人脑的思维很相似，故解决连通性问题更自然。 </li>
+<li>BFS多用于解决最短路问题，其运行过程中需要储存每一层的信息，所以其运行时需要储存的信息量较大，如果人脑也可储存大量信息的话，理论上人脑也可运行BFS。</li>
+</ul>
+<p>多数情况运行BFS所需的内存会大于DFS需要的内存(DFS一次访问一条路，BFS一次访问多条路)。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; ans;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fun</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span><span class="comment">//求组合数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">int</span> i, j, c = <span class="number">1</span>;</span><br><span class="line"> <span class="keyword">for</span> (i = x, j = <span class="number">1</span>; j &lt;= y; i--, j++)</span><br><span class="line">  c = c * i / j;</span><br><span class="line"> <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="built_in">string</span> str,<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">if</span> (k == <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">   str+=<span class="string">"*"</span>;</span><br><span class="line">  ans.insert(str);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">0</span>;--i) &#123;</span><br><span class="line">  <span class="built_in">string</span> s = str;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">   s+=<span class="string">"*"</span>;</span><br><span class="line">  s+=<span class="string">"|"</span>;</span><br><span class="line">  print(s,n-i,k<span class="number">-1</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findall</span><span class="params">(<span class="built_in">string</span> str,<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line"> <span class="built_in">cout</span> &lt;&lt; fun(n+k<span class="number">-1</span>,n) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> print(str,n,k);</span><br><span class="line"> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;::iterator ite1 = ans.begin();</span><br><span class="line"> <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;::iterator ite2 = ans.end();</span><br><span class="line"> <span class="keyword">for</span> (; ite1 != ite2; ite1++)</span><br><span class="line"> &#123;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; *ite1&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">int</span> n,k;</span><br><span class="line"> <span class="built_in">string</span> s = <span class="string">""</span>;</span><br><span class="line"> <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k) &#123;</span><br><span class="line">  s = <span class="string">""</span>;</span><br><span class="line">  findall(s,n,k);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/cpp排序算法总结/" rel="next" title="cpp排序算法总结">
+                <i class="fa fa-chevron-left"></i> cpp排序算法总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/20/二叉树中路径问题/" rel="prev" title="二叉树中路径问题">
+                二叉树中路径问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS核心代码："><span class="nav-number">1.</span> <span class="nav-text">DFS核心代码：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全排列问题"><span class="nav-number">2.</span> <span class="nav-text">全排列问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合问题"><span class="nav-number">3.</span> <span class="nav-text">组合问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeetCode-17-Letter-Combinations-of-a-Phone-Number"><span class="nav-number">4.</span> <span class="nav-text">LeetCode 17. Letter Combinations of a Phone Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回文字符串问题"><span class="nav-number">5.</span> <span class="nav-text">回文字符串问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#N皇后问题："><span class="nav-number">6.</span> <span class="nav-text">N皇后问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeetCode-surrounded-regions"><span class="nav-number">7.</span> <span class="nav-text">LeetCode:surrounded-regions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS："><span class="nav-number">8.</span> <span class="nav-text">BFS：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最典型的模版就是树的层序遍历："><span class="nav-number">9.</span> <span class="nav-text">最典型的模版就是树的层序遍历：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩阵中的路径问题："><span class="nav-number">10.</span> <span class="nav-text">矩阵中的路径问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广搜或深搜可分为两大类题型："><span class="nav-number">11.</span> <span class="nav-text">广搜或深搜可分为两大类题型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS和DFS对比"><span class="nav-number">12.</span> <span class="nav-text">BFS和DFS对比</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

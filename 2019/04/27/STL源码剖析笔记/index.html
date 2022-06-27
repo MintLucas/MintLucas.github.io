@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="c++,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="本文主要探讨与STL实现相关，参考侯捷的《STL源码剖析》和博客，每一个知识点讨论力求简洁，便于记忆，但讨论深度有限，如要深入研究可点击参考链接。 第一章 STL概述(六大组件) 容器(container)：常用数据结构，大致分为两类，序列容器，如vector，list，deque，关联容器，如set，map。在实现上，是类模板(class template) 迭代器(iterator)：一套访问">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL源码剖析笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/27/STL源码剖析笔记/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="本文主要探讨与STL实现相关，参考侯捷的《STL源码剖析》和博客，每一个知识点讨论力求简洁，便于记忆，但讨论深度有限，如要深入研究可点击参考链接。 第一章 STL概述(六大组件) 容器(container)：常用数据结构，大致分为两类，序列容器，如vector，list，deque，关联容器，如set，map。在实现上，是类模板(class template) 迭代器(iterator)：一套访问">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2h1u31wjpj30nz105tki.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2h1m0vbycj30go06yaaa.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2knmh7jc6j30go0i6gm5.jpg">
+<meta property="og:updated_time" content="2019-05-07T07:53:32.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STL源码剖析笔记">
+<meta name="twitter:description" content="本文主要探讨与STL实现相关，参考侯捷的《STL源码剖析》和博客，每一个知识点讨论力求简洁，便于记忆，但讨论深度有限，如要深入研究可点击参考链接。 第一章 STL概述(六大组件) 容器(container)：常用数据结构，大致分为两类，序列容器，如vector，list，deque，关联容器，如set，map。在实现上，是类模板(class template) 迭代器(iterator)：一套访问">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2h1u31wjpj30nz105tki.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/27/STL源码剖析笔记/">
+
+
+
+
+
+  <title>STL源码剖析笔记 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/STL源码剖析笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">STL源码剖析笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-27T10:17:37+08:00">
+                2019-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要探讨与STL实现相关，参考侯捷的《STL源码剖析》和博客，每一个知识点讨论力求简洁，便于记忆，但讨论深度有限，如要深入研究可点击参考链接。</p>
+<h3 id="第一章-STL概述-六大组件"><a href="#第一章-STL概述-六大组件" class="headerlink" title="第一章 STL概述(六大组件)"></a>第一章 STL概述(六大组件)</h3><ul>
+<li><strong>容器(container)：常用数据结构</strong>，大致分为两类，序列容器，如vector，list，deque，关联容器，如set，map。在实现上，是类模板(class template)</li>
+<li><strong>迭代器(iterator)：</strong>一套访问容器的接口，行为类似于<strong>“泛型指针”</strong>。它为不同算法提供的相对统一的容器访问方式，使得设计算法时无需关注过多关注数据。（“算法”指广义的算法，操作数据的逻辑代码都可认为是算法）</li>
+<li><strong>算法(algorithm)：</strong>提供一套常用的算法，如sort，search，copy，erase … 在实现上，可以认为是一种函数模板(function template)，<strong>只有算法是函数模版其他都是类模版</strong>。</li>
+<li><strong>配置器(allocator)：为容器提供空间配置和释放，对象构造和析构的服务，</strong>也是一个class template。</li>
+<li><strong>仿函数(functor)：重载了operator()的class，使class当函数使用。</strong></li>
+<li>配接器(adapter)：将一种容器修饰为功能不同的另一种容器，如<strong>以容器vector为基础，在其上实现stack，stack的行为也是一种容器。这就是一种配接器</strong>。除此之外，还有迭代器配接器和仿函数配接器。</li>
+</ul>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2h1u31wjpj30nz105tki.jpg" alt="image-20190427115121875"></p>
+<h3 id="第二章-空间配置器"><a href="#第二章-空间配置器" class="headerlink" title="第二章 空间配置器"></a>第二章 空间配置器</h3><h4 id="1、allocator简述"><a href="#1、allocator简述" class="headerlink" title="1、allocator简述"></a><strong>1、allocator简述</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="comment">// Do something;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>allocator隐藏在所有容器（包括vector）身后，<strong>完成1.内存配置与释放；2.对象构造和析构的工作</strong>。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2h1m0vbycj30go06yaaa.jpg" alt="img"></p>
+<h4 id="2、allocator接口规范"><a href="#2、allocator接口规范" class="headerlink" title="2、allocator接口规范"></a><strong>2、allocator接口规范</strong></h4><p>STL是一个标准，只对接口进行规范，接口背后的实现可以有不同版本，所以目前流行的STL如Visual C++采用的P. J. Plauger 版本，GCC编译器采用的SGI STL版本等都是常见的STL。SGI STL是最流行的版本，我们主要关注SGI STL的allocator实现。</p>
+<p>STL标准要求的allocator必要接口：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下几种自定义类型是一种type_traits技巧，暂时不需要了解</span></span><br><span class="line">allocator::value_type</span><br><span class="line">allocator::pointer</span><br><span class="line">allocator::const_pointer</span><br><span class="line">allocator::reference</span><br><span class="line">allocator::const_reference</span><br><span class="line">allocator::size_type</span><br><span class="line">allocator::difference</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个嵌套的(nested)class template，class rebind&lt;U&gt;拥有唯一成员other，那是一个typedef，代表allocator&lt;U&gt;</span></span><br><span class="line">allocator::rebind</span><br><span class="line"></span><br><span class="line">allocator::allocator() <span class="comment">// 默认构造函数</span></span><br><span class="line">allocator::allocator(<span class="keyword">const</span> allocator&amp;) <span class="comment">// 拷贝构造函数</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt;<span class="title">allocator</span>:</span>:allocator(<span class="keyword">const</span> allocator&lt;U&gt;&amp;) <span class="comment">// 泛化的拷贝构造函数</span></span><br><span class="line">allocator::~allocator() <span class="comment">// 析构函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回某个对象的地址，a.address(x)等同于&amp;x</span></span><br><span class="line">pointer allocator::address(reference x) <span class="keyword">const</span></span><br><span class="line"><span class="comment">// 返回某个const对象的地址，a.address(x)等同于&amp;x</span></span><br><span class="line">const_pointer allocator::address(const_reference x) <span class="keyword">const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置空间，足以存储n个T对象。第二个参数是个提示。实现上可能会利用它来增进区域性(locality)，或完全忽略之</span></span><br><span class="line">pointer allocator::allocate(size_type n, <span class="keyword">const</span> <span class="keyword">void</span>* = <span class="number">0</span>)</span><br><span class="line"><span class="comment">// 释放先前配置的空间</span></span><br><span class="line"><span class="keyword">void</span> allocator::deallocate(pointer p, size_type n)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回可成功配置的最大量</span></span><br><span class="line">size_type allocator:maxsize() <span class="keyword">const</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用对象的构造函数，等同于 new((void*)p) T(x)</span></span><br><span class="line"><span class="keyword">void</span> allocator::construct(pointer p, <span class="keyword">const</span> T&amp; x)</span><br><span class="line"><span class="comment">// 调用对象的析构函数，等同于 p-&gt;~T()</span></span><br><span class="line"><span class="keyword">void</span> allocator::destroy(pointer p)</span><br></pre></td></tr></table></figure>
+<p>上面的标准接口实际只需要关注最后的<code>allocate</code>，<code>deallocate</code>，<code>construct</code>和<code>destroy</code>函数的实现即可。整个allocator最重要的函数就是这四个。从功能上，这四者可以简单理解为C++的<code>::operator new</code>和<code>::operator delete</code>，构造函数和析构函数，实际上，一个最简单的<code>allocator</code>就可以理解为对<code>new</code>，<code>delete</code>的简单封装,以及对构造函数和析构函数的直接调用。</p>
+<p>书中给出的一个最简单的allocator实现，符合STL标准</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _MYALLOC_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _MYALLOC_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;new&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstddef&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> my_alloc</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// allocate的实际实现，简单封装new，当无法获得内存时，报错并退出</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="title">inline</span> <span class="title">T</span>* _<span class="title">allocate</span>(<span class="title">ptrdiff_t</span> <span class="title">size</span>, <span class="title">T</span>*) &#123;</span></span><br><span class="line">        set_new_handler(<span class="number">0</span>);</span><br><span class="line">        T* tmp = (T*)(::<span class="keyword">operator</span> <span class="keyword">new</span>((<span class="keyword">size_t</span>)(size * <span class="keyword">sizeof</span>(T))));</span><br><span class="line">        <span class="keyword">if</span> (tmp == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">cerr</span> &lt;&lt; <span class="string">"out of memory"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// deallocate的实际实现，简单封装delete</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="title">inline</span> <span class="title">void</span> _<span class="title">deallocate</span>(<span class="title">T</span>* <span class="title">buffer</span>) &#123;</span> ::<span class="function"><span class="keyword">operator</span> <span class="title">delete</span><span class="params">(buffer)</span></span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// construct的实际实现，直接调用对象的构造函数</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="title">class</span> <span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="title">inline</span> <span class="title">void</span> _<span class="title">construct</span>(<span class="title">T1</span>* <span class="title">p</span>, <span class="title">const</span> <span class="title">T2</span>&amp; <span class="title">value</span>) &#123;</span> <span class="keyword">new</span>(p) T1(value); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// destroy的实际实现，直接调用对象的析构函数</span></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="title">inline</span> <span class="title">void</span> _<span class="title">destroy</span>(<span class="title">T</span>* <span class="title">ptr</span>) &#123;</span> ptr-&gt;~T(); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="title">class</span> <span class="title">allocator</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">typedef</span> T           value_type;</span><br><span class="line">        <span class="keyword">typedef</span> T*          pointer;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">const</span> T*    const_pointer;</span><br><span class="line">        <span class="keyword">typedef</span> T&amp;          reference;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">const</span> T&amp;    const_reference;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">size_t</span>      size_type;</span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">ptrdiff_t</span>   difference_type;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构造函数</span></span><br><span class="line">        allocator()&#123; <span class="keyword">return</span>; &#125;</span><br><span class="line">        <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="title">allocator</span>(<span class="title">const</span> <span class="title">allocator</span>&lt;U&gt;&amp; <span class="title">c</span>)&#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// rebind allocator of type U</span></span><br><span class="line">        <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="title">struct</span> <span class="title">rebind</span> &#123;</span> <span class="keyword">typedef</span> allocator&lt;U&gt; other; &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// allocate，deallocate，construct和destroy函数均调用上面的实际实现</span></span><br><span class="line">        <span class="comment">// hint used for locality. ref.[Austern],p189</span></span><br><span class="line">        <span class="function">pointer <span class="title">allocate</span><span class="params">(size_type n, <span class="keyword">const</span> <span class="keyword">void</span>* hint = <span class="number">0</span>)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> _allocate((difference_type)n, (pointer)<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">deallocate</span><span class="params">(pointer p, size_type n)</span> </span>&#123; _deallocate(p); &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">construct</span><span class="params">(pointer p, <span class="keyword">const</span> T&amp; value)</span> </span>&#123; _construct(p, value); &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">destroy</span><span class="params">(pointer p)</span> </span>&#123; _destroy(p); &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">pointer <span class="title">address</span><span class="params">(reference x)</span> </span>&#123; <span class="keyword">return</span> (pointer)&amp;x; &#125;</span><br><span class="line">        <span class="function">const_pointer <span class="title">const_address</span><span class="params">(const_reference x)</span> </span>&#123; <span class="keyword">return</span> (const_pointer)&amp;x; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">size_type <span class="title">max_size</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> size_type(UINT_MAX / <span class="keyword">sizeof</span>(T)); &#125;   </span><br><span class="line">    &#125;;</span><br><span class="line">&#125; <span class="comment">// end of namespace myalloc</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// _MYALLOC_</span></span></span><br></pre></td></tr></table></figure>
+<p>现在，我们可以使用自己编写的allocator来为vector分配空间：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>, my_alloc::allocator&lt;<span class="keyword">int</span>&gt; &gt; v;</span><br><span class="line">    <span class="comment">// Do something;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>然而，这样并不能通过编译（如果你使用的是GCC编译器），因为SGI STL的allocator并不完全符合STL规范，我们编写的符合规范的自然不能搭配使用，</strong>SGI STL版本的allocator具体实现在下文阐述。</p>
+<h4 id="3、SGI-STL-的-两种allocator"><a href="#3、SGI-STL-的-两种allocator" class="headerlink" title="3、SGI STL 的 两种allocator"></a>3、SGI STL 的 两种allocator</h4><p>SGI STL 实现了两个allocator：一个是标准的std::allocator，标准就是对new和construtc的简单包装，为了兼容老版本而存在；<strong>另一个是特殊的<a href="https://blog.csdn.net/LF_2016/article/details/53511648" target="_blank" rel="noopener">std::alloc</a>，分为两级配置，小于128kb直接向1级申请，2级维护空闲链表方便小内存的申请</strong>，不同于之前标准的allocator，这里不需要实例化一个空间配置器，类内声明了静态全局函数，只需要调用<code>alloc</code>的静态函数就行了。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2knmh7jc6j30go0i6gm5.jpg" alt="img"></p>
+<p>参考：<a href="https://zhuanlan.zhihu.com/p/34725232" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34725232</a></p>
+<p>二级配置器细节：<a href="https://blog.csdn.net/weixin_40673608/article/details/86703934" target="_blank" rel="noopener">https://blog.csdn.net/weixin_40673608/article/details/86703934</a></p>
+<h3 id="第三章：迭代器"><a href="#第三章：迭代器" class="headerlink" title="第三章：迭代器"></a>第三章：迭代器</h3><h4 id="1、allocator简述-1"><a href="#1、allocator简述-1" class="headerlink" title="1、allocator简述"></a>1、allocator简述</h4><p>迭代器是一种接口定义，作用是不暴露所指对象信息的前提下能够遍历所指数据结构的能力。实现方法是将原生指针用类进行一层包装(类似智能指针)，对一些操作符(最重要的重载*,-&gt;)进行重载，为了不暴露所指对象的信息，迭代器的实现由各个容器的设计者来实现，每种容器在内部以嵌套的方式定义专属的迭代器，接口相同，内部实现却不同，体现了泛型编程的概念。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterator</span>  </span></span><br><span class="line"><span class="class">&#123;</span>  </span><br><span class="line"><span class="keyword">public</span>:  </span><br><span class="line">    Iterator&amp; <span class="keyword">operator</span>++();  </span><br><span class="line"></span><br><span class="line">    <span class="comment">//...  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:   </span><br><span class="line">    T *m_ptr;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对于不同的数据容器，以上Iterator类中的成员函数operator++的实现会各不相同，例如，对于数组的可能实现如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对于数组的实现  </span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </span><br><span class="line">Iterator&amp; <span class="keyword">operator</span>++()  </span><br><span class="line">&#123;   </span><br><span class="line">   ++m_ptr;   </span><br><span class="line">   retrun *<span class="keyword">this</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于链表，它会有一个类似于next的成员函数用于获取下一个结点，其可能实现如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对于链表的实现  </span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;  </span><br><span class="line">Iterator&amp; <span class="keyword">operator</span>++()  </span><br><span class="line">&#123;  </span><br><span class="line">   m_ptr = m_ptr-&gt;next();<span class="comment">//next()用于获取链表的下一个节点   </span></span><br><span class="line">   <span class="keyword">return</span> *<span class="keyword">this</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在STL源码中，operator*返回对象的引用，operator-&gt;返回对象的指针；此处的对象即对应容器中的元素。</p>
+<p>有关*和-&gt;运算符的解释：<a href="https://blog.csdn.net/pngynghay/article/details/42679757" target="_blank" rel="noopener">https://blog.csdn.net/pngynghay/article/details/42679757</a></p>
+<h4 id="2、traits编程技法"><a href="#2、traits编程技法" class="headerlink" title="2、traits编程技法"></a>2、traits编程技法</h4><p>traits是模板编程里面的一个编程技法。可能因为不是面向对象的，所以算不上一种设计模式。虽然traits本身一般实现为模板（itrator_traites<t>，以及__type_traits<t>等），但和智能指针（auto_ptr<t>）这种比较大众的模板相比，traits的用法又有点宽泛，所以感觉说traits是一种编程技法是比较保险的。</t></t></t></p>
+<p><strong>为什么需要traits？</strong></p>
+<p>  下面是一个以迭代器为模板形参的函数模板：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Iterator&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(Iterator iter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假如现在算法中需要声明一个变量，而变量的类型是迭代器所指对象的类型，应该怎么处理呢？</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Iterator&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(Iterator iter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    *Iterator var;<span class="comment">//这样定义变量可以吗？</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码是不可以通过编译的，虽然C++支持sizeof()，但是并不支持typeof()，就算是用到RTTI性质中的typeid()，获取到的也仅仅是类型的名字，因此不能直接用来声明变量。此时可以利用函数模板的参数类型推导机制解决问题，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Iterator, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func_impl</span><span class="params">(Iterator iter, T t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T temp;<span class="comment">//这里就解决了问题</span></span><br><span class="line">    <span class="comment">//这里做原本func()的工作</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Iterator&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(Iterator iter)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    func_impl(iter, *iter);<span class="comment">//func的工作全部都移到func_impl里面了</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    func(&amp;i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数func作为对外接口，实际的操作却由函数func_impl执行，通过函数func_impl的参数类型推导，获取到Iterator指向对象的类型T，从而解决了问题。</p>
+<p>在c++11中有了auto和decltype类型推导功能. 就不用用这么多间接层去实现其实很简单的需求了.直接像下面这样写就可以了.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&amp;lt;<span class="keyword">typename</span> Iterator&amp;gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">func</span><span class="params">(Iterator iter)</span></span></span><br><span class="line">    -&amp;gt; decltype(*iter)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> *iter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>traits是“萃取”还是“特性”的意思？侯捷说是“特性萃取机”和“榨汁机”。我的理解是，通过偏特化的机制，把特性信息过滤出来——榨汁。</p>
+<h4 id="3、迭代器最常用到的五种类型"><a href="#3、迭代器最常用到的五种类型" class="headerlink" title="3、迭代器最常用到的五种类型"></a>3、迭代器最常用到的五种类型</h4><p>value_type、difference_type、pointer、reference、iterator_category，任何开发者如果想将自己开发的容器与STL结合在一起，就一定要为自己开发的容器的迭代器定义这五种类型，这样都可以通过统一接口iterator_traits萃取出相应的类型，下面列出STL中iterator_traits的完整定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tempalte&lt;<span class="keyword">typename</span> I&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iterator_traits</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> I::iterator_category iterator_category;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> I::value_type value_type;</span><br><span class="line">    <span class="keyword">typedef</span> typeanme I:difference_type difference_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> I::pointer pointer;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> I::reference reference;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>更详细的traits：<a href="https://blog.csdn.net/shudou/article/details/10270971" target="_blank" rel="noopener">https://blog.csdn.net/shudou/article/details/10270971</a></p>
+<h3 id="第四章：序列容器"><a href="#第四章：序列容器" class="headerlink" title="第四章：序列容器"></a>第四章：序列容器</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/23/最长公共子序列LCS/" rel="next" title="最长公共子序列LCS">
+                <i class="fa fa-chevron-left"></i> 最长公共子序列LCS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/28/大话设计模式笔记/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-STL概述-六大组件"><span class="nav-number">1.</span> <span class="nav-text">第一章 STL概述(六大组件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-空间配置器"><span class="nav-number">2.</span> <span class="nav-text">第二章 空间配置器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、allocator简述"><span class="nav-number">2.1.</span> <span class="nav-text">1、allocator简述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、allocator接口规范"><span class="nav-number">2.2.</span> <span class="nav-text">2、allocator接口规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、SGI-STL-的-两种allocator"><span class="nav-number">2.3.</span> <span class="nav-text">3、SGI STL 的 两种allocator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章：迭代器"><span class="nav-number">3.</span> <span class="nav-text">第三章：迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、allocator简述-1"><span class="nav-number">3.1.</span> <span class="nav-text">1、allocator简述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、traits编程技法"><span class="nav-number">3.2.</span> <span class="nav-text">2、traits编程技法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、迭代器最常用到的五种类型"><span class="nav-number">3.3.</span> <span class="nav-text">3、迭代器最常用到的五种类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章：序列容器"><span class="nav-number">4.</span> <span class="nav-text">第四章：序列容器</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="c++,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="复习题 何为软件，画出硬件失效曲线和软件失效曲线示意图并给出解释，P3-P4. 答：软件由程序，数据结构和文档组成。硬件早期有设计缺陷磨损率较高，随着缺陷的修复磨损率趋于平稳，到达一定寿命时间会产生硬件磨损；而软件是逻辑的非物理的，理想情况下下降后不再升高，但实际每次软件更新迭代时会产生新的错误导致曲线陡然提高。      简述软件工程的”通用过程模型”，画出软件过程框架并给出简单解释，P23。">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高软期末复习">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/高软期末复习/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="复习题 何为软件，画出硬件失效曲线和软件失效曲线示意图并给出解释，P3-P4. 答：软件由程序，数据结构和文档组成。硬件早期有设计缺陷磨损率较高，随着缺陷的修复磨损率趋于平稳，到达一定寿命时间会产生硬件磨损；而软件是逻辑的非物理的，理想情况下下降后不再升高，但实际每次软件更新迭代时会产生新的错误导致曲线陡然提高。      简述软件工程的”通用过程模型”，画出软件过程框架并给出简单解释，P23。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4pv1hdq4gj30q809dafg.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4pvdi1gs6j30bu0iljy8.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4pvs55g3mj30hi0b8dhe.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4pxulwbmbj30lk0hnwg5.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4r07d0gd7j30qk0njtcx.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4r1henb7tj30mr0zete4.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4r3nswn3aj30pv0rtwna.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4r3pdkhkej30ps0rin6i.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4r3ck09mcj30s30o5tzg.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4r5c5kjxfj30q40pa44b.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4ty8adt9zj310o0u0khb.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g4uq6t0nsnj30k808j759.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g4uqtb341cj30a0092426.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1g4uull758gj30qk0f8dj7.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v3poijmlj30lz0gtaaq.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4v1cosbyij30pi0ebdkg.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4v1vcmjrnj30mu0ccjt8.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v2oqs4f5j309u0cwmxs.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1g4v33fvu7ij30b30drmyv.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v369dxydj30kd08kteb.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4v3zfjkuzj30my0objzp.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4v3zrxcv4j30lh09kgob.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4v40n9oysj30mg0si7gm.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4v420f873j30lv0du44m.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v4298matj30lz0dr7b3.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v49t6gawj31a80bg7bm.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4v4abnisuj31a80l0dof.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v4a05rswj31a80lkn41.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4v46qljuwj31a80js0vg.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4v46vrrbtj31a80qkwgt.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1g4v46z05jrj31a80pcgob.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1g4v472sjr2j31a80n4jvz.jpg">
+<meta property="og:updated_time" content="2019-07-10T14:34:54.372Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高软期末复习">
+<meta name="twitter:description" content="复习题 何为软件，画出硬件失效曲线和软件失效曲线示意图并给出解释，P3-P4. 答：软件由程序，数据结构和文档组成。硬件早期有设计缺陷磨损率较高，随着缺陷的修复磨损率趋于平稳，到达一定寿命时间会产生硬件磨损；而软件是逻辑的非物理的，理想情况下下降后不再升高，但实际每次软件更新迭代时会产生新的错误导致曲线陡然提高。      简述软件工程的”通用过程模型”，画出软件过程框架并给出简单解释，P23。">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNc79ly1g4pv1hdq4gj30q809dafg.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/05/高软期末复习/">
+
+
+
+
+
+  <title>高软期末复习 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/高软期末复习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高软期末复习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-05T08:06:44+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="复习题"><a href="#复习题" class="headerlink" title="复习题"></a>复习题</h3><ol>
+<li><p>何为软件，画出硬件失效曲线和软件失效曲线示意图并给出解释，P3-P4.</p>
+<p>答：<strong>软件由程序，数据结构和文档组成</strong>。硬件早期有设计缺陷磨损率较高，随着缺陷的修复磨损率趋于平稳，<strong>到达一定寿命时间会产生硬件磨损</strong>；而软件是逻辑的非物理的，理想情况下下降后不再升高，<strong>但实际每次软件更新迭代时</strong>会产生新的错误导致曲线陡然提高。</p>
+</li>
+</ol>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g4pv1hdq4gj30q809dafg.jpg" alt="image-20190706092659948"></p>
+<ol>
+<li></li>
+<li><p>简述软件工程的”通用过程模型”，画出软件过程框架并给出简单解释，P23。</p>
+<p>答：过程模型习惯上也称软件开发模型，它是软件开发全部<strong>过程-&gt;活动-&gt;任务</strong>的结构框架；<strong>每个框架活动由一系列软件工程动作构成，每个软件工程动作由任务集定义</strong>，任务集明确了要完成的任务，要产生的产品，需要的质量保证点和表明开发过程状态的里程碑。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4pvdi1gs6j30bu0iljy8.jpg" alt="image-20190706093835512"></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>请举例4个惯用过程模型名称，并对其中任何一个模型：</p>
+<p>(1). 画出示意图</p>
+<p>(2).对模型工作流程进行简要说明</p>
+<p>(3).简述模型优缺点</p>
+<p>答：瀑布模型，V模型，增量模型，螺旋模型；将开发过程中得各个活动分为各个阶段线性链接依次执行，由上至下如同瀑布逐级下落。</p>
+<p>优点：(1)强调阶段性，各阶段具有顺序性和依赖性</p>
+<p>​            (2)强调早期调研和需求分析，推迟代码实现的观点</p>
+<p>​            (3)提供了一个指导模板</p>
+<p>缺点：(1)必须完成前一阶段才能进入后一阶段，流程单一</p>
+<p>​            (2)测试在后期才引入，对于系统存在重大缺陷</p>
+<p>​            (3)文档驱动，极大的增加了工作量</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g4pvs55g3mj30hi0b8dhe.jpg" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+<ol start="4">
+<li><p>何为需求工程？有哪几项任务，并对各项的主要内容给出简单解释。P95-P98</p>
+<p>答：需求工程是应用工程化的方法来开发和管理软件的需求。包括七项任务：</p>
+<ol>
+<li>起始：对项目建立基本的理解，包括存在的问题，解决方案等。</li>
+<li>获取：建立商业目标，产品目标是什么，想要实现什么。</li>
+<li>细化：核心是开发一个精确的需求模型，来说明软件的功能、特征等各个方面。</li>
+<li>协商：出现冲突时通过利益相关者的需求排序来协商解决冲突。</li>
+<li>规格说明：一份文档来指导。</li>
+<li>确认：对工作产品进行质量评估，保证一致性。</li>
+<li>需求管理：对变更进行管理。</li>
+</ol>
+</li>
+</ol>
+<ol start="5">
+<li><p>请画出软件需求获取层次图，并对每个层次进行简要说明(第三次课补充材料)。</p>
+<p>业务需求：反应了<strong>客户对产品的高层次目标要求</strong>，在<strong>项目视图与范围文档中</strong>予以说明。</p>
+<p>用户需求：描述了<strong>用户使用产品时能完成的任务</strong>和产品应具备的功能，<strong>用例文档</strong>中说明。</p>
+<p>功能需求：<strong>开发人员必须实现的软件功能</strong>。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4pxulwbmbj30lk0hnwg5.jpg" alt="image-20190706110413918"></p>
+</li>
+</ol>
+<ol start="6">
+<li><p>何为UML？对给出的UML结构图(第四次课补充材料)</p>
+<p>(1).解释各个组成符号的含义；</p>
+<p>(2).用你所熟悉的高级语言，写出代码框架</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4r07d0gd7j30qk0njtcx.jpg" alt="image-20190707091114934"></p>
+</li>
+</ol>
+<ol start="7">
+<li><p>请画出以下三张图得聚合分解图(第10次课补充材料)</p>
+<p>从聚合的顶端，画出各类之间的聚合式关联，其次把子类沿着继承线往上移，逐一用子类代替母类，并画出其聚合式关联，结合两者。<strong>即看聚合两端，继承上移代替父类再画聚合。</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4r1henb7tj30mr0zete4.jpg" alt="image-20190707095530097"></p>
+</li>
+</ol>
+<ol start="8">
+<li><p>几种需要熟练掌握和使用的UML与JAVA语言互相转换的表示(第四次课补充”第四章UML和JAVA”)</p>
+<p>接口&lt;<interface>&gt;，单向关联(实线+箭头)，双向关联(实线+双箭头+角色名)，自反关联(省略两个类为一个类employee,数组关联)，聚合(特殊的单关联,空心菱形+箭头)。</interface></p>
+</li>
+</ol>
+<ol start="9">
+<li><p>请画出结构化分析模型的组成结构图和面向对象分析模型的组成结构图，再画出所选教材中得需求分析元素图，最后说明三张图的关系(第五次课补充材料，教材P125)。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4r3nswn3aj30pv0rtwna.jpg" alt="image-20190707111050231"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4r3pdkhkej30ps0rin6i.jpg" alt="image-20190707111220110"></p>
+</li>
+</ol>
+<p>   <img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4r3ck09mcj30s30o5tzg.jpg" alt="image-20190707105957892"></p>
+<ol start="10">
+<li><p>请画出Yourdon面向对象OOA/OOD模型示意图，同时给出主要符号的一般描述(第六次课补充材料，第一章引论P14、P15)</p>
+<p>内边界是类边界，外边界是实例边界；</p>
+<p>实例间用无向线段表示连接关系；</p>
+<p>消息由从发送者指向接受者的单向箭头表示；</p>
+<p>两种结构总体部分结构和泛化结构；</p>
+<p>主题用矩形框表示，把该主题中包含的所有对象封闭起来。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g4r5c5kjxfj30q40pa44b.jpg" alt="image-20190707120850933"></p>
+</li>
+</ol>
+<ol start="11">
+<li><p>何为Yourdon面向对象软件工程方法中得EROI图？对题11图中的EROI图按照Yourdon方法进行描述(第六次课补充材料，第十章引论P97，附录)</p>
+<p>标识和描述对象间相互通信的工具，EROI图表明了产生什么消息，哪些对象会接收消息，产生什么响应等。</p>
+<p>EROI图水平方向每条垂线都代表了OOA模型中的一个对象-类，垂直方向代表时间，用-&gt;代表消息，指向代表消息方向，如果一个消息在另一个消息下即时间上晚于发生。</p>
+<p>图一即代表事件NO.1 电梯召唤(summon event)  图二代表 事件NO.2 目的地请求(destination event) </p>
+</li>
+</ol>
+<ol start="12">
+<li><p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4ty8adt9zj310o0u0khb.jpg" alt="07"></p>
+<p>三角表示一个schema被用在另一个schema中，tail返回除第一个的n-1，\差，交并，链接序列；<strong>这个队列和已用块一一对应的Index，队列移除即自由块增加已用减少</strong></p>
+<p>移除块schema：队列至少一项；新已用块=旧的减去已移走的块；新的自由块=旧的自由块+块队列的头；新的队列等于旧队列移走第一个元素。</p>
+<p>加入快schema：当前块是已用块的集合；块的集合加入块队列的尾部；已用快和自由块集合不变。</p>
+</li>
+</ol>
+<ol start="13">
+<li><p>请简要画出Petri图的基本组成符号并说明其含义，解释电梯Petri图的运行过程。</p>
+<p>Petri网定义为一个四元组(P,T,I,O)，P={p1,p2,…,pn}有穷位置集，T={t1,t2,…,tn}有穷转换集，I输入映射函数，O输出映射函数，黑色实心标记代表令牌分配。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g4uq6t0nsnj30k808j759.jpg" alt="image-20190710142659379"></p>
+<p>EBf代表楼层f的Elevator的Button，此时EBf有一令牌表示楼层f的按钮已被按下，假定电梯由楼层g驶向f，因为电梯在g层，所以Fg上有一令牌，转换电梯在运行被激发，EBf与Fg的令牌被移去，在Ff上发现一个新令牌，转换的激发使电梯由g层驶向f层。</p>
+</li>
+</ol>
+<ol start="14">
+<li><p>常见的体系结构风格有哪些？画出一种并作简单解释。</p>
+<ol>
+<li>数据中心体系结构</li>
+<li>数据流体系结构</li>
+<li>调用和返回体系结构</li>
+<li>面向对象体系结构</li>
+<li>层次体系结构：定义一系列的层次，每层完成各自的操作，这些操作逐渐接近指令集，比如用户层负责建立用户界面的操作，内层建议操作系统接口，中间层提供各种工具和服务。<img src="https://ws3.sinaimg.cn/large/006tNc79gy1g4uqtb341cj30a0092426.jpg" alt="image-20190710144836322"></li>
+</ol>
+</li>
+</ol>
+<ol start="15">
+<li><p>请用变换规则将DFD图导出SC图。（第八次课，史济民第五章P95）。</p>
+<p>传入部分MA，中心加工MT，传出ME部分，底层Mc控制主模块，每一个模块调用下属两个模块比如C=GetB+BtoC，输入仅ReadA输出WriteV即可，针对控制中心传入传出。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1g4uull758gj30qk0f8dj7.jpg" alt="image-20190710165934981"></p>
+</li>
+</ol>
+<ol start="16">
+<li><p>用变换规则导出单输入输出处理程序的SC图。</p>
+<p>​    <img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v3poijmlj30lz0gtaaq.jpg" alt="image-20190710221454773"></p>
+</li>
+</ol>
+<ol start="17">
+<li><p>何为OCP(开闭原则open-closed-principle)，举例说明?（第九次课pdf第14章P212）</p>
+<p>模块应该<strong>对外延具有开放性，对修改具有封闭性</strong>，即不修改构件内部结构即可达到扩展功能的目的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Class Book&#123;</span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"><span class="function">String <span class="title">getContent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"很久很久以前..."</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mother</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">//Mother与Book耦合度太高,若想读其他读物居然要修改高层模块Mother</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">narrate</span><span class="params">(Book book)</span></span>&#123;</span><br><span class="line">    print(<span class="string">"妈妈开始讲故事"</span>);</span><br><span class="line">    print(book.getContent);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Mother mother = <span class="keyword">new</span> Mother();</span><br><span class="line">    mother.narrate(<span class="keyword">new</span> Book());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>采用接口实现隔离变化:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IReader</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> <span class="keyword">implements</span> <span class="title">IReader</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"很久很久以前"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Newspaper</span> <span class="keyword">implements</span> <span class="title">IReader</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getContent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"读报纸"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mother</span></span>&#123;</span><br><span class="line">  <span class="comment">//传递接口实现</span></span><br><span class="line">  <span class="comment">//代表高层模块的 Mother 类将负责完成主要的业务逻辑，一旦需要对它进行修改， 引入错误的风险极大。所以遵循依赖倒置原则可以降低类之间的耦合性</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">narrate</span><span class="params">(IReader reader)</span></span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"开始讲故事"</span>);</span><br><span class="line">    System.out.println(<span class="string">"reader.getContent"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Mother mother = <span class="keyword">new</span> Mother();</span><br><span class="line">    mother.narrate(<span class="keyword">new</span> book());</span><br><span class="line">    mother.narrate(<span class="keyword">new</span> Newspaper());<span class="comment">//不修改内部结构即可扩展功能</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="18">
+<li><p>何为设计模式？请：</p>
+<ol>
+<li><p>画出某一设计模式的结构图</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4v1cosbyij30pi0ebdkg.jpg" alt="image-20190710205313448"></p>
+</li>
+<li><p>给出该设计模式的代码框架</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参考：https://segmentfault.com/a/1190000015050674</span></span><br><span class="line"><span class="comment">//1.创建接口，AbstractProduct，所创建的所有对象的父类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.创建实现接口的实体类，Product，工厂模式的创建目标</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">    print(<span class="string">"circle draw method"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">    print(<span class="string">"square draw method"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>&#123;</span><br><span class="line">    print(<span class="string">"rectangle draw method"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.创建一个工厂，当给定名称时生成实体对象，即负责实现所有实例的内部逻辑</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span></span>&#123;</span><br><span class="line">  <span class="comment">//注意此处返回类型</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(shapeType == <span class="string">"circle"</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(shapeType == <span class="string">"rectangle"</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">    <span class="keyword">else</span>...</span><br><span class="line">     <span class="comment">//若添加类还需要加if else，用工厂接口</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g4v1vcmjrnj30mu0ccjt8.jpg" alt="image-20190710211107406"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改为真正的工厂模式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//实例化放到子类进行，如果添加形状继续继承即可不用修改工厂内部getShape方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CircleFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">getShape</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RectangleFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">getShape</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>3. 说明该模式的使用场景
+
+   - 当我们明确不同条件下需要创建不同实例时，调用者想创建某一对象给出名称即可。
+</code></pre><ol start="19">
+<li><p>请：（第12次课补充，白盒测试（经典））</p>
+<p>(1)     画出19题的流程图</p>
+<ul>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v2oqs4f5j309u0cwmxs.jpg" alt="image-20190710213924770"></li>
+</ul>
+<p>(2)     给出判定覆盖的测试用例</p>
+<ul>
+<li><p>（判定覆盖又叫分支覆盖，它的含义是不仅每个语句必须至少执行一次， 而且每个判定的每种可能的结果都应该至少执行一次，也就是每个判定的每个分支都至少执行一次。）</p>
+<p>能够分别覆盖路径 sacbed 和 sabd 的两组测试数据， 或者可以分别覆盖路径 sacbd 和 sabed 的两组测试数据，都满足判定覆盖标准。例如，用下面两组测试数据就可做到判定覆盖：</p>
+<p>I．A＝3，B=0，X＝3 (覆盖 sacbd)</p>
+<p>II．A=2，B=1，X=1 (覆盖 sabed)</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="20">
+<li>请根据题20图完成：（第12次课 第23章 测试传统的应用软件 P372-P374）</li>
+</ol>
+<p>(1)     依据标注点，画出流图</p>
+<ul>
+<li><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g4v33fvu7ij30b30drmyv.jpg" alt="image-20190710215332008"></li>
+</ul>
+<p>(2)     给出流图的环路复杂性</p>
+<ul>
+<li>V(G) = 6(域数)</li>
+<li>V(G) = 17(边数) - 13（结点数) + 2 = 6</li>
+<li>V(G) = 5(判定结点数) + 1 = 6</li>
+</ul>
+<p>(3)     给出独立路径</p>
+<p>解：<img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v369dxydj30kd08kteb.jpg" alt="image-20190710215614407"></p>
+<ol start="21">
+<li><p><strong>等价类测试电话号码</strong></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4v3zfjkuzj30my0objzp.jpg" alt="image-20190710222416112"></p>
+<p>​    <img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4v3zrxcv4j30lh09kgob.jpg" alt="image-20190710222437103"></p>
+</li>
+</ol>
+<ol start="22">
+<li><p><strong>因果图法。</strong></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g4v40n9oysj30mg0si7gm.jpg" alt="image-20190710222526618">    </p>
+</li>
+</ol>
+<ol start="23">
+<li><p>评审技术(第14次课，第20章评审技术P318-P319)</p>
+<p>​    <img src="https://ws4.sinaimg.cn/large/006tNc79ly1g4v420f873j30lv0du44m.jpg" alt="image-20190710222645517"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v4298matj30lz0dr7b3.jpg" alt="image-20190710222659709"></p>
+</li>
+</ol>
+<ol start="24">
+<li><p>基于功能点的度量(第14课，第30章产品度量P487)</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v49t6gawj31a80bg7bm.jpg" alt="image-20190710223414848"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4v4abnisuj31a80l0dof.jpg" alt="image-20190710223441962"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v4a05rswj31a80lkn41.jpg" alt="image-20190710223426457"></p>
+</li>
+</ol>
+<ol start="25">
+<li><p>何为边界条件测试法？请给出四种二维边界条件测试法的名称并画出示意图(第12次课补充”软件测试与质量保证05”)</p>
+<p>边界条件分析法是对等价类划分方法的扩张，Bug潜伏在角落并在边界处聚集—Boris Beizer</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4v46qljuwj31a80js0vg.jpg" alt="image-20190710223118871"></p>
+</li>
+</ol>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4v46vrrbtj31a80qkwgt.jpg" alt="image-20190710223126841"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g4v46z05jrj31a80pcgob.jpg" alt="image-20190710223131956"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g4v472sjr2j31a80n4jvz.jpg" alt="image-20190710223137968"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/30/二分查找总结/" rel="next" title="二分查找总结">
+                <i class="fa fa-chevron-left"></i> 二分查找总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/23/Anaconda虚拟环境管理/" rel="prev" title="Anaconda虚拟环境管理">
+                Anaconda虚拟环境管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#复习题"><span class="nav-number">1.</span> <span class="nav-text">复习题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

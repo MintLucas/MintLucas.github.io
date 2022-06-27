@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="TensorFlow,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Tensorflow框架重点  Tensorflow使用了自动化构建工具bazel、脚本语言调用c或cpp的包裹工具swig、使用EIGEN作为矩阵处理工具、Nvidia-cuBLAS GPU加速计算库、结构化数据存储格式protobuf  Link    Swig 1. Simplified Wrapper and Interface Generator (SWIG) ，基本思想就是向脚本语言接">
+<meta name="keywords" content="TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tensorflow框架">
+<meta property="og:url" content="http://yoursite.com/2019/10/31/tensorflow框架/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="Tensorflow框架重点  Tensorflow使用了自动化构建工具bazel、脚本语言调用c或cpp的包裹工具swig、使用EIGEN作为矩阵处理工具、Nvidia-cuBLAS GPU加速计算库、结构化数据存储格式protobuf  Link    Swig 1. Simplified Wrapper and Interface Generator (SWIG) ，基本思想就是向脚本语言接">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815152931015-723479657.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/2a49a44b085e4251b22b1f2d6d158122/db4237b9cb76.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815152949812-361653925.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815153045796-220461289.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/f73f5008fd0c492d88b4ef8b416848d2/clipboard.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815153209187-1703242449.png">
+<meta property="og:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/d27205277dd24d8db4808a8a381e9b19/clipboard.png">
+<meta property="og:updated_time" content="2019-11-01T07:32:05.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tensorflow框架">
+<meta name="twitter:description" content="Tensorflow框架重点  Tensorflow使用了自动化构建工具bazel、脚本语言调用c或cpp的包裹工具swig、使用EIGEN作为矩阵处理工具、Nvidia-cuBLAS GPU加速计算库、结构化数据存储格式protobuf  Link    Swig 1. Simplified Wrapper and Interface Generator (SWIG) ，基本思想就是向脚本语言接">
+<meta name="twitter:image" content="http://yoursite.com/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/31/tensorflow框架/">
+
+
+
+
+
+  <title>tensorflow框架 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/tensorflow框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tensorflow框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-31T15:30:52+08:00">
+                2019-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/TensorFlow/" itemprop="url" rel="index">
+                    <span itemprop="name">TensorFlow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Tensorflow框架重点"><a href="#Tensorflow框架重点" class="headerlink" title="Tensorflow框架重点"></a>Tensorflow框架重点</h3><blockquote>
+<p> Tensorflow使用了自动化构建工具<strong>bazel</strong>、脚本语言调用c或cpp的包裹工具<strong>swig、</strong>使用<strong>EIGEN</strong>作为矩阵处理工具、Nvidia-cuBLAS GPU加速计算库、结构化数据存储格式protobuf</p>
+</blockquote>
+<p><a href="https://www.cnblogs.com/yao62995/p/5773142.html" target="_blank" rel="noopener">Link</a></p>
+<table>
+<thead>
+<tr>
+<th>Swig</th>
+<th>1. Simplified Wrapper and Interface Generator (SWIG) ，基本思想就是向脚本语言接口公开 C/C++ 代码。SWIG 允许您向广泛的脚本语言公开 C/C++ 代码，包括 Ruby、Perl、Tcl 和 Python。 参考：1. <a href="https://www.jianshu.com/p/ccd239bd11d9" target="_blank" rel="noopener">使用SWIG实现Python调用C/C++代码</a></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bazel</td>
+<td>1. bazel假定每个目录为[package]单元，目录里面包含了源文件和一个描述文件BUILD，描述文件中指定了如何将源文件转换成构建的输出。<img src="/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png" alt="img"><img src="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815152931015-723479657.png" alt="img">  <img src="/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png" alt="img"><img src="/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/82387e04eb9b49f4a35a2b69f28b1c87/clipboard.png" alt="img">1. name属性来命名规则，deps属性来描述规则之间的依赖关系 2. 使用<strong>冒号</strong>来分隔包名和规则名；如果某条规则所依赖的规则在其他目录下，就用”//“开头，如果在同一目录下，可以忽略包名而用冒号开头。 依赖关系： <img src="/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/2a49a44b085e4251b22b1f2d6d158122/db4237b9cb76.png" alt="graphical_dep"><img src="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815152949812-361653925.png" alt="img"> 3. bazel命令：   &gt; bazel build -c opt //tensorflow/tools/pip_package:build_pip_package4. 调试模式：   &gt;  bazel build -c dbg参考：1.<a href="http://www.cnblogs.com/Jack47/p/install-bazel-on-redhat-enterprise-5.html" target="_blank" rel="noopener"> 安装bazel</a>  &gt; yum install java-1.8.0-openjdk  &gt; yum install java-1.8.0-openjdk-devel  &gt; <a href="https://github.com/google/bazel/" target="_blank" rel="noopener">https://github.com/google/bazel/</a> 下载最新版本bazel_xxx.sh安装2. <a href="http://www.cnblogs.com/Jack47/p/build-in-the-cloud_how-the-build-system-works.html" target="_blank" rel="noopener">使用bazel构建系统</a> 3. <a href="http://www.bazel.io/versions/master/docs/bazel-user-manual.html" target="_blank" rel="noopener">bazel 命令手册</a></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>EIGEN</strong></td>
+<td>1. Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms. <a href="http://eigen.tuxfamily.org/" target="_blank" rel="noopener">http://eigen.tuxfamily.org/</a> 支持整数、浮点数、复数，使用模板编程，可以为特殊的数据结构提供矩阵操作。比如在用<a href="https://code.google.com/p/ceres-solver/" target="_blank" rel="noopener">ceres-solver</a>进行做优化问题（比如bundle adjustment）的时候，有时候需要用模板编程写一个目标函数，ceres可以将模板自动替换为内部的一个可以自动求微分的特殊的double类型。而如果要在这个模板函数中进行矩阵计算，使用Eigen就会非常方便。支持逐元素、分块、和整体的矩阵操作。内含大量矩阵分解算法包括LU，LDLt，QR、SVD等等。支持使用Intel <a href="http://software.intel.com/en-us/intel-mkl/" target="_blank" rel="noopener">MKL</a>加速部分功能支持多线程稀疏矩阵支持良好，到今年新出的Eigen3.2，已经自带了SparseLU、SparseQR、共轭梯度（ConjugateGradient solver）、bi conjugate gradient stabilized solver等解稀疏矩阵的功能。同时提供<a href="http://www.cise.ufl.edu/research/sparse/SPQR/" target="_blank" rel="noopener">SPQR</a>、<a href="http://www.cise.ufl.edu/research/sparse/umfpack/" target="_blank" rel="noopener">UmfPack</a>等外部稀疏矩阵库的接口。支持常用几何运算，包括旋转矩阵、四元数、矩阵变换、AngleAxis（欧拉角与Rodrigues变换）等等。更新活跃，用户众多（Google、WilliowGarage也在用），使用Eigen的比较著名的开源项目有ROS（机器人操作系统）、PCL（点云处理库）、Google Ceres（优化算法）。OpenCV自带到Eigen的接口。2. 常用的矩阵计算工具有blas, <strong>cublas</strong>(caffe)、atlas、<strong>openblas</strong>(mxnet)、<strong>eigen</strong>，还有lapack、mkl(intel)、Armadillo（matlab）<img src="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815153045796-220461289.png" alt="img"> <img src="/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/f73f5008fd0c492d88b4ef8b416848d2/clipboard.png" alt="img">3. Eigen库包含 Eigen模块和unsupported模块，其中Eigen模块为official module，unsupported模块为开源贡献者开发的，没有official support。1. <a href="https://www.zhihu.com/question/27872849" target="_blank" rel="noopener">矩阵运算库blas, cblas, openblas, atlas, lapack, mkl</a> 2. eigen 参考文档 <a href="https://eigen.tuxfamily.org/dox/" target="_blank" rel="noopener">https://eigen.tuxfamily.org/dox/</a> <a href="http://my.oschina.net/cvnote/blog/165340" target="_blank" rel="noopener">C++矩阵运算库推荐</a></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>protobuf</strong></td>
+<td>1. Protocol Buffers 是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。它很适合做数据存储或 RPC 数据交换格式。可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式。2. 使用    &gt; 编写.proto文件，编译后生成 .pb.h / .pb.cc文件   &gt; <strong>Writer</strong>: SerializeToOstream(),  <strong>Reader</strong>: ParseFromIstream()   &gt; required：一个格式良好的消息一定要含有1个这种字段；   &gt; optional：消息格式中该字段可以有0个或1个值（不超过1个）。   &gt; repeated：在一个格式良好的消息中，这种字段可以重复任意多次（包括0次）。相当于java中的List。3. <img src="https://images2015.cnblogs.com/blog/1001908/201608/1001908-20160815153209187-1703242449.png" alt="img"> <img src="/C:/Users/yaojian-xy/AppData/Local/YNote/data/yao_62995@163.com/d27205277dd24d8db4808a8a381e9b19/clipboard.png" alt="img">4. grpc需要理解4个方面（service，stub，channel，observer）service，stub：客户端调用 stub 对象，所谓 stub 对象就是具有声明好的方法的 fake object。stub 对象将请求用 protobuf 方式序列化成字节流，用于线上传输，到 server 端后调用真正的实现对象处理。channel，指定连接的服务器地址和端口，用于stub连接到serviceobserver，服务端，观察处理返回和关闭通道 <a href="http://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">Protobuf 语法指南</a><a href="http://evthoriz.com/2015/07/07/gRPC-tutorial/" target="_blank" rel="noopener">gRPC 入门及源码分析</a></td>
+<td></td>
+</tr>
+<tr>
+<td>StreamExecutor</td>
+<td>&gt; google stream executor team： work on parallel programming models for CPUs, GPUs and other platforms. &gt; <strong>StreamExecutor</strong> is a unified wrapper around the <strong>CUDA</strong> and <strong>OpenCL</strong> host-side programming models (runtimes).  &gt;<strong>StreamExecutor</strong> and <strong>libomptarget</strong> are libraries that are both meant to solve the problem of providing runtime support for offloading computational work to an accelerator device. The libomptarget library is already hosted within the <strong>OpenMP LLVM</strong> subproject, and there is currently a proposal to create another LLVM subproject containing StreamExecutor.  &gt; StreamExecutor is currently used as the runtime for the vast majority of Google’s internal <strong>GPGPU</strong> applications, and a snapshot of it is included in the open-source <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">TensorFlow</a> project, where it serves as the GPGPU runtime.<a href="https://github.com/henline/streamexecutordochttps://github.com/henline/streamexecutordoc/blob/master/se_and_openmp.rst" target="_blank" rel="noopener">https://github.com/henline/streamexecutordochttps://github.com/henline/streamexecutordoc/blob/master/se_and_openmp.rst</a></td>
+<td></td>
+</tr>
+<tr>
+<td>TF C++</td>
+<td>1. TF源码安装： <a href="http://tensorflow.org/get_started/os_setup.md#installing_from_sources" target="_blank" rel="noopener">following the instructions here</a>2. example:  tensorflow/cc/tutorials/example_trainer.cc3. 自定义的<strong>op Kernel</strong>：<a href="http://wiki.jikexueyuan.com/project/tensorflow-zh/how_tos/adding_an_op.html" target="_blank" rel="noopener"> tutorial for adding a new op in C++.</a>4. TF c++ 调试： <a href="http://stackoverflow.com/questions/36399337/debugging-tensorflows-c-code-behind-the-swig-interface" target="_blank" rel="noopener">debugging Tensorflow’s C++ code behind the SWIG interface</a>     &gt; The simplest interface between Python and C++ is the pure-C API in <code>tensor_c_api.h</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Tensorflow源码分析"><a href="#Tensorflow源码分析" class="headerlink" title="Tensorflow源码分析"></a>Tensorflow源码分析</h3><h4 id="Tensor的组成："><a href="#Tensor的组成：" class="headerlink" title="Tensor的组成："></a>Tensor的组成：</h4><p>Tensor的组成可以分成3部分：DataType、TensorShape、TensorBuf. 即数据类型、张量的形状和存储数据的内存.</p>
+<p>DataType：Tensor数据的类型，float、double、int等</p>
+<p>TensorShape: Tensor的形状. 这里要表示维度需存储两种元素，第一种是维数、第二种是每个维度的大小. 例如：一个矩阵的大小为3×4，那么其维数为2，第一个维度大小是3，第二个是4. </p>
+<p>TensorBuf:就是存储数据的内存地址，比如一个Tensor是3×4的矩阵，并且类型时float，那么其TensorBuf就float*类型，并且长度是12，在实现上是基于模板实现的.</p>
+<h4 id="Tensor的运算："><a href="#Tensor的运算：" class="headerlink" title="Tensor的运算："></a>Tensor的运算：</h4><p>Tensor的运算主要由kernels完成，每个kernel都完成不同的运算。其中CPU版本的kernel大部分都使用Eigen库来实现，GPU版本的kernel少部分使用Eigen，大部分使用cuda编程实现。</p>
+<p>Eigen unsupported模块提供了同样叫Tensor的类，主要就是能完成各种复杂的数学计算，并且是并行实现的（主要使用线程池或cuda），效率很高. 其API文档可参考 <a href="https://github.com/PX4/eigen/blob/master/unsupported/Eigen/CXX11/src/Tensor/README.md" target="_blank" rel="noopener">https://github.com/PX4/eigen/blob/master/unsupported/Eigen/CXX11/src/Tensor/README.md</a>. TensorFlow使用Eigen进行计算时，首先要将其自己实现的Tensor类的对象转换成Eigen支持的Tensor对象. 可以再core/framework/tensor_types.h下面看到Eigen支持的各种数据类型，主要是TensorMap类. 并进行了重命名，其源码如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> storage[<span class="number">128</span>];</span><br><span class="line">TensorMap&lt;Tensor&lt;<span class="keyword">int</span>, <span class="number">2</span>&gt;&gt; t_2d(storage, <span class="number">16</span>, <span class="number">8</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">int</span> NDIMS = <span class="number">1</span>, <span class="keyword">typename</span> IndexType = Eigen::DenseIndex&gt;</span><br><span class="line">struct TTypes &#123;</span><br><span class="line">  <span class="comment">// Rank-&lt;NDIMS&gt; tensor of scalar type T.</span></span><br><span class="line">  <span class="keyword">typedef</span> Eigen::TensorMap&lt;Eigen::Tensor&lt;T, NDIMS, Eigen::RowMajor, IndexType&gt;,</span><br><span class="line">                           Eigen::Aligned&gt;</span><br><span class="line">      Tensor;</span><br><span class="line">  <span class="keyword">typedef</span> Eigen::TensorMap&lt;</span><br><span class="line">      Eigen::Tensor&lt;<span class="keyword">const</span> T, NDIMS, Eigen::RowMajor, IndexType&gt;, Eigen::Aligned&gt;</span><br><span class="line">      ConstTensor;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/29/Mac源码编译安装tensorflow/" rel="next" title="Mac源码编译安装tensorflow">
+                <i class="fa fa-chevron-left"></i> Mac源码编译安装tensorflow
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/04/英文自我介绍和PS/" rel="prev" title="英文自我介绍和PS">
+                英文自我介绍和PS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow框架重点"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow框架重点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensorflow源码分析"><span class="nav-number">2.</span> <span class="nav-text">Tensorflow源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tensor的组成："><span class="nav-number">2.1.</span> <span class="nav-text">Tensor的组成：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tensor的运算："><span class="nav-number">2.2.</span> <span class="nav-text">Tensor的运算：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

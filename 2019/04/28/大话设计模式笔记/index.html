@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="c++,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="C++设计模式z什么是设计模式在变化和稳定之间寻找隔离点，从而来管理变化，正常的软件体系结构，一定既有变化又有稳定点(稳定更具有复用性,如lib库定义主流程)，把变化像小兔子一样关在笼子里不干扰全局，谨记，我们最大的敌人是变化。 “每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。——Christopher Alex">
+<meta name="keywords" content="c++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ZHIPENG个人笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/大话设计模式笔记/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="C++设计模式z什么是设计模式在变化和稳定之间寻找隔离点，从而来管理变化，正常的软件体系结构，一定既有变化又有稳定点(稳定更具有复用性,如lib库定义主流程)，把变化像小兔子一样关在笼子里不干扰全局，谨记，我们最大的敌人是变化。 “每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。——Christopher Alex">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki3j9vqij31c00u079u.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki7fm29zj311i0piq60.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1g2ki5ln4q0j311e0i60ua.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1g2ki3ffjo9j31ce0pagod.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2ki2o8zn0j31d60mq402.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki4t7j5nj31c80p8jtm.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2kigeywzaj31dw0u07a0.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1g2ko1jhpaoj31e00qgdkz.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2koonu668j31d20q44g7.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2kpdfvq10j31g20pgx04.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2krk2qshgj30p60nagtg.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ktwx23b4j30qs09w7b9.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ktsxa0soj30qs0eggtl.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ktwpg88ej31da0lanj0.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2kuzhkvm6j31dc0myn8d.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2kvdz0iw7j31ca0petg9.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2kwpwrk38j30su0oyn5m.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2kwgbyp4aj31cu0oedyr.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2n6gy32h4j31bm0mqtfd.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2n6ivxw5aj31as0ne47f.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2n665ru6rj30ta0pgn8w.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1g2su6if8xqj313m0niapo.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1g2n6uq0w3nj31hc0smhd2.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1g2sunkbvwbj30tg0ounah.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1g2sv0zv2l4j30qq0ogdpm.jpg">
+<meta property="og:updated_time" content="2020-05-21T01:07:07.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ZHIPENG个人笔记">
+<meta name="twitter:description" content="C++设计模式z什么是设计模式在变化和稳定之间寻找隔离点，从而来管理变化，正常的软件体系结构，一定既有变化又有稳定点(稳定更具有复用性,如lib库定义主流程)，把变化像小兔子一样关在笼子里不干扰全局，谨记，我们最大的敌人是变化。 “每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。——Christopher Alex">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki3j9vqij31c00u079u.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/28/大话设计模式笔记/">
+
+
+
+
+
+  <title> | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/28/大话设计模式笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-28T17:47:24+08:00">
+                2019-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记zz/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记zz</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="C-设计模式z"><a href="#C-设计模式z" class="headerlink" title="C++设计模式z"></a>C++设计模式z</h1><h2 id="什么是设计模式"><a href="#什么是设计模式" class="headerlink" title="什么是设计模式"></a>什么是设计模式</h2><p><strong>在变化和稳定之间寻找隔离点，从而来管理变化，</strong>正常的软件体系结构，一定既有变化又有稳定点(稳定更具有复用性,如lib库定义主流程)，把变化像小兔子一样关在笼子里不干扰全局，谨记，<strong>我们最大的敌人是变化</strong>。</p>
+<p>“每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的解决方案的核心。这样，你就能一次又一次地使用该方案而不必做重复劳动”。<br>——Christopher Alexander</p>
+<h2 id="如何解决复杂性？"><a href="#如何解决复杂性？" class="headerlink" title="如何解决复杂性？"></a>如何解决复杂性？</h2><ul>
+<li>分解<ul>
+<li>人们面对复杂性有一个常见的做法：即分而治之，将大问题分解为多个小问题，将复杂问题分解为多个简单问题。</li>
+</ul>
+</li>
+<li>抽象<ul>
+<li>更高层次来讲，人们处理复杂性有一个通用的技术，即抽象。由于不能掌握全部的复杂对象，我们选择忽视它的非本质细节，而去处理泛化和理想化了的对象模型。</li>
+</ul>
+</li>
+</ul>
+<h2 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h2><ol>
+<li><p><strong>依赖倒置原则（DIP去依赖抽象接口）</strong></p>
+<ul>
+<li>高层模块(稳定)不应该依赖于低层模块(变化)，二者都应该依赖于抽象(稳定) ，MainForm都依赖于Shape，存基类指针达到了多态，封装变化的对象。</li>
+<li>抽象(稳定)不应该依赖于实现细节(变化) ，实现细节应该依赖于抽象(稳定)。</li>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki3j9vqij31c00u079u.jpg" alt="image-20190428175309190"></li>
+</ul>
+</li>
+<li><p>开放封闭原则（OCP）</p>
+<ul>
+<li>对扩展开放，对更改封闭。</li>
+<li>类模块应该是可扩展的，但是不可修改，家具增加了防火需求。</li>
+</ul>
+</li>
+<li><p>单一职责原则（SRP）</p>
+<ul>
+<li>一个类应该仅有一个引起它变化的原因，一个类如果有80个过多方法不太正常。</li>
+<li>变化的方向隐含着类的责任。</li>
+</ul>
+</li>
+<li><p>Liskov 替换原则（LSP）</p>
+<ul>
+<li>子类必须能够替换它们的基类(IS-A)。</li>
+<li>继承表达类型抽象。</li>
+</ul>
+</li>
+<li><p>接口隔离原则（ISP）</p>
+<ul>
+<li>不应该强迫客户程序依赖它们不用的方法。</li>
+<li>接口应该小而完备。</li>
+</ul>
+</li>
+<li><p><strong>组合优于继承</strong></p>
+<ul>
+<li><p>类继承通常为“白箱复用”，对象组合通常为“黑箱复用”，继承基类和类内组合一个基类的指针对象，效果是一样的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CopytoNetworkStream</span> :</span>: <span class="keyword">public</span> NetworkStream&#123;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span>:	</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Read</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//额外的加密操作...</span></span><br><span class="line">  	<span class="keyword">public</span> NetworkStream::Read();</span><br><span class="line">    <span class="comment">//额外的加密操作...</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CopytoNetworkStream</span> &#123;</span></span><br><span class="line">  </span><br><span class="line">  	<span class="comment">//优化1、👇 继承:: public NetworkStream换为类内组合</span></span><br><span class="line">    NetWorkStream* stream;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//优化2、共同基类多态new NetWorkStream()</span></span><br><span class="line">  	Stream* stream;<span class="comment">//new NetWorkStream()</span></span><br><span class="line">  <span class="comment">//核心：编译时一样运行时不一样</span></span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span>:	</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Read</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//额外的加密操作...</span></span><br><span class="line">  	stream-&gt;Read();<span class="comment">//public NetworkStream:: -&gt; 调用改为指针调用;</span></span><br><span class="line">    <span class="comment">//额外的加密操作...</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//扩展操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 由于两个子类有相同的成员Stream*，所以这个成员要往上提到他们公有的父类，如果父类又其他继承则声明中间类来当他们共同的父类</span></span><br><span class="line">DecoratorStream: <span class="keyword">public</span> Stream&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    Stream* stream;<span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">    DecoratorStream(Stream * stm):stream(stm)&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>继承在某种程度上破坏了封装性，子类父类耦合度高。</p>
+</li>
+<li><p>而对象组合则只要求被组合的对象具有良好定义的接口，耦合度低。</p>
+</li>
+</ul>
+<ol start="7">
+<li><p><strong>封装变化点</strong></p>
+<ul>
+<li>使用封装来创建对象之间的分界层，让设计者可以在分界层的一侧进行修改，而不会对另一侧产生不良的影响，从而实现层次间的松耦合。</li>
+</ul>
+</li>
+<li><p>针对接口编程，而不是针对实现编程</p>
+<ul>
+<li>不将变量类型声明为某个特定的具体类，而是声明为某个接口。</li>
+<li>客户程序无需获知对象的具体类型，只需要知道对象所具有的接口。</li>
+<li>减少系统中各部分的依赖关系，从而实现“高内聚、松耦合”的类型设计方案。</li>
+</ul>
+</li>
+</ol>
+<h2 id="从封装变化角度对模式分类"><a href="#从封装变化角度对模式分类" class="headerlink" title="从封装变化角度对模式分类"></a>从封装变化角度对模式分类</h2><h2 id="组件协作："><a href="#组件协作：" class="headerlink" title="组件协作："></a>组件协作：</h2><ul>
+<li><h3 id="Template-Method"><a href="#Template-Method" class="headerlink" title="Template Method"></a>Template Method</h3><h3 id="动机（Motivation）"><a href="#动机（Motivation）" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h3><ul>
+<li>在软件构建过程中，对于某一项任务，它<strong>常常有稳定的整体操作结构，但各个子步骤却有很多改变的需求</strong>，或者由于固有的原因，而无法和任务的整体结构同时实现。</li>
+<li>如何在确定稳定操作结构的前提下，来灵活应对各个子步骤的变化或者晚期实现需求？</li>
+<li><strong>例子：比如框架与应用之间的关系,step1()step2()Lib定义剩下的你去填补即可</strong></li>
+</ul>
+<h3 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h3><p>定义一个操作中的算法的骨架 <strong>(稳定)</strong> ，而将一些步骤延迟 <strong>(变化)</strong> 到子类中。 Template Method使得子类<strong>可以不改变(复用)一个算法的结构即可重定义(override 重写)该算法的 某些特定步骤</strong>。 ——《 设计模式》 GoF</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki7fm29zj311i0piq60.jpg" alt="image-20190430113423768"></p>
+<h3 id="要点总结"><a href="#要点总结" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li><p>UML把稳定的变化的画出来，感受之间的力量</p>
+</li>
+<li><p>Template Method模式是一种非常基础性的设计模式，在面向对象系统中有着大量的应用。它<strong>用最简洁的机制（虚函数的多态性</strong>） 为很多应用程序框架提供了灵活的扩展<strong>(扩展=继承+虚函数)</strong>点，是代码复用方面的基本实现结构。</p>
+</li>
+<li>除了可以灵活应对子步骤的变化外， 站在类库的角度，<strong>“不要调用我，让我来调用你”</strong> 的反向控制结构是Template Method的典型应用。</li>
+<li>在具体实现方面，被Template Method调用的虚方法可以具有实现，也可以没有任何实现（抽象方法、纯虚方法），但一般推荐将它们设置为protected方法。</li>
+</ul>
+</li>
+<li><h2 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h2><h3 id="动机（Motivation）-1"><a href="#动机（Motivation）-1" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h3><ul>
+<li>在软件构建过程中，某些对象使用的<strong>算法可能多种多样，经常改变</strong>，如果将这些算法都编码到对象中，将会使对象变得异常复杂；而且有时候支持不使用的算法也是一个性能负担。</li>
+<li>如何在运行时根据需要透明地更改对象的算法？将算法与对象本身解耦，从而避免上述问题？</li>
+<li><strong>例子：通过多态实现CN_Money,US_Money等，看到多条ifelse判断语句组合通常需要Strategy模式</strong></li>
+</ul>
+<h3 id="模式定义-1"><a href="#模式定义-1" class="headerlink" title="模式定义"></a>模式定义</h3><p><strong>定义一系列算法，把它们一个个封装起来，并且使它们可互相替换</strong>。该模式使得算法可独立于使用它的客户程序(稳定)而变化（扩展，子类化）。 ——《设计模式》 GoF</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1g2ki5ln4q0j311e0i60ua.jpg" alt="image-20190430113237029"></p>
+<h3 id="要点总结-1"><a href="#要点总结-1" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Strategy及其子类为组件提供了一系列可重用的算法，从而可以使得类型在运行时方便地根据需要在各个算法之间进行切换。</li>
+<li>Strategy模式提供了用条件判断语句以外的另一种选择，<strong>看到多条ifelse判断语句组合通常需要Strategy模式，消除条件判断语句，就是在解耦合</strong>。</li>
+<li>如果Strategy对象没有实例变量，那么各个上下文可以共享同一个Strategy对象，从而节省对象开销。</li>
+</ul>
+</li>
+<li><h2 id="Observer-Event（常用）"><a href="#Observer-Event（常用）" class="headerlink" title="Observer/Event（常用）"></a>Observer/Event（常用）</h2><h3 id="动机（Motivation）-2"><a href="#动机（Motivation）-2" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h3><ul>
+<li>在软件构建过程中，我们需要为某些对象建立一种“<strong>通知依赖关系</strong>，如果这样的依赖关系过于紧密，将使软件不能很好地抵御变化。</li>
+<li>使用面向对象技术，可以<strong>将这种依赖关系弱化，并形成一种稳定的依赖关系</strong>。从而实现软件体系结构的松耦合。</li>
+<li><strong>例子：分割文件软件的图形界面 ——不应定义在Splitter类内部，仅定义一个通知函数接口，放在MainForm类来继承，这样当图形界面需求发生改变，所有的依赖对 象（观察者对象）都将得到通知。</strong></li>
+</ul>
+<h3 id="模式定义-2"><a href="#模式定义-2" class="headerlink" title="模式定义"></a>模式定义</h3><p>定义对象间的一种一对多（变化）的依赖关系，以便<strong>当一个对象(Subject)的状态发生改变时，所有依赖于它的对象都得到通知并自动更新</strong>。 ——《 设计模式》 GoF</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1g2ki3ffjo9j31ce0pagod.jpg" alt="image-20190430112816724"></p>
+<h3 id="要点总结-2"><a href="#要点总结-2" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>使用面向对象的抽象，Observer模式使得我们可以<strong>独立地改变目标与观察者</strong>，从而使二者之间的依赖关系达致松耦合。</li>
+<li><strong>目标发送通知(addProgress)时，无需指定观察者</strong>(ProgressBar)，观察者决定自己是否调用通知(DoProgress)。</li>
+<li>Observer模式是基于事件的UI框架中非常常用的设计模式，也是MVC模式的一个重要组成部分。</li>
+</ul>
+</li>
+</ul>
+<h2 id="单一职责-过度的继承会出现问题-："><a href="#单一职责-过度的继承会出现问题-：" class="headerlink" title="单一职责(过度的继承会出现问题)："></a>单一职责(过度的继承会出现问题)：</h2><ul>
+<li><h2 id="Decorator（常用）"><a href="#Decorator（常用）" class="headerlink" title="Decorator（常用）"></a>Decorator（常用）</h2><h3 id="动机（Motivation）-3"><a href="#动机（Motivation）-3" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h3><ul>
+<li><p>在某些情况下我们可能会“过度地使用继承来扩展对象的功能”，由于继承为类型引入的静态特质，使得这种扩展方式缺乏灵活性； 并且随着子类的增多（扩展功能的增多），各种子类的组合（扩展功能的组合）会导致更多子类的膨胀。</p>
+</li>
+<li><p>如何使“对象功能的扩展”能够根据需要来动态地实现？同时避免“扩展功能的增多”带来的子类膨胀问题？从而使得任何“功能扩展变化”所导致的影响将为最低？</p>
+</li>
+<li><p><strong>例子：为各种流添加加密算法，不用CopytoNetworkStream子类继承用指针组合，定义Decorator类存放这个公有指针</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//扩展操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 由于两个子类有相同的成员Stream*，所以这个成员要往上提</span></span><br><span class="line"><span class="comment">//既继承Stream又组合Stream一般都是装饰器</span></span><br><span class="line"><span class="comment">//继承为了完善接口的规范，定义在子类Stream里有些继承不需要</span></span><br><span class="line"><span class="comment">//组合为了实现扩展的功能</span></span><br><span class="line">DecoratorStream: <span class="keyword">public</span> Stream&#123;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    Stream* stream;<span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">    DecoratorStream(Stream * stm):stream(stm)&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="模式定义-3"><a href="#模式定义-3" class="headerlink" title="模式定义"></a>模式定义</h3><p>动态<strong>（组合）</strong>地给一个对象增加一些额外的职责。就增加功能而言，Decorator模式<strong>比生成子类（继承）更为灵活（</strong>消除重复代码 &amp; <strong>减少子类个数</strong>）。 ——《设计模式》GoF</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2ki2o8zn0j31d60mq402.jpg" alt="image-20190430112946513"></p>
+<h3 id="要点总结-3"><a href="#要点总结-3" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>通过采用组合而非继承的手法， Decorator模式实现了<strong>在运行时</strong>动态扩展对象功能的能力，而且可以根据需要扩展多个功能。 避免了使用继承带来的“灵活性差”和“多子类衍生问题”。</li>
+<li>Decorator类在<strong>接口上表现为is-a Component的继承关系</strong>，即Decorator类继承了Component类所具有的接口。 但在<strong>实现上又表现为has-a Component的组合关系</strong>，即Decorator类又使用了另外一个Component类，既<strong>继承又组合某一个类</strong>。</li>
+<li>Decorator模式的目的并非解决“多子类衍生的多继承”问题，Decorator模式应用的要点在于解决“主体类<strong>在多个方向上的扩展功能</strong>”——是为“装饰”的含义。</li>
+</ul>
+</li>
+<li><h2 id="Bridge"><a href="#Bridge" class="headerlink" title="Bridge"></a>Bridge</h2><h3 id="动机（Motivation）-4"><a href="#动机（Motivation）-4" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h3><ul>
+<li>由于某些类型的固有的实现逻辑，使得它们具有两个变化的维度，乃至多个纬度的变化。</li>
+<li>如何应对这种“多维度的变化”？如何利用面向对象技术来使得类型可以轻松地沿着两个乃至多个方向变化，而不引入额外的复杂度？</li>
+<li><strong>例子：基本版，改进版，最终版加入不同的功能，在最基类中定义了这些方法，平台实现和业务扩展变化的方向不一致，应该拆为两类</strong></li>
+</ul>
+<h3 id="模式定义-4"><a href="#模式定义-4" class="headerlink" title="模式定义"></a>模式定义</h3><p>将<strong>抽象部分(业务功能)与实现部分(平台实现)分离</strong>，使它们都可以独立地变化。 ——《设计模式》GoF</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2ki4t7j5nj31c80p8jtm.jpg" alt="image-20190430113153240"></p>
+<h3 id="要点总结-4"><a href="#要点总结-4" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Bridge模式使用“对象间的组合关系”解耦了抽象和实现之间固有的绑定关系，<strong>使得抽象和实现可以沿着各自的维度来变化</strong>。所谓抽象和实现沿着各自纬度的变化，即“子类化”它们。</li>
+<li>Bridge模式<strong>有时候类似于多继承方案，但是多继承方案往往违背单一职责原则</strong>（即一个类只有一个变化的原因），复用性比较差。<strong>Bridge模式是比多继承方案更好的解决方法</strong>。</li>
+<li>Bridge模式的应用一般在“两个非常强的变化维度”，有时一个类也有多于两个的变化维度，这时可以使用Bridge的扩展模式。</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象创建-都是绕开new的"><a href="#对象创建-都是绕开new的" class="headerlink" title="对象创建:都是绕开new的"></a>对象创建:都是绕开new的</h2><ul>
+<li><h2 id="Factory-Method-常用"><a href="#Factory-Method-常用" class="headerlink" title="Factory Method(常用)"></a>Factory Method(常用)</h2><h3 id="动机（Motivation）-5"><a href="#动机（Motivation）-5" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h3><ul>
+<li>在软件系统中，经常面临着创建对象的工作；由于需求的变化，需要创建的对象的具体类型经常变化。</li>
+<li>如何应对这种变化？如何<strong>绕过常规的对象创建方法(new)</strong>，提供一种“封装机制”来避免客户程序和这种“具体对象创建工作”的紧耦合？</li>
+<li><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2kigeywzaj31dw0u07a0.jpg" alt="image-20190430114259748"></li>
+</ul>
+<h3 id="模式定义-5"><a href="#模式定义-5" class="headerlink" title="模式定义"></a>模式定义</h3><p><strong>定义一个用于创建对象的接口(工厂基类中的CreateSplitter()就是负责创建对象的接口)</strong>，让子类决定实例化哪一个类。Factory Method<strong>使得一个类的实例化延迟</strong>（目的：解耦，手段：虚函数）到子类。 ——《设计模式》GoF</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1g2ko1jhpaoj31e00qgdkz.jpg" alt="image-20190430145615854"></p>
+<h2 id="要点总结-5"><a href="#要点总结-5" class="headerlink" title="要点总结"></a>要点总结</h2><ul>
+<li>Factory Method模式用于隔离类对象的使用者和具体类型之间的耦合关系。面对一个经常变化的具体类型，紧耦合关系(new)会导致软件的脆弱。</li>
+<li>Factory Method模式通过面向对象的手法，将所要创建的具体对象工作延迟到子类，从而实现一种扩展（而非更改）的策略，较好地解决了这种紧耦合关系。</li>
+<li>Factory Method模式解决“单个对象”的需求变化。缺点在于要求创建方法/参数相同。</li>
+</ul>
+</li>
+<li><h2 id="Abstract-Factory"><a href="#Abstract-Factory" class="headerlink" title="Abstract Factory"></a>Abstract Factory</h2><h3 id="动机-motivation"><a href="#动机-motivation" class="headerlink" title="动机(motivation)"></a>动机(motivation)</h3><ul>
+<li>在软件系统中，经常面临着“<strong>一系列相互依赖的对象创建工作(本来定义三个工厂类,有关联放一个类里,工厂模式是抽象工厂的特例)</strong>”，；同时，由于需求的变化，往往存在更多系列对象的创建工作。</li>
+<li>如何应对这种变化？如何绕过常规的对象创建方法(new)，提供一种“封装机制”来避免客户程序和这种“多系列具体对象创建工作”的紧耦合。</li>
+<li><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2koonu668j31d20q44g7.jpg" alt="image-20190430151834849"></li>
+</ul>
+<h3 id="模式定义-6"><a href="#模式定义-6" class="headerlink" title="模式定义"></a>模式定义</h3><p><strong>提供一个接口，让该接口负责创建一系列”相关或者相互依赖的对象“</strong>，无需指定它们具体的类。 ——《设计模式》GoF</p>
+<h3 id="要点总结-6"><a href="#要点总结-6" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>如果没有<strong>应对”多系列对象创建“的需求变化</strong>，则没有必要使用Abstract Factory模式，这时候使用简单的工厂即可。</li>
+<li>”系列对象“指的是在某一个特定系列的对象之间有相互依赖、或作用的关系。不同系列的对象之间不能相互依赖。</li>
+<li>Abstract Factory模式主要在于应用”新系列“的需求变动。其缺点在与难以应对”新对象“的需求变动。</li>
+</ul>
+</li>
+<li><h2 id="Prototype"><a href="#Prototype" class="headerlink" title="Prototype"></a>Prototype</h2><h3 id="动机-motivation-1"><a href="#动机-motivation-1" class="headerlink" title="动机(motivation)"></a>动机(motivation)</h3><ul>
+<li>在软件系统中，经常面临这<strong>“某些结构复杂的对象”的创建工作</strong>；由于需求的变化，这些对象经常面临着剧烈的变化，但是它们却拥有比较稳定一致的接口。</li>
+<li>如何应对这种变化？如何向“客户程序(使用这些对象的程序)”隔离出“这些易变对象”，从而使得依赖这些”易变对象“的客户程序不随着需求改变而改变。</li>
+<li><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2kpdfvq10j31g20pgx04.jpg" alt="image-20190430154223483"></li>
+</ul>
+<h3 id="模式定义-7"><a href="#模式定义-7" class="headerlink" title="模式定义"></a>模式定义</h3><p>使用原型实例指定创建对象的种类，然后通过拷贝这些原型来创建新的对象。 ——《设计模式》GoF</p>
+<h3 id="要点总结-7"><a href="#要点总结-7" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Prototype模式同样用于隔离对象的使用者和具体类型(易变类)之间的耦合关系，它同样要求这些“易变类”拥有稳定的接口。</li>
+<li>Prototype模式对于“如何创建易变类的实体对象“<strong>采用”原型克隆“的方法来做</strong>， 它使得我们可以非常灵活地动态创建”拥有某些稳定接口“的新对象——所需工作仅仅是注册一个新类的对象(即原型)， 然后在任何需要的地方Clone。</li>
+<li>Prototype模式中的Clone方法可以利用某些框架中的序列化(<strong>c++直接用拷贝构造函数</strong>)来实现深拷贝。</li>
+</ul>
+</li>
+<li><h2 id="Builder"><a href="#Builder" class="headerlink" title="Builder"></a>Builder</h2><h2 id="动机（Motivation）-6"><a href="#动机（Motivation）-6" class="headerlink" title="动机（Motivation）"></a>动机（Motivation）</h2><ul>
+<li>在软件系统中，有时候面临着“一个复杂对象”的创建工作，其通常由各个部分的子对象用一定的算法构成；由于需求的变化，这 个复杂对象的各个部分经常面临着剧烈的变化，<strong>但是将它们组合在一起的算法却相对稳定</strong>。</li>
+<li>如何应对这种变化？如何提供一种“封装机制”来隔离出“复杂对象的各个部分”的变化，从而保持系统中的“稳定构建算法”不随着需求改变而改变？</li>
+</ul>
+<h3 id="模式定义-8"><a href="#模式定义-8" class="headerlink" title="模式定义"></a>模式定义</h3><p>将一个复杂对象的构建与其表示相分离，<strong>使得同样的构建过程(稳定)可以创建不同的表示(变化)</strong>。 ——《设计模式》GoF</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2krk2qshgj30p60nagtg.jpg" alt="image-20190430165801378"></p>
+<h3 id="要点总结-8"><a href="#要点总结-8" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Builder 模式主要用于“分步骤构建一个复杂的对象”。在这其中“分步骤”是一个稳定的算法，而复杂对象的各个部分则经常变化。</li>
+<li>变化点在哪里，封装哪里—— Builder模式主要在于应对“复杂对象各个部分”的频繁需求变动。其缺点在于难以应对“分步骤构建算法”的需求变动。</li>
+<li>在Builder模式中，要注意不同语言中构造器内调用虚函数的差别（<strong>C++(构造函数中不可以调用虚函数</strong>) vs. C#)。</li>
+</ul>
+</li>
+</ul>
+<h2 id="对象性能："><a href="#对象性能：" class="headerlink" title="对象性能："></a>对象性能：</h2><ul>
+<li><h2 id="Singleton-常用"><a href="#Singleton-常用" class="headerlink" title="Singleton(常用)"></a>Singleton(常用)</h2><h3 id="动机-Motivation"><a href="#动机-Motivation" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>在软件系统中，经常有这样<strong>一些特殊的类，必须保证它们在系统中只存在一个实例</strong>，才能确保它们的逻辑正确性、以及良好的效率。</li>
+<li>如何绕过常规的构造器，提供一种机制来保证一个类只有一个实例？</li>
+<li>这<strong>应该是类设计者的责任</strong>，而不是使用者的责任。</li>
+<li>设置检查锁，变原子访问，单线程OK，但并发进程多时如Web服务读访问浪费效率。</li>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2ktwx23b4j30qs09w7b9.jpg" alt="image-20190430181933315"></li>
+<li>双检查锁在编译运行层面的内存优化会reorder创建对象的步骤，被证实不安全。</li>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2ktsxa0soj30qs0eggtl.jpg" alt="image-20190430181543301"></li>
+<li>声明一个原子对象atomic&lt;Singleton*&gt;，用load得到指针，帮助实现屏蔽编译器的reorder，fence理解为内存的屏障，tmp可保证new的时候不会reorder。</li>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2ktwpg88ej31da0lanj0.jpg" alt="image-20190430181918174"></li>
+</ul>
+<h3 id="模式定义-9"><a href="#模式定义-9" class="headerlink" title="模式定义"></a>模式定义</h3><p>保证一个类仅有一个实例，并提供一个该实例的全局访问点。 ——《设计模式》GoF</p>
+<h3 id="要点总结-9"><a href="#要点总结-9" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Singleton模式中的实例构造器可以设置为protected以允许子类派生。</li>
+<li>Singleton模式一般不要支持拷贝构造函数和Clone接口，因为这有可能导致多个对象实例，与Singleton模式的初中违背。</li>
+<li>如何实现多线程环境下安全的Singleton？注意对双检查锁的正确实现。</li>
+</ul>
+</li>
+<li><h2 id="Flyweight"><a href="#Flyweight" class="headerlink" title="Flyweight"></a>Flyweight</h2><h3 id="动机-Motivation-1"><a href="#动机-Motivation-1" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>在软件系统采用<strong>纯粹对象方案(一切皆对象)的问题在于大量细粒度的对象会很快充斥在系统中</strong>，从而带来很高的运行时代价——主要指内存需求方面的代价。</li>
+<li>如何在避免大量细粒度对象问题的同时，让外部客户程序仍然能够透明地使用面向对象的方式来进行操作？—用如下的类<strong>对象池、线程池、String常量池</strong>来解决</li>
+<li><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2kuzhkvm6j31dc0myn8d.jpg" alt="image-20190430185637502"></li>
+</ul>
+<h3 id="模式定义-10"><a href="#模式定义-10" class="headerlink" title="模式定义"></a>模式定义</h3><p>运行<strong>共享技术(如字符串的共享)</strong>有效地<strong>支持大量细粒度的对象</strong>。 ——《设计模式》GoF</p>
+<h3 id="要点总结-10"><a href="#要点总结-10" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>面向对象很好地解决了抽象性的问题，但是作为yield运行机器中的程序实体，我们需要考虑对象的代价问题， Flyweight主要解决面向对象的大家问题，一般不触及面向对象的抽象性问题。</li>
+<li>Flyweight采用对象共享的做法来降低系统中对象的个数，从而降低细粒度对象给系统带来的压力。在<strong>具体实现方面，要注意对象状态(设为只读)的处理</strong>。</li>
+<li>对象的数量太大从而导致对象内存开销加大——<strong>什么样的数量才算大？这需要我们仔细的根据具体应用情况进行评估，而不能凭空臆断</strong>。</li>
+<li>一个对象40Byte，1000个对象40KB，100*1000大概4MB</li>
+</ul>
+</li>
+</ul>
+<h2 id="接口隔离：间接思想"><a href="#接口隔离：间接思想" class="headerlink" title="接口隔离：间接思想"></a>接口隔离：间接思想</h2><ul>
+<li><h2 id="Facade-门面模式"><a href="#Facade-门面模式" class="headerlink" title="Façade(门面模式)"></a>Façade(门面模式)</h2><h3 id="动机-Motivation-2"><a href="#动机-Motivation-2" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>客户和组件中各种复杂的子系统有过多的耦合</li>
+<li>如何简化外部客户程序和系统间的交互接口？如何解耦？</li>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2kvdz0iw7j31ca0petg9.jpg" alt="image-20190430191032882"></li>
+</ul>
+<h3 id="模式定义-11"><a href="#模式定义-11" class="headerlink" title="模式定义"></a>模式定义</h3><p>为子系统中的一组接口<strong>提供一个一致(稳定)的界面</strong>，Façade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用(复用)。 ——《设计模式》GoF</p>
+<h3 id="要点总结-11"><a href="#要点总结-11" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>从客户程序角度来看，Façade模式简化了整个组件系统的接口，对于组件内部与外部的客户程序来说， 达到了一种”解耦“的效果——内部子系统的任何变化不会影响到Façade接口的变化。</li>
+<li>Façade设计模式<strong>更注重架构的层次去看整个系统，而不是单个类的层次。</strong>Façade很多时候是一种架构设计模式。</li>
+<li>Façade设计模式并非一个集装箱，可以任意地放进任何多个对象。Façade模式组件中的<strong>内部应该是”相互耦合关系比较大的一系列组件“，而不是一个简单的功能集合</strong>。</li>
+</ul>
+</li>
+<li><h2 id="Proxy-常用"><a href="#Proxy-常用" class="headerlink" title="Proxy(常用)"></a>Proxy(常用)</h2><h3 id="动机-Motivation-3"><a href="#动机-Motivation-3" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>在面向对象系统中，有些对象由于某种原因(<strong>比如对象创建的开销很大，或者某些操作需要安全控制，</strong>或者需要进程外的访问等)， 直接访问(即new某个对象)会给使用者、或者系统结构带来很多麻烦。</li>
+<li>如何在不失去透明操作对象的同事来管理/控制这些对象特有的复杂性？<strong>增加一层间接层，来实现不为外界所知的功能，如copy-on-write对性能的提升</strong>是软件开发中常见的解决方式。</li>
+<li>一些原因你拿不到new RealSubject()，需要代理，或访问外网需要代理</li>
+<li><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2kwpwrk38j30su0oyn5m.jpg" alt="image-20190430195637436"></li>
+<li>用一些工具SubjectProxy类替代RealSubject来间接获得realSubject，这个工具就是对其的代理，内部可以处理一些安全控制等。</li>
+<li><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2kwgbyp4aj31cu0oedyr.jpg" alt="image-20190430194720463"></li>
+</ul>
+<h3 id="模式定义-12"><a href="#模式定义-12" class="headerlink" title="模式定义"></a>模式定义</h3><p><strong>为其他对象提供一种代理以控制(隔离，使用接口)对这对象的访问。</strong> ——《设计模式》GoF</p>
+<h3 id="要点总结-12"><a href="#要点总结-12" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Copy-on-wirte字符串常用，若复制的对象不经常更改，复制时潜拷贝，但需要改这个对象时需要在内部再拷贝一份，实际上就是代理。</li>
+<li><p>WebService分布式系统中，拿到rest接口，往往有一些工具帮你生成实际客户端的代理类。</p>
+</li>
+<li><p>Proxy并不一定要求保持接口完整的一致性，只要能够实现间接控制，有时候损及一些透明性是可以接受的。</p>
+</li>
+</ul>
+</li>
+<li><h2 id="Mediator"><a href="#Mediator" class="headerlink" title="Mediator"></a>Mediator</h2><h3 id="动机-Motivation-4"><a href="#动机-Motivation-4" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>多个对象相互关联的情况，对象之间常常会维持一种复杂的引用关系，如果遇到一些需求的更改，这种直接的引用关系将面临不断的变化。</li>
+<li>在这种情况下，可以使用一种”中介对象“来管理对象间的关联关系，避免相互交互的对象之间的紧耦合引用关系，从而更好地抵御变化。</li>
+<li><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2n6gy32h4j31bm0mqtfd.jpg" alt="image-20190502190507311"></li>
+<li>解耦依赖关系</li>
+<li><img src="https://ws2.sinaimg.cn/large/006tNc79gy1g2n6ivxw5aj31as0ne47f.jpg" alt="image-20190502190658565"></li>
+</ul>
+<h3 id="模式定义-13"><a href="#模式定义-13" class="headerlink" title="模式定义"></a>模式定义</h3><p>用一个中介对象来封装(封装变化)一系列的对象交互。中介者使各对象不需要显式的相互引用(编译时依赖-&gt;运行时依赖)， 从而使其耦合松散(管理变化)，并且可以独立地改变它们之间的交互。 ——《设计模式》GoF</p>
+<h2 id="要点总结-13"><a href="#要点总结-13" class="headerlink" title="要点总结"></a>要点总结</h2><ul>
+<li>将多个对象间发杂的关联关系解耦</li>
+<li><strong>Facade模式是解耦系统间(单向)的对象关联关系；Mediator模式是解耦系统内各个对象之间(双向)的关联关系</strong></li>
+</ul>
+</li>
+<li><h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><h3 id="动机-Motivation-5"><a href="#动机-Motivation-5" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>由于应用环境的变化，常常需要将”一些现存的对象“放在新的环境中应用，但是新环境要求的接口是这些现存对象所不满足。</li>
+<li>如何应对这些”迁移的变化“？</li>
+<li><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2n665ru6rj30ta0pgn8w.jpg" alt="image-20190502185441875"></li>
+<li>组合(has a deque)遗留类型接口，继承(is a queue)新类型接口，栈和队列都是适配器</li>
+</ul>
+<h3 id="模式定义-14"><a href="#模式定义-14" class="headerlink" title="模式定义"></a>模式定义</h3><p>将一个类的接口转换成客户希望的另一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 ——《设计模式》GoF</p>
+<h3 id="要点总结-14"><a href="#要点总结-14" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>在<strong>遗留代码复用、类库迁移</strong>等方面有用</li>
+<li>类适配器采用多继承”组合那个类变为继承那个类”</li>
+</ul>
+</li>
+</ul>
+<h2 id="状态变化："><a href="#状态变化：" class="headerlink" title="状态变化："></a>状态变化：</h2><ul>
+<li><h2 id="Memento-备忘录"><a href="#Memento-备忘录" class="headerlink" title="Memento(备忘录)"></a>Memento(备忘录)</h2><h3 id="动机-Motivation-6"><a href="#动机-Motivation-6" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>某些对象的状态转换过程中，可能由于某中需要，<strong>要求程序能够回溯到对象之前处于某个点的状态</strong>。  如果使用一些公开接口来让其他对象得到对象的状态，便会暴露对象的细节实现。</li>
+<li>如何实现对象状态的良好保存与恢复？但同时又不会因此而破坏对象本身的封装性、</li>
+<li><img src="https://ws1.sinaimg.cn/large/006tNc79gy1g2su6if8xqj313m0niapo.jpg" alt="image-20190507163309325"></li>
+</ul>
+<h3 id="模式定义-15"><a href="#模式定义-15" class="headerlink" title="模式定义"></a>模式定义</h3><p>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可以将该对象恢复到原先保存的状态。 ——《设计模式》GoF</p>
+<h3 id="要点总结-15"><a href="#要点总结-15" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>备忘录存储原发器(Originator)对象的内部状态，在需要时恢复原发器状态。</li>
+<li>有些过时。</li>
+</ul>
+</li>
+<li><h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><h3 id="动机-Motivation-7"><a href="#动机-Motivation-7" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>对象状态如果改变，其行为也会随之而发生变化，比如文档处于只读状态，其支持的行为和读写状态支持的行为就可能完全不同。</li>
+<li>如何在运行时根据对象的状态来透明地改变对象的行为？</li>
+<li><img src="https://ws1.sinaimg.cn/large/006tNc79gy1g2n6uq0w3nj31hc0smhd2.jpg" alt="image-20190502191817781"></li>
+</ul>
+<h3 id="模式定义-16"><a href="#模式定义-16" class="headerlink" title="模式定义"></a>模式定义</h3><p>允许一个对象在其内部状态改变时改变它的行为。从而使对象看起来似乎修改了其行为。 ——《设计模式》GoF</p>
+<h3 id="要点总结-16"><a href="#要点总结-16" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>State模式将所有与一个特定状态相关的行为都放入一个State的子对象中，在对象状态切换时，切换相应的对象； 但同时维持State的接口，这样实现了具体操作与状态转换之间的解耦。</li>
+<li>转换是原子性的</li>
+<li>与Strategy模式类似，碰见if else转为多态对象</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据结构："><a href="#数据结构：" class="headerlink" title="数据结构："></a>数据结构：</h2><ul>
+<li><h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><h3 id="动机-Motivation-8"><a href="#动机-Motivation-8" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>客户代码过多地依赖于对象容器复杂的内部实现结构，对象容器内部实现结构(而非抽象结构)的变化 引起客户代码的频繁变化，带来了代码的维护性、扩展性等弊端。</li>
+<li>如何将”客户代码与复杂的对象容器结构“解耦？让对象容器自己来实现自身的复杂结构，从而使得客户代码就像处理简单对象一样来处理复杂的对象容器？</li>
+<li><img src="https://ws3.sinaimg.cn/large/006tNc79gy1g2sunkbvwbj30tg0ounah.jpg" alt="image-20190507164940344"></li>
+</ul>
+<h3 id="模式定义-17"><a href="#模式定义-17" class="headerlink" title="模式定义"></a>模式定义</h3><p><strong>将对象组合成树形结构(用List里放多态对象)以表示”部分-整体“的层次结构</strong>。Composite使得用户对<strong>单个对象和组合对象的使用具有一致性(稳定)</strong>。 ——《设计模式》GoF</p>
+<h3 id="要点总结-17"><a href="#要点总结-17" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>Composite模式采用树性结构来实现普遍存在的对象容器，从而将”一对多“的关系转化为”一对一“的关系，使得客户代码可以一致地(复用)处理对象和对象容器， 无需关心处理的是单个的对象，还是组合的对象容器。</li>
+<li>客户代码与纯粹的抽象接口——而非对象容器的内部实现结构——发生依赖，从而更能”应对变化“。</li>
+<li>Composite模式在具体实现中，可以让父对象中的子对象反向追溯；如果父对象有频繁的遍历需求，可使用缓存技术来改善效率。</li>
+</ul>
+</li>
+<li><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><h3 id="动机-Motivation-9"><a href="#动机-Motivation-9" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>集合对象内部结构常常变化异常。但对于这些集合对象，我们希望<strong>不暴露其内部结构的同时</strong>，可以<strong>让外部客户代码透明地访问其中包含的元素</strong>； 同时这种”透明遍历“也为”同一种算法在多种集合对象上进行操作“提供了可能。</li>
+<li>使用面向对象技术将这种遍历机制抽象为”迭代器对象“为”应对变化中的集合对象“提供了一种优雅的方式。</li>
+</ul>
+<h3 id="模式定义-18"><a href="#模式定义-18" class="headerlink" title="模式定义"></a>模式定义</h3><p>提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露(稳定)该对象的内部表示。 ——《设计模式》GoF</p>
+<h3 id="要点总结-18"><a href="#要点总结-18" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>迭代抽象：访问一个聚合对象的内容而无需暴露它的内部表示。</li>
+<li>迭代多态：为遍历不同的集合对象提供一个统一的接口，从而支持同样的算法在不同的集合结构上进行操作。</li>
+<li><strong>对C++来说是过时的，现在迭代器用函数模板，静态编译时多态；面向对象的方式采用动态多态，每次虚表访问性能低</strong></li>
+<li><img src="https://ws4.sinaimg.cn/large/006tNc79gy1g2sv0zv2l4j30qq0ogdpm.jpg" alt="image-20190507170234385"></li>
+</ul>
+</li>
+<li><h2 id="Chain-of-Resposibility-职责链"><a href="#Chain-of-Resposibility-职责链" class="headerlink" title="Chain of Resposibility(职责链)"></a>Chain of Resposibility(职责链)</h2><h3 id="动机-Motivation-10"><a href="#动机-Motivation-10" class="headerlink" title="动机(Motivation)"></a>动机(Motivation)</h3><ul>
+<li>一个请求可能被多个对象处理，但是每个请求在运行时只能有一个接收者，如果显式指定，将必不可少地带来请求发送者与接收者的紧耦合。</li>
+<li>如何使请求的发送者不需要指定具体的接收者？让请求的接收者自己在运行时决定来处理请求，从而使两者解耦。</li>
+</ul>
+<h3 id="模式定义-19"><a href="#模式定义-19" class="headerlink" title="模式定义"></a>模式定义</h3><p><strong>使多个对象都有机会处理请求（鼠标点击）</strong>，从而避免请求的发送者和接收者之间的耦合关系。将<strong>这些对象连成一条链，并沿着这条链传递请求，直到有一个对象处理它为止</strong>。 ——《设计模式》GoF</p>
+<h3 id="要点总结-19"><a href="#要点总结-19" class="headerlink" title="要点总结"></a>要点总结</h3><ul>
+<li>应用于”一个请求可能有多个接受者，但是最后真正的接受者只有一个“，这时候请求发送者与接受者有可能出现”变化脆弱“的症状，职责链解耦。</li>
+<li>有些过时。</li>
+</ul>
+</li>
+</ul>
+<h3 id="行为变化："><a href="#行为变化：" class="headerlink" title="行为变化："></a>行为变化：</h3><ul>
+<li><a href="https://github.com/liu-jianhao/Cpp-Design-Patterns/tree/master/Command" target="_blank" rel="noopener">Command</a></li>
+<li><a href="https://github.com/liu-jianhao/Cpp-Design-Patterns/tree/master/Visitor" target="_blank" rel="noopener">Visitor</a></li>
+</ul>
+<h3 id="领域问题："><a href="#领域问题：" class="headerlink" title="领域问题："></a>领域问题：</h3><ul>
+<li><a href="https://github.com/liu-jianhao/Cpp-Design-Patterns/tree/master/Interpreter" target="_blank" rel="noopener">Interpreter</a></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="现代较少用的模式"><a href="#现代较少用的模式" class="headerlink" title="现代较少用的模式"></a>现代较少用的模式</h3><ul>
+<li>Builder</li>
+<li>Mediator</li>
+<li>Memento</li>
+<li>Iterator</li>
+<li>Chain of Resposibility</li>
+<li>Command</li>
+<li>Visitor</li>
+<li>Interpreter</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/27/STL源码剖析笔记/" rel="next" title="STL源码剖析笔记">
+                <i class="fa fa-chevron-left"></i> STL源码剖析笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/11/vscode美化/" rel="prev" title="vscode美化">
+                vscode美化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-设计模式z"><span class="nav-number">1.</span> <span class="nav-text">C++设计模式z</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是设计模式"><span class="nav-number">1.1.</span> <span class="nav-text">什么是设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解决复杂性？"><span class="nav-number">1.2.</span> <span class="nav-text">如何解决复杂性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象设计原则"><span class="nav-number">1.3.</span> <span class="nav-text">面向对象设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从封装变化角度对模式分类"><span class="nav-number">1.4.</span> <span class="nav-text">从封装变化角度对模式分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件协作："><span class="nav-number">1.5.</span> <span class="nav-text">组件协作：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Template-Method"><span class="nav-number">1.5.1.</span> <span class="nav-text">Template Method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动机（Motivation）"><span class="nav-number">1.5.2.</span> <span class="nav-text">动机（Motivation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义"><span class="nav-number">1.5.3.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结"><span class="nav-number">1.5.4.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy"><span class="nav-number">1.6.</span> <span class="nav-text">Strategy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机（Motivation）-1"><span class="nav-number">1.6.1.</span> <span class="nav-text">动机（Motivation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-1"><span class="nav-number">1.6.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-1"><span class="nav-number">1.6.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observer-Event（常用）"><span class="nav-number">1.7.</span> <span class="nav-text">Observer/Event（常用）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机（Motivation）-2"><span class="nav-number">1.7.1.</span> <span class="nav-text">动机（Motivation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-2"><span class="nav-number">1.7.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-2"><span class="nav-number">1.7.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责-过度的继承会出现问题-："><span class="nav-number">1.8.</span> <span class="nav-text">单一职责(过度的继承会出现问题)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decorator（常用）"><span class="nav-number">1.9.</span> <span class="nav-text">Decorator（常用）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机（Motivation）-3"><span class="nav-number">1.9.1.</span> <span class="nav-text">动机（Motivation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-3"><span class="nav-number">1.9.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-3"><span class="nav-number">1.9.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bridge"><span class="nav-number">1.10.</span> <span class="nav-text">Bridge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机（Motivation）-4"><span class="nav-number">1.10.1.</span> <span class="nav-text">动机（Motivation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-4"><span class="nav-number">1.10.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-4"><span class="nav-number">1.10.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建-都是绕开new的"><span class="nav-number">1.11.</span> <span class="nav-text">对象创建:都是绕开new的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Factory-Method-常用"><span class="nav-number">1.12.</span> <span class="nav-text">Factory Method(常用)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机（Motivation）-5"><span class="nav-number">1.12.1.</span> <span class="nav-text">动机（Motivation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-5"><span class="nav-number">1.12.2.</span> <span class="nav-text">模式定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点总结-5"><span class="nav-number">1.13.</span> <span class="nav-text">要点总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstract-Factory"><span class="nav-number">1.14.</span> <span class="nav-text">Abstract Factory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-motivation"><span class="nav-number">1.14.1.</span> <span class="nav-text">动机(motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-6"><span class="nav-number">1.14.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-6"><span class="nav-number">1.14.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prototype"><span class="nav-number">1.15.</span> <span class="nav-text">Prototype</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-motivation-1"><span class="nav-number">1.15.1.</span> <span class="nav-text">动机(motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-7"><span class="nav-number">1.15.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-7"><span class="nav-number">1.15.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder"><span class="nav-number">1.16.</span> <span class="nav-text">Builder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动机（Motivation）-6"><span class="nav-number">1.17.</span> <span class="nav-text">动机（Motivation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-8"><span class="nav-number">1.17.1.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-8"><span class="nav-number">1.17.2.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象性能："><span class="nav-number">1.18.</span> <span class="nav-text">对象性能：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Singleton-常用"><span class="nav-number">1.19.</span> <span class="nav-text">Singleton(常用)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation"><span class="nav-number">1.19.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-9"><span class="nav-number">1.19.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-9"><span class="nav-number">1.19.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flyweight"><span class="nav-number">1.20.</span> <span class="nav-text">Flyweight</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-1"><span class="nav-number">1.20.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-10"><span class="nav-number">1.20.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-10"><span class="nav-number">1.20.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口隔离：间接思想"><span class="nav-number">1.21.</span> <span class="nav-text">接口隔离：间接思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facade-门面模式"><span class="nav-number">1.22.</span> <span class="nav-text">Façade(门面模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-2"><span class="nav-number">1.22.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-11"><span class="nav-number">1.22.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-11"><span class="nav-number">1.22.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-常用"><span class="nav-number">1.23.</span> <span class="nav-text">Proxy(常用)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-3"><span class="nav-number">1.23.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-12"><span class="nav-number">1.23.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-12"><span class="nav-number">1.23.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mediator"><span class="nav-number">1.24.</span> <span class="nav-text">Mediator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-4"><span class="nav-number">1.24.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-13"><span class="nav-number">1.24.2.</span> <span class="nav-text">模式定义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#要点总结-13"><span class="nav-number">1.25.</span> <span class="nav-text">要点总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter"><span class="nav-number">1.26.</span> <span class="nav-text">Adapter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-5"><span class="nav-number">1.26.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-14"><span class="nav-number">1.26.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-14"><span class="nav-number">1.26.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态变化："><span class="nav-number">1.27.</span> <span class="nav-text">状态变化：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memento-备忘录"><span class="nav-number">1.28.</span> <span class="nav-text">Memento(备忘录)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-6"><span class="nav-number">1.28.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-15"><span class="nav-number">1.28.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-15"><span class="nav-number">1.28.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State"><span class="nav-number">1.29.</span> <span class="nav-text">State</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-7"><span class="nav-number">1.29.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-16"><span class="nav-number">1.29.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-16"><span class="nav-number">1.29.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构："><span class="nav-number">1.30.</span> <span class="nav-text">数据结构：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composite"><span class="nav-number">1.31.</span> <span class="nav-text">Composite</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-8"><span class="nav-number">1.31.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-17"><span class="nav-number">1.31.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-17"><span class="nav-number">1.31.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator"><span class="nav-number">1.32.</span> <span class="nav-text">Iterator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-9"><span class="nav-number">1.32.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-18"><span class="nav-number">1.32.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-18"><span class="nav-number">1.32.3.</span> <span class="nav-text">要点总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-of-Resposibility-职责链"><span class="nav-number">1.33.</span> <span class="nav-text">Chain of Resposibility(职责链)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动机-Motivation-10"><span class="nav-number">1.33.1.</span> <span class="nav-text">动机(Motivation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式定义-19"><span class="nav-number">1.33.2.</span> <span class="nav-text">模式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#要点总结-19"><span class="nav-number">1.33.3.</span> <span class="nav-text">要点总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行为变化："><span class="nav-number">1.33.4.</span> <span class="nav-text">行为变化：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域问题："><span class="nav-number">1.33.5.</span> <span class="nav-text">领域问题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.34.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#现代较少用的模式"><span class="nav-number">1.34.1.</span> <span class="nav-text">现代较少用的模式</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

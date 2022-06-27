@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Face_ID_32px.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Face_ID_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+
+
+  <meta name="keywords" content="实习,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZHIPENG个人笔记" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="输入数据层面以minist数据为例，输入[55000, 784]，第一维为batchsize，中间层-1代表可自动调整  对NN来说，不看batch维，输入为[-1, 784]，假设1隐层625节点，用W[784, 625]来调节，即W后一个数代表隐层节点数，传入下一层的维度由7841变为6251减少了。  对CNN来说，同样是784维数据，由于后续要用不同的Kernal，我们把数据延展成3维度，">
+<meta name="keywords" content="实习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Group Normalization 论文笔记">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/从NN到CNN到RNN/index.html">
+<meta property="og:site_name" content="ZHIPENG个人笔记">
+<meta property="og:description" content="输入数据层面以minist数据为例，输入[55000, 784]，第一维为batchsize，中间层-1代表可自动调整  对NN来说，不看batch维，输入为[-1, 784]，假设1隐层625节点，用W[784, 625]来调节，即W后一个数代表隐层节点数，传入下一层的维度由7841变为6251减少了。  对CNN来说，同样是784维数据，由于后续要用不同的Kernal，我们把数据延展成3维度，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190719140805584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-15T08:19:17.254Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Group Normalization 论文笔记">
+<meta name="twitter:description" content="输入数据层面以minist数据为例，输入[55000, 784]，第一维为batchsize，中间层-1代表可自动调整  对NN来说，不看batch维，输入为[-1, 784]，假设1隐层625节点，用W[784, 625]来调节，即W后一个数代表隐层节点数，传入下一层的维度由7841变为6251减少了。  对CNN来说，同样是784维数据，由于后续要用不同的Kernal，我们把数据延展成3维度，">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190719140805584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/28/从NN到CNN到RNN/">
+
+
+
+
+
+  <title>Group Normalization 论文笔记 | ZHIPENG个人笔记</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZHIPENG个人笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Wisdom and beauty form a very rare combination.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于-& 留言">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于 & 留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-大计划">
+          <a href="/plan/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-street-view"></i> <br>
+            
+            大计划
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-阁楼">
+          <a href="/loft/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-hotel"></i> <br>
+            
+            阁楼
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/从NN到CNN到RNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZHIPENG">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZHIPENG个人笔记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Group Normalization 论文笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-28T21:31:55+08:00">
+                2018-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">论文笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="输入数据层面"><a href="#输入数据层面" class="headerlink" title="输入数据层面"></a>输入数据层面</h3><p>以minist数据为例，输入[55000, 784]，第一维为batchsize，中间层-1代表可自动调整</p>
+<ol>
+<li><p>对NN来说，不看batch维，输入为[-1, 784]，假设1隐层625节点，用W[784, 625]来调节，即W后一个数代表隐层节点数，传入下一层的维度由784<em>1变为625</em>1减少了。</p>
+</li>
+<li><p>对CNN来说，同样是784维数据，由于后续要用不同的Kernal，我们把数据延展成3维度，[batch, row, col, kernal]，即平面卷积操作相当于一次少部分的全连接</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trX, trY, teX, teY = mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels</span><br><span class="line">trX = trX.reshape(<span class="number">-1</span>, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>)  # <span class="number">28</span>x28x1 input img</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对RNN来说，独有的时间步，也是对一维向量输入做二维延展，[batch, timestep_size, input_size] ，相当于每行一个时间步输入，<strong>每个时间步节点看做是NN的节点，包括输入x和输出h，处理过后的h即下一层的输入，h的维度即隐层节点数，也是通过W改变的，多层的RNN对比多层的NN，就是输入不仅接收当前的输入，还要接受隐层神经元前一时刻的输入</strong>，注意input_size是按行抽象后的输入信息。<br><img src="https://img-blog.csdnimg.cn/20190719140805584.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMjA4MzAz,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>LSTM实现MINIST例子：<a href="https://blog.csdn.net/Jerr__y/article/details/61195257" target="_blank" rel="noopener">https://blog.csdn.net/Jerr__y/article/details/61195257</a>, <a href="https://blog.csdn.net/yyb19951015/article/details/79740869?utm_source=blogxgwz8" target="_blank" rel="noopener">参数解析</a></p>
+</li>
+</ol>
+<h3 id="RNN中的call函数：https-www-twblogs-net-a-5ca59985bd9eee5b1a072277"><a href="#RNN中的call函数：https-www-twblogs-net-a-5ca59985bd9eee5b1a072277" class="headerlink" title="RNN中的call函数：https://www.twblogs.net/a/5ca59985bd9eee5b1a072277"></a>RNN中的call函数：<a href="https://www.twblogs.net/a/5ca59985bd9eee5b1a072277" target="_blank" rel="noopener">https://www.twblogs.net/a/5ca59985bd9eee5b1a072277</a></h3><p>我們通常是將一個batch送入模型計算，設輸入數據的形狀爲 [batch_size, input_size]，那麼計算時得到的隱層狀態就是[batch_size, state_size]，虽然我们在输入时进行了扩维度(抽出时间步维度），<strong>但输出时仍组合为类似输入时的一维(一般取时间序列上的最后一个状态为输出，例如mnist相当于读了28行像素整个图片后，由于RNN可以横向累计之前算的结果，我们取最后一个state再softmax得分类结果)</strong>，輸出就是[batch_size, output_size]。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def call(self, inputs, state):</span><br><span class="line">    <span class="string">""</span><span class="string">"Most basic RNN: output = new_state = act(W * input + U * state + B)."</span><span class="string">""</span></span><br><span class="line">    output = self._activation(_linear([inputs, state], self._num_units, True))</span><br><span class="line">    <span class="keyword">return</span> output, output</span><br></pre></td></tr></table></figure></p>
+<p>這句“return output, output”說明在BasicRNNCell中，output其實和隱狀態的值是一樣的。因此，我們還需要額外對輸出定義新的變換，才能得到圖中真正的輸出y。由於output和隱狀態是一回事，所以在BasicRNNCell中，state_size永遠等於output_size，如果输出y可再进行一次线性变换。 </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span>code: https:<span class="comment">//github.com/tensorflow/tensorflow/blob/master/tensorflow/contrib/rnn/python/ops/core_rnn_cell_impl.py'''</span></span><br><span class="line"></span><br><span class="line">  def __call__(self, inputs, state, scope=None):</span><br><span class="line">      <span class="string">""</span><span class="string">"Long short-term memory cell (LSTM)."</span><span class="string">""</span></span><br><span class="line">      with vs.variable_scope(scope <span class="keyword">or</span> <span class="string">"basic_lstm_cell"</span>):</span><br><span class="line">          # Parameters of gates are concatenated into one multiply <span class="keyword">for</span> efficiency.</span><br><span class="line">          <span class="keyword">if</span> self._state_is_tuple:</span><br><span class="line">              c, h = state</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">              c, h = array_ops.split(value=state, num_or_size_splits=<span class="number">2</span>, axis=<span class="number">1</span>)</span><br><span class="line">          concat = _linear([inputs, h], <span class="number">4</span> * self._num_units, True, scope=scope)</span><br><span class="line"></span><br><span class="line">          # ** 下面四个 tensor，分别是四个 gate 对应的权重矩阵</span><br><span class="line">          # i = input_gate, j = new_input, f = forget_gate, o = output_gate</span><br><span class="line">          i, j, f, o = array_ops.split(value=concat, num_or_size_splits=<span class="number">4</span>, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">          # ** 更新 cell 的状态： </span><br><span class="line">          # ** c * sigmoid(f + self._forget_bias) 是保留上一个 timestep 的部分旧信息</span><br><span class="line">          # ** sigmoid(i) * self._activation(j)  是有当前 timestep 带来的新信息</span><br><span class="line">          new_c = (c * sigmoid(f + self._forget_bias) + sigmoid(i) *</span><br><span class="line">               self._activation(j))</span><br><span class="line"></span><br><span class="line">          # ** 新的输出</span><br><span class="line">          new_h = self._activation(new_c) * sigmoid(o)</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> self._state_is_tuple:</span><br><span class="line">              new_state = LSTMStateTuple(new_c, new_h)</span><br><span class="line">          <span class="keyword">else</span>:</span><br><span class="line">              new_state = array_ops.concat([new_c, new_h], <span class="number">1</span>)</span><br><span class="line">          # ** 在(一般都是) state_is_tuple=True 情况下， new_h=new_state[<span class="number">1</span>]</span><br><span class="line">          # ** 在上面博文中，就有 cell_output = state[<span class="number">1</span>]</span><br><span class="line">          <span class="keyword">return</span> new_h, new_state</span><br></pre></td></tr></table></figure>
+<p>我們只需要關注self._state_is_tuple == True的情況，因爲self._state_is_tuple == False的情況將在未來被棄用。返回的隱狀態是new_c和new_h的組合，而output就是單獨的new_h。如果我們處理的是分類問題，那麼我們還需要對new_h添加單獨的Softmax層才能得到最後的分類概率輸出。</p>
+<p><strong>即最后还是返回output和state，但由于LSTM中有cell加上h相当于两个状态，因此state = tuple(cell, hidden)。</strong></p>
+<h3 id="一次執行多步：tf-nn-dynamic-rnn"><a href="#一次執行多步：tf-nn-dynamic-rnn" class="headerlink" title="一次執行多步：tf.nn.dynamic_rnn"></a>一次執行多步：tf.nn.dynamic_rnn</h3><p>基礎的RNNCell，我們使用它的call函數進行運算時，只是在序列時間上前進了一步。比如使用x1、h0得到h1，通過x2、h1得到h2等。這樣的h話，如果我們的序列長度爲10，就要調用10次call函數，比較麻煩，<strong>每次使用上次的结果，就不用保存中间step的结果</strong>。</p>
+<p> TensorFlow提供了一個tf.nn.dynamic_rnn函數，使用該函數就相當於調用了n次call函數。即通過{h0,x1, x2, …., xn}直接得{h1,h2…,hn}，<strong>且这里每次的中间步hi都会保存，即输出维度从[batch, output_size]增加成[batch, time_step, output_size]</strong>。</p>
+<p>設我們輸入數據的格式爲 [ batch_size, time_steps, input_size ]，其中time_steps表示序列本身的長度。最後的i<strong>nput_size就表示輸入數據單個序列單個時間維度上固有的長度（我们也可以人为切分time_step)</strong>。另外我們已經定義好了一個RNNCell，調用該RNNCell的call函數time_steps次:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># inputs: shape = (batch_size, time_steps, input_size) </span></span><br><span class="line"><span class="meta"># cell: RNNCell</span></span><br><span class="line"># initial_state: shape = (batch_size, cell.state_size)。初始狀態。一般可以取零矩陣</span><br><span class="line">#outputs, state = tf.nn.dynamic_rnn(cell, inputs, initial_state=initial_state)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow as tf</span><br><span class="line"><span class="keyword">import</span> numpy as np</span><br><span class="line">from tensorflow.python.ops <span class="keyword">import</span> variable_scope as vs</span><br><span class="line"></span><br><span class="line">output_size = <span class="number">5</span>   #  输出的神经元</span><br><span class="line">batch_size = <span class="number">4</span>   #  输入的 x 的长度</span><br><span class="line">time_step = <span class="number">3</span></span><br><span class="line">dim = <span class="number">3</span>   #  输入x 的宽度</span><br><span class="line">cell = tf.nn.rnn_cell.LSTMCell(num_units=output_size)</span><br><span class="line">inputs = tf.placeholder(dtype=tf.float32, shape=[time_step, batch_size, dim])</span><br><span class="line">h0 = cell.zero_state(batch_size=batch_size, dtype=tf.float32) #此处调用RNNcell.里的函数初始状态仅提供batch即可，num_units自动计算</span><br><span class="line">X = np.<span class="built_in">array</span>([[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]],  # x1</span><br><span class="line">              [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]],  # x2</span><br><span class="line">              [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]]])  # x3</span><br><span class="line">outputs, final_state = tf.nn.dynamic_rnn(cell, inputs, initial_state=h0, time_major=True)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(tf.global_variables_initializer())</span><br><span class="line">rnn_output, rnn_final_state = sess.run([outputs, final_state], feed_dict=&#123;inputs:X&#125;)</span><br><span class="line">print(rnn_output)#[time_step, batch, output_dim],对比输入为[time_step, batch, input_dim]</span><br><span class="line">print(rnn_final_state)#outputs里包含了(outputs1,outputs2,outputs3)<span class="number">3</span>*<span class="number">4</span>*<span class="number">5</span> 而final_stat就只是h3 ，并且outputs3,h3 是相等的。</span><br></pre></td></tr></table></figure></p>
+<p>此時，得到的outputs就是time_steps步裏所有的輸出，注意time_major=True，则它的形狀爲 [  time_steps, batch_size, cell.output_size ]。state是最後一步的隱狀態，它的形狀爲 [batch_size, cell.state_size]。</p>
+<h3 id="堆疊RNNCell：MultiRNNCell"><a href="#堆疊RNNCell：MultiRNNCell" class="headerlink" title="堆疊RNNCell：MultiRNNCell"></a>堆疊RNNCell：MultiRNNCell</h3><ul>
+<li>outputs’ is a tensor of shape [batch_size, max_time, cell.output_size]<ul>
+<li>‘state’ is a N-tuple where N is the number of LSTMCells containing a tf.contrib.rnn.LSTMStateTuple for each cell</li>
+<li>state是最後一步的隱狀態，<strong>有多少层把他们组合成一个tuple</strong>([batch, last_state]*n)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow as tf</span><br><span class="line"><span class="keyword">import</span> numpy as np</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">10</span></span><br><span class="line">depth = <span class="number">128</span></span><br><span class="line">num_units = [<span class="number">100</span>, <span class="number">400</span>, <span class="number">300</span>]</span><br><span class="line"></span><br><span class="line">cells = [tf.nn.rnn_cell.BasicLSTMCell(num_unit) <span class="keyword">for</span> num_unit in num_units]</span><br><span class="line">print(cells)</span><br><span class="line">mul_cells = tf.nn.rnn_cell.MultiRNNCell(cells)</span><br><span class="line"></span><br><span class="line">previous_state0 = (tf.random_normal([batch_size, <span class="number">100</span>]), tf.random_normal([batch_size, <span class="number">100</span>]))</span><br><span class="line">previous_state1 = (tf.random_normal([batch_size, <span class="number">400</span>]), tf.random_normal([batch_size, <span class="number">400</span>]))</span><br><span class="line">previous_state2 = (tf.random_normal([batch_size, <span class="number">300</span>]), tf.random_normal([batch_size, <span class="number">300</span>]))</span><br><span class="line"></span><br><span class="line">inputs = tf.Variable(tf.random_normal([batch_size, depth]))#depth=dims*time_step</span><br><span class="line"></span><br><span class="line">outputs, states = mul_cells.call(inputs=inputs, state=(previous_state0, previous_state1, previous_state2))</span><br><span class="line">    </span><br><span class="line">print(outputs)#只输出最后一层的结果，加了dynamic后增加time_step维度</span><br><span class="line">print(states)#只输出最后一个状态，加了muti后输出每层最后一个状态，以tuple形式多了layer_num维度((c,h),(c,h),(c,h))</span><br></pre></td></tr></table></figure>
+<h3 id="将一次执行多步和多层结合构件深层LSTM"><a href="#将一次执行多步和多层结合构件深层LSTM" class="headerlink" title="将一次执行多步和多层结合构件深层LSTM"></a>将一次执行多步和多层结合构件深层LSTM</h3><p>注意***是基于上述代码增加的部分</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow as tf</span><br><span class="line"><span class="keyword">import</span> numpy as np</span><br><span class="line">from tensorflow.python.ops <span class="keyword">import</span> variable_scope as vs</span><br><span class="line"></span><br><span class="line">output_size = <span class="number">5</span>   #  输出的神经元</span><br><span class="line">batch_size = <span class="number">4</span>   #  输入的 x 的长度</span><br><span class="line">time_step = <span class="number">3</span></span><br><span class="line">dim = <span class="number">3</span>   #  输入x 的宽度</span><br><span class="line">cell = tf.nn.rnn_cell.LSTMCell(num_units=output_size)</span><br><span class="line"></span><br><span class="line">### ***添加单元，并用MuliRNNCell“组合”起来</span><br><span class="line">cell2 = tf.nn.rnn_cell.LSTMCell(num_units=output_size)</span><br><span class="line">TwoCell = tf.nn.rnn_cell.MultiRNNCell([cell, cell2])</span><br><span class="line"></span><br><span class="line">inputs = tf.placeholder(dtype=tf.float32, shape=[time_step, batch_size, dim])</span><br><span class="line">h0 = cell.zero_state(batch_size=batch_size, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line">### ***添加每层初状态，不用改变输入，因为中间层的输入是前层的输出，同理加层数时输出矩阵不变，状态矩阵增加层维度</span><br><span class="line">h1 = cell.zero_state(batch_size=batch_size, dtype=tf.float32)</span><br><span class="line">Two_h = (h0, h1)#不能用tuple(h0, h1) 这个函数接收一个参数(数组或dict转tuple)</span><br><span class="line"></span><br><span class="line">X = np.<span class="built_in">array</span>([[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]],  # x1</span><br><span class="line">              [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]],  # x2</span><br><span class="line">              [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>], [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]]])  # x3</span><br><span class="line">outputs, final_state = tf.nn.dynamic_rnn(TwoCell, inputs, initial_state=(h0, h1), time_major=True)</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(tf.global_variables_initializer())</span><br><span class="line">rnn_output, rnn_final_state = sess.run([outputs, final_state], feed_dict=&#123;inputs:X&#125;)</span><br><span class="line">print(rnn_output)#[time_step, batch, output_dim],对比输入为[time_step, batch, input_dim]</span><br><span class="line">print(rnn_final_state)#outputs里包含了(outputs1,outputs2,outputs3)<span class="number">3</span>*<span class="number">4</span>*<span class="number">5</span> 而final_stat就只是h3 ，并且outputs3,h3 是相等的。</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/实习/" rel="tag"># 实习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/27/Faster R-CNN 论文笔记/" rel="next" title="Faster R-CNN 论文笔记">
+                <i class="fa fa-chevron-left"></i> Faster R-CNN 论文笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/28/人工智能考试总结/" rel="prev" title="人工智能考试总结">
+                人工智能考试总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="http://p3.ssl.cdn.btime.com/t015dde82f1bf46f58d.gif" alt="ZHIPENG">
+            
+              <p class="site-author-name" itemprop="name">ZHIPENG</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据层面"><span class="nav-number">1.</span> <span class="nav-text">输入数据层面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN中的call函数：https-www-twblogs-net-a-5ca59985bd9eee5b1a072277"><span class="nav-number">2.</span> <span class="nav-text">RNN中的call函数：https://www.twblogs.net/a/5ca59985bd9eee5b1a072277</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次執行多步：tf-nn-dynamic-rnn"><span class="nav-number">3.</span> <span class="nav-text">一次執行多步：tf.nn.dynamic_rnn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆疊RNNCell：MultiRNNCell"><span class="nav-number">4.</span> <span class="nav-text">堆疊RNNCell：MultiRNNCell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将一次执行多步和多层结合构件深层LSTM"><span class="nav-number">5.</span> <span class="nav-text">将一次执行多步和多层结合构件深层LSTM</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZHIPENG</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
